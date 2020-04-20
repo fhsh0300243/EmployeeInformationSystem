@@ -547,8 +547,9 @@ public class EmployeeAction {
 		for(Object emp:list) {
 			System.out.print(((Employee) emp).getEmpDept().getDeptAbb()+":");
 			System.out.println(((Employee) emp).getName());
-			System.out.println("這是develop分支");
+
 			//lll
+			//揚明test1
 		}
 	}
 
