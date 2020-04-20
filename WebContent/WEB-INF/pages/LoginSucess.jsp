@@ -9,6 +9,7 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
+<link rel="stylesheet" type="text/css" href="../css/LoginSucess.css">
 <style>
 .well, .panel {
 	text-align: center;
@@ -23,19 +24,20 @@
 			<div class="col-sm-4">
 				<div class="well">
 					Hi ${usersResultMap.UserName} 您好~
-					<a href="<c:url value="/logout/toLoginPage"/>">LOGOUT</a>
+					
 				</div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						主選單
 					</div>
 					<div class="panel-body">
-						請假<br>
-						出勤查詢<br>
-						績效系統<br>
-						教育訓練<br>
-						差旅費申請<br>
-						<a href="<c:url value="/EmployeePage.do"/>">員工管理</a><br>
+					
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left1.png" border="0"></a>
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left2.png" border="0"></a>
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left3.png" border="0"></a>
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left4.png" border="0"></a>
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left5.png" border="0"></a>
+						<a href="<c:url value="/EmployeePage.do"/>"><img class="imgButton" src="../images/left6.png" border="0"></a>
 						
 					</div>
 					<div class="panel-footer">					
@@ -49,18 +51,14 @@
 
 			<!--右邊欄位-->
 			<div class="col-sm-8">
-				<div class="well">搜尋頁面</div>
-				<div class="input-group">
-					<input placeholder="輸入 ID" class="form-control input-lg"
-						type="text"> <span class="input-group-btn">
-						<button class="btn btn-primary btn-lg">查詢</button>
-					</span>
-				</div>
+				<figure class="well1">
+					<a href="<c:url value="/login/userLoginCheck"/>"><img class="img1" src="../images/home.png" border="0"></a>
+					<a href="<c:url value="/logout/toLoginPage"/>"><img class="img1" class="logout" src="../images/logout.png" border="0"></a>
+				</figure>
 				<br />
-				<div class="panel panel-primary">
-					<div class="panel-heading">Raspberry Pi 加入成功 裝置 1</div>
-					<div class="panel-body">這裡是數據內容</div>
-				</div>
+				<br />
+				<br />
+
 				<div class="panel panel-primary">
 					<div class="panel-heading">員工布告欄</div>
 					<div class="panel-body">布告欄內容</div>
