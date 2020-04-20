@@ -110,7 +110,7 @@ public class LoginController {
 		List<Employee> employeeByEmail=eService.findEmployeeByEmail(email);
 		
 		if(employeeByEmail.size() <= 0) {						
-			errorMsgFromForgetPwd.put("emailNotFound", "E-mail�S�Q���U�L");
+			errorMsgFromForgetPwd.put("emailNotFound", "E-mail not found");
 			return "CheckEmail";
 		}
 		
@@ -121,7 +121,7 @@ public class LoginController {
 		Users uBean=uListIT.next();
 		EmailUtil eUtil=new EmailUtil();
 		eUtil.sendResetPasswordEmail(uBean, email);
-		errorMsgFromForgetPwd.put("emailSucess", "���榨��A�Ьd�ݧA��E-mail�H�c");
+		errorMsgFromForgetPwd.put("emailSucess", "Please chack your E-mail");
 		return "CheckEmail";
 	}
 	
@@ -138,10 +138,10 @@ public class LoginController {
 		Map<String, String> MsgFromPwdReset = new HashMap<String, String>();
 		model.addAttribute("MsgFromPwdReset", MsgFromPwdReset);
 		if(status) {
-			MsgFromPwdReset.put("resetSuccess", "�K�X���]����A�Э��s�n�J");
+			MsgFromPwdReset.put("resetSuccess", "Reset password sucess, please login again");
 			return "UserLogin";
 		}
-		MsgFromPwdReset.put("resetFailed", "�K�X���]���ѡA�ЦA�դ@��");
+		MsgFromPwdReset.put("resetFailed", "Reset password failed, please try again");
 		return "resetPassword";
 	}
 	
