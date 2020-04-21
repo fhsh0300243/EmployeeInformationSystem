@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login Success</title>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
-	rel="stylesheet">
+
+<title>番茄科技 員工資訊系統</title>
+
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
@@ -22,27 +22,39 @@
 </style>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
-
-			<!--左邊欄位-->
-			<div class="col-sm-4">
+	<div class="CanNotLeftDiv">
+		<img class="CanNotLeft" src="images/CompanyLogo.jpg">
+	</div>
+			<div class="col-md-5">
 				<div class="well">Hi ${usersResultMap.UserName} 您好~</div>
 				<div class="panel panel-primary">
-						<%@ include file="MainFeature.jsp"%>
+					<div class="panel-heading">主選單</div>
+					<div class="panel-body">
+
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							src="images/left1.png" border="0"></a> <a
+							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							src="images/left2.png" border="0"></a> <a
+							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							src="images/left3.png" border="0"></a> <a
+							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							src="images/left4.png" border="0"></a> <a
+							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							src="images/left5.png" border="0"></a> <a
+							href="<c:url value="/EmployeePage.do"/>"><img
+							class="imgButton" src="images/left6.png" border="0"></a> <a
+							href="<c:url value="/xxx.do"/>"><img class="imgButton bbs"
+							src="images/left7.png" border="0"></a> <a
+							href="<c:url value="/toLoginPage"/>"><img
+							class="imgButton logout" src="images/logout.png" border="0"></a>
+					</div>
+					<div class="panel-footer"></div>
+
 				</div>
 			</div>
-
-			<!--右邊欄位-->
-			<div class="col-sm-8">
-				<div class="panel panel-primary">
-					<div class="panel-heading">員工布告欄</div>
-					<div class="panel-body">布告欄內容</div>
-				</div>
+			<div class="CanNotRightDiv">
+				<img class="CanNotRight" src="images/CompanyLogo.jpg">
 			</div>
-
-		</div>
-	</div>
 
 	<h1>登入成功</h1>
 	<h3>你的個人資訊</h3>

@@ -1,23 +1,31 @@
 .imgButton{
-	width: 40%;
-}
-.img1{
-	margin:0;
-	padding:0;
-	width: 10%;
-	float:left;
+	width: 30%;
 }
 
 
 .logout{
-	width: 38%;
+	width: 28%;
 }
-.bbs{
-	width:42%;
+.col-md-5{
+	left: 28%;
 }
-.col-sm-4{
-	width: 20%;
+.CanNotLeft{
+  	width:100%;
 }
-.col-sm-8{
-	width: 80%;
+.CanNotLeftDiv{
+	width:25%;
+	background-color: blue;
+	left:2%;
+	top:30%;
+	position:absolute;
+}
+.CanNotRight{
+  	width:100%;
+}
+.CanNotRightDiv{
+	width:25%;
+	background-color:yellow;
+	right:2%;
+	top:30%;
+	position:absolute;
 }
