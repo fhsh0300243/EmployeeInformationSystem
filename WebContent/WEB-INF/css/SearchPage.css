@@ -1,0 +1,35 @@
+* {
+	font-family: 微軟正黑體;
+}
+
+h2 {
+	text-align: center;
+}
+
+h6 {
+	color: red;
+	text-align: center;
+}
+
+#idtable1 {
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+
+#idtable1 tr {
+	text-align: center;
+}
+
+#idtable1 th {
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+#idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
+
+.classtr1:hover {
+	background-color: rgba(0, 43, 255, 0.2);
+}

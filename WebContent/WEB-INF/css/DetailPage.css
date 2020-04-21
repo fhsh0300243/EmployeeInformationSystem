@@ -1,0 +1,88 @@
+* {
+	font-family: 微軟正黑體;
+}
+
+h2 {
+	text-align: center;
+}
+
+#idtable1 {
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+
+#idtable1 tr {
+	text-align: center;
+}
+
+#idtable1 th {
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+#idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
+
+#idtable2 {
+	width: 750px;
+	border-radius: 20px;
+	background-color: #E0E0E0;
+	padding: 30px 50px;
+	margin: 30px auto;
+	border-radius: 20px;
+	border-radius: 20px;
+}
+
+#idtable2 td {
+	padding: 5px 5px;
+}
+
+#idtable3 td {
+	padding: 0px 5px;
+}
+
+.tdtag {
+	width: 100px;
+	text-align: right;
+	font-weight: bolder;
+}
+
+.for1 {
+	width: 600px;
+	margin: 30px auto;
+}
+
+label {
+	width: 60px;
+	display: inline-block;
+	text-align: right;
+}
+
+.div1 {
+	margin: 10px 0px;
+	padding: 10px 0px;
+}
+
+.span1 {
+	color: red;
+}
+
+.tdNotes {
+	color: #9D9D9D;
+	font-size: x-small;
+}
+
+.btn1 {
+	text-align: right;
+}
+
+#attImg {
+	width: 500px;
+}
+
+.result {
+	display: block;
+	margin: 0px auto;
+}

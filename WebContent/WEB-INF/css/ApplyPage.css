@@ -1,0 +1,39 @@
+* {
+	font-family: 微軟正黑體;
+}
+
+h2 {
+	text-align: center;
+}
+
+.for2 {
+	width: 900px;
+	margin: 30px auto;
+}
+
+#idtable4 td {
+	height: 20px;
+}
+
+.tdtag {
+	width: 150px;
+	text-align: right;
+	font-weight: bolder;
+}
+
+.tdErr {
+	width: 50%;
+}
+
+.span1 {
+	color: red;
+}
+
+.tdNotes {
+	color: #9D9D9D;
+	font-size: x-small;
+}
+
+.btn2 {
+	text-align: center;
+}
