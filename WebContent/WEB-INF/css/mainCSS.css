@@ -1,31 +1,38 @@
-.imgButton{
-	width: 30%;
+body{
+	background-image: url("../images/mainPageBackground.jpg");
 }
-
+.imgButton{
+	width: 29%;
+}
 
 .logout{
-	width: 28%;
+	width: 26.5%;
 }
 .col-md-5{
-	left: 28%;
+	left: 29%;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
 }
 .CanNotLeft{
   	width:100%;
 }
 .CanNotLeftDiv{
-	width:25%;
-	background-color: blue;
-	left:2%;
-	top:30%;
+	width:20%;
+	text-align:center;
+	left:5%;
+	top:25%;
 	position:absolute;
 }
 .CanNotRight{
   	width:100%;
 }
 .CanNotRightDiv{
-	width:25%;
-	background-color:yellow;
-	right:2%;
-	top:30%;
+	width:20%;
+	text-align:center;
+	right:5%;
+	top:25%;
 	position:absolute;
+}
+p{
+	font-size:16px;
 }

@@ -7,14 +7,12 @@
 <meta charset="UTF-8">
 
 <title>番茄科技 員工資訊系統</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -23,10 +21,10 @@
 </head>
 <body>
 	<div class="CanNotLeftDiv">
-		<img class="CanNotLeft" src="images/CompanyLogo.jpg">
+		<img class="CanNotLeft" src="images/CompanyLogo.png">
 	</div>
 			<div class="col-md-5">
-				<div class="well">Hi ${usersResultMap.UserName} 您好~</div>
+				<div class="well">Hi, ${usersResultMap.UserName} 您好~歡迎登入番茄科技員工資訊系統</div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">主選單</div>
 					<div class="panel-body">
@@ -39,7 +37,7 @@
 							src="images/left3.png" border="0"></a> <a
 							href="<c:url value="/xxx.do"/>"><img class="imgButton"
 							src="images/left4.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							href="<c:url value="/FeeAllPage.action"/>"><img class="imgButton"
 							src="images/left5.png" border="0"></a> <a
 							href="<c:url value="/EmployeePage.do"/>"><img
 							class="imgButton" src="images/left6.png" border="0"></a> <a
@@ -53,7 +51,8 @@
 				</div>
 			</div>
 			<div class="CanNotRightDiv">
-				<img class="CanNotRight" src="images/CompanyLogo.jpg">
+				<img class="CanNotRight" src="images/CompanyLogo.png">
+
 			</div>
 
 	<h1>登入成功</h1>
