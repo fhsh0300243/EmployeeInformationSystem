@@ -30,7 +30,7 @@ import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
 
 @Controller
-@SessionAttributes(names = { "empID" })
+@SessionAttributes(names = { "empID", "EmployeeID" })
 public class EmployeeAction {
 
 	private UsersService uService;
@@ -49,7 +49,16 @@ public class EmployeeAction {
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
-	public String processEmployeePage() {
+	public String processEmployeePage(@ModelAttribute("EmployeeID") String empId) {
+		int deptid = 0;
+		try {
+			deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
+		} catch (Exception e) {
+			deptid=0;
+		}
+		if(deptid!=1) {
+			return "AuthorityErrorPage";
+		}
 		return "EmployeePage";
 	}
 
@@ -71,9 +80,9 @@ public class EmployeeAction {
 			user.put("userName", myUser.getUserName());
 			// user.put("userPassword", myUser.getUserPassword());
 			emp.put("title", Integer.toString(myEmp.getEmpTitle().getTitleID()));
-			if(myEmp.getEmpDept()==null) {
+			if (myEmp.getEmpDept() == null) {
 				emp.put("department", "");
-			}else {
+			} else {
 				emp.put("department", Integer.toString(myEmp.getEmpDept().getDeptID()));
 			}
 			emp.put("name", myEmp.getName());
@@ -176,7 +185,7 @@ public class EmployeeAction {
 			msgmap.put("salary", "請輸入員工薪資");
 			return "AddEmployee";
 		}
-		
+
 		if (Email.equals("")) {
 			msgmap.put("email", "請輸入email");
 			return "AddEmployee";
@@ -242,17 +251,17 @@ public class EmployeeAction {
 
 		UserPassword = aes.parseByte2HexStr(aes.encrypt(UserPassword));
 		if (msgmap.isEmpty()) {
-			int status = uService.addUsers(UserName, UserPassword, title.getTitleName(),title.getLevel(), DeptAbb, manager, Name, Gender,
-					birthday, Address, ExtensionNum, PhoneNum, Email, photo, salary, hireDay, lastWorkDay, department,
-					title);
+			int status = uService.addUsers(UserName, UserPassword, title.getTitleName(), title.getLevel(), DeptAbb,
+					manager, Name, Gender, birthday, Address, ExtensionNum, PhoneNum, Email, photo, salary, hireDay,
+					lastWorkDay, department, title);
 
 			if (status == 1) {
 				msgmap.put("status", "新增成功");
 			} else if (status == 2) {
 				msgmap.put("status", "帳號重複，請重新輸入");
-			} else if (status==3) {
+			} else if (status == 3) {
 				msgmap.put("status", "email重複，請重新輸入");
-			}else {
+			} else {
 				msgmap.put("status", "發生異常，請重新嘗試");
 			}
 		}
@@ -344,7 +353,7 @@ public class EmployeeAction {
 			msgmap.put("salary", "請輸入員工薪資");
 			return "EditEmployeePage";
 		}
-		
+
 		if (Email.equals("")) {
 			msgmap.put("email", "請輸入email");
 			return "EditEmployeePage";
@@ -407,9 +416,9 @@ public class EmployeeAction {
 
 		if (msgmap.isEmpty()) {
 
-			boolean status = eService.editEmp(id, title.getTitleName(),title.getLevel(), department.getDeptAbb(), manager, Name, Gender,
-					birthday, Address, ExtensionNum, PhoneNum, Email, photo, salary, hireDay, lastWorkDay, department,
-					title);
+			boolean status = eService.editEmp(id, title.getTitleName(), title.getLevel(), department.getDeptAbb(),
+					manager, Name, Gender, birthday, Address, ExtensionNum, PhoneNum, Email, photo, salary, hireDay,
+					lastWorkDay, department, title);
 
 			if (status) {
 				msgmap.put("status", "修改成功");
@@ -421,7 +430,7 @@ public class EmployeeAction {
 		return "EditEmployeePage";
 	}
 
-	@RequestMapping(path = "/QueryEmp.action", method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	@RequestMapping(path = "/QueryEmp.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
 	public @ResponseBody String queryEmp(@RequestParam(name = "searchid", required = false) String idstr,
 			@RequestParam(name = "searchname", required = false) String Name,
 			@RequestParam(name = "searchdept", required = false) String Department, Model model) {
@@ -445,8 +454,8 @@ public class EmployeeAction {
 		if (Name.equals("na") && Department.equals("na") && id == 0) {
 			empList();
 		}
-				
-		try {		
+
+		try {
 			JSONArray jsonarray = new JSONArray();
 			for (Object emp : eService.queryEmp(id, Name, Department)) {
 				JSONObject jsonobject = new JSONObject();
@@ -484,7 +493,7 @@ public class EmployeeAction {
 					jsonobject.put("lastWorkDay", ((Employee) emp).getLastWorkDay());
 				}
 				jsonarray.put(jsonobject);
-			}			
+			}
 			return jsonarray.toString();
 		} catch (Exception e) {
 			System.out.println("From queryEmp:" + e);
@@ -497,43 +506,43 @@ public class EmployeeAction {
 	public @ResponseBody String empList() {
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for(Object user:eService.allEmpData()) {	
-					JSONObject jsonobject = new JSONObject();
-					jsonobject.put("title", ((Users) user).getEmployee().getEmpTitle().getTitleChName());
-					jsonobject.put("username", ((Users) user).getUserName());
-					if (((Users) user).getDepartment() == null) {
-						jsonobject.put("department", "--");
-					} else {
-						jsonobject.put("department", ((Users) user).getDepartment());
-					}
-					if (((Users) user).getEmployee().getManager() == null) {
-						jsonobject.put("manager", "--");
-					} else {
-						jsonobject.put("manager", ((Users) user).getEmployee().getManager().getName());
-					}
-					jsonobject.put("empID", ((Users) user).getEmployee().getEmpID());
-					jsonobject.put("name", ((Users) user).getEmployee().getName());
-					jsonobject.put("gender", ((Users) user).getEmployee().getGender());
-					if (((Users) user).getEmployee().getBirthDay() == null) {
-						jsonobject.put("birthDay", "");
-					} else {
-						jsonobject.put("birthDay", ((Users) user).getEmployee().getBirthDay());
-					}
-					jsonobject.put("address", ((Users) user).getEmployee().getAddress());
-					jsonobject.put("extensionNum", ((Users) user).getEmployee().getExtensionNum());
-					jsonobject.put("phoneNum", ((Users) user).getEmployee().getPhoneNum());
-					if (((Users) user).getEmployee().getBirthDay() == null) {
-						jsonobject.put("hireDay", "");
-					} else {
-						jsonobject.put("hireDay", ((Users) user).getEmployee().getHireDay());
-					}
-					if (((Users) user).getEmployee().getBirthDay() == null) {
-						jsonobject.put("lastWorkDay", "");
-					} else {
-						jsonobject.put("lastWorkDay", ((Users) user).getEmployee().getLastWorkDay());
-					}
-					jsonarray.put(jsonobject);
-			}			
+			for (Object user : eService.allEmpData()) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("title", ((Users) user).getEmployee().getEmpTitle().getTitleChName());
+				jsonobject.put("username", ((Users) user).getUserName());
+				if (((Users) user).getDepartment() == null) {
+					jsonobject.put("department", "--");
+				} else {
+					jsonobject.put("department", ((Users) user).getDepartment());
+				}
+				if (((Users) user).getEmployee().getManager() == null) {
+					jsonobject.put("manager", "--");
+				} else {
+					jsonobject.put("manager", ((Users) user).getEmployee().getManager().getName());
+				}
+				jsonobject.put("empID", ((Users) user).getEmployee().getEmpID());
+				jsonobject.put("name", ((Users) user).getEmployee().getName());
+				jsonobject.put("gender", ((Users) user).getEmployee().getGender());
+				if (((Users) user).getEmployee().getBirthDay() == null) {
+					jsonobject.put("birthDay", "");
+				} else {
+					jsonobject.put("birthDay", ((Users) user).getEmployee().getBirthDay());
+				}
+				jsonobject.put("address", ((Users) user).getEmployee().getAddress());
+				jsonobject.put("extensionNum", ((Users) user).getEmployee().getExtensionNum());
+				jsonobject.put("phoneNum", ((Users) user).getEmployee().getPhoneNum());
+				if (((Users) user).getEmployee().getBirthDay() == null) {
+					jsonobject.put("hireDay", "");
+				} else {
+					jsonobject.put("hireDay", ((Users) user).getEmployee().getHireDay());
+				}
+				if (((Users) user).getEmployee().getBirthDay() == null) {
+					jsonobject.put("lastWorkDay", "");
+				} else {
+					jsonobject.put("lastWorkDay", ((Users) user).getEmployee().getLastWorkDay());
+				}
+				jsonarray.put(jsonobject);
+			}
 			return jsonarray.toString();
 		} catch (Exception e) {
 			System.out.println("From empList:" + e);
@@ -543,16 +552,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		List<?> list = eService.empDataByTitleId(7);
-		for(Object emp:list) {
-			System.out.print(((Employee) emp).getEmpDept().getDeptAbb()+":");
-			System.out.println(((Employee) emp).getName());
 
-			//lll
-			//揚明test1
-			//揚明測試分支feature-test
-			//揚明測試分支feature-test1
-		}
 	}
 
 }

@@ -25,7 +25,7 @@ import tw.eis.util.EmailUtil;
 
 
 @Controller
-@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName"})
+@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","EmployeeID"})
 public class LoginController {
 	private UsersService uService;
 	private EmployeeService eService;
@@ -87,6 +87,7 @@ public class LoginController {
 			usersResultMap.put("Title", uBean.getTitle());
 			usersResultMap.put("Department", uBean.getDepartment());
 			model.addAttribute("usersResultMap", usersResultMap);
+			model.addAttribute("EmployeeID", String.valueOf(uBean.getEmployeeID()));
 			return "mianPage";
 			
 		}
