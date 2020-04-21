@@ -83,7 +83,7 @@ public class LoginController {
 			usersResultMap.put("Title", uBean.getTitle());
 			usersResultMap.put("Department", uBean.getDepartment());
 			model.addAttribute("usersResultMap", usersResultMap);
-			return "LoginSucess";
+			return "BBS";
 			
 		}
 		else {
