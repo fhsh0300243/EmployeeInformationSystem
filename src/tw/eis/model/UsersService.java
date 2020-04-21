@@ -2,6 +2,7 @@ package tw.eis.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,9 @@ public class UsersService implements IUsersService {
 	
 	public boolean updateUsersPassword(String userName, String userPassword) {
 		return usersDao.updateUsersPassword(userName, userPassword);
+	}
+	
+	public List<Users> findStaff(Map<String, String> usersResultMap){
+		return usersDao.findStaff(usersResultMap);
 	}
 }
