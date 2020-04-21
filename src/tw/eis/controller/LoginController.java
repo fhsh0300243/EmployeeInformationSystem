@@ -43,6 +43,11 @@ public class LoginController {
 		return "UserLogin";
 	}
 	
+	@RequestMapping(path = "/mainPage", method = RequestMethod.GET)
+	public String goToMainPage() {
+		return "mianPage";
+	}
+	
 	@RequestMapping(path = "/userLoginCheck", method = {RequestMethod.POST, RequestMethod.GET})
 	public String processLoginAction(@RequestParam(value="userName", required=false) String userName,
 			@RequestParam(value="userPassword", required=false) String userPassword, Model model) throws IOException, Exception {
@@ -82,7 +87,7 @@ public class LoginController {
 			usersResultMap.put("Title", uBean.getTitle());
 			usersResultMap.put("Department", uBean.getDepartment());
 			model.addAttribute("usersResultMap", usersResultMap);
-			return "BBS";
+			return "mianPage";
 			
 		}
 		else {

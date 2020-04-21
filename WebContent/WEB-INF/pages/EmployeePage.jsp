@@ -35,8 +35,6 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
-
-
 </style>
 </head>
 <body>
@@ -47,38 +45,14 @@ table {
 			<div class="col-sm-4">
 				<div class="well">Hi ${usersResultMap.UserName} 您好~</div>
 				<div class="panel panel-primary">
-					<div class="panel-heading">主選單</div>
-					<div class="panel-body">
-
-						<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
-							src="images/left1.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
-							src="images/left2.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
-							src="images/left3.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
-							src="images/left4.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
-							src="images/left5.png" border="0"></a> <a
-							href="<c:url value="/EmployeePage.do"/>"><img
-							class="imgButton" src="images/left6.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton bbs"
-							src="images/left7.png" border="0"></a> <a
-							href="<c:url value="/toLoginPage"/>"><img
-							class="imgButton logout" src="images/logout.png" border="0"></a>
-					</div>
-					<div class="panel-footer"></div>
+						<%@ include file="SubFeatureForEmpManage.jsp"%>
 				</div>
-
-
-
-
 			</div>
 
 			<!--右邊欄位-->
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
-					<div class="panel-heading">員工管理</div>
+					<div class="panel-heading"><%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<label for="" class="t1">員工Id：</label><input type="text"
 							id="searchid" name="searchid" size="30"><br /> <label
@@ -91,9 +65,6 @@ table {
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
-						</div>
-						<div>
-							<a href="<c:url value="/AddEmployee.do"/>">新增員工</a>
 						</div>
 					</div>
 				</div>
@@ -120,7 +91,7 @@ table {
 				}
 			}
 		});
-		
+
 		var emps;
 		const perpage = 10;
 		let nowpage = 1;
@@ -153,7 +124,7 @@ table {
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
 			var txt = "<tr><th>EmpID<th>帳號<th>姓名<th>部門<th>職稱<th>主管<th>";
-			
+
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
@@ -164,40 +135,44 @@ table {
 				txt += "<td>" + emps[i].department;
 				txt += "<td>" + emps[i].title;
 				txt += "<td>" + emps[i].manager;
-				txt += "<td><a href='<c:url value='/EditEmployee.do?id="+emps[i].empID+"'/>' name='" + emps[i].empID
+				txt += "<td><a href='<c:url value='/EditEmployee.do?id="
+						+ emps[i].empID + "'/>' name='" + emps[i].empID
 						+ "'>Edit</a>";
-	
+
 			}
-			
+
 			$("#emplist").html(txt);
 		}
-		
+
 		//換頁		
 		function f(obj) {
 			nowpage = obj.name;
 			$("#page").html("第" + nowpage + "頁");
 			showemps();
 		}
-/*
-		$("#search").keydown(function(e) {
-			code = (e.keyCode ? e.keyCode : e.which);
-			if (code == 13) {
-				//startSearch();
-			}
-		});
-*/
-		$("#search").click(function() {
-			nowpage=1;
-			$.ajax({
-				url : "QueryEmp.action?searchid="+ $("#searchid").val()+"&searchname="+ $("#searchname").val()+"&searchdept="+ $("#searchdept").val(),
-				type : "GET",
-				success : function(Str) {
-					emps = JSON.parse(Str);
-					pagination(emps, nowpage);
-				}
-			});
-		});
-		
+		/*
+		 $("#search").keydown(function(e) {
+		 code = (e.keyCode ? e.keyCode : e.which);
+		 if (code == 13) {
+		 //startSearch();
+		 }
+		 });
+		 */
+		$("#search").click(
+				function() {
+					nowpage = 1;
+					$.ajax({
+						url : "QueryEmp.action?searchid="
+								+ $("#searchid").val() + "&searchname="
+								+ $("#searchname").val() + "&searchdept="
+								+ $("#searchdept").val(),
+						type : "GET",
+						success : function(Str) {
+							emps = JSON.parse(Str);
+							pagination(emps, nowpage);
+						}
+					});
+				});
 	</script>
 </body>
 </html>
