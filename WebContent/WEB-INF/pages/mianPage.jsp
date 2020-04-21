@@ -41,7 +41,7 @@
 							src="images/left5.png" border="0"></a> <a
 							href="<c:url value="/EmployeePage.do"/>"><img
 							class="imgButton" src="images/left6.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton bbs"
+							href="<c:url value="/BullenBoardPage"/>"><img class="imgButton bbs"
 							src="images/left7.png" border="0"></a> <a
 							href="<c:url value="/toLoginPage"/>"><img
 							class="imgButton logout" src="images/logout.png" border="0"></a>
