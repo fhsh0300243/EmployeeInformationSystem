@@ -44,7 +44,6 @@ a {
 		<div id="page"></div>
 	</div>
 	<div><a href="<c:url value="/AddEmployee.do"/>">新增員工</a></div>
-	<div><a href="<c:url value="/logout/toLoginPage"/>">LOGOUT</a></div>
 	
 	<script>
 		var depts;

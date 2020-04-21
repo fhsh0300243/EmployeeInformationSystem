@@ -9,7 +9,7 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
-<link rel="stylesheet" type="text/css" href="../css/LoginSucess.css">
+<link rel="stylesheet" type="text/css" href="../css/mainCSS.css">
 <style>
 .well, .panel {
 	text-align: center;
@@ -23,10 +23,7 @@
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<a href="<c:url value="/login/userLoginCheck"/>"><img class="img1" src="../images/home.png" border="0"></a>
-					<a href="<c:url value="/logout/toLoginPage"/>"><img class="img1" class="logout" src="../images/logout.png" border="0"></a>
 					Hi ${usersResultMap.UserName} 您好~
-					
 				</div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -40,7 +37,8 @@
 						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left4.png" border="0"></a>
 						<a href="<c:url value="/xxx.do"/>"><img class="imgButton" src="../images/left5.png" border="0"></a>
 						<a href="<c:url value="/EmployeePage.do"/>"><img class="imgButton" src="../images/left6.png" border="0"></a>
-						
+						<a href="<c:url value="/xxx.do"/>"><img class="imgButton bbs" src="../images/left7.png" border="0"></a>
+						<a href="<c:url value="/logout/toLoginPage"/>"><img class="imgButton logout" src="../images/logout.png" border="0"></a>
 					</div>
 					<div class="panel-footer">					
 					</div>
@@ -53,11 +51,6 @@
 
 			<!--右邊欄位-->
 			<div class="col-sm-8">
-				<figure class="well1">
-					
-				</figure>
-
-
 				<div class="panel panel-primary">
 					<div class="panel-heading">員工布告欄</div>
 					<div class="panel-body">布告欄內容</div>
