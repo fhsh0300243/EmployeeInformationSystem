@@ -7,7 +7,7 @@
 <title>xx科技 員工資訊系統</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="../css/resetPassword.css">
+<link rel="stylesheet" type="text/css" href="css/resetPassword.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet"> 
 </head>
 <body>

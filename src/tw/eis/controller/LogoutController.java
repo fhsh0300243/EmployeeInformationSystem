@@ -13,7 +13,6 @@ import tw.eis.model.Users;
 
 
 @Controller
-@RequestMapping(path ="/logout")
 @SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK"})
 public class LogoutController {
 	
@@ -23,6 +22,6 @@ public class LogoutController {
 			@ModelAttribute("LoginOK") Users LoginOK, SessionStatus status) {
 		
 		status.setComplete();
-		return "redirect:/login/userLogin";
+		return "redirect:/userLogin";
 	}
 }
