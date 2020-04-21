@@ -11,10 +11,7 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
 .well, .panel {
 	text-align: center;
@@ -24,6 +21,8 @@
 <body>
 	<div class="CanNotLeftDiv">
 		<img class="CanNotLeft" src="images/CompanyLogo.jpg">
+		<p>上班記得打卡</p>
+		<p>番茄科技關心您</p>
 	</div>
 			<div class="col-md-5">
 				<div class="well">Hi ${usersResultMap.UserName} 您好~</div>
@@ -54,6 +53,8 @@
 			</div>
 			<div class="CanNotRightDiv">
 				<img class="CanNotRight" src="images/CompanyLogo.jpg">
+				<p>請假記得申請</p>
+				<p>番茄科技關心您</p>
 			</div>
 
 	<h1>登入成功</h1>

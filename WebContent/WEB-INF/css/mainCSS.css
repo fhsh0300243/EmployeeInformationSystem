@@ -1,10 +1,9 @@
 .imgButton{
-	width: 30%;
+	width: 29%;
 }
 
-
 .logout{
-	width: 28%;
+	width: 26.5%;
 }
 .col-md-5{
 	left: 28%;
@@ -14,9 +13,9 @@
 }
 .CanNotLeftDiv{
 	width:25%;
-	background-color: blue;
+	text-align:center;
 	left:2%;
-	top:30%;
+	top:25%;
 	position:absolute;
 }
 .CanNotRight{
@@ -24,8 +23,11 @@
 }
 .CanNotRightDiv{
 	width:25%;
-	background-color:yellow;
+	text-align:center;
 	right:2%;
-	top:30%;
+	top:25%;
 	position:absolute;
+}
+p{
+	font-size:16px;
 }
