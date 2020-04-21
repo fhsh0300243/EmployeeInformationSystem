@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>xx科技 員工資訊系統</title>
+<title>番茄科技 員工資訊系統</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
 <link rel="stylesheet"
@@ -21,7 +21,8 @@
 				<div class="col-sm-12">
 					<div class="ff-login-box">
 						<form method="post" name="lForm">
-							<h2 class="title">番茄科技 員工資訊系統</h2>
+							<h2 class="title">番茄科技</h2>
+							<h2 class="title">員工資訊系統</h2>
 							<input type="text"
 								class="form-control form-control-lg font-weight-light mt-4"
 								placeholder="帳號" name="userName"><span class="wrong">${errorMsgMap.AccountEmptyError}</span>
@@ -43,8 +44,8 @@
 			</div>
 		</div>
 	</section>
-	<div class="CanNot">
-		<img src="images/CompanyLogo.jpg">
+	<div>
+		<img class="CanNot" src="images/CompanyLogo.jpg">
 	</div>
 </body>
 </html>
