@@ -69,6 +69,9 @@
 	<label>部門: </label>${usersResultMap.Department}<br>
 	<a href="<c:url value="/EmployeePage.do"/>">員工管理</a>
 	<br />
+	<a href="FeeAllPage.action">差旅費申請主頁</a><br />
+	<a href="AddFeeApp.action">差旅費申請</a><br />
+	
 	<a href="<c:url value="/toLoginPage"/>">LOGOUT</a>
 	<br />
 </body>
