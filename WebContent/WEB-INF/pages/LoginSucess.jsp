@@ -23,6 +23,8 @@
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
+					<a href="<c:url value="/login/userLoginCheck"/>"><img class="img1" src="../images/home.png" border="0"></a>
+					<a href="<c:url value="/logout/toLoginPage"/>"><img class="img1" class="logout" src="../images/logout.png" border="0"></a>
 					Hi ${usersResultMap.UserName} 您好~
 					
 				</div>
@@ -52,12 +54,9 @@
 			<!--右邊欄位-->
 			<div class="col-sm-8">
 				<figure class="well1">
-					<a href="<c:url value="/login/userLoginCheck"/>"><img class="img1" src="../images/home.png" border="0"></a>
-					<a href="<c:url value="/logout/toLoginPage"/>"><img class="img1" class="logout" src="../images/logout.png" border="0"></a>
+					
 				</figure>
-				<br />
-				<br />
-				<br />
+
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">員工布告欄</div>

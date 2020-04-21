@@ -2,9 +2,14 @@
 	width: 40%;
 }
 .img1{
-	
-	width: 5%;
+	margin:0;
+	padding:0;
+	width: 10%;
 	float:left;
+}
+.well{
+	padding-top:0px;
+	padding-bottom:5px;
 }
 
 .logout{
