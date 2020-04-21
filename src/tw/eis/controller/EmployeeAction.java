@@ -54,69 +54,88 @@ public class EmployeeAction {
 		try {
 			deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
 		} catch (Exception e) {
-			deptid=0;
+			deptid = 0;
 		}
-		if(deptid!=1) {
-			return "AuthorityErrorPage";
+		if (deptid == 1 || deptid == 0) {
+			return "EmployeePage";
 		}
-		return "EmployeePage";
+		return "AuthorityErrorPage";
 	}
 
 	@RequestMapping(path = "/AddEmployee.do", method = RequestMethod.GET)
-	public String processAddEmployee() {
-		return "AddEmployee";
+	public String processAddEmployee(@ModelAttribute("EmployeeID") String empId) {
+		int level = 0;
+		try {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+		} catch (Exception e) {
+			level = 0;
+		}
+		if (level == 1 || level == 2 || level == 3) {
+			return "AddEmployee";
+		}
+		return "AuthorityErrorPage";
 	}
 
 	@RequestMapping(path = "/EditEmployee.do", method = RequestMethod.GET)
-	public String processEditEmployeePage(@RequestParam("id") String id, Model model) {
-		Map<String, String> emp = new HashMap<String, String>();
-		Map<String, String> user = new HashMap<String, String>();
-		model.addAttribute("emp", emp);
-		model.addAttribute("user", user);
-		model.addAttribute("empID", id);
+	public String processEditEmployeePage(@ModelAttribute("EmployeeID") String empId, @RequestParam("id") String id,
+			Model model) {
+		int level = 0;
 		try {
-			Employee myEmp = eService.empData(Integer.parseInt(id));
-			Users myUser = uService.userData(Integer.parseInt(id));
-			user.put("userName", myUser.getUserName());
-			// user.put("userPassword", myUser.getUserPassword());
-			emp.put("title", Integer.toString(myEmp.getEmpTitle().getTitleID()));
-			if (myEmp.getEmpDept() == null) {
-				emp.put("department", "");
-			} else {
-				emp.put("department", Integer.toString(myEmp.getEmpDept().getDeptID()));
-			}
-			emp.put("name", myEmp.getName());
-			emp.put("gender", myEmp.getGender());
-			emp.put("salary", Integer.toString(myEmp.getSalary()));
-			if (myEmp.getBirthDay() == null) {
-				emp.put("birthDay", "");
-			} else {
-				emp.put("birthDay", myEmp.getBirthDay().toString());
-			}
-			emp.put("address", myEmp.getAddress());
-			emp.put("extensionNum", myEmp.getExtensionNum());
-			emp.put("phoneNum", myEmp.getPhoneNum());
-			emp.put("email", myEmp.getEmail());
-			if (myEmp.getHireDay() == null) {
-				emp.put("hireDay", "");
-			} else {
-				emp.put("hireDay", myEmp.getHireDay().toString());
-			}
-			if (myEmp.getLastWorkDay() == null) {
-				emp.put("lastWorkDay", "");
-			} else {
-				emp.put("lastWorkDay", myEmp.getLastWorkDay().toString());
-			}
-			if (myEmp.getManager() == null) {
-				emp.put("manager", "");
-			} else {
-				emp.put("manager", Integer.toString(myEmp.getManager().getEmpID()));
-			}
-
-			return "EditEmployeePage";
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
 		} catch (Exception e) {
-			System.out.println("From processEditEmployeePage:" + e);
-			return "EmployeePage";
+			level = 0;
+		}
+		if (level == 1 || level == 2 || level == 3) {
+			Map<String, String> emp = new HashMap<String, String>();
+			Map<String, String> user = new HashMap<String, String>();
+			model.addAttribute("emp", emp);
+			model.addAttribute("user", user);
+			model.addAttribute("empID", id);
+			try {
+				Employee myEmp = eService.empData(Integer.parseInt(id));
+				Users myUser = uService.userData(Integer.parseInt(id));
+				user.put("userName", myUser.getUserName());
+				// user.put("userPassword", myUser.getUserPassword());
+				emp.put("title", Integer.toString(myEmp.getEmpTitle().getTitleID()));
+				if (myEmp.getEmpDept() == null) {
+					emp.put("department", "");
+				} else {
+					emp.put("department", Integer.toString(myEmp.getEmpDept().getDeptID()));
+				}
+				emp.put("name", myEmp.getName());
+				emp.put("gender", myEmp.getGender());
+				emp.put("salary", Integer.toString(myEmp.getSalary()));
+				if (myEmp.getBirthDay() == null) {
+					emp.put("birthDay", "");
+				} else {
+					emp.put("birthDay", myEmp.getBirthDay().toString());
+				}
+				emp.put("address", myEmp.getAddress());
+				emp.put("extensionNum", myEmp.getExtensionNum());
+				emp.put("phoneNum", myEmp.getPhoneNum());
+				emp.put("email", myEmp.getEmail());
+				if (myEmp.getHireDay() == null) {
+					emp.put("hireDay", "");
+				} else {
+					emp.put("hireDay", myEmp.getHireDay().toString());
+				}
+				if (myEmp.getLastWorkDay() == null) {
+					emp.put("lastWorkDay", "");
+				} else {
+					emp.put("lastWorkDay", myEmp.getLastWorkDay().toString());
+				}
+				if (myEmp.getManager() == null) {
+					emp.put("manager", "");
+				} else {
+					emp.put("manager", Integer.toString(myEmp.getManager().getEmpID()));
+				}
+				return "EditEmployeePage";
+			} catch (Exception e) {
+				System.out.println("From processEditEmployeePage:" + e);
+				return "EmployeePage";
+			}
+		} else {
+			return "AuthorityErrorPage";
 		}
 
 	}
