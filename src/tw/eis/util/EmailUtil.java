@@ -25,11 +25,11 @@ public class EmailUtil {
 		Session session = getSession();
 		MimeMessage message = new MimeMessage(session);
 		try {
-			message.setSubject("找回密碼");
+			message.setSubject("Reset your password");
 			message.setSentDate(new Date());
 			message.setFrom(new InternetAddress(FROM));
 			message.setRecipient(RecipientType.TO, new InternetAddress(email));
-			message.setContent("要使用新密碼，請使用以下連結啟用密碼:<br/><a href='" + glu.generateResetPwdLink(uBean) +"'>點擊重設密碼</a>","text/html;charset=utf-8");
+			message.setContent("If you want to reset your password, please click the link:<br/><a href='" + glu.generateResetPwdLink(uBean) +"'>嚙瘢嚙踝蕭嚙踝蕭嚙稽嚙皺嚙碼</a>","text/html;charset=utf-8");
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, FROM, password);
 			Transport.send(message);

@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import tw.eis.model.Department;
 import tw.eis.model.Employee;
 import tw.eis.model.Title;
-import tw.eis.model.service.DepartmentService;
-import tw.eis.model.service.EmployeeService;
-import tw.eis.model.service.TitleService;
+import tw.eis.model.DepartmentService;
+import tw.eis.model.EmployeeService;
+import tw.eis.model.TitleService;
 
 @Controller
 @SessionAttributes(names = { "empID" })

@@ -22,10 +22,10 @@ import tw.eis.model.Department;
 import tw.eis.model.Employee;
 import tw.eis.model.Title;
 import tw.eis.model.Users;
-import tw.eis.model.service.DepartmentService;
-import tw.eis.model.service.EmployeeService;
-import tw.eis.model.service.TitleService;
-import tw.eis.model.service.UsersService;
+import tw.eis.model.DepartmentService;
+import tw.eis.model.EmployeeService;
+import tw.eis.model.TitleService;
+import tw.eis.model.UsersService;
 import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
 
