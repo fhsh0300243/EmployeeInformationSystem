@@ -8,8 +8,15 @@ body{
 .logout{
 	width: 26.5%;
 }
+.imgButton > .home{
+	width: 26%;
+}
 .col-md-5{
 	left: 29%;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
+}
+.well{
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size:18px;
 }
@@ -35,4 +42,34 @@ body{
 }
 p{
 	font-size:16px;
+}
+.col-sm-8 > .panel > .panel-heading {
+    background-image: none;
+    background-color: white;
+   text-align: right;
+
+}
+.col-sm-4 {
+	width: 20%;
+}
+
+.col-sm-8 {
+	width: 80%;
+
+}
+.CanNotRightDownDiv{
+	width:20%;
+	text-align:center;
+	left:0px;
+	bottom:5%;
+	position:absolute;
+}
+.CanNotRightDown{
+	width:100%;
+}
+.functionTitle{
+	background-color: #002eb8;
+	width: 10%;
+	position:absolute;
+	color: white;
 }

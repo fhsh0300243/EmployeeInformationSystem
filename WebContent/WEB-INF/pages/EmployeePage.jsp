@@ -6,16 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>員工管理</title>
-<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
 
-
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <style>
@@ -28,7 +29,8 @@ body {
 }
 
 p {
-	margin-bottom: 10px;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
 }
 
 table {
@@ -43,16 +45,26 @@ table {
 
 			<!--左邊欄位-->
 			<div class="col-sm-4">
-				<div class="well">Hi ${usersResultMap.UserName} 您好~</div>
-				<div class="panel panel-primary">
-						<%@ include file="SubFeatureForEmpManage.jsp"%>
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
 				</div>
+
+				<%@ include file="SubFeatureForEmpManage.jsp"%>
+
 			</div>
 
+
+
+
 			<!--右邊欄位-->
+
 			<div class="col-sm-8">
+
 				<div class="panel panel-primary">
-					<div class="panel-heading"><%@ include file="MainFeatureTopBar.jsp"%></div>
+				 	<p class="functionTitle">員工管理</p>
+					<div class="panel-heading"><%@ include
+							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<label for="" class="t1">員工Id：</label><input type="text"
 							id="searchid" name="searchid" size="30"><br /> <label
@@ -69,9 +81,12 @@ table {
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
+
 
 
 

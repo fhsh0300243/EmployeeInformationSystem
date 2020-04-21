@@ -2,6 +2,7 @@ package tw.eis.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -96,6 +97,23 @@ public class UsersDao implements IUsersDao {
 		query2.setParameter("userPassword", userPassword);
 		query2.executeUpdate();
 		return true;
+	}
+	
+	public List<Users> findStaff(Map<String, String> usersResultMap) {
+		Session session = sessionFactory.getCurrentSession();
+		String Title = usersResultMap.get("Title");
+		String hqlstr = null;
+		if(Title.equals("classleader")) {
+			hqlstr="from Users where Department=:Department and (Title='staff' or Title='classleader')";
+		}else if(Title.equals("manager")) {
+			hqlstr="from Users where Department=:Department and (Title='staff' or Title='classleader'or Title='manager')";
+		}else if(Title.equals("Chairman")) {
+			hqlstr="from Users";
+		}
+		Query<Users> query = session.createQuery(hqlstr, Users.class);
+		query.setParameter("Department", usersResultMap.get("Department"));
+		List<Users> list = query.list();
+		return list;
 	}
 	
 }
