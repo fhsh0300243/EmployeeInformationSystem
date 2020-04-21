@@ -161,7 +161,7 @@
 			var inputComment = $("#idComment").val();
 
 			if (inputComment.length > 100) {
-				$("#commentImg").attr("src", "images/error.png");
+				$("#commentImg").attr("src", "images/X_icon.png");
 				$("#commentCheck").html("不可超過100字").attr("style", "color:red;");
 			} else {
 				$("#commentImg").attr("src", "");
@@ -178,7 +178,7 @@
 			var radioVal = $('input:radio[name="sign"]:checked').val();
 
 			if (radioVal == null) {
-				$("#signImg").attr("src", "images/error.png");
+				$("#signImg").attr("src", "images/X_icon.png");
 				$("#signCheck").html("請選擇簽核項目").attr("style", "color:red;");
 				return false;
 			} else {

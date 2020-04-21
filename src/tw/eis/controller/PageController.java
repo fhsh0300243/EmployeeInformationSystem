@@ -75,7 +75,7 @@ public class PageController {
 
 	@RequestMapping(path = "/preLoginLeave", method = RequestMethod.GET)
 	public String preLeaveMainPage() {
-		return "MainPage";
+		return "LeaveMain";
 	}
 
 	@RequestMapping(path = "/preapplypage", method = RequestMethod.GET)

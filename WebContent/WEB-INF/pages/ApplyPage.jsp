@@ -172,7 +172,7 @@
 			var inputCause = $("#idCause").val();
 
 			if (inputCause.length > 50) {
-				$("#causeImg").attr("src", "images/error.png");
+				$("#causeImg").attr("src", "images/X_icon.png");
 				$("#causeCheck").html("不可超過50字").attr("style", "color:red;");
 			} else {
 				$("#causeImg").attr("src", "");
@@ -186,7 +186,7 @@
 			var checkSubCause = $("#causeCheck").text();
 
 			if (inputLT == "") {
-				$("#leaveTypeImg").attr("src", "images/error.png");
+				$("#leaveTypeImg").attr("src", "images/X_icon.png");
 				$("#leaveTypeCheck").html("請選擇假別").attr("style", "color:red;");
 				return false;
 			} else {

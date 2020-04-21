@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>請假主頁面</title>
-<link rel="stylesheet" type="text/css" href="css/MainPage.css">
+<link rel="stylesheet" type="text/css" href="css/LeaveMain.css">
 </head>
 <body>
 	<div id="main">
