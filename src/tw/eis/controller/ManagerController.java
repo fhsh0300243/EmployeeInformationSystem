@@ -45,7 +45,7 @@ public ManagerController(PersonalQuarterlyTargetService pqtService) {
 	}
 	@RequestMapping(path = "/managerview", method = RequestMethod.GET)
 	public String JsonTableView(Model m) {
-		return "performance_Manager";
+		return "Performance_Manager";
 	}
 	@RequestMapping(path = "/insertpqt",method = RequestMethod.POST)
 	public String InsertPQT(Model m,@RequestParam(name="dag")String dag,@RequestParam(name="pqt")String pqt,@ModelAttribute(name="LoginOK") Users u) {
@@ -67,19 +67,19 @@ public ManagerController(PersonalQuarterlyTargetService pqtService) {
 		w.setPersonalQuarterlyTargets(p);
 		p.setWorkProjects(wset);
 		pqtService.InsertWP(p, w, m);
-		return "performance_Manager";
+		return "Performance_Manager";
 	}
 	@RequestMapping(path = "/changepqt" ,method = RequestMethod.POST)
 	public String ChangePQT(Model m,@RequestParam(name="pid")int pid,
 			@RequestParam(name="pqt")String pqt,@RequestParam(name="worksetter")String worksetter) {
 		Timestamp timestamp = Timestamp.valueOf(DateUtil.getNowDate());
 		pqtService.ChangePQT(m, pid, pqt, worksetter, timestamp);
-		return "performance_Manager";
+		return "Performance_Manager";
 	}
 	@RequestMapping(path = "/deletepqt" ,method = RequestMethod.POST)
 	public String DeletePQT(Model m,@RequestParam(name="pid")int pid) {
 		pqtService.DeletePQT(m, pid);
-		return "performance_Manager";
+		return "Performance_Manager";
 	}
 	@RequestMapping(path = "/ChangePQT", method = RequestMethod.GET)
 	public String Changeintopqt(Model m,@RequestParam(name="pid")int pid,

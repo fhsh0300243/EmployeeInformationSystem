@@ -41,9 +41,9 @@ public class SectionManagerController {
 		m.addAttribute("dag", dag);
 		int level = wpService.getlevel(m, title);
 		if(level == 3) {
-			return "performance_Manager";
+			return "Performance_Manager";
 		}else if(level == 2) {
-			return "performance_SectionManager";
+			return "Performance_SectionManager";
 		}
 		return null;
 	}
@@ -57,7 +57,7 @@ public class SectionManagerController {
 	}
 	@RequestMapping(path = "/jsontableview", method = RequestMethod.GET)
 	public String JsonTableView(Model m) {
-		return "performance_SectionManager";
+		return "Performance_SectionManager";
 	}
 	@RequestMapping(path = "/insertwork",method = RequestMethod.POST)
 	public String InsertWork(Model m,@RequestParam(name="pid") int pid,
@@ -76,19 +76,19 @@ public class SectionManagerController {
 		w.setPersonalQuarterlyTargets(p);
 		p.setWorkProjects(wSet);
 		wpService.insertwork(p,w, m);
-		return "performance_SectionManager";
+		return "Performance_SectionManager";
 	}
 	@RequestMapping(path = "/changework",method = RequestMethod.POST)
 	public String changework(Model m,@RequestParam(name="wid") int wid,
 			@RequestParam(name="work")String work,@RequestParam(name="worksetter")String worksetter) {
 		Timestamp timestamp = Timestamp.valueOf(DateUtil.getNowDate());
 		wpService.changework(m, wid, work, worksetter,timestamp);
-		return "performance_SectionManager";
+		return "Performance_SectionManager";
 	}
 	@RequestMapping(path="/deletework",method = RequestMethod.GET)
 	public String deletework(Model m,@RequestParam(name="wid") int wid) {
 		wpService.deletework(m, wid);
-		return "performance_SectionManager";
+		return "Performance_SectionManager";
 	}
 	@ResponseBody
 	@RequestMapping(path="/assignwork",method = RequestMethod.GET)
