@@ -1,6 +1,8 @@
 package tw.eis.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -12,11 +14,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
-import tw.eis.model.Department;
-import tw.eis.model.Employee;
-import tw.eis.model.Title;
-import tw.eis.model.Users;
 
 @Repository("employeeDao")
 public class EmployeeDao implements IEmployeeDao {
@@ -34,14 +31,26 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	public List<?> allEmpData() {
-		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
+		Timestamp tsmp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = Date.valueOf(sdf.format(tsmp));
+		mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
 		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
 	}
 
 	@Override
-	public List<?> queryEmp(int id, String Name, String Department) {
+	public List<?> queryEmp(int id, String Name, String Department, String Resigned) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
+		Timestamp tsmp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = Date.valueOf(sdf.format(tsmp));
+		if (Resigned.equals("true")) {
+			mainQuery.add(Restrictions.lt("lastWorkDay", today));
+		}else {
+			mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
+		}
 		if (id != 0) {
 			mainQuery.add(Restrictions.eq("empID", id));
 		}
@@ -138,7 +147,8 @@ public class EmployeeDao implements IEmployeeDao {
 			subQuery.setProjection(Property.forName("titleID"))
 					.add(Restrictions.disjunction().add(level.eq(2)).add(level.eq(3)));
 			list = mainQuery.add(Property.forName("empTitle").in(subQuery))
-					.add(Property.forName("empDept.deptID").eq(deptId)).getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+					.add(Property.forName("empDept.deptID").eq(deptId))
+					.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		}
 		return list;
 	}
@@ -176,5 +186,7 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	public void test() {
+//		Date d=new Date(Timestamp.);
+//		System.out.println();
 	}
 }

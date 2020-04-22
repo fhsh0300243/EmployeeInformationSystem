@@ -31,8 +31,8 @@ public class EmployeeService implements IEmployeeService {
 	}
 
 	@Override
-	public List<?> queryEmp(int id, String Name, String Department) {
-		return employeeDao.queryEmp(id, Name, Department);
+	public List<?> queryEmp(int id, String Name, String Department, String Resigned) {
+		return employeeDao.queryEmp(id, Name, Department,Resigned);
 	}
 
 	@Override

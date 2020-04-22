@@ -30,7 +30,7 @@ body {
 
 p {
 	font-family: 'Noto Sans TC', sans-serif;
-	font-size:18px;
+	font-size: 18px;
 }
 
 table {
@@ -62,7 +62,7 @@ table {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-				 	<p class="functionTitle">員工管理</p>
+					<p class="functionTitle">員工管理</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -70,8 +70,10 @@ table {
 							id="searchid" name="searchid" size="30"><br /> <label
 							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
 							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select> <input type="button"
-							id="search" name="search" value="搜尋">
+							name="searchdept" id="searchdept"></select><input type="checkbox"
+							id="resigned" name="resigned" value="resigned">
+							<label for="" class="t1">離職員工</label> <input type="button" id="search"
+							name="search" value="搜尋">
 						<p>${msg[0]}</p>
 						<table border="1" id="emplist"></table>
 						<div class="list_footer">
@@ -138,18 +140,19 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>帳號<th>姓名<th>部門<th>職稱<th>主管<th>";
+			var txt = "<tr><th>EmpID<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
 			for (let i = minData - 1; i < maxData; i++) {
 				txt += "<tr><td>" + emps[i].empID;
-				txt += "<td>" + emps[i].username;
-				txt += "<td>" + emps[i].name;
 				txt += "<td>" + emps[i].department;
 				txt += "<td>" + emps[i].title;
+				txt += "<td>" + emps[i].name;
 				txt += "<td>" + emps[i].manager;
+				txt += "<td>" + emps[i].extensionNum;
+				txt += "<td>" + emps[i].email;
 				txt += "<td><a href='<c:url value='/EditEmployee.do?id="
 						+ emps[i].empID + "'/>' name='" + emps[i].empID
 						+ "'>Edit</a>";
@@ -173,15 +176,24 @@ table {
 		 }
 		 });
 		 */
+
+		var chk_status ;
 		$("#search").click(
 				function() {
+					if($("#resigned").prop("checked")){
+						chk_status=true;
+						}else{
+							chk_status=false;
+							}
 					nowpage = 1;
 					$.ajax({
 						url : "QueryEmp.action?searchid="
 								+ $("#searchid").val() + "&searchname="
 								+ $("#searchname").val() + "&searchdept="
-								+ $("#searchdept").val(),
+								+ $("#searchdept").val()
+								+ "&resigned="+chk_status,
 						type : "GET",
+						traditional: true,
 						success : function(Str) {
 							emps = JSON.parse(Str);
 							pagination(emps, nowpage);

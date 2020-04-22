@@ -2,6 +2,7 @@ package tw.eis.controller;
 
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -31,54 +32,51 @@ import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
 
 @Controller
-@SessionAttributes(value = { "empID", "EmployeeID","LoginOK" })
+@SessionAttributes(value = { "empID", "EmployeeID", "LoginOK" })
 public class EmployeeAction {
 
 	private UsersService uService;
 	private EmployeeService eService;
 	private DepartmentService dService;
 	private TitleService tService;
-	AESUtil aes = new AESUtil();
 	private BulletinBoardService bService;
+	AESUtil aes = new AESUtil();
 
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
-			TitleService tService,BulletinBoardService bService) {
+			TitleService tService, BulletinBoardService bService) {
 		this.uService = uService;
 		this.eService = eService;
 		this.dService = dService;
 		this.tService = tService;
-		this.bService=bService;
+		this.bService = bService;
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
 	public String processEmployeePage(@ModelAttribute("LoginOK") Users LoginOK) {
 		int deptid = 0;
 		try {
-			//deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
-			deptid=LoginOK.getEmployee().getEmpDept().getDeptID();
+			// deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
+			deptid = LoginOK.getEmployee().getEmpDept().getDeptID();
 		} catch (Exception e) {
 			deptid = 0;
 		}
-		System.out.println("deptid:"+deptid);
 		if (deptid == 1 || deptid == 0) {
 			return "EmployeePage";
 		}
 		return "AuthorityErrorPage";
 	}
-	//
+
 	@RequestMapping(path = "/QueryEmployee.do", method = RequestMethod.GET)
 	public String processQueryEmployeePage(@ModelAttribute("EmployeeID") String empId) {
 		int level = 0;
 		try {
 			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
-			//level=LoginOK.getEmployee().getEmpTitle().getLevel();
+			// level=LoginOK.getEmployee().getEmpTitle().getLevel();
 		} catch (Exception e) {
-			System.out.println("e:"+e);
+			System.out.println("e:" + e);
 			level = 0;
 		}
-		//System.out.println("level:"+level);
-
 		if (level == 1 || level == 2 || level == 3 || level == 4) {
 			return "QueryEmployee";
 		}
@@ -475,7 +473,8 @@ public class EmployeeAction {
 	@RequestMapping(path = "/QueryEmp.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
 	public @ResponseBody String queryEmp(@RequestParam(name = "searchid", required = false) String idstr,
 			@RequestParam(name = "searchname", required = false) String Name,
-			@RequestParam(name = "searchdept", required = false) String Department, Model model) {
+			@RequestParam(name = "searchdept", required = false) String Department,
+			@RequestParam(value = "resigned", required = false) String Resigned, Model model) {
 
 		int id = 0;
 		try {
@@ -493,13 +492,16 @@ public class EmployeeAction {
 			Department = "na";
 		}
 
-		if (Name.equals("na") && Department.equals("na") && id == 0) {
-			empList();
+		List<?> list = null;
+		if (Name.equals("na") && Department.equals("na") && Resigned.equals("false") && id == 0) {
+			list = eService.allEmpData();
+		} else {
+			list = eService.queryEmp(id, Name, Department, Resigned);
 		}
 
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for (Object emp : eService.queryEmp(id, Name, Department)) {
+			for (Object emp : list) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("title", ((Employee) emp).getEmpTitle().getTitleChName());
 				jsonobject.put("username", ((Employee) emp).getUsers().getUserName());
@@ -522,8 +524,13 @@ public class EmployeeAction {
 					jsonobject.put("birthDay", ((Employee) emp).getBirthDay());
 				}
 				jsonobject.put("address", ((Employee) emp).getAddress());
-				jsonobject.put("extensionNum", ((Employee) emp).getExtensionNum());
+				if (((Employee) emp).getExtensionNum().equals("")) {
+					jsonobject.put("extensionNum", "--");
+				} else {
+					jsonobject.put("extensionNum", ((Employee) emp).getExtensionNum());
+				}
 				jsonobject.put("phoneNum", ((Employee) emp).getPhoneNum());
+				jsonobject.put("email", ((Employee) emp).getEmail());
 				if (((Employee) emp).getBirthDay() == null) {
 					jsonobject.put("hireDay", "");
 				} else {
@@ -541,47 +548,50 @@ public class EmployeeAction {
 			System.out.println("From queryEmp:" + e);
 			return "";
 		}
-
 	}
 
 	@RequestMapping(path = "/EmpList", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
 	public @ResponseBody String empList() {
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for (Object user : eService.allEmpData()) {
+			for (Object emp : eService.allEmpData()) {
 				JSONObject jsonobject = new JSONObject();
-				jsonobject.put("title", ((Users) user).getEmployee().getEmpTitle().getTitleChName());
-				jsonobject.put("username", ((Users) user).getUserName());
-				if (((Users) user).getDepartment() == null) {
+				jsonobject.put("title", ((Employee) emp).getEmpTitle().getTitleChName());
+				if (((Employee) emp).getDepartment() == null) {
 					jsonobject.put("department", "--");
 				} else {
-					jsonobject.put("department", ((Users) user).getDepartment());
+					jsonobject.put("department", ((Employee) emp).getDepartment());
 				}
-				if (((Users) user).getEmployee().getManager() == null) {
+				if (((Employee) emp).getManager() == null) {
 					jsonobject.put("manager", "--");
 				} else {
-					jsonobject.put("manager", ((Users) user).getEmployee().getManager().getName());
+					jsonobject.put("manager", ((Employee) emp).getManager().getName());
 				}
-				jsonobject.put("empID", ((Users) user).getEmployee().getEmpID());
-				jsonobject.put("name", ((Users) user).getEmployee().getName());
-				jsonobject.put("gender", ((Users) user).getEmployee().getGender());
-				if (((Users) user).getEmployee().getBirthDay() == null) {
+				jsonobject.put("empID", ((Employee) emp).getEmpID());
+				jsonobject.put("name", ((Employee) emp).getName());
+				jsonobject.put("gender", ((Employee) emp).getGender());
+				if (((Employee) emp).getBirthDay() == null) {
 					jsonobject.put("birthDay", "");
 				} else {
-					jsonobject.put("birthDay", ((Users) user).getEmployee().getBirthDay());
+					jsonobject.put("birthDay", ((Employee) emp).getBirthDay());
 				}
-				jsonobject.put("address", ((Users) user).getEmployee().getAddress());
-				jsonobject.put("extensionNum", ((Users) user).getEmployee().getExtensionNum());
-				jsonobject.put("phoneNum", ((Users) user).getEmployee().getPhoneNum());
-				if (((Users) user).getEmployee().getBirthDay() == null) {
+				jsonobject.put("address", ((Employee) emp).getAddress());
+				if (((Employee) emp).getExtensionNum() == null) {
+					jsonobject.put("extensionNum", "--");
+				} else {
+					jsonobject.put("extensionNum", ((Employee) emp).getExtensionNum());
+				}
+				jsonobject.put("phoneNum", ((Employee) emp).getPhoneNum());
+				jsonobject.put("email", ((Employee) emp).getEmail());
+				if (((Employee) emp).getBirthDay() == null) {
 					jsonobject.put("hireDay", "");
 				} else {
-					jsonobject.put("hireDay", ((Users) user).getEmployee().getHireDay());
+					jsonobject.put("hireDay", ((Employee) emp).getHireDay());
 				}
-				if (((Users) user).getEmployee().getBirthDay() == null) {
+				if (((Employee) emp).getBirthDay() == null) {
 					jsonobject.put("lastWorkDay", "");
 				} else {
-					jsonobject.put("lastWorkDay", ((Users) user).getEmployee().getLastWorkDay());
+					jsonobject.put("lastWorkDay", ((Employee) emp).getLastWorkDay());
 				}
 				jsonarray.put(jsonobject);
 			}
@@ -591,22 +601,22 @@ public class EmployeeAction {
 			return "";
 		}
 	}
-	
+
 	@RequestMapping(path = "/BullBoardListOfHR", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
-	public @ResponseBody String bullBoardListOfHR() {	
+	public @ResponseBody String bullBoardListOfHR() {
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for(BulletinBoard b:bService.queryBulletinForLook("HR")) {
+			for (BulletinBoard b : bService.queryBulletinForLook("HR")) {
 				JSONObject jsonobject = new JSONObject();
-				jsonobject.put("id",b.getBulletinBoardID());
-				jsonobject.put("announcer",b.getUsers().getEmployee().getName());
-				jsonobject.put("title",b.getTitle());
-				jsonobject.put("content",b.getContent());
-				jsonobject.put("announcDate",b.getDate().toString());
+				jsonobject.put("id", b.getBulletinBoardID());
+				jsonobject.put("announcer", b.getUsers().getEmployee().getName());
+				jsonobject.put("title", b.getTitle());
+				jsonobject.put("content", b.getContent());
+				jsonobject.put("announcDate", b.getDate().toString());
 				jsonarray.put(jsonobject);
 			}
 			return jsonarray.toString();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("From bullBoardListOfHR:" + e);
 			return "";
 		}
@@ -614,7 +624,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-
+		eService.test();
 	}
 
 }

@@ -10,23 +10,23 @@ import tw.eis.model.Title;
 public interface IEmployeeService {
 	public List<?> allEmpData();
 
-	public List<?> queryEmp(int id,String Name,String Department);
+	public List<?> queryEmp(int id, String Name, String Department, String Resigned);
 
 	public Employee empData(int id);
-	
-	public boolean editEmp(int id,String Title,int Level, String Department,Employee Manager,String Name,
-			String Gender,Date BirthDay,String Address,String ExtensionNum,String PhoneNum,String Email,byte[] Photo,int Salary,
-			Date HireDay,Date LastWorkDay,Department EmpDept, Title EmpTitle);
-	
+
+	public boolean editEmp(int id, String Title, int Level, String Department, Employee Manager, String Name,
+			String Gender, Date BirthDay, String Address, String ExtensionNum, String PhoneNum, String Email,
+			byte[] Photo, int Salary, Date HireDay, Date LastWorkDay, Department EmpDept, Title EmpTitle);
+
 	public List<?> managerDataByDeptId(int deptId);
-	
+
 	public List<Employee> findEmployeeByEmail(String email);
-	
+
 	public List<?> empDataByManagerId(int managerId);
-	
+
 	public List<?> empDataByDeptId(int deptId);
-	
+
 	public List<?> empDataByTitleId(int titleId);
-	
+
 	public void test();
 }
