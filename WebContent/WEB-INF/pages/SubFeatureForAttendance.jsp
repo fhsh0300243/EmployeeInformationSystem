@@ -19,13 +19,10 @@
 		<div class="panel-heading">子功能</div>
 		<div class="panel-body">
 			<div>
-				<a href="<c:url value="/AddEmployee.do"/>">新增員工</a>
+				<a href="<c:url value="/InquiryPage"/>">個人出勤查詢</a>
 			</div>
 			<div>
-				<a href="<c:url value="/QueryEmployee.do"/>">查詢員工</a>
-			</div>
-			<div>
-				<a href="<c:url value="/InqueryCalendar"/>">設定行事曆</a>
+				<a href="<c:url value="/InquiryDepartmentPage"/>">部門出勤查詢</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

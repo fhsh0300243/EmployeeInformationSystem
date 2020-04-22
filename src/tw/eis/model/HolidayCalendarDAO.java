@@ -36,7 +36,7 @@ public class HolidayCalendarDAO {
 		}
 		return null;
 	}
-
+	
 	public boolean InsertCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
