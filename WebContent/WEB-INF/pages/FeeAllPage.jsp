@@ -18,14 +18,15 @@
 .well, .panel {
 	text-align: center;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
-	font-size:18px;
+	font-size: 18px;
 }
 </style>
 </head>
 <body>
-<br>
+	<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -55,22 +56,35 @@ p {
 									id="xx1" name="employeeID" placeholder="guest" autofocus
 									autocomplete="off" size="20">
 							</div>
-							<c:forTokens items="${id}" delims="," var="id">
-								<p>id:${id}</p>
-							</c:forTokens>
+							<table>
+								<tr>
+									<th>申請時間</th>
+									<th>申請項目</th>
+									<th>申請金額</th>
+									<th>簽核狀態</th>
 
-							<c:forTokens items="${money}" delims="," var="money">
-								<p>money:${money}</p>
-							</c:forTokens>
+								</tr>
+
+								<c:forEach var='applyDetail' items='${dList}' varStatus='vs'>
+									<tr>
+										<td>${applyDetail.appTime}</td>
+										<td>${applyDetail.appItem}</td>
+										<td>${applyDetail.appMoney}</td>
+										<td>${applyDetail.signerStatus}</td>
+									</tr>
+								</c:forEach>
+							</table>
+
+
 							<div class="st2">
 								<input type="submit" name="New" value="搜尋" /> <input
 									type="reset" value="清除" />
 							</div>
-							</form>
-							<div class="list_footer">
-								<div id="tag"></div>
-								<div id="page"></div>
-							</div>
+						</form>
+						<div class="list_footer">
+							<div id="tag"></div>
+							<div id="page"></div>
+						</div>
 					</div>
 				</div>
 			</div>
