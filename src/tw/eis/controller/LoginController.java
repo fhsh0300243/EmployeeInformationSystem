@@ -21,6 +21,7 @@ import tw.eis.model.EmployeeService;
 import tw.eis.model.UsersService;
 import tw.eis.util.AESUtil;
 import tw.eis.util.EmailUtil;
+import tw.eis.util.password;
 
 
 
@@ -72,7 +73,10 @@ public class LoginController {
 			return "UserLogin";
 		}
 		
-		String encryptPwd=aes.parseByte2HexStr(aes.encrypt(userPassword));
+//		String encryptPwd=aes.parseByte2HexStr(aes.encrypt(userPassword)); 
+//		Linux用上面的AES加密會出錯
+		String encryptPwd=password.encrypt("1234567890123456", userPassword);
+		System.out.println("cleartext:" + encryptPwd);
 		
 		List<Users> loginResult=uService.findUsers(userName, encryptPwd);
 		
