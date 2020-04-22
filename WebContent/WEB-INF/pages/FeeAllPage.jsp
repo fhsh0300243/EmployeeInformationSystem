@@ -6,35 +6,79 @@
 <head>
 <meta charset="UTF-8">
 <title>差旅費申請主頁</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <style>
-body {
-	background-image: url(../../images/picture_back.jpg)
+.well, .panel {
+	text-align: center;
+}
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
 }
 </style>
 </head>
 <body>
-	<a href="FeeAllPage.action">差旅費申請主頁</a>
-	<a href="AddFeeApp.action">差旅費申請</a>
+<br>
+	<div class="container-fluid">
+		<div class="row">
 
-	<form action="FeeAllPage.action" method="post">
-		<div class="st1">
-			<label class="ca1" for="xx1">員工編號:</label><input type="text" id="xx1"
-				name="employeeID" placeholder="guest" autofocus autocomplete="off"
-				size="20">
+			<!--左邊欄位-->
+			<div class="col-sm-4">
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
+				</div>
+
+				<%@ include file="SubFeatureForFee.jsp"%>
+
+			</div>
+
+			<!--右邊欄位-->
+
+			<div class="col-sm-8">
+
+				<div class="panel panel-primary">
+					<p class="functionTitle">差旅費查詢</p>
+					<div class="panel-heading"><%@ include
+							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-body">
+						<form action="FeeAllPage.action" method="post">
+							<div class="st1">
+								<label class="ca1" for="xx1">員工編號: </label><input type="text"
+									id="xx1" name="employeeID" placeholder="guest" autofocus
+									autocomplete="off" size="20">
+							</div>
+							<c:forTokens items="${id}" delims="," var="id">
+								<p>id:${id}</p>
+							</c:forTokens>
+
+							<c:forTokens items="${money}" delims="," var="money">
+								<p>money:${money}</p>
+							</c:forTokens>
+							<div class="st2">
+								<input type="submit" name="New" value="搜尋" /> <input
+									type="reset" value="清除" />
+							</div>
+							</form>
+							<div class="list_footer">
+								<div id="tag"></div>
+								<div id="page"></div>
+							</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<c:forTokens items="${id}" delims="," var="id">
-			<p>id:${id}</p>
-		</c:forTokens>
-
-		<c:forTokens items="${money}" delims="," var="money">
-			<p>money:${money}</p>
-		</c:forTokens>
-		<div class="st2">
-			<input type="submit" name="New" value="搜尋" /> <input type="reset"
-				value="清除" />
-		</div>
-
-	</form>
+	</div>
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
 
 </body>
 </html>
