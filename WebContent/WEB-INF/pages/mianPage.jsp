@@ -20,9 +20,11 @@
 </style>
 </head>
 <body>
+
 	<div class="CanNotLeftDiv">
 		<img class="CanNotLeft" src="images/CompanyLogo.png">
 	</div>
+	<br>
 			<div class="col-md-5">
 				<div class="well">Hi, ${usersResultMap.UserName} 您好~歡迎登入番茄科技員工資訊系統</div>
 				<div class="panel panel-primary">
@@ -35,7 +37,7 @@
 							src="images/left2.png" border="0"></a> <a
 							href="<c:url value="/performance"/>"><img class="imgButton"
 							src="images/left3.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							href="<c:url value="/EducationPage.do"/>"><img class="imgButton"
 							src="images/left4.png" border="0"></a> <a
 							href="<c:url value="/FeeAllPage.action"/>"><img class="imgButton"
 							src="images/left5.png" border="0"></a> <a
@@ -54,22 +56,5 @@
 				<img class="CanNotRight" src="images/CompanyLogo.png">
 
 			</div>
-
-	<h1>登入成功</h1>
-	<h3>你的個人資訊</h3>
-	<label>員工編號: </label>${usersResultMap.EmployeeID}<br>
-	<label>帳號: </label>${usersResultMap.UserName}<br>
-	<label>密碼: </label>${usersResultMap.UserPassword}<br>
-	<label>職稱: </label>${usersResultMap.Title}<br>
-	<label>部門: </label>${usersResultMap.Department}<br>
-	<a href="<c:url value="/EmployeePage.do"/>">員工管理</a>
-	<br />
-	<a href="FeeAllPage.action">差旅費申請主頁</a>
-	<br />
-	<a href="AddFeeApp.action">差旅費申請</a>
-	<br />
-
-	<a href="<c:url value="/toLoginPage"/>">LOGOUT</a>
-	<br />
 </body>
 </html>
