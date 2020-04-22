@@ -18,7 +18,7 @@
 <link rel="stylesheet" type="text/css" href="css/ApplyPage.css">
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
 <style>
-.well, .panel {
+.col-sm-4, .functionTitle {
 	text-align: center;
 }
 p {
