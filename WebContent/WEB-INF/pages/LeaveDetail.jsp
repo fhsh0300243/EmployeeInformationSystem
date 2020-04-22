@@ -80,8 +80,7 @@
 			<tr>
 				<td class="tdtag">附件：</td>
 				<td id=noAtt><img id="attImg" title="點擊圖片，即可於下方放大檢視。"
-					src="<c:url value="/preAttImage?applyId=${ApplyList.applyId}"/>"
-					onerror="noImg();"></td>
+					src="<c:url value="/preAttImage?applyId=${ApplyList.applyId}"/>"></td>
 			</tr>
 		</table>
 
@@ -112,11 +111,11 @@
 	<script>
 		$(function() {
 			$("td:empty").text("-");
-		})
+		});
 
-		function noImg() {
+		$("#attImg").on("error", function() {
 			$("#noAtt").text("-");
-		}
+		});
 
 		$("#attImg")
 				.click(
