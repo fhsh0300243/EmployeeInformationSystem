@@ -33,7 +33,7 @@
 							src="images/left1.png" border="0"></a> <a
 							href="<c:url value="/gotoMainAttendancePage"/>"><img class="imgButton"
 							src="images/left2.png" border="0"></a> <a
-							href="<c:url value="/xxx.do"/>"><img class="imgButton"
+							href="<c:url value="/performance"/>"><img class="imgButton"
 							src="images/left3.png" border="0"></a> <a
 							href="<c:url value="/xxx.do"/>"><img class="imgButton"
 							src="images/left4.png" border="0"></a> <a
