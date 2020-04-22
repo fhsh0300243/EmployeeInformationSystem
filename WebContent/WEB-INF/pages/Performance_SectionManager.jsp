@@ -20,7 +20,7 @@ table {
 </head>
 <body>
 <aside class="menu">
-		<table>
+		<table id = "t">
 			<tr>
 				<td class="tdTitle"><input type="button" value="研發部" id=a1></td>
 			</tr>

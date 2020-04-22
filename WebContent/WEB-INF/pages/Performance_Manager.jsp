@@ -20,7 +20,7 @@ table {
 </div>
 	<div id="main"></div>
 	<span>
-		<table border="1">
+		<table border="1" id = "t">
 			<tr>
 				<td><a href="InsertPQT"><input type="button" value="+"></a>
 		</table>
