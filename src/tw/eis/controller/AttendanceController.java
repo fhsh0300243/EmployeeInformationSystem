@@ -112,46 +112,45 @@ public class AttendanceController {
 			int year = cal08.get(Calendar.YEAR);
 			Date now = new Date();
 			String DayType = null;
+			String Status = null;
 
 			List<HolidayCalendar> DateType = HCService.InqueryCalendarToday(datestr);
-			if (cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-					|| cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-				if (DateType.get(0).getDateType().equals("補班")) {
+			if (DateType == null || DateType.size() < 1) {
+				if (cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+						|| cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+					DayType = "休假";
+				} else {
 					DayType = "上班日";
 				}
-				DayType = "休假";
 			} else {
-				if (DateType.get(0).getDateType().equals("國定假日")) {
+				if (DateType.get(0).getDateType().equals("補班")) {
+					DayType = "上班日";
+				} else {
 					DayType = "休假";
 				}
-				DayType = "上班日";
 			}
 			if (DayType.equals("上班日")) {
 				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
 				if (now.before(Time1700)) {
 					if (myPunch == null || myPunch.size() == 0) {
 						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+						if (now.before(Time0800)) {
+							Status = "上班打卡成功";
+						}
+						Status = "異常:遲到";
 					} else {
 						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+						Status = "異常:下班打卡時間";
 					}
 				} else {
 					if (myPunch == null || myPunch.size() == 0) {
 						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+						Status = "異常:上班未打卡";
 					} else {
 						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+						Status = "下班打卡成功";
 					}
 				}
-				List<Attendance> afterPunch = AttService.InquiryToday(usersResultMap);
-				Time sql0800 = new Time(0); // 08:00:00
-				Time sql1700 = new Time(32400000); // 17:00:00
-				boolean a = afterPunch.get(0).getStartTime().before(sql0800);
-				boolean b = afterPunch.get(0).getEndTime().after(sql1700);
-				if (afterPunch.get(0).getStartTime().before(sql0800) && afterPunch.get(0).getEndTime().after(sql1700)) {
-					boolean Update = AttService.UpdateStatus(usersResultMap, Date, "正常");
-				} else {
-					boolean Update = AttService.UpdateStatus(usersResultMap, Date, "異常");
-				}
-				return "redirect:/InquiryToday";
 			} else {
 				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
 				if (now.before(Time1700)) {
@@ -167,9 +166,11 @@ public class AttendanceController {
 						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
 					}
 				}
-				boolean Update = AttService.UpdateStatus(usersResultMap, Date, "加班");
-				return "redirect:/InquiryToday";
+				Status = "加班";
 			}
+
+			boolean Update = AttService.UpdateStatus(usersResultMap, Date, Status);
+			return "redirect:/InquiryToday";
 		} else {
 			System.out.println("IP錯誤");
 		}

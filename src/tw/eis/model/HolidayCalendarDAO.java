@@ -40,7 +40,7 @@ public class HolidayCalendarDAO {
 	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
-			String hqlstr = "Select DateType from HolidayCalendar where Date like :Date";
+			String hqlstr = "from HolidayCalendar where Date like :Date";
 			Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
 			query.setParameter("Date", datestr);
 			List<HolidayCalendar> calenderlist = query.list();
