@@ -19,6 +19,10 @@ body {
 	font-family: 微軟正黑體;
 }
 
+.span1 {
+	color: red;
+}
+
 .msgmap {
 	color: red;
 }
@@ -37,156 +41,191 @@ body {
 </style>
 </head>
 <body>
-	<div class="div1">
-		<h2>編輯員工資料</h2>
-		<div>
-			<a href="<c:url value="/EmployeePage.do"/>">回員工清單</a> <img alt=""
-				src="<c:url value="/empimgurl"/>" class="userImg" />
+
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<!--左邊欄位-->
+			<div class="col-sm-4">
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
+				</div>
+
+				<%@ include file="SubFeatureForEmpManage.jsp"%>
+
+			</div>
+
+
+
+
+			<!--右邊欄位-->
+
+			<div class="col-sm-8">
+
+				<div class="panel panel-primary">
+					<p class="functionTitle">員工管理</p>
+					<div class="panel-heading"><%@ include
+							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-body">
+						<div class="div1">
+							<h2>編輯員工資料</h2>
+							<div>
+								<a href="<c:url value="/EmployeePage.do"/>">回員工清單</a> <img
+									alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
+							</div>
+							<form action="<c:url value="/EditAddEmployee.action"/>"
+								method="POST" enctype="multipart/form-data">
+								<table>
+									<tr>
+										<td><span class="span1">*</span>帳號：</td>
+										<td><input type="text" id="account1" name="userName"
+											value='${user.userName}' size="30" readonly></td>
+										<td class="msgmap">${msgmap.username}</td>
+									</tr>
+									<tr>
+										<td><span class="span1">*</span>姓名：</td>
+										<td><input type="text" id="name1" name="name"
+											value='${emp.name}' placeholder="請輸入姓名" autocomplete="off"
+											size="30"></td>
+										<td class="msgmap">${msgmap.name}</td>
+									</tr>
+									<tr>
+										<td>性別：</td>
+										<td><input type="radio" id="m1" name="gender"
+											value="male">男 <input type="radio" id="m2"
+											name="gender" value="female">女</td>
+									</tr>
+									<tr>
+										<td>生日：</td>
+										<td><input type="date" name="birth"
+											value='${emp.birthDay}'></td>
+									</tr>
+									<tr>
+										<td>地址：</td>
+										<td><input type="text" name="address"
+											value='${emp.address}' size="30" autocomplete="off"></td>
+									</tr>
+									<tr>
+										<td>部門：</td>
+										<td><select name="dept" id="dept"></select></td>
+									</tr>
+									<tr>
+										<td><span class="span1">*</span>職稱：</td>
+										<td><select name="title" id="title"></select></td>
+										<td class="msgmap">${msgmap.title}</td>
+									</tr>
+									<tr>
+										<td>主管：</td>
+										<td><select name="manager" id="manager"></select></td>
+									</tr>
+									<tr>
+										<td><span class="span1">*</span>薪水：</td>
+										<td><input type="text" name="salary"
+											value='${emp.salary}' maxlength="10" size="30"
+											autocomplete="off"></td>
+										<td class="msgmap">${msgmap.salary}</td>
+									</tr>
+									<tr>
+										<td>分機號碼：</td>
+										<td><input type="text" name="exnum" maxlength="10"
+											value='${emp.extensionNum}' size="30" autocomplete="off"></td>
+									</tr>
+									<tr>
+										<td>電話：</td>
+										<td><input type="text" name="phonenum" maxlength="10"
+											value='${emp.phoneNum}' size="30" autocomplete="off"></td>
+									</tr>
+									<tr>
+										<td><span class="span1">*</span>Email：</td>
+										<td><input type="email" name="email" value='${emp.email}'
+											size="30" autocomplete="off"></td>
+										<td class="msgmap">${msgmap.email}</td>
+									</tr>
+									<tr>
+										<td>照片：</td>
+										<td><input type="file" name="file"></td>
+									</tr>
+									<tr>
+										<td>到職日：</td>
+										<td><input type="date" name="hireDay"
+											value='${emp.hireDay}'></td>
+									</tr>
+									<tr>
+										<td>離職日：</td>
+										<td><input type="date" name="lastWorkDay"
+											value='${emp.lastWorkDay}'></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td><input type="submit" value="送出"> <input
+											type="reset" value="清除" onclick="reset()"></td>
+										<td class="msgmap">${msgmap.status}</td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<form action="<c:url value="/EditAddEmployee.action"/>" method="POST"
-			enctype="multipart/form-data">
-			<table>
-				<tr>
-					<td>帳號：</td>
-					<td><input type="text" id="account1" name="userName"
-						value='${user.userName}' size="30" readonly></td>
-					<td class="msgmap">${msgmap.username}</td>
-				</tr>
-				<!--  
-				<tr>
-					<td>密碼：</td>
-					<td><input type="password" id="pwd1" name="userPassword"
-						value='${user.userPassword}' size="30" readonly></td>
-					<td class="msgmap">${msgmap.userpwd}</td>
-				</tr>
-				-->
-				<tr>
-					<td>姓名：</td>
-					<td><input type="text" id="name1" name="name"
-						value='${emp.name}' placeholder="請輸入姓名" autocomplete="off"
-						size="30"></td>
-					<td class="msgmap">${msgmap.name}</td>
-				</tr>
-				<tr>
-					<td>性別：</td>
-					<td><input type="radio" id="m1" name="gender" value="male">男
-						<input type="radio" id="m2" name="gender" value="female">女
-					</td>
-				</tr>
-				<tr>
-					<td>生日：</td>
-					<td><input type="date" name="birth" value='${emp.birthDay}'></td>
-				</tr>
-				<tr>
-					<td>地址：</td>
-					<td><input type="text" name="address" value='${emp.address}'
-						size="30" autocomplete="off"></td>
-				</tr>
-				<tr>
-					<td>部門：</td>
-					<td><select name="dept" id="dept"></select></td>
-				</tr>
-				<tr>
-					<td>主管：</td>
-					<td><select name="manager" id="manager"></select></td>
-				</tr>
-				<tr>
-					<td>職稱：</td>
-					<td><select name="title" id="title"></select></td>
-					<td class="msgmap">${msgmap.title}</td>
-				</tr>
-				<tr>
-					<td>薪水：</td>
-					<td><input type="text" name="salary" value='${emp.salary}'
-						maxlength="10" size="30" autocomplete="off"></td>
-					<td class="msgmap">${msgmap.salary}</td>
-				</tr>
-				<tr>
-					<td>分機號碼：</td>
-					<td><input type="text" name="exnum" maxlength="10"
-						value='${emp.extensionNum}' size="30" autocomplete="off"></td>
-				</tr>
-				<tr>
-					<td>電話：</td>
-					<td><input type="text" name="phonenum" maxlength="10"
-						value='${emp.phoneNum}' size="30" autocomplete="off"></td>
-				</tr>
-				<tr>
-					<td>Email：</td>
-					<td><input type="email" name="email" value='${emp.email}'
-						size="30" autocomplete="off"></td>
-						<td class="msgmap">${msgmap.email}</td>
-				</tr>
-				<tr>
-					<td>照片：</td>
-					<td><input type="file" name="file"></td>
-				</tr>
-				<tr>
-					<td>到職日：</td>
-					<td><input type="date" name="hireDay" value='${emp.hireDay}'></td>
-				</tr>
-				<tr>
-					<td>離職日：</td>
-					<td><input type="date" name="lastWorkDay"
-						value='${emp.lastWorkDay}'></td>
-				</tr>
-			</table>
-			<table>
-				<tr>
-					<td><input type="submit" value="送出"> <input
-						type="reset" value="清除" onclick="reset()"></td>
-					<td class="msgmap">${msgmap.status}</td>
-				</tr>
-			</table>
-		</form>
 	</div>
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
+
+
+
+
+
+
 
 	<script>
 		var depts;
 		var titles;
 		var managers;
-		var deptid='${requestScope.emp.department}';
+		var deptid = '${requestScope.emp.department}';
 		$('#dept').empty();
 		$('#title').empty();
 		$('#manager').empty();
 
-			$.ajax({
-				url : "DeptList",
-				type : "GET",
-				success : function(Str) {
-					$('#title').empty();
-					depts = JSON.parse(Str);
-					var opt = $("<option>").val("").text("選擇部門")
+		$.ajax({
+			url : "DeptList",
+			type : "GET",
+			success : function(Str) {
+				$('#title').empty();
+				depts = JSON.parse(Str);
+				var opt = $("<option>").val("").text("選擇部門")
+				$("#dept").append(opt);
+				for (let i = 0; i < depts.length; i++) {
+					var opt = $("<option>").val(depts[i].deptid).text(
+							depts[i].deptabb)
 					$("#dept").append(opt);
-					for (let i = 0; i < depts.length; i++) {
-						var opt = $("<option>").val(depts[i].deptid).text(
-								depts[i].deptabb)
-						$("#dept").append(opt);
-					}
-					//下面這行要寫在ajax裡面，超坑!!!坑爆!!!!!坑了我一個禮拜!!!!!!
-					$("#dept").val('${requestScope.emp.department}');
 				}
-			});
-			
-			$.ajax({
-				url : "TitleList?deptid=" + deptid,
-				type : "GET",
-				success : function(Str) {
-					titles = JSON.parse(Str);
-					$('#title').append(
-							$("<option></option>").attr("value", "").text(
-									"選擇職稱"));
-					for (let i = 0; i < titles.length; i++) {
-						$("#title").append(
-								$("<option></option>").attr("value",
-										titles[i].titleid).text(
-										titles[i].titlechname));
-					}
-					$("#title").val('${requestScope.emp.title}');
+				//下面這行要寫在ajax裡面，超坑!!!坑爆!!!!!坑了我一個禮拜!!!!!!
+				$("#dept").val('${requestScope.emp.department}');
+			}
+		});
 
+		$.ajax({
+			url : "TitleList?deptid=" + deptid,
+			type : "GET",
+			success : function(Str) {
+				titles = JSON.parse(Str);
+				$('#title').append(
+						$("<option></option>").attr("value", "").text("選擇職稱"));
+				for (let i = 0; i < titles.length; i++) {
+					$("#title").append(
+							$("<option></option>").attr("value",
+									titles[i].titleid).text(
+									titles[i].titlechname));
 				}
-			});
-			
+				$("#title").val('${requestScope.emp.title}');
+
+			}
+		});
 
 		function titleList(deptid) {
 			$('#title').empty();
@@ -215,7 +254,7 @@ body {
 		});
 
 		$.ajax({
-			url : "ManagerList?deptid="+deptid,
+			url : "ManagerList?deptid=" + deptid,
 			type : "GET",
 			success : function(Str) {
 				$('#manager').empty();
@@ -231,23 +270,25 @@ body {
 			}
 		});
 
-		function managerList(){
+		function managerList() {
 			$('#manager').empty();
 			$.ajax({
-				url : "ManagerList?deptid="+deptid,
+				url : "ManagerList?deptid=" + deptid,
 				type : "GET",
 				success : function(Str) {
 					managers = JSON.parse(Str);
 					$('#manager').append(
-							$("<option></option>").attr("value", "").text("選擇主管"));
+							$("<option></option>").attr("value", "").text(
+									"選擇主管"));
 					for (let i = 0; i < managers.length; i++) {
 						$("#manager").append(
 								$("<option></option>").attr("value",
-										managers[i].empid).text(managers[i].name));
+										managers[i].empid).text(
+										managers[i].name));
 					}
 				}
 			});
-			}
+		}
 
 		if (document.getElementById('m1').value == '${requestScope.emp.gender}') {
 			document.getElementById('m1').checked = true;

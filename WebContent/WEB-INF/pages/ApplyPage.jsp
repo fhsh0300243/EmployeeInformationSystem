@@ -18,12 +18,13 @@
 <link rel="stylesheet" type="text/css" href="css/ApplyPage.css">
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
 <style>
-.well, .panel {
+.col-sm-4, .functionTitle {
 	text-align: center;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
-	font-size:18px;
+	font-size: 18px;
 }
 </style>
 </head>
@@ -81,89 +82,86 @@ p {
 										<option value="0">0</option>
 										<option value="30">30</option>
 								</select>分</td>
+							<tr>
+								<td></td>
+								<td class=sumHours colspan="2"></td>
+							</tr>
 
-								<tr>
-					<td></td>
-					<td class=sumHours colspan="2"></td>
-				</tr>
-
-				<tr>
-					<td class="tdtag"><label for="cause">事由：</label></td>
-					<td><textarea cols="30" rows="3" id="idCause" name="cause"
+							<tr>
+								<td class="tdtag"><label for="cause">事由：</label></td>
+								<td><textarea cols="30" rows="3" id="idCause" name="cause"
 										onblur="checkCause();"></textarea></td>
-					<td class="tdErr"><img id="causeImg"> <span
+								<td class="tdErr"><img id="causeImg"> <span
 									id="causeCheck"></span></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class=tdNotes colspan="2">字數限制：50字。</td>
-				</tr>
-				<tr>
-					<td class="tdtag">附件：</td>
-					<td colspan="2"><input type="file" name="myFile"
+							</tr>
+							<tr>
+								<td></td>
+								<td class=tdNotes colspan="2">字數限制：50字。</td>
+							</tr>
+							<tr>
+								<td class="tdtag">附件：</td>
+								<td colspan="2"><input type="file" name="myFile"
 									accept="image/*" /></td>
-				</tr>
-			</table>
-			<hr>
-			<div class="btn2">
-				<input type="reset" value="清除" onclick="cls();" /> <input
+							</tr>
+						</table>
+						<hr>
+						<div class="btn2">
+							<input type="reset" value="清除" onclick="cls();" /> <input
 								type="submit" value="送出" onclick="return checkSubmit();" />
-			</div>
-		</form>
-				
-									<div id="tag"></div>
-							<div id="page"></div>
 						</div>
-					
-				
-							</div>
+					</form>
+
+					<div id="tag"></div>
+					<div id="page"></div>
+				</div>
+
+
 			</div>
 		</div>
-	
+	</div>
+
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
 
 
-	
+
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
-		$("#idStartDate", "#idSH", "#idSM", "#idEndDate", "#idEH", "#idEM")
-				.change(
-						function() {
 
-							var startD = $("#idStartDate").val();
-							var startH = $("#idSH").val();
-							var startM = $("#idSM").val();
-							var endD = $("#idEndDate").val();
-							var endH = $("#idEH").val();
-							var endM = $("#idEM").val();
-
-							if (startD != null && startD.length != 0
-									&& startH != null && startH.length != 0
-									&& startM != null && startM.length != 0
-									&& endD != null && endD.length != 0
-									&& endH != null && endH.length != 0
-									&& endM != null && endM.length != 0) {
-								$.ajax({
-									url : "changeLT",
-									data : {
-										startD : startD,
-										startH : startH,
-										startM : startM,
-										endD : endD,
-										endH : endH,
-										endM : endM
-									},
-									type : "POST",
-									success : function(data) {
-										$(".sumHours").text(data);
-									}
-								})
+		$("#idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM").change(
+				function() {
+					var startD = $("#idStartDate").val();
+					var startH = $("#idSH").val();
+					var startM = $("#idSM").val();
+					var endD = $("#idEndDate").val();
+					var endH = $("#idEH").val();
+					var endM = $("#idEM").val();
+					if (startD != null && startD.length != 0 && startH != null
+							&& startH.length != 0 && startM != null
+							&& startM.length != 0 && endD != null
+							&& endD.length != 0 && endH != null
+							&& endH.length != 0 && endM != null
+							&& endM.length != 0) {
+						$.ajax({
+							url : "changeDHM",
+							data : {
+								startdate : startD,
+								selSH : startH,
+								selSM : startM,
+								enddate : endD,
+								selEH : endH,
+								selEM : endM
+							},
+							type : "POST",
+							success : function(data) {
+								$(".sumHours").text(data);
 							}
-							$(".sumHours").empty();
-						});
+						})
+					}
+					$(".sumHours").empty();
+				});
 
 		$("#idLT").change(function() {
 			if ($("#idLT").val() != null && $("#idLT").val().length != 0) {

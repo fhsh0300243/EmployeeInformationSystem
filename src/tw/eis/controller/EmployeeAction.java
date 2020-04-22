@@ -2,7 +2,6 @@ package tw.eis.controller;
 
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -18,19 +17,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.eis.model.BulletinBoard;
+import tw.eis.model.BulletinBoardService;
 import tw.eis.model.Department;
-import tw.eis.model.Employee;
-import tw.eis.model.Title;
-import tw.eis.model.Users;
 import tw.eis.model.DepartmentService;
+import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
+import tw.eis.model.Title;
 import tw.eis.model.TitleService;
+import tw.eis.model.Users;
 import tw.eis.model.UsersService;
 import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
 
 @Controller
-@SessionAttributes(names = { "empID", "EmployeeID" })
+@SessionAttributes(value = { "empID", "EmployeeID","LoginOK" })
 public class EmployeeAction {
 
 	private UsersService uService;
@@ -38,26 +39,48 @@ public class EmployeeAction {
 	private DepartmentService dService;
 	private TitleService tService;
 	AESUtil aes = new AESUtil();
+	private BulletinBoardService bService;
 
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
-			TitleService tService) {
+			TitleService tService,BulletinBoardService bService) {
 		this.uService = uService;
 		this.eService = eService;
 		this.dService = dService;
 		this.tService = tService;
+		this.bService=bService;
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
-	public String processEmployeePage(@ModelAttribute("EmployeeID") String empId) {
+	public String processEmployeePage(@ModelAttribute("LoginOK") Users LoginOK) {
 		int deptid = 0;
 		try {
-			deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
+			//deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
+			deptid=LoginOK.getEmployee().getEmpDept().getDeptID();
 		} catch (Exception e) {
 			deptid = 0;
 		}
+		System.out.println("deptid:"+deptid);
 		if (deptid == 1 || deptid == 0) {
 			return "EmployeePage";
+		}
+		return "AuthorityErrorPage";
+	}
+	
+	@RequestMapping(path = "/QueryEmployee.do", method = RequestMethod.GET)
+	public String processQueryEmployeePage(@ModelAttribute("EmployeeID") String empId) {
+		int level = 0;
+		try {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+			//level=LoginOK.getEmployee().getEmpTitle().getLevel();
+		} catch (Exception e) {
+			System.out.println("e:"+e);
+			level = 0;
+		}
+		//System.out.println("level:"+level);
+
+		if (level == 1 || level == 2 || level == 3 || level == 4) {
+			return "QueryEmployee";
 		}
 		return "AuthorityErrorPage";
 	}
@@ -565,6 +588,26 @@ public class EmployeeAction {
 			return jsonarray.toString();
 		} catch (Exception e) {
 			System.out.println("From empList:" + e);
+			return "";
+		}
+	}
+	
+	@RequestMapping(path = "/BullBoardListOfHR", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String bullBoardListOfHR() {	
+		try {
+			JSONArray jsonarray = new JSONArray();
+			for(BulletinBoard b:bService.queryBulletinForLook("HR")) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("id",b.getBulletinBoardID());
+				jsonobject.put("announcer",b.getUsers().getEmployee().getName());
+				jsonobject.put("title",b.getTitle());
+				jsonobject.put("content",b.getContent());
+				jsonobject.put("announcDate",b.getDate().toString());
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		}catch(Exception e) {
+			System.out.println("From bullBoardListOfHR:" + e);
 			return "";
 		}
 	}
