@@ -112,22 +112,19 @@ public class AttendanceController {
 			int year = cal08.get(Calendar.YEAR);
 			Date now = new Date();
 			String DayType = null;
-			List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(year);
+
+			List<HolidayCalendar> DateType = HCService.InqueryCalendarToday(datestr);
 			if (cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
 					|| cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-				for (HolidayCalendar element : calenderlist) {
-					if (element.getDateType().equals("補假")) {
-						DayType = "上班日";
-					}
-					DayType = "休假日";
-				}
-			} else {
-				for (HolidayCalendar element : calenderlist) {
-					if (element.getDateType().equals("國定假日")) {
-						DayType = "休假日";
-					}
+				if (DateType.get(0).getDateType().equals("補班")) {
 					DayType = "上班日";
 				}
+				DayType = "休假";
+			} else {
+				if (DateType.get(0).getDateType().equals("國定假日")) {
+					DayType = "休假";
+				}
+				DayType = "上班日";
 			}
 			if (DayType.equals("上班日")) {
 				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
@@ -145,12 +142,11 @@ public class AttendanceController {
 					}
 				}
 				List<Attendance> afterPunch = AttService.InquiryToday(usersResultMap);
-				Time sql0800 = new Time(0);
-				Time sql1700 = new Time(32400000);
-				System.out.println(sql0800);
-				System.out.println(sql1700);
-				if (afterPunch.get(0).getStartTime().before(sql0800)
-						&& afterPunch.get(0).getEndTime().after(sql1700)) {
+				Time sql0800 = new Time(0); // 08:00:00
+				Time sql1700 = new Time(32400000); // 17:00:00
+				boolean a = afterPunch.get(0).getStartTime().before(sql0800);
+				boolean b = afterPunch.get(0).getEndTime().after(sql1700);
+				if (afterPunch.get(0).getStartTime().before(sql0800) && afterPunch.get(0).getEndTime().after(sql1700)) {
 					boolean Update = AttService.UpdateStatus(usersResultMap, Date, "正常");
 				} else {
 					boolean Update = AttService.UpdateStatus(usersResultMap, Date, "異常");

@@ -22,6 +22,10 @@ public class HolidayCalendarService {
 	public List<HolidayCalendar> InqueryCalendar(int year) {
 		return calendarDao.InqueryCalendar(year);
 	}
+	
+	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
+		return calendarDao.InqueryCalendarToday(datestr);
+	}
 
 	public boolean InsertCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
 		return calendarDao.InsertCalendar(usersResultMap, date, dateType, remark);
