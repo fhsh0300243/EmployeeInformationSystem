@@ -59,7 +59,7 @@ table {
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 				
-				<%@ include file="SubFeatureForEDU.jsp"%>
+			<%@ include file="SubFeatureForEDU.jsp" %>
 
 			</div>
 
