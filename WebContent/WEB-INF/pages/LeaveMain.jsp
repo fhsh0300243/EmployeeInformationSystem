@@ -8,28 +8,35 @@
 <link rel="stylesheet" type="text/css" href="css/LeaveMain.css">
 </head>
 <body>
-	<div id="main">
-		<table id="employee">
-			<tr>
-				<td class="tdTitle" colspan="3">個人專區</td>
-			</tr>
-			<tr>
-				<td class="tdbtn"><a href="preapplypage">請假申請</a></td>
-				<td class="tdbtn"><a href="preapplyrecord">請假紀錄</a></td>
-				<td class="tdbtn"><a href="preleavetype">剩餘假別</a></td>
-			</tr>
-		</table>
-		<table id="manager">
-			<tr>
-				<td class="tdTitle" colspan="3">主管專區</td>
-			</tr>
-			<tr>
-				<td class="tdbtn"><a href="preunsignedpage">人員請假-未簽核</a></td>
-				<td class="tdbtn"><a href="presignedpage">人員請假-已簽核</a></td>
-			</tr>
-		</table>
-	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">子功能</div>
+		<div class="panel-body">
 
+
+			<div>個人專區</div>
+
+			<div>
+				<a href="preapplypage">請假申請</a>
+			</div>
+			<div>
+				<a href="preapplyrecord">請假紀錄</a>
+			</div>
+			<div>
+				<a href="preleavetype">剩餘假別</a>
+			</div>
+
+
+			<div>主管專區</div>
+
+			<div>
+				<a href="preunsignedpage">人員請假-未簽核</a>
+			</div>
+			<div>
+				<a href="presignedpage">人員請假-已簽核</a>
+			</div>
+		</div>
+		<div class="panel-footer"></div>
+	</div>
 
 </body>
 </html>
