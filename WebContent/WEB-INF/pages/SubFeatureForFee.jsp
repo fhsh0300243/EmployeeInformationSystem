@@ -19,10 +19,10 @@
 		<div class="panel-heading">子功能</div>
 		<div class="panel-body">
 			<div>
-				<a href="<c:url value="/XXX.do"/>">新增課程</a>
+				<a href="<c:url value="/AddFeeApp.action"/>">差旅費申請</a>
 			</div>
 			<div>
-				<a href="<c:url value="/XXX.do"/>">編輯課程</a>
+				<a href="<c:url value="/FeeAllPage.action"/>">差旅費查詢</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>
