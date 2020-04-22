@@ -22,10 +22,7 @@
 				<a href="<c:url value="/AddEmployee.do"/>">新增員工</a>
 			</div>
 			<div>
-				<a href="<c:url value="/AddEmployee.do"/>">新增員工</a>
-			</div>
-			<div>
-				<a href="<c:url value="/AddEmployee.do"/>">新增員工</a>
+				<a href="<c:url value="/QueryEmployee.do"/>">查詢員工</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

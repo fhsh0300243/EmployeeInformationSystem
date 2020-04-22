@@ -25,7 +25,7 @@ import tw.eis.util.EmailUtil;
 
 
 @Controller
-@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","EmployeeID"})
+@SessionAttributes(value = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","EmployeeID"})
 public class LoginController {
 	private UsersService uService;
 	private EmployeeService eService;

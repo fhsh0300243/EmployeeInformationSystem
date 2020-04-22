@@ -66,7 +66,18 @@ table {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<h2>HR部門公告</h2>
+						<label for="" class="t1">員工Id：</label><input type="text"
+							id="searchid" name="searchid" size="30"><br /> <label
+							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
+							name="searchname" size="30"><br /> <select
+							name="searchdept" id="searchdept"></select> <input type="button"
+							id="search" name="search" value="搜尋">
+						<p>${msg[0]}</p>
+						<table border="1" id="emplist"></table>
+						<div class="list_footer">
+							<div id="tag"></div>
+							<div id="page"></div>
+						</div>
 					</div>
 				</div>
 			</div>
