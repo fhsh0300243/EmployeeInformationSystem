@@ -60,12 +60,13 @@ fieldset {
 					<option value="PM">PM(專案管理)</option>
 				</select>
 			</div>
+			<!--  
 			<div class="st1">
 				<label class="ca1" for="xx1">員工編號:</label><input type="text"
 					id="xx1" name="employeeID" placeholder="guest" autofocus
 					autocomplete="off" size="20">
 			</div>
-
+			-->
 			<div class="st1">
 				<label for="" class="ca1">申請項目:</label> <select name="appItem">
 					<option value="traffic">交通</option>
