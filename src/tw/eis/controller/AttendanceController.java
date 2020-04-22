@@ -76,7 +76,7 @@ public class AttendanceController {
 			HttpServletRequest request) throws Exception {
 		List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
 		request.setAttribute("myPunch", myPunch);
-		return "AttendancePunch";
+		return "MainAttendancePage";
 	}
 
 	@RequestMapping(path = "/PunchAction", method = RequestMethod.POST)

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="tw.eis.model.Attendance, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@
 .well, .panel, .panel-body {
 	text-align: center;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
@@ -29,7 +31,7 @@ p {
 </style>
 </head>
 <body>
-<br>
+	<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -56,11 +58,49 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<label>員工編號: </label>${usersResultMap.EmployeeID}<br>
-						<label>帳號:	</label>${usersResultMap.UserName}<br>
-						<label>職稱: </label>${usersResultMap.Title}<br>
-						<label>部門: </label>${usersResultMap.Department}<br> 
-						<input type="button" value="打卡" onclick="location.href='/EmployeeInformationSystem/InquiryToday'">
+
+						<h2>
+							日期：<span id="nowdate"></span>
+						</h2>
+						<h2>
+							時間：<span id="nowtime"></span>
+						</h2>
+						<form action="<c:url value="/PunchAction" />" method="post">
+							<input type="submit" value="打卡" />
+						</form>
+						<p/>
+						<table width="800" border="1" align="center">
+							<tr>
+								<td><b>日期</b></td>
+								<td><b>上班時間</b></td>
+								<td><b>下班時間</b></td>
+								<td><b>狀態</b></td>
+								<td><b>假別</b></td>
+							</tr>
+							<%
+								List<Attendance> myPunch = (List<Attendance>) request.getAttribute("myPunch");
+								if (myPunch == null || myPunch.size() < 1) {
+							%>
+							<tr id="test">
+								<td align="center" colspan="5">沒有資料!</td>
+							</tr>
+							<%
+								} else {
+									for (Attendance mypunch : myPunch) {
+							%>
+
+							<tr align="center">
+								<td><%=mypunch.getDate()%></td>
+								<td><%=mypunch.getStartTime()%></td>
+								<td><%=mypunch.getEndTime()%></td>
+								<td><%=mypunch.getStatus()%></td>
+								<td><%=mypunch.getLeaveType()%></td>
+							</tr>
+							<%
+								}
+								}
+							%>
+						</table>
 
 						<div class="list_footer">
 							<div id="tag"></div>
@@ -79,3 +119,26 @@ p {
 
 </body>
 </html>
+<script type="text/javascript">
+	function showTime() {
+		var today = new Date();
+		var hour = parseInt(today.getHours()) < 10 ? '0' + today.getHours()
+				: today.getHours();
+
+		var min = parseInt(today.getMinutes()) < 10 ? '0' + today.getMinutes()
+				: today.getMinutes();
+
+		var sec = parseInt(today.getSeconds()) < 10 ? '0' + today.getSeconds()
+				: today.getSeconds();
+
+		document.getElementById('nowtime').innerHTML = hour + ':' + min + ':'
+				+ sec
+	}
+	window.onload = function() {
+		setInterval(showTime, 1000);
+		var today = new Date();
+		document.getElementById('nowdate').textContent = today.getFullYear()
+				+ '/' + (today.getMonth() + 1) + '/' + today.getDate() + '/'
+				+ '星期' + today.getDay()
+	}
+</script>
