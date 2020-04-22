@@ -131,22 +131,26 @@ public class AttendanceController {
 			}
 			if (DayType.equals("上班日")) {
 				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
-//				if (now.before(Time1700)) {
-//					if (myPunch == null || myPunch.size() == 0) {
-//						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
-//					} else {
-//						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
-//					}
-//				} else {
-//					if (myPunch == null || myPunch.size() == 0) {
-//						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
-//					} else {
-//						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
-//					}
-//				}
+				if (now.before(Time1700)) {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					}
+				} else {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					}
+				}
 				List<Attendance> afterPunch = AttService.InquiryToday(usersResultMap);
-				if (afterPunch.get(0).getStartTime().before(Time0800)
-						&& afterPunch.get(0).getEndTime().after(Time1700)) {
+				Time sql0800 = new Time(0);
+				Time sql1700 = new Time(32400000);
+				System.out.println(sql0800);
+				System.out.println(sql1700);
+				if (afterPunch.get(0).getStartTime().before(sql0800)
+						&& afterPunch.get(0).getEndTime().after(sql1700)) {
 					boolean Update = AttService.UpdateStatus(usersResultMap, Date, "正常");
 				} else {
 					boolean Update = AttService.UpdateStatus(usersResultMap, Date, "異常");
@@ -154,19 +158,19 @@ public class AttendanceController {
 				return "redirect:/InquiryToday";
 			} else {
 				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
-//				if (now.before(Time1700)) {
-//					if (myPunch == null || myPunch.size() == 0) {
-//						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
-//					} else {
-//						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
-//					}
-//				} else {
-//					if (myPunch == null || myPunch.size() == 0) {
-//						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
-//					} else {
-//						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
-//					}
-//				}
+				if (now.before(Time1700)) {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					}
+				} else {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					}
+				}
 				boolean Update = AttService.UpdateStatus(usersResultMap, Date, "加班");
 				return "redirect:/InquiryToday";
 			}
