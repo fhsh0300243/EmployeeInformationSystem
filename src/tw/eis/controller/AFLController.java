@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -220,21 +221,22 @@ public class AFLController {
 	}
 
 	@ResponseBody
-	@RequestMapping(path = "/changeDHM", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	@RequestMapping(path = "/changeDHM", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String changeDateHourMin(@RequestParam("startdate") String startD, @RequestParam("selSH") String startH,
 			@RequestParam("selSM") String startM, @RequestParam("enddate") String endD,
 			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM) throws ParseException {
 
 		BigDecimal sumH = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
-		String strSumH = sumH.toString();
+		DecimalFormat df1 = new DecimalFormat("0.0");
+		String strSumH = df1.format(sumH);
 
 		String[] data = strSumH.split("\\.");
 		String hours = data[0];
 		Integer mins = (int) (Integer.valueOf(data[1]) * 0.1 * 60);
 
-		String str = "總計：" + hours + "時" + mins + "分。";
+		String sumHours = "總計：" + hours + "時" + mins + "分。";
 
-		return str;
+		return sumHours;
 	}
 
 }
