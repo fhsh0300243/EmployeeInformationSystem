@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>布告欄維護系統</title>
+<link rel="stylesheet"
+	href="<c:url value = "/js/BulletinBoard/wysibb/theme/default/wbbtheme.css"/>" />
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+
+
+<link rel="stylesheet" href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
+
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 
 <style>
 #editor {
@@ -28,15 +39,21 @@
 body {
 	font-family: 微軟正黑體;
 }
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
+}
+.well, .panel {
+	text-align: center;
+}
 </style>
 
 
-<link rel="stylesheet"
-	href="<c:url value = "/js/BulletinBoard/wysibb/theme/default/wbbtheme.css"/>" />
-<link rel="stylesheet" href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
 
 </head>
 <body>
+<br>
+
 	<div class="container-fluid">
 		<div class="row">
 
@@ -59,7 +76,7 @@ body {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">布告欄維護系統</p>
+					<p class="functionTitle">布告欄</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -162,6 +179,8 @@ body {
 			</div>
 		</div>
 	</div>
+	
+
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
