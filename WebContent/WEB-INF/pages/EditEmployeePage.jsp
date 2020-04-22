@@ -19,6 +19,10 @@ body {
 	font-family: 微軟正黑體;
 }
 
+.span1 {
+	color: red;
+}
+
 .msgmap {
 	color: red;
 }
@@ -75,13 +79,13 @@ body {
 								method="POST" enctype="multipart/form-data">
 								<table>
 									<tr>
-										<td>帳號：</td>
+										<td><span class="span1">*</span>帳號：</td>
 										<td><input type="text" id="account1" name="userName"
 											value='${user.userName}' size="30" readonly></td>
 										<td class="msgmap">${msgmap.username}</td>
 									</tr>
 									<tr>
-										<td>姓名：</td>
+										<td><span class="span1">*</span>姓名：</td>
 										<td><input type="text" id="name1" name="name"
 											value='${emp.name}' placeholder="請輸入姓名" autocomplete="off"
 											size="30"></td>
@@ -108,16 +112,16 @@ body {
 										<td><select name="dept" id="dept"></select></td>
 									</tr>
 									<tr>
-										<td>主管：</td>
-										<td><select name="manager" id="manager"></select></td>
-									</tr>
-									<tr>
-										<td>職稱：</td>
+										<td><span class="span1">*</span>職稱：</td>
 										<td><select name="title" id="title"></select></td>
 										<td class="msgmap">${msgmap.title}</td>
 									</tr>
 									<tr>
-										<td>薪水：</td>
+										<td>主管：</td>
+										<td><select name="manager" id="manager"></select></td>
+									</tr>
+									<tr>
+										<td><span class="span1">*</span>薪水：</td>
 										<td><input type="text" name="salary"
 											value='${emp.salary}' maxlength="10" size="30"
 											autocomplete="off"></td>
@@ -134,7 +138,7 @@ body {
 											value='${emp.phoneNum}' size="30" autocomplete="off"></td>
 									</tr>
 									<tr>
-										<td>Email：</td>
+										<td><span class="span1">*</span>Email：</td>
 										<td><input type="email" name="email" value='${emp.email}'
 											size="30" autocomplete="off"></td>
 										<td class="msgmap">${msgmap.email}</td>

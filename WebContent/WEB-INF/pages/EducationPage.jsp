@@ -6,27 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <title>教育訓練</title>
-<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
 
-<link rel="icon" type="images/png"
-	href='<c:url value="images/favicon.png"></c:url>'>
-<link rel="stylesheet"
-	href='<c:url value="/css/amazeui.min.css"></c:url>'>
-<link rel="stylesheet" href='<c:url value="/css/common.css"></c:url>'>
+<link rel="icon" type="images/png" href="images/favicon.png">
+<link rel="stylesheet" type="text/css" href="css/amazeui.min.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src='<c:url value="/js/jquery.min.js"></c:url>'></script>
-<script src='<c:url value="/js/handlebars.min.js"></c:url>'></script>
-<script src='<c:url value="/js/amazeui.widgets.helper.min.js"></c:url>'></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/handlebars.min.js"></script>
+<script src="/js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -38,7 +37,8 @@ body {
 }
 
 p {
-	margin-bottom: 10px;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
 }
 
 table {
@@ -48,35 +48,38 @@ table {
 </style>
 </head>
 <body>
+<br>
 	<div class="container-fluid">
 		<div class="row">
 
 			<!--左邊欄位-->
 			<div class="col-sm-4">
-				<div class="well">Hi ${usersResultMap.UserName} 您好~</div>
-				<div class="panel panel-primary">
-					<%@ include file="SubFeatureForEmpManage.jsp"%>
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
 				</div>
+				
+				<%@ include file="SubFeatureForEDU.jsp"%>
+
 			</div>
 
 			<!--右邊欄位-->
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
+					<p class="functionTitle">教育訓練</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						
-						 <div class="slide am-text-lg am-text-center">
-							<span class="am-icon-chevron-left am-fl left-btn"></span>目前培訓課程
+						 <div class="am-text-lg am-text-center">
+							
 						</div>
 					    
 
 						<div class="introduce_wrap mt60">
 							<!-- banner -->
 							<div class="am-container">
-								<img
-									src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-								class="am-img-responsive" width=100% alt="番茄科技教育訓練" />
+								<p>目前培訓課程
 							</div>
 							<!-- address -->
 							<div class="am-cf my_address">
@@ -93,7 +96,7 @@ table {
 							</div>
 							<!-- tabs -->
 							<div data-am-widget="tabs"
-								class="am-tabs am-tabs-d2 am-container">
+								class="am-tabs am-tabs-d2 am-container" style="margin: 0 auto">
 								<ul class="am-tabs-nav am-cf">
 									<li class="am-active"><a href="[data-tab-panel-0]">課程介绍</a></li>
 									<li class=""><a href="[data-tab-panel-1]">開課日期</a></li>
@@ -290,6 +293,8 @@ table {
 		</div>
 
 	</div>
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
 

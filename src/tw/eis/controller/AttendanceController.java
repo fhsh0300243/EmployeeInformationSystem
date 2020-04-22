@@ -3,8 +3,10 @@ package tw.eis.controller;
 import java.net.InetAddress;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -38,7 +40,7 @@ public class AttendanceController {
 		this.UService = UService;
 		this.HCService = HCService;
 	}
-	
+
 	@RequestMapping(path = "/gotoMainAttendancePage", method = RequestMethod.GET)
 	public String gotoMainAttendancePage() {
 		return "MainAttendancePage";
@@ -78,90 +80,102 @@ public class AttendanceController {
 	}
 
 	@RequestMapping(path = "/PunchAction", method = RequestMethod.POST)
-	public String PunchAction(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
-			HttpServletRequest request) throws Exception {
-		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat nowtime = new SimpleDateFormat("HH:mm:ss");
-		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-		nowtime.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-		String datestr = nowdate.format(new Date());
-		String timestr = nowtime.format(new Date());
-		Date utilDate = nowdate.parse(datestr);
-		Date utilTime = nowtime.parse(timestr);
-		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
-		java.sql.Time Time = new java.sql.Time(utilTime.getTime());
+	public String PunchAction(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap) throws Exception {
 
 		InetAddress localIp;
 		localIp = InetAddress.getLocalHost();
 		String ip = localIp.getHostAddress();
 		System.out.println("IP:" + ip);
 
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 17);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		Date Time1700 = cal.getTime();
-		Date now = new Date();
-
-		List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
 		if (ip.equals("192.168.1.127") || ip.equals("192.168.137.1") || ip.equals("192.168.27.143")) {
+			SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat nowtime = new SimpleDateFormat("HH:mm:ss");
+			nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+			nowtime.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+			String datestr = nowdate.format(new Date());
+			String timestr = nowtime.format(new Date());
+			Date utilDate = nowdate.parse(datestr);
+			Date utilTime = nowtime.parse(timestr);
+			java.sql.Date Date = new java.sql.Date(utilDate.getTime());
+			java.sql.Time Time = new java.sql.Time(utilTime.getTime());
 
-			if (now.before(Time1700)) {
-				if (myPunch == null || myPunch.size() == 0) {
-					boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+			Calendar cal08 = Calendar.getInstance();
+			cal08.set(Calendar.HOUR_OF_DAY, 8);
+			cal08.set(Calendar.MINUTE, 0);
+			cal08.set(Calendar.SECOND, 0);
+			Date Time0800 = cal08.getTime();
+			Calendar cal17 = Calendar.getInstance();
+			cal17.set(Calendar.HOUR_OF_DAY, 17);
+			cal17.set(Calendar.MINUTE, 0);
+			cal17.set(Calendar.SECOND, 0);
+			Date Time1700 = cal17.getTime();
+			int year = cal08.get(Calendar.YEAR);
+			Date now = new Date();
+			String DayType = null;
+			String Status = null;
+
+			List<HolidayCalendar> DateType = HCService.InqueryCalendarToday(datestr);
+			if (DateType == null || DateType.size() < 1) {
+				if (cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+						|| cal08.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+					DayType = "休假";
 				} else {
-					boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					DayType = "上班日";
 				}
 			} else {
-				if (myPunch == null || myPunch.size() == 0) {
-					boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+				if (DateType.get(0).getDateType().equals("補班")) {
+					DayType = "上班日";
 				} else {
-					boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					DayType = "休假";
 				}
 			}
-			System.out.println("IP正確");
+			if (DayType.equals("上班日")) {
+				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
+				if (now.before(Time1700)) {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+						if (now.before(Time0800)) {
+							Status = "上班打卡成功";
+						}
+						Status = "異常:遲到";
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+						Status = "異常:下班打卡時間";
+					}
+				} else {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+						Status = "異常:上班未打卡";
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+						Status = "下班打卡成功";
+					}
+				}
+			} else {
+				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
+				if (now.before(Time1700)) {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					}
+				} else {
+					if (myPunch == null || myPunch.size() == 0) {
+						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+					} else {
+						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+					}
+				}
+				Status = "加班";
+			}
+
+			boolean Update = AttService.UpdateStatus(usersResultMap, Date, Status);
+			return "redirect:/InquiryToday";
 		} else {
 			System.out.println("IP錯誤");
 		}
+
 		return "redirect:/InquiryToday";
-	}
-
-	@RequestMapping(path = "/CheckStatus", method = RequestMethod.GET)
-	public String CheckStatus(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
-			HttpServletRequest request) throws Exception {
-		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
-		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-		String datestr = nowdate.format(new Date());
-		Date utilDate = nowdate.parse(datestr);
-		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
-		Calendar cal08 = Calendar.getInstance();
-		cal08.set(Calendar.HOUR_OF_DAY, 8);
-		cal08.set(Calendar.MINUTE, 0);
-		cal08.set(Calendar.SECOND, 0);
-		Date Time0800 = cal08.getTime();
-		Calendar cal17 = Calendar.getInstance();
-		cal17.set(Calendar.HOUR_OF_DAY, 17);
-		cal17.set(Calendar.MINUTE, 0);
-		cal17.set(Calendar.SECOND, 0);
-		Date Time1700 = cal17.getTime();
-		int year = cal08.get(Calendar.YEAR);
-
-		List<Attendance> afterPunch = AttService.InquiryToday(usersResultMap);
-		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(year);
-		Date StartTime = new Date(afterPunch.get(0).getStartTime().getTime());
-		Date EndTime = new Date(afterPunch.get(0).getEndTime().getTime());
-		String LeaveType = afterPunch.get(0).getLeaveType();
-		if (calenderlist == null || calenderlist.size() < 1) {
-		} else {
-			for (HolidayCalendar list : calenderlist) {
-				if (list.getDate().equals(Date)) {
-					System.out.println("假日");
-				}
-			}
-		}
-		List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
-		request.setAttribute("myPunch", myPunch);
-		return "AttendancePunch";
 	}
 
 }
