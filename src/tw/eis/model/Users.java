@@ -1,5 +1,9 @@
 package tw.eis.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,14 +20,21 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "users")
 @Component
-public class Users {
+public class Users implements Serializable{
 	private int employeeID;
 	private String userName;
 	private String userPassword;
 	private String title;
 	private String department;
 	private Employee employee;
-
+	
+//	布告欄映射 BY GK Start
+	private Set<BulletinBoard> bulletinBoard = new HashSet<BulletinBoard>(0);
+//	布告欄映射 BY GK End
+	
+	
+	
+	
 	public Users() {
 
 	}
@@ -89,5 +101,17 @@ public class Users {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
+//	布告欄 getter&setter
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "Users")
+	public Set<BulletinBoard> getBulletinBoard() {
+		return bulletinBoard;
+	}
+
+	public void setBulletinBoard(Set<BulletinBoard> bulletinBoard) {
+		this.bulletinBoard = bulletinBoard;
+	}
+	
+//	End
 	
 }
