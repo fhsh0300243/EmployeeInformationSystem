@@ -7,71 +7,82 @@
 <head>
 <meta charset="UTF-8">
 <title>請假申請</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/ApplyPage.css">
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
+<style>
+.well, .panel {
+	text-align: center;
+}
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
+}
+</style>
 </head>
 <body>
-	<aside class="menu">
-		<table id="employee">
-			<tr>
-				<td class="tdTitle">個人專區</td>
-			</tr>
-			<tr class="trbtn">
-				<td id="applyPage"><a href="preapplypage">請假申請</a></td>
-			</tr>
-			<tr class="trbtn">
-				<td id="applyRecord"><a href="preapplyrecord">請假紀錄</a></td>
-			</tr>
-			<tr class="trbtn">
-				<td id="leaveType"><a href="preleavetype">剩餘假別</a></td>
-			</tr>
-		</table>
-		<table id="manager">
-			<tr>
-				<td class="tdTitle">主管專區</td>
-			</tr>
-			<tr class="trbtn">
-				<td id="unsignedPage"><a href="preunsignedpage">人員請假-未簽核</a></td>
-			</tr>
-			<tr class="trbtn">
-				<td id="signedPage"><a href="presignedpage">人員請假-已簽核</a></td>
-			</tr>
-		</table>
-	</aside>
 
-	<article class="content">
-		<h2>請假申請</h2>
-		<form class="for2" action="<c:url value="/applyforleave"/>"
-			method="post" enctype="multipart/form-data">
-			<table id="idtable4">
-				<tr>
-					<td class="tdtag"><span class="span1">*</span>假別：</td>
-					<td><select id=idLT name='selLT' onchange="changeCls();"><option
-								value="">=======請選擇=======</option>${selLT}</select></td>
-					<td class="tdErr"><img id="leaveTypeImg"> <span
-						id="leaveTypeCheck"></span></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class=surplusHours colspan="2"></td>
-				</tr>
-				<tr>
-					<td class="tdtag"><span class="span1">*</span>日期／時間：</td>
-					<td colspan="2"><input type="date" id="idStartDate"
-						name="startdate" required> <select id=idSH name='selSH'
-						required><option value="">請選擇</option>${selSH}</select>時 <select
-						id=idSM name='selSM' required>
-							<option value="">請選擇</option>
-							<option value="0">0</option>
-							<option value="30">30</option>
-					</select>分 ~ <input type="date" id="idEndDate" name="enddate" required>
-						<select id=idEH name='selEH' required><option value="">請選擇</option>${selEH}</select>時
-						<select id=idEM name='selEM' required>
-							<option value="">請選擇</option>
-							<option value="0">0</option>
-							<option value="30">30</option>
-					</select>分</td>
-				<tr>
+	<div class="container-fluid">
+		<div class="row">
+
+			<!--左邊欄位-->
+			<div class="col-sm-4">
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
+				</div>
+
+				<%@ include file="LeaveMain.jsp"%>
+
+			</div>
+
+			<!--右邊欄位-->
+
+			<div class="col-sm-8">
+
+				<div class="panel panel-primary">
+					<p class="functionTitle">請假申請</p>
+					<div class="panel-heading"><%@ include
+							file="MainFeatureTopBar.jsp"%></div>
+					<form class="for2" action="<c:url value="/applyforleave"/>"
+						method="post" enctype="multipart/form-data">
+						<table id="idtable4">
+							<tr>
+								<td class="tdtag"><span class="span1">*</span>假別：</td>
+								<td><select id=idLT name='selLT' onchange="changeCls();"><option
+											value="">=======請選擇=======</option>${selLT}</select></td>
+								<td class="tdErr"><img id="leaveTypeImg"> <span
+									id="leaveTypeCheck"></span></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class=surplusHours colspan="2"></td>
+							</tr>
+							<tr>
+								<td class="tdtag"><span class="span1">*</span>日期／時間：</td>
+								<td colspan="2"><input type="date" id="idStartDate"
+									name="startdate" required> <select id=idSH name='selSH'
+									required><option value="">請選擇</option>${selSH}</select>時 <select
+									id=idSM name='selSM' required>
+										<option value="">請選擇</option>
+										<option value="0">0</option>
+										<option value="30">30</option>
+								</select>分 ~ <input type="date" id="idEndDate" name="enddate" required>
+									<select id=idEH name='selEH' required><option value="">請選擇</option>${selEH}</select>時
+									<select id=idEM name='selEM' required>
+										<option value="">請選擇</option>
+										<option value="0">0</option>
+										<option value="30">30</option>
+								</select>分</td>
+
+								<tr>
 					<td></td>
 					<td class=sumHours colspan="2"></td>
 				</tr>
@@ -79,9 +90,9 @@
 				<tr>
 					<td class="tdtag"><label for="cause">事由：</label></td>
 					<td><textarea cols="30" rows="3" id="idCause" name="cause"
-							onblur="checkCause();"></textarea></td>
+										onblur="checkCause();"></textarea></td>
 					<td class="tdErr"><img id="causeImg"> <span
-						id="causeCheck"></span></td>
+									id="causeCheck"></span></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -90,16 +101,32 @@
 				<tr>
 					<td class="tdtag">附件：</td>
 					<td colspan="2"><input type="file" name="myFile"
-						accept="image/*" /></td>
+									accept="image/*" /></td>
 				</tr>
 			</table>
 			<hr>
 			<div class="btn2">
 				<input type="reset" value="清除" onclick="cls();" /> <input
-					type="submit" value="送出" onclick="return checkSubmit();" />
+								type="submit" value="送出" onclick="return checkSubmit();" />
 			</div>
 		</form>
-	</article>
+				
+									<div id="tag"></div>
+							<div id="page"></div>
+						</div>
+					
+				
+							</div>
+			</div>
+		</div>
+	
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
+
+
+
+	
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
 		$("#idStartDate", "#idSH", "#idSM", "#idEndDate", "#idEH", "#idEM")

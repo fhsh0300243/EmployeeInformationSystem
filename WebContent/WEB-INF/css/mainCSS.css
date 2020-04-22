@@ -1,5 +1,6 @@
 body{
 	background-image: url("../images/mainPageBackground.jpg");
+	z-index:1;
 }
 .imgButton{
 	width: 29%;
@@ -51,11 +52,12 @@ p{
 }
 .col-sm-4 {
 	width: 20%;
+	z-index:2;
 }
 
 .col-sm-8 {
 	width: 80%;
-
+	
 }
 .CanNotRightDownDiv{
 	width:20%;
