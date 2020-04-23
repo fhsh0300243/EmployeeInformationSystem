@@ -10,120 +10,125 @@
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
 </head>
 <body>
-	<aside class="menu">
-		<table id="employee">
-			<tr>
-				<td class="tdTitle">個人專區</td>
-			</tr>
-			<tr class="trbtn">
-				<td id="applyPage"><a href="preapplypage">請假申請</a></td>
-			</tr>
-			<tr class="trbtn">
-				<td id="applyRecord"><a href="preapplyrecord">請假紀錄</a></td>
-			</tr>
-			<tr class="trbtn">
-				<td id="leaveType"><a href="preleavetype">剩餘假別</a></td>
-			</tr>
-		</table>
-		<table id="manager">
-			<tr>
-				<td class="tdTitle">主管專區</td>
-			</tr>
-			<tr class="trbtn">
-				<td id="unsignedPage"><a href="preunsignedpage">人員請假-未簽核</a></td>
-			</tr>
-			<tr class="trbtn">
-				<td id="signedPage"><a href="presignedpage">人員請假-已簽核</a></td>
-			</tr>
-		</table>
-	</aside>
+	<br>
+	<div class="container-fluid">
+		<div class="row">
 
-	<article class="content">
-		<h2>請假簽核</h2>
-		<table id="idtable2">
-			<tr>
-				<td class="tdtag">申請時間：</td>
-				<td>${ApplyList.createTime}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">部門：</td>
-				<td>${ApplyList.employeeId.empDept.deptName}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">職位：</td>
-				<td>${ApplyList.employeeId.empTitle.titleChName}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">申請人：</td>
-				<td>${ApplyList.employeeId.name}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">請假類別：</td>
-				<td>${ApplyList.leaveType}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">開始時間：</td>
-				<td>${ApplyList.startTime}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">結束時間：</td>
-				<td>${ApplyList.endTime}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">總計時數：</td>
-				<td>${ApplyList.sumHours}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">事由：</td>
-				<td>${ApplyList.cause}</td>
-			</tr>
-			<tr>
-				<td class="tdtag">附件：</td>
-				<td id=noAtt><img id="attImg" title="點擊圖片，即可於下方放大檢視。"
-					src="<c:url value="/preAttImage?applyId=${ApplyList.applyId}"/>"></td>
-			</tr>
-		</table>
+			<!--左邊欄位-->
+			<div class="col-sm-4">
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
+				</div>
 
-		<div id="dialog_pic"></div>
+				<%@ include file="LeaveMain.jsp"%>
 
-		<hr />
-		<form class="for1"
-			action="<c:url value="/signforleave?applyId=${ApplyList.applyId}"/>"
-			method="post">
-			<table id="idtable3">
-				<tr>
-					<td class="tdtag"><span class="span1">*</span>簽核：</td>
-					<td><input type="radio" name="sign" value="yes"
-						onclick="radioClick()" />同意 <input type="radio" name="sign"
-						value="no" onclick="radioClick()" />不同意</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><img id="signImg"><span id="signCheck"></span></td>
-				</tr>
-				<tr>
-					<td class="tdtag">意見：</td>
-					<td><textarea cols="45" rows="5" id="idComment" name="comment"
-							onblur="checkComment();"></textarea></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="tdNotes">字數限制：100字。</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><img id="commentImg"> <span id="commentCheck"></span></td>
-				</tr>
-
-			</table>
-			<hr />
-
-			<div class="btn1">
-				<input type="reset" value="清除" onclick="cls();" /> <input
-					type="submit" value="送出" onclick="return checkSubmit();" />
 			</div>
-		</form>
-	</article>
+
+			<!--右邊欄位-->
+			<div class="col-sm-8">
+
+				<div class="panel panel-primary">
+					<p class="functionTitle">請假簽核</p>
+					<div class="panel-heading"><%@ include
+							file="MainFeatureTopBar.jsp"%></div>
+
+					<table id="idtable2">
+						<tr>
+							<td class="tdtag">申請時間：</td>
+							<td>${ApplyList.createTime}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">部門：</td>
+							<td>${ApplyList.employeeId.empDept.deptName}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">職位：</td>
+							<td>${ApplyList.employeeId.empTitle.titleChName}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">申請人：</td>
+							<td>${ApplyList.employeeId.name}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">請假類別：</td>
+							<td>${ApplyList.leaveType}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">開始時間：</td>
+							<td>${ApplyList.startTime}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">結束時間：</td>
+							<td>${ApplyList.endTime}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">總計時數：</td>
+							<td>${ApplyList.sumHours}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">事由：</td>
+							<td>${ApplyList.cause}</td>
+						</tr>
+						<tr>
+							<td class="tdtag">附件：</td>
+							<td id=noAtt><img id="attImg" title="點擊圖片，即可於下方放大檢視。"
+								src="<c:url value="/preAttImage?applyId=${ApplyList.applyId}"/>"></td>
+						</tr>
+					</table>
+
+					<div id="dialog_pic"></div>
+
+					<hr />
+					<form class="for1"
+						action="<c:url value="/signforleave?applyId=${ApplyList.applyId}"/>"
+						method="post">
+						<table id="idtable3">
+							<tr>
+								<td class="tdtag"><span class="span1">*</span>簽核：</td>
+								<td><input type="radio" name="sign" value="yes"
+									onclick="radioClick()" />同意 <input type="radio" name="sign"
+									value="no" onclick="radioClick()" />不同意</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><img id="signImg"><span id="signCheck"></span></td>
+							</tr>
+							<tr>
+								<td class="tdtag">意見：</td>
+								<td><textarea cols="45" rows="5" id="idComment"
+										name="comment" onblur="checkComment();"></textarea></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="tdNotes">字數限制：100字。</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><img id="commentImg"> <span id="commentCheck"></span></td>
+							</tr>
+
+						</table>
+						<hr />
+
+						<div class="btn1">
+							<input type="reset" value="清除" onclick="cls();" /> <input
+								type="submit" value="送出" onclick="return checkSubmit();" />
+						</div>
+					</form>
+					<div class="list_footer">
+						<div id="tag"></div>
+						<div id="page"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
+
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
 		//$("#attImg").click(function() {
