@@ -23,7 +23,10 @@
 		<div class="panel-heading">子功能</div>
 		<div class="panel-body">
 			<div>
-				<a href="<c:url value="/InquiryPage"/>">個人出勤查詢</a>
+				<a href="<c:url value="/InquiryToday"/>">打卡</a>
+			</div>
+			<div>
+				<a href="<c:url value="/gotoAttendanceOwnPage"/>">個人出勤查詢</a>
 			</div>
 			<div>
 				<a href="<c:url value="/InquiryDepartmentPage"/>">部門出勤查詢</a>
