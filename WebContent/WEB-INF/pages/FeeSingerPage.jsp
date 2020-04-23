@@ -61,9 +61,9 @@ p {
 									<th>申請項目</th>
 									<th>申請日期</th>
 									<th>申請金額</th>
-									<th>簽核狀態</th>
 									<th>詳細內容</th>
-									<th>簽核於否</th>
+									<th>簽核勾選</th>
+									<th>簽核送出</th>
 								</tr>
 
 								<c:forEach var='applyDetail' items='${dSList}' varStatus='vs'>

@@ -65,10 +65,9 @@ public class feeAppDAO implements IfeeAppDAO {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(feeAppMember.class);
 		mainQuery.add(Restrictions.eq("department", department));
 		mainQuery.add(Restrictions.eq("signerStatus", signerStatus));
-		mainQuery.add(Restrictions.eq("level", level));
 		
-		  List<feeAppMember> list = mainQuery.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
-		return list;
+		  List<feeAppMember> list2 = mainQuery.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
+		return list2;
 	}
 	
 }
