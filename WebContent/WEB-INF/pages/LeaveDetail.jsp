@@ -147,7 +147,7 @@ p {
 				.click(
 						function() {
 							$(this).hide();
-							var str = "<img class='result' title='再次點擊圖片，即可縮回。' src='<c:url value='/preAttImage?applyId=${ApplyList.applyId}'/>'>";
+							var str = "<img class='result' width=100% title='再次點擊圖片，即可縮回。' src='<c:url value='/preAttImage?applyId=${ApplyList.applyId}'/>'>";
 							$("#dialog_pic").html(str);
 						});
 
