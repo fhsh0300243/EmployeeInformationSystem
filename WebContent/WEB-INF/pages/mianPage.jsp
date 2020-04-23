@@ -31,21 +31,28 @@
 					<div class="panel-heading">主選單</div>
 					<div class="panel-body">
 
-						<a href="<c:url value="/preapplypage"/>"><img class="imgButton"
-							src="images/left1.png" border="0"></a> <a
-							href="<c:url value="/gotoMainAttendancePage"/>"><img class="imgButton"
-							src="images/left2.png" border="0"></a> <a
-							href="<c:url value="/performance"/>"><img class="imgButton"
-							src="images/left3.png" border="0"></a> <a
-							href="<c:url value="/EducationPage.do"/>"><img class="imgButton"
-							src="images/left4.png" border="0"></a> <a
-							href="<c:url value="/FeeAllPage.action"/>"><img class="imgButton"
-							src="images/left5.png" border="0"></a> <a
-							href="<c:url value="/EmployeePage.do"/>"><img
-							class="imgButton" src="images/left6.png" border="0"></a> <a
-							href="<c:url value="/BullenBoardPage"/>"><img class="imgButton bbs"
-							src="images/left7.png" border="0"></a> <a
-							href="<c:url value="/toLoginPage"/>"><img
+							<a href="<c:url value="/preapplypage"/>"><img class="imgButton"
+							src="images/left1.png" border="0"></a>
+							
+							<a href="<c:url value="/gotoMainAttendancePage"/>"><img class="imgButton"
+							src="images/left2.png" border="0"></a> 
+							
+							<a href="<c:url value="/performance"/>"><img class="imgButton"
+							src="images/left3.png" border="0"></a> 
+							
+							<a href="<c:url value="/EducationPage.do"/>"><img class="imgButton"
+							src="images/left4.png" border="0"></a>
+							
+							<a href="<c:url value="/FeeAllPage.action"/>"><img class="imgButton"
+							src="images/left5.png" border="0"></a>
+							
+							<a href="<c:url value="/EmployeePage.do"/>"><img
+							class="imgButton" src="images/left6.png" border="0"></a> 
+							
+							<a href="<c:url value="/BullenBoardPage"/>"><img class="imgButton bbs"
+							src="images/left7.png" border="0"></a> 
+							
+							<a href="<c:url value="/toLoginPage"/>"><img
 							class="imgButton logout" src="images/logout.png" border="0"></a>
 					</div>
 					<div class="panel-footer"></div>
