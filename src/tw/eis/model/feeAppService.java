@@ -1,6 +1,6 @@
 package tw.eis.model;
 
-import java.util.Iterator;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,10 @@ public class feeAppService implements IfeeAppService{
 	}
 	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB) {
 		return feeAppDAO.qFeeApp(employeeID,searchA,searchB);
+	}
+
+	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level) {
+		return feeAppDAO.qfeeSingerApp(department,signerStatus,level);
 	}
 
 	

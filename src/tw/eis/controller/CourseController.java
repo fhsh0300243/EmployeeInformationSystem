@@ -38,7 +38,7 @@ public class CourseController {
 		this.CourseService = courseService;
 	}
 
-	@RequestMapping(path = "/insertCourse", method = RequestMethod.POST)
+	@RequestMapping(path = "/insertCoursePage", method = RequestMethod.POST)
 	public String insertLesson(@RequestParam(value = "CourseId", required = false) String Id,
 			@RequestParam(value = "Topic") String Topic, 
 			@RequestParam(value = "TopicType") String TopicType,
@@ -74,7 +74,7 @@ public class CourseController {
 		if (Id == null || Id.length() == 0) {
 			CourseService.insertCourse(course);
 		}
-		return "Course";
+		return "CoursePage";
 	}
 	
 	@RequestMapping(path = "/queryCourseRecords",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
@@ -108,7 +108,7 @@ public class CourseController {
 	}
 	
 	@RequestMapping(path = "/checkCourseFormData", method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
-	public @ResponseBody String checkFormData(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException{
+	public @ResponseBody String checkCourseFormData(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException{
 		List<Course> Courses = CourseService.queryCourseByAllow(loginOK.getEmployeeID(), loginOK.getUserName());
 		
 		JSONArray json = new JSONArray();
@@ -136,8 +136,8 @@ public class CourseController {
 		return json.toString();	
 	}
 	
-	@RequestMapping(path = "/queryCourse",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
-	public @ResponseBody String queryCourse(@ModelAttribute(name = "LoginOK") Users loginOK) {
+	@RequestMapping(path = "/queryCourseForLook",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	public @ResponseBody String queryCourseForLook(@ModelAttribute(name = "LoginOK") Users loginOK) {
 		List<Course> Courses = CourseService.queryCourse(loginOK.getDepartment());
 		
 		JSONArray json = new JSONArray();
@@ -165,16 +165,21 @@ public class CourseController {
 		return json.toString();	
 	}
 	
-	@RequestMapping(path = "/reflashPage",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
-	public @ResponseBody String reflashPage(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException{
+	@RequestMapping(path = "/reflashCoursePage",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	public @ResponseBody String reflashCoursePage(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException{
 		List<Course> Courses = CourseService.queryCourse(loginOK.getDepartment());
 		return Integer.toString(Courses.size());
 	}
 	
-	@RequestMapping(path = "/delete",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
-	public @ResponseBody String delete(@RequestParam(value = "CourseId") int CourseId) {
+	@RequestMapping(path = "/deleteCourse",method = RequestMethod.POST,produces = "html/text;charset=UTF-8")
+	public @ResponseBody String deleteCourse(@RequestParam(value = "CourseId") int CourseId) {
 		CourseService.deleteCourse(CourseId);
 		return "true";
 	}
+	
+//	@RequestMapping(path = "/queryCourseType",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+//	public @ResponseBody String queryCourseType(@ModelAttribute(name = "LoginOK") Users loginOK) {
+//		
+//	}
 
 }

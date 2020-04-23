@@ -17,8 +17,8 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="icon" href="images/favicon.ico">
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
 .well, .panel {
 	text-align: center;
@@ -63,12 +63,11 @@ table {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">員工管理</p>
+					<p class="functionTitle">HR部門公告</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<h2>HR部門公告</h2>
-						<table border="1" id="boardlist"></table>
+						<table border="1" id="boardlist" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>

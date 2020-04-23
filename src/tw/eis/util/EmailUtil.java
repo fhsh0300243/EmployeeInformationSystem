@@ -29,7 +29,7 @@ public class EmailUtil {
 			message.setSentDate(new Date());
 			message.setFrom(new InternetAddress(FROM));
 			message.setRecipient(RecipientType.TO, new InternetAddress(email));
-			message.setContent("If you want to reset your password, please click the link:<br/><a href='" + glu.generateResetPwdLink(uBean) +"'>�I�����]�K�X</a>","text/html;charset=utf-8");
+			message.setContent("If you want to reset your password, please click the link:<br/><a href='" + glu.generateResetPwdLink(uBean) +"'>RESET PASSWORD</a>","text/html;charset=utf-8");
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, FROM, password);
 			Transport.send(message);

@@ -138,6 +138,24 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		return result;
 	}
 
+//	public List<ApplyForLeave> checkApplyTime(String startTime, String endTime) {
+//		Query<ApplyForLeave> query = getSession().createQuery("From ApplyForLeave Where StartTime=?0 and EndTime<>?1",
+//				ApplyForLeave.class);
+//		query.setParameter(0, startTime);
+//		query.setParameter(1, endTime);
+//		List<ApplyForLeave> list = query.list();
+//		if (list.size() != 0) {
+//			for (int i = 0; i < list.size(); i++) {
+//				ApplyForLeave aBean = list.get(i);
+//				aBean.setCreateTime(aBean.getCreateTime().substring(0, 16));
+//				aBean.setStartTime(aBean.getStartTime().substring(0, 16));
+//				aBean.setEndTime(aBean.getEndTime().substring(0, 16));
+//			}
+//			return list;
+//		}
+//		return null;
+//	}
+
 	@Override
 	public String getStartHoursTag() {
 		String ans = "";

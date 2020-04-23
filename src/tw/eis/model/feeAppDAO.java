@@ -60,5 +60,14 @@ public class feeAppDAO implements IfeeAppDAO {
 //		}
 		return list;
 	}
+
+	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level) {
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(feeAppMember.class);
+		mainQuery.add(Restrictions.eq("department", department));
+		mainQuery.add(Restrictions.eq("signerStatus", signerStatus));
+		
+		  List<feeAppMember> list2 = mainQuery.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
+		return list2;
+	}
 	
 }

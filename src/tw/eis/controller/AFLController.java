@@ -76,6 +76,11 @@ public class AFLController {
 		if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
 			strError += endD + "為休假日。";
 		}
+		
+		// 開始時間、結束時間-判斷是否重複申請
+		String startTime = startD + " " + startH + ":" + startM;
+		String endTime = endD + " " + endH + ":" + endM;
+		
 
 		// 判斷不是休假日才執行以下
 		if (strError.length() == 0) {
@@ -97,8 +102,6 @@ public class AFLController {
 			aBean.setLeaveType(leaveType);
 
 			// 設定開始時間、結束時間
-			String startTime = startD + " " + startH + ":" + startM;
-			String endTime = endD + " " + endH + ":" + endM;
 			aBean.setStartTime(startTime);
 			aBean.setEndTime(endTime);
 

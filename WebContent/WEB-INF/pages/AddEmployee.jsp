@@ -5,7 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新增員工</title>
+<title>番茄科技 員工管理</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="icon" href="images/favicon.ico">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
 /*
@@ -27,13 +36,31 @@ body {
 }
 
 .div1 {
+	width: 30%;
 	margin: 0 auto;
-	margin-left: 750px;
+	margin-left: 37%;
+}
+.userImg {
+	width: 20%;
+	height: 20%;
+	border: 2px solid tan;
+	border-radius: 15px;
+}
+.well, .panel {
+	text-align: center;
+}
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
+}
+.tb{
+	position: relative;
+	left: 30%;
 }
 </style>
 </head>
 <body>
-
+	<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -54,17 +81,18 @@ body {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">員工管理</p>
+					<p class="functionTitle">新增員工資料</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<div class="div1">
-							<h2>新增員工資料</h2>
 							<div>
-								<a href="<c:url value="/EmployeePage.do"/>">回員工清單</a>
+								<a href="<c:url value="/EmployeePage.do"/>">回HR部門公告</a>
+								<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
 							</div>
+							<br>
 							<form action="<c:url value="/AddEmployee.action"/>" method="POST"
-								enctype="multipart/form-data">
+								enctype="multipart/form-data" >
 								<table class="st1">
 									<tr>
 										<td><span class="span1">*</span>帳號：</td>
@@ -154,7 +182,8 @@ body {
 											value="${inputmsg.lastWorkDay}"></td>
 									</tr>
 								</table>
-								<table>
+								<br>
+								<table class="tb">
 									<tr>
 										<td><input type="submit" value="送出"> <input
 											type="reset" value="清除" onclick="reset()"></td>

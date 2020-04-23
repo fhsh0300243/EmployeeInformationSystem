@@ -7,7 +7,7 @@ public class GenerateLinkUtil {
 	//private final String CHECK_CODE = "checkCode";
 	
 	public String generateResetPwdLink(Users uBean) {
-		return "http://localhost:8080/EIS/login/resetPassword?userName=" 
+		return "http://localhost:8080/EmployeeInformationSystem/resetPassword?userName=" 
 				+ uBean.getUserName();
 				//+ "&" + CHECK_CODE + "=" + generateCheckcode(uBean);
 		}

@@ -11,52 +11,74 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
+<link rel="stylesheet"
+	href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
+.center{
+margin : 0 auto;
+}
+
 #editor {
 	width: 60%;
 	height: 250px;
 }
+.w80{
+	width: 80%;
+}
+.w50{
+width:50%
+}
+.w70{
+width:70%
+}
 #title {
 	width: 60%;
 }
+
 .date {
 	width: 24%
 }
+
 #BulletinBoardid, .none {
 	display: none;
 }
+
 body {
 	font-family: 微軟正黑體;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
-	font-size:18px;
+	font-size: 18px;
 }
 
-.imgButton{
-	width:30%;
+.imgButton {
+	width: 30%;
 }
-.home{
-	width:26%;
+
+.home {
+	width: 26%;
 }
-.logout{
-	width:26.5%;
+
+.logout {
+	width: 26.5%;
 }
-.CanNotRightDownDiv{
-	width:15%;
-	left:3.5%;
-	z-index:2;
+
+.CanNotRightDownDiv {
+	width: 15%;
+	left: 3.5%;
+	z-index: 2;
 }
-.functionTitle{
+
+.functionTitle {
 	right: 0px;
 }
 </style>
 </head>
 <body>
-<br>
+	<br>
 
 	<div class="cont">
 		<div class="row1">
@@ -68,31 +90,23 @@ p {
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 				<div class="leftSideBar">
-					<a href="<c:url value="/mainPage"/>"><img class="imgButton home"
-						src="images/home.png" border="0"></a> 
-						
-					<a href="<c:url value="/preapplypage"/>"><img class="imgButton"
-						src="images/left1.png" border="0"></a> 
-						
-					<a href="<c:url value="/InquiryToday"/>"><img class="imgButton"
-						src="images/left2.png" border="0"></a> 
-						
-					<a href="<c:url value="/performance"/>"><img class="imgButton"
-						src="images/left3.png" border="0"></a> 
-						
-					<a href="<c:url value="/EducationPage.do"/>"><img class="imgButton"
-						src="images/left4.png" border="0"></a> 
-						
-					<a href="<c:url value="/FeeAllPage.action"/>"><img class="imgButton"
-						src="images/left5.png" border="0"></a> 
-						
-					<a href="<c:url value="/EmployeePage.do"/>"><img
-						class="imgButton" src="images/left6.png" border="0"></a> 
-						
-					<a href="<c:url value="/BullenBoardPage"/>"><img class="imgButton"
-						src="images/left7.png" border="0"></a> 
-						
-					<a href="<c:url value="/toLoginPage"/>"><img
+					<a href="<c:url value="/mainPage"/>"><img
+						class="imgButton home" src="images/home.png" border="0"></a> <a
+						href="<c:url value="/preapplypage"/>"><img class="imgButton"
+						src="images/left1.png" border="0"></a> <a
+						href="<c:url value="/InquiryToday"/>"><img class="imgButton"
+						src="images/left2.png" border="0"></a> <a
+						href="<c:url value="/performance"/>"><img class="imgButton"
+						src="images/left3.png" border="0"></a> <a
+						href="<c:url value="/EducationPage.do"/>"><img
+						class="imgButton" src="images/left4.png" border="0"></a> <a
+						href="<c:url value="/FeeAllPage.action"/>"><img
+						class="imgButton" src="images/left5.png" border="0"></a> <a
+						href="<c:url value="/EmployeePage.do"/>"><img
+						class="imgButton" src="images/left6.png" border="0"></a> <a
+						href="<c:url value="/BullenBoardPage"/>"><img
+						class="imgButton" src="images/left7.png" border="0"></a> <a
+						href="<c:url value="/toLoginPage"/>"><img
 						class="imgButton logout" src="images/logout.png" border="0"></a>
 				</div>
 			</div>
@@ -104,14 +118,14 @@ p {
 					<div class="panel-heading2"></div>
 					<div class="panel-body2">
 						<section class="BBSboard">
-							
+
 							<p class="functionTitle">布告欄</p>
 
 							<div>
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
-									<li class="nav-item "><a class="nav-link" id="profile-tab"
-										data-toggle="tab" href="#boardlook" role="tab"
-										aria-controls="#check" aria-selected="false">通知查看頁面</a></li>
+									<li class="nav-item "><a class="nav-link active"
+										id="Main-tab" data-toggle="tab" href="#boardlook" role="tab"
+										aria-controls="#check" aria-selected="true">通知檢閱</a></li>
 									<li class="nav-item "><a class="nav-link" id="profile-tab"
 										data-toggle="tab" href="#check" role="tab"
 										aria-controls="#check" aria-selected="false">個人發布通知列表</a></li>
@@ -123,16 +137,14 @@ p {
 										aria-controls="#record" aria-selected="false">歷年紀錄</a></li>
 								</ul>
 								<div class="tab-content" id="myTabContent">
-									<div class="tab-pane fade ${check}" id="boardlook" role="tabpanel"
-										aria-labelledby="profile-tab">
-										<h3>顯示</h3>
+									<div class="tab-pane fade active show" id="boardlook"
+										role="tabpanel" aria-labelledby="profile-tab">
 										<section class="accordion" id="board"></section>
 									</div>
-								
-								
-									<div class="tab-pane fade ${check}" id="check" role="tabpanel"
-										aria-labelledby="profile-tab">
-										<h3>顯示</h3>
+
+
+									<div class="tab-pane fade" id="check" role="tabpanel"
+										aria-labelledby="profile-tab">										
 										<div class="accordion" id="checkData"></div>
 									</div>
 
@@ -153,9 +165,9 @@ p {
 												id="BulletinBoardid"> <input type="text"
 												name="content" class="none content" />
 
-
+											<div class="w80 container">
 											<textarea placeholder="內文" id="editor"></textarea>
-
+											</div>
 											<p>
 												發佈日期：<input class="date" id="uptime" type="date"
 													name="uptime"> 下架日期：<input class="date"
@@ -188,8 +200,8 @@ p {
 										</form>
 									</div>
 
-									<div class="tab-pane fade ${record}" id="record"
-										role="tabpanel" aria-labelledby="contact-tab">
+									<div class="tab-pane fade" id="record" role="tabpanel"
+										aria-labelledby="contact-tab">
 										<h3>歷年紀錄</h3>
 										<div class="accordion" id="result"></div>
 									</div>
@@ -202,14 +214,14 @@ p {
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
 
-<script type="text/javascript"
+	<script type="text/javascript"
 		src='<c:url value = "/lib/jquery/jquery-3.4.1.js"/>'></script>
 	<script type="text/javascript"
 		src='<c:url value = "/lib/bootstrap-4.4.1/js/bootstrap.js"/>'></script>
@@ -221,16 +233,17 @@ p {
 		src='<c:url value="/js/BulletinBoard/wysibb/jquery.wysibb.js"></c:url>'></script>
 
 	<script>
-	$(document).ready(
-			function() {
-				var wbbOpt = {
-					buttons : "bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat"
-				}
-				$("#editor").wysibb(wbbOpt);
-			});
+		$(document)
+				.ready(
+						function() {
+							var wbbOpt = {
+								buttons : "bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat"
+								}
+							$("#editor").wysibb(wbbOpt);
+						});
 	</script>
-	
-	
-	
+
+
+
 </body>
 </html>
