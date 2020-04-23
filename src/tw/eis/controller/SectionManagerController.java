@@ -22,7 +22,7 @@ import tw.eis.model.WorkProject;
 import tw.eis.model.WorkProjectService;
 
 @Controller
-@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","dag","pid"})
+@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","dag","pid","deptid"})
 public class SectionManagerController {
 	private WorkProjectService wpService;
 
@@ -33,11 +33,13 @@ public class SectionManagerController {
 	@RequestMapping(path = "/performance", method = RequestMethod.GET)
 	public String Performance(Model m,@ModelAttribute(name="LoginOK") Users u) {
 		try{
-			System.out.print("============="+u.getTitle());
 			String title = u.getTitle();
+			if(title.equals("Chairman")) {
+				m.addAttribute("deptid",1);
+				return "Performance_ChairMan";
+			}
 			int deptid = wpService.getdeptid(m, u.getDepartment());
 			String dag = wpService.getdag(m, deptid);
-			System.out.print(dag);
 			m.addAttribute("dag", dag);
 			int level = wpService.getlevel(m, title);
 			if(level == 3) {
