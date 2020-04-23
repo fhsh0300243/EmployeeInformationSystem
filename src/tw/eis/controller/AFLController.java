@@ -61,24 +61,24 @@ public class AFLController {
 			throws ParseException {
 
 		// 開始時間、結束時間-判斷是否為休假日
-		String strError = null;
+		String strError = "";
 		Calendar aCalendar = Calendar.getInstance();
 
 		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
 		aCalendar.setTime(startDate);
-		int sDate = aCalendar.get(Calendar.DAY_OF_YEAR);
+		int sDate = aCalendar.get(Calendar.DAY_OF_WEEK);
 		if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
-			strError += startDate + "為休假日，請再次確認。";
+			strError += startD + "為休假日。";
 		}
 		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
 		aCalendar.setTime(endDate);
-		int eDate = aCalendar.get(Calendar.DAY_OF_YEAR);
+		int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
 		if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
-			strError += endDate + "為休假日，請再次確認。";
+			strError += endD + "為休假日。";
 		}
 
 		// 判斷不是休假日才執行以下
-		if (strError == null) {
+		if (strError.length() == 0) {
 			ApplyForLeave aBean = new ApplyForLeave();
 			int userID = userBean.getEmployeeID();
 
@@ -149,6 +149,11 @@ public class AFLController {
 			return "ApplySuccess";
 		}
 		model.addAttribute("DateError", strError);
+
+		model.addAttribute("selSH", aService.getStartHoursTag());
+		model.addAttribute("selEH", aService.getEndHoursTag());
+		Integer employeeID = Integer.valueOf(userBean.getEmployeeID());
+		model.addAttribute("selLT", eldService.getLeaveTypeTag(employeeID));
 		return "ApplyPage";
 	}
 

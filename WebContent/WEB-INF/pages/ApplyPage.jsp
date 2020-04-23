@@ -27,7 +27,6 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-
 </style>
 </head>
 <body>
@@ -94,7 +93,7 @@ p {
 							<tr>
 								<td></td>
 								<td class="tdErr"><img id="dateImg"> <span
-									id="dateCheck"></span></td>
+									id="dateCheck">${DateError}</span></td>
 							</tr>
 
 							<tr>
