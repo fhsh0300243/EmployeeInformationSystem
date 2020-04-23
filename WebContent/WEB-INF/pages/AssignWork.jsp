@@ -134,7 +134,7 @@ p {
 				.getJSON(
 						"assignwork",
 						function(member) {
-							var txt = "";
+var txt="";
 							txt += "<table border=\"1\" id=\"t\">";
 							txt += "<tr><th>" + member[0].pqt;
 							for (let i = 0; i < member.length; i++) {
@@ -154,7 +154,7 @@ p {
 				.getJSON(
 						"employeelist",
 						function(employee) {
-							var em = "";
+	var em="";
 							em += "員工名單"
 							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {

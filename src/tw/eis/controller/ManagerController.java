@@ -23,7 +23,7 @@ import tw.eis.model.Users;
 import tw.eis.model.PersonalQuarterlyTargetService;
 import tw.eis.model.WorkProject;
 @Controller
-@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName"})
+@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","deptid"})
 public class ManagerController {
 	private PersonalQuarterlyTargetService pqtService;
 	
@@ -31,16 +31,20 @@ public class ManagerController {
 public ManagerController(PersonalQuarterlyTargetService pqtService) {
 	this.pqtService = pqtService;
 }
-	
+
+	@ResponseBody
+	@RequestMapping(path="/chairmantable",method = RequestMethod.GET)
+	public String ChairTable(Model m,@ModelAttribute(name="deptid")int deptid) {
+		JSONArray jary = pqtService.getpersonwork(deptid, m);
+		String jaystr = jary.toString();
+		return jaystr;
+	}
 	@ResponseBody
 	@RequestMapping(path="/managertable",method = RequestMethod.GET)
 	public String JsonTable(Model m,@ModelAttribute(name="LoginOK") Users u) {
 		int deptid = pqtService.getdeptid(m, u.getDepartment()) ;
-		System.out.print(deptid);
 		JSONArray jary = pqtService.getpersonwork(deptid, m);
-		System.out.println("jay");
 		String jaystr = jary.toString();
-		System.out.print(jaystr);
 		return jaystr;
 	}
 	@RequestMapping(path = "/managerview", method = RequestMethod.GET)
@@ -94,4 +98,34 @@ public ManagerController(PersonalQuarterlyTargetService pqtService) {
 	public String fivedept(Model m) {
 		return "fivedept";
 	}
+	@RequestMapping(path="/pmtarget",method = RequestMethod.GET)
+	public String PMtarget(Model m) {
+	int deptid = 5;
+	m.addAttribute("deptid",deptid);
+	return "Performance_ChairMan";
+}
+	@RequestMapping(path="/salestarget",method = RequestMethod.GET)
+	public String Salestarget(Model m) {
+	int deptid = 4;
+	m.addAttribute("deptid",deptid);
+	return "Performance_ChairMan";
+}
+	@RequestMapping(path="/qatarget",method = RequestMethod.GET)
+	public String QAtarget(Model m) {
+	int deptid = 3;
+	m.addAttribute("deptid",deptid);
+	return "Performance_ChairMan";
+}
+	@RequestMapping(path="/rdtarget",method = RequestMethod.GET)
+	public String RDtarget(Model m) {
+	int deptid = 2;
+	m.addAttribute("deptid",deptid);
+	return "Performance_ChairMan";
+}
+	@RequestMapping(path="/hrtarget",method = RequestMethod.GET)
+	public String HRtarget(Model m) {
+	int deptid = 1;
+	m.addAttribute("deptid",deptid);
+	return "Performance_ChairMan";
+}
 }
