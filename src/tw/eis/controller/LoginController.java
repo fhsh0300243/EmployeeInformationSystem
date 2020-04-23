@@ -75,7 +75,7 @@ public class LoginController {
 		
 		
 		String encryptPwd=aes.parseByte2HexStr(aes.encrypt(userPassword)); 
-//		Linux的AES加密
+//		Linux
 //		String encryptPwd=password.encrypt("1234567890123456", userPassword);
 //		System.out.println("cleartext:" + encryptPwd);
 		
@@ -131,7 +131,7 @@ public class LoginController {
 		Users uBean=uListIT.next();
 		EmailUtil eUtil=new EmailUtil();
 		eUtil.sendResetPasswordEmail(uBean, email);
-		errorMsgFromForgetPwd.put("emailSucess", "Please chack your E-mail");
+		errorMsgFromForgetPwd.put("emailSucess", "Sucess, please chack your E-mail");
 		return "CheckEmail";
 	}
 	
