@@ -194,23 +194,8 @@ p {
 									startM = parseInt(startM);
 									endH = parseInt(endH);
 									endM = parseInt(endM);
-
 									if (startD < endD
 											|| (startD == endD && (startH < endH || (startH == endH && startM < endM)))) {
-
-										console
-												.log((startD == endD && (startH < endH || (startH == endH && startM < endM))));
-										console
-												.log((startH < endH || (startH == endH && startM < endM)));
-
-										console.log(startH == endH
-												&& startM < endM);
-
-										console.log(startH < endH);
-
-										console.log(startH);
-										console.log(endH);
-
 										$.ajax({
 											url : "changeDHM",
 											data : {
