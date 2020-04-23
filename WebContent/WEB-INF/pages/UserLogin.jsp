@@ -13,6 +13,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
 </head>
 <body>
 	<section class="ff-login">

@@ -1,6 +1,6 @@
 package tw.eis.model;
 
-import java.util.Iterator;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,12 @@ public class feeAppService implements IfeeAppService{
 			String invoiceTime,String invoiceNb,int editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
 		return feeAppDAO.addFeeApp(department,employeeID,appItem,appTime,invoiceTime,invoiceNb,editor,remark,appMoney,signerTime,signerStatus,signerID);
 	}
-	public List<feeAppMember> qFeeApp(int employeeID) {
-		return feeAppDAO.qFeeApp(employeeID);
+	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB) {
+		return feeAppDAO.qFeeApp(employeeID,searchA,searchB);
+	}
+
+	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level) {
+		return feeAppDAO.qfeeSingerApp(department,signerStatus,level);
 	}
 
 	

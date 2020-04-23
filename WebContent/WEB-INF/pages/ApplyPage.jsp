@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>請假申請</title>
+<title>番茄科技 請假系統</title>
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
 	rel="stylesheet">
@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/ApplyPage.css">
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
+<link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
 	text-align: center;
@@ -57,21 +58,24 @@ p {
 						<table id="idtable4">
 							<tr>
 								<td class="tdtag"><span class="span1">*</span>假別：</td>
-								<td><select id=idLT name='selLT' onchange="changeCls();"><option
-											value="">=======請選擇=======</option>${selLT}</select></td>
+								<td><select id=idLT name='selLT'><option value="">=======請選擇=======</option>${selLT}</select></td>
+
+							</tr>
+							<tr>
+								<td></td>
+								<td class=surplusHours></td>
+							</tr>
+							<tr>
+								<td></td>
 								<td class="tdErr"><img id="leaveTypeImg"> <span
 									id="leaveTypeCheck"></span></td>
 							</tr>
 							<tr>
-								<td></td>
-								<td class=surplusHours colspan="2"></td>
-							</tr>
-							<tr>
 								<td class="tdtag"><span class="span1">*</span>日期／時間：</td>
-								<td colspan="2"><input type="date" id="idStartDate"
-									name="startdate" required> <select id=idSH name='selSH'
-									required><option value="">請選擇</option>${selSH}</select>時 <select
-									id=idSM name='selSM' required>
+								<td><input type="date" id="idStartDate" name="startdate"
+									required> <select id=idSH name='selSH' required><option
+											value="">請選擇</option>${selSH}</select>時 <select id=idSM name='selSM'
+									required>
 										<option value="">請選擇</option>
 										<option value="0">0</option>
 										<option value="30">30</option>
@@ -84,25 +88,41 @@ p {
 								</select>分</td>
 							<tr>
 								<td></td>
-								<td class=sumHours colspan="2"></td>
+								<td class=sumHours></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="tdErr"><img id="dateImg"> <span
+									id="dateCheck">${DateError}</span></td>
 							</tr>
 
 							<tr>
 								<td class="tdtag"><label for="cause">事由：</label></td>
 								<td><textarea cols="30" rows="3" id="idCause" name="cause"
 										onblur="checkCause();"></textarea></td>
+
+							</tr>
+							<tr>
+								<td></td>
+								<td class=tdNotes>字數限制：50字。</td>
+							</tr>
+							<tr>
+								<td></td>
 								<td class="tdErr"><img id="causeImg"> <span
 									id="causeCheck"></span></td>
 							</tr>
 							<tr>
-								<td></td>
-								<td class=tdNotes colspan="2">字數限制：50字。</td>
+								<td class="tdtag">附件：</td>
+								<td><input type="file" id="idAtt" name="myFile"
+									accept="image/*" /></td>
+
 							</tr>
 							<tr>
-								<td class="tdtag">附件：</td>
-								<td colspan="2"><input type="file" name="myFile"
-									accept="image/*" /></td>
+								<td></td>
+								<td class="tdErr"><img id="attImg"> <span
+									id="attCheck"></span></td>
 							</tr>
+
 						</table>
 						<hr>
 						<div class="btn2">
@@ -129,41 +149,82 @@ p {
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
+		$("#idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM")
+				.change(
+						function() {
+							$("#dateImg").attr("src", "");
+							$("#dateCheck").empty();
+							$(".sumHours").empty();
 
-		$("#idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM").change(
-				function() {
-					var startD = $("#idStartDate").val();
-					var startH = $("#idSH").val();
-					var startM = $("#idSM").val();
-					var endD = $("#idEndDate").val();
-					var endH = $("#idEH").val();
-					var endM = $("#idEM").val();
-					if (startD != null && startD.length != 0 && startH != null
-							&& startH.length != 0 && startM != null
-							&& startM.length != 0 && endD != null
-							&& endD.length != 0 && endH != null
-							&& endH.length != 0 && endM != null
-							&& endM.length != 0) {
-						$.ajax({
-							url : "changeDHM",
-							data : {
-								startdate : startD,
-								selSH : startH,
-								selSM : startM,
-								enddate : endD,
-								selEH : endH,
-								selEM : endM
-							},
-							type : "POST",
-							success : function(data) {
-								$(".sumHours").text(data);
+							var startD = $("#idStartDate").val();
+							var startH = $("#idSH").val();
+							var startM = $("#idSM").val();
+							var endD = $("#idEndDate").val();
+							var endH = $("#idEH").val();
+							var endM = $("#idEM").val();
+							if ((startH == 12 && startM == 30)
+									|| (endH == 12 && endM == 30)
+									|| (endH == 8 && endM.length == 1 && endM == 0)
+									|| (endH == 17 && endM == 30)) {
+								if ((startH == 12 && startM == 30)
+										|| (endH == 12 && endM == 30)) {
+									$("#dateImg").attr("src",
+											"images/X_icon.png");
+									$("#dateCheck").append("12:30為休息時間。");
+								}
+								if (endH == 8 && endM.length == 1 && endM == 0) {
+									$("#dateImg").attr("src",
+											"images/X_icon.png");
+									$("#dateCheck").append("結束時間不能選取8:00。");
+								}
+								if (endH == 17 && endM == 30) {
+									$("#dateImg").attr("src",
+											"images/X_icon.png");
+									$("#dateCheck").append("17:30為休息時間。");
+								}
+							} else {
+								if (startD != null && startD.length != 0
+										&& startH != null && startH.length != 0
+										&& startM != null && startM.length != 0
+										&& endD != null && endD.length != 0
+										&& endH != null && endH.length != 0
+										&& endM != null && endM.length != 0) {
+
+									startH = parseInt(startH);
+									startM = parseInt(startM);
+									endH = parseInt(endH);
+									endM = parseInt(endM);
+									if (startD < endD
+											|| (startD == endD && (startH < endH || (startH == endH && startM < endM)))) {
+										$.ajax({
+											url : "changeDHM",
+											data : {
+												startdate : startD,
+												selSH : startH,
+												selSM : startM,
+												enddate : endD,
+												selEH : endH,
+												selEM : endM
+											},
+											type : "POST",
+											success : function(data) {
+												$(".sumHours").text(data);
+											}
+										})
+									} else {
+										$("#dateImg").attr("src",
+												"images/X_icon.png");
+										$("#dateCheck").append("結束時間必須大於開始時間");
+									}
+								}
 							}
-						})
-					}
-					$(".sumHours").empty();
-				});
+						});
 
 		$("#idLT").change(function() {
+
+			$("#leaveTypeImg").attr("src", "");
+			$("#leaveTypeCheck").empty();
+
 			if ($("#idLT").val() != null && $("#idLT").val().length != 0) {
 				$.ajax({
 					url : "changeLT",
@@ -179,18 +240,17 @@ p {
 			$(".surplusHours").empty();
 		});
 
-		function changeCls() {
-			$("#leaveTypeImg").attr("src", "");
-			$("#leaveTypeCheck").empty();
-		}
-
 		function cls() {
-			$("#causeImg").attr("src", "");
-			$("#causeCheck").empty();
 			$("#leaveTypeImg").attr("src", "");
 			$("#leaveTypeCheck").empty();
 			$(".surplusHours").empty();
 			$(".sumHours").empty();
+			$("#dateImg").attr("src", "");
+			$("#dateCheck").empty();
+			$("#causeImg").attr("src", "");
+			$("#causeCheck").empty();
+			$("#attImg").attr("src", "");
+			$("#attCheck").empty();
 		}
 
 		function checkCause() {
@@ -198,24 +258,43 @@ p {
 
 			if (inputCause.length > 50) {
 				$("#causeImg").attr("src", "images/X_icon.png");
-				$("#causeCheck").html("不可超過50字").attr("style", "color:red;");
+				$("#causeCheck").html("不可超過50字");
 			} else {
 				$("#causeImg").attr("src", "");
 				$("#causeCheck").empty();
 			}
 		}
 
+		$("#idAtt").change(function() {
+			var inputAtt = $("#idAtt").val();
+
+			if (inputAtt == null || inputAtt.length == 0) {
+				$("#attImg").attr("src", "");
+				$("#attCheck").empty();
+			} else {
+				var array = new Array(".jpg", ".png", ".gif");
+				inputAtt = inputAtt.substring(inputAtt.lastIndexOf("."));
+				if (array.indexOf(inputAtt) < 0) {
+					$("#attImg").attr("src", "images/X_icon.png");
+					$("#attCheck").html("只接受圖片檔（.jpg、.png、.gif，三種檔案格式)");
+				}
+			}
+		});
+
 		function checkSubmit() {
 			var inputLT = $("#idLT").val();
 			var checkSubLT = $("#leaveTypeCheck").text();
+			var checkSubDate = $("#dateCheck").text();
 			var checkSubCause = $("#causeCheck").text();
+			var checkSubAtt = $("#attCheck").text();
 
 			if (inputLT == "") {
 				$("#leaveTypeImg").attr("src", "images/X_icon.png");
-				$("#leaveTypeCheck").html("請選擇假別").attr("style", "color:red;");
+				$("#leaveTypeCheck").html("請選擇假別");
 				return false;
 			} else {
-				if (checkSubCause == "" && checkSubLT == "") {
+				if (checkSubCause == "" && checkSubLT == ""
+						&& checkSubAtt == "" && checkSubDate == "") {
 					return true;
 				} else {
 					return false;

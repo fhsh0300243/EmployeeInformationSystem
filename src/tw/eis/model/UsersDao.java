@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +17,7 @@ import tw.eis.model.Department;
 import tw.eis.model.Employee;
 import tw.eis.model.Title;
 import tw.eis.model.Users;
+import tw.eis.util.GlobalService;
 
 @Repository("usersDao")
 public class UsersDao implements IUsersDao {
@@ -48,7 +51,7 @@ public class UsersDao implements IUsersDao {
 			if (!list1.isEmpty()) {
 				return 2;
 			}
-			if(!list2.isEmpty()) {
+			if (!list2.isEmpty()) {
 				return 3;
 			}
 			Users user = new Users(UserName, UserPassword, Title, Department);
@@ -57,7 +60,7 @@ public class UsersDao implements IUsersDao {
 			user.setEmployee(emp);
 			emp.setUsers(user);
 			session.save(user);
-			return 1;			
+			return 1;
 		} catch (Exception e) {
 			System.out.println("類別UsersDao,addUsers方法發生例外：" + e);
 			return 4;
@@ -67,15 +70,26 @@ public class UsersDao implements IUsersDao {
 	public Users userData(int id) {
 		return sessionFactory.getCurrentSession().get(Users.class, id);
 	}
+
 	public List<Users> findUsers(String userName, String userPassword) {
-		Session session = sessionFactory.getCurrentSession();
-		Query<Users> query = session.createQuery("from Users where UserName = :userName and UserPassword = :userPassword", Users.class);
-		query.setParameter("userName", userName);
-		query.setParameter("userPassword", userPassword);
-		List<Users> list = query.list();
+//		Session session = sessionFactory.getCurrentSession();
+//		Query<Users> query = session.createQuery(
+//				"from Users where UserName = :userName and UserPassword = :userPassword",
+//				Users.class);
+//		query.setParameter("userName", userName);
+//		query.setParameter("userPassword", userPassword);
+//		List<Users> list = query.list();
+		// modify by 揚明
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
+		mainQuery.createAlias("employee", "e");
+		mainQuery.add(Restrictions.eq("userName", userName));
+		mainQuery.add(Restrictions.eq("userPassword", userPassword));
+		mainQuery.add(Restrictions.or(Restrictions.gt("e.lastWorkDay", GlobalService.dateOfToday()),
+				Restrictions.isNull("e.lastWorkDay")));
+		List<Users> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
 	}
-	
+
 	public List<Users> findUsersByID(int userID) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Users> query = session.createQuery("from Users where EmployeeID = :userID", Users.class);
@@ -83,37 +97,37 @@ public class UsersDao implements IUsersDao {
 		List<Users> list = query.list();
 		return list;
 	}
-	
+
 	public boolean updateUsersPassword(String userName, String userPassword) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Users> query = session.createQuery("from Users where UserName = :userName", Users.class);
 		query.setParameter("userName", userName);
 		List<Users> list = query.list();
-		if(list.size()<=0) {
+		if (list.size() <= 0) {
 			return false;
 		}
-		Query<?> query2  = session.createQuery("update Users set UserPassword=:userPassword where UserName = :userName");
+		Query<?> query2 = session.createQuery("update Users set UserPassword=:userPassword where UserName = :userName");
 		query2.setParameter("userName", userName);
 		query2.setParameter("userPassword", userPassword);
 		query2.executeUpdate();
 		return true;
 	}
-	
+
 	public List<Users> findStaff(Map<String, String> usersResultMap) {
 		Session session = sessionFactory.getCurrentSession();
 		String Title = usersResultMap.get("Title");
 		String hqlstr = null;
-		if(Title.equals("classleader")) {
-			hqlstr="from Users where Department=:Department and (Title='staff' or Title='classleader')";
-		}else if(Title.equals("manager")) {
-			hqlstr="from Users where Department=:Department and (Title='staff' or Title='classleader'or Title='manager')";
-		}else if(Title.equals("Chairman")) {
-			hqlstr="from Users";
+		if (Title.equals("classleader")) {
+			hqlstr = "from Users where Department=:Department and (Title='staff' or Title='classleader')";
+		} else if (Title.equals("manager")) {
+			hqlstr = "from Users where Department=:Department and (Title='staff' or Title='classleader'or Title='manager')";
+		} else if (Title.equals("Chairman")) {
+			hqlstr = "from Users";
 		}
 		Query<Users> query = session.createQuery(hqlstr, Users.class);
 		query.setParameter("Department", usersResultMap.get("Department"));
 		List<Users> list = query.list();
 		return list;
 	}
-	
+
 }

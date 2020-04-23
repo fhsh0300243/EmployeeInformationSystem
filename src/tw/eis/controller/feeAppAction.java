@@ -1,5 +1,7 @@
 package tw.eis.controller;
 
+
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class feeAppAction {
 			@RequestParam(name = "remark", required = false) String remark,
 			@RequestParam(name = "appMoney", required = false) String appMoney, Model model) {
 		String signerTime=null;
-		String signerStatus=null;
+		String signerStatus="Send";
 		int signerID=1;
 				
 		//int employeeIDint= Integer.parseInt(employeeID);
@@ -52,23 +54,44 @@ public class feeAppAction {
 		int editorint= Integer.parseInt(editor);
 		int appMoneyint= Integer.parseInt(appMoney);
 		
+//		Timestamp tsmp=new Timestamp(System.currentTimeMillis());
+//		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+//		Date appTime = Date.valueOf(sdFormat.format(tsmp));	
+//		System.out.println("System Time:"+appTime.toString());
+		
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		Date date = new Date();
 		String appTime = sdFormat.format(date);
-		//System.out.println(strDate);
-		
-		feeAppService.addFeeApp(department,employeeIDint,appItem,appTime,invoiceTime,invoiceNb,editorint,remark,appMoneyint,signerTime,signerStatus,signerID);
+		System.out.println("System Time:"+appTime);
+		feeAppService.addFeeApp(department,employeeIDint,appItem,appTime.toString(),invoiceTime,invoiceNb,editorint,remark,appMoneyint,signerTime,signerStatus,signerID);
 		
 		 return "feeApplicationForm";
 	}
 	
 	@RequestMapping(path = "/FeeAllPage.action", method = RequestMethod.POST)
-	public String qfeeApp(@RequestParam(name = "employeeID", required = false) String employeeID, Model model) {
-		int employeeIDint= Integer.parseInt(employeeID);
-		List<feeAppMember> dList = feeAppService.qFeeApp(employeeIDint);					
+	public String qfeeApp(@ModelAttribute("LoginOK") Users userBean,
+			@RequestParam(name = "searchA", required = false)String searchA,
+			@RequestParam(name = "searchB", required = false) String searchB, Model model) {
+		int employeeIDint = userBean.getEmployeeID();
+		List<feeAppMember> dList = feeAppService.qFeeApp(employeeIDint,searchA,searchB);					
 			model.addAttribute("dList", dList);
 		
 		 return "FeeAllPage";
+	}
+	
+	@RequestMapping(path = "/FeeSingerPage.action", method = RequestMethod.POST)
+	public String qfeeSingerApp(@ModelAttribute("LoginOK") Users userBean,
+			@RequestParam(name = "FeeDetail", required = false)String FeeDetail,
+			@RequestParam(name = "Status", required = false)String Status,
+			@RequestParam(name = "send", required = false)String send, Model model) {
+		String department = userBean.getDepartment();
+		String signerStatus="Send";
+		int Level = userBean.getEmployee().getLevel();
+		System.out.println("Level:"+Level);
+		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level);
+		model.addAttribute("dSList", dSList);
+		
+		 return "FeeSingerPage";
 	}
 			
 

@@ -1,6 +1,8 @@
 package tw.eis.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -13,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import tw.eis.model.Department;
-import tw.eis.model.Employee;
-import tw.eis.model.Title;
-import tw.eis.model.Users;
+import tw.eis.util.GlobalService;
 
 @Repository("employeeDao")
 public class EmployeeDao implements IEmployeeDao {
@@ -34,14 +33,22 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	public List<?> allEmpData() {
-		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
+		Date today = GlobalService.dateOfToday();
+		mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
 		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
 	}
 
 	@Override
-	public List<?> queryEmp(int id, String Name, String Department) {
+	public List<?> queryEmp(int id, String Name, String Department, String Resigned) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
+		Date today = GlobalService.dateOfToday();
+		if (Resigned.equals("true")) {
+			mainQuery.add(Restrictions.lt("lastWorkDay", today));
+		}else {
+			mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
+		}
 		if (id != 0) {
 			mainQuery.add(Restrictions.eq("empID", id));
 		}
@@ -108,12 +115,8 @@ public class EmployeeDao implements IEmployeeDao {
 			if (Salary != 0) {
 				myEmp.setSalary(Salary);
 			}
-			if (HireDay != null) {
-				myEmp.setHireDay(HireDay);
-			}
-			if (LastWorkDay != null) {
-				myEmp.setLastWorkDay(LastWorkDay);
-			}
+			myEmp.setHireDay(HireDay);
+			myEmp.setLastWorkDay(LastWorkDay);
 			if (EmpDept != null) {
 				myEmp.setEmpDept(EmpDept);
 			}
@@ -138,7 +141,8 @@ public class EmployeeDao implements IEmployeeDao {
 			subQuery.setProjection(Property.forName("titleID"))
 					.add(Restrictions.disjunction().add(level.eq(2)).add(level.eq(3)));
 			list = mainQuery.add(Property.forName("empTitle").in(subQuery))
-					.add(Property.forName("empDept.deptID").eq(deptId)).getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+					.add(Property.forName("empDept.deptID").eq(deptId))
+					.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		}
 		return list;
 	}
@@ -176,5 +180,17 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	public void test() {
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
+		mainQuery.createAlias("employee", "e");
+		mainQuery.add(Restrictions.eq("userName", "EEIT11202"));
+		//mainQuery.add(Property.forName("UserName"));
+		mainQuery.add(Restrictions.eq("userPassword", "D783BFB71A21F6B6706D25ACE3176C4B"));
+		mainQuery.add(Restrictions.gt("e.lastWorkDay", GlobalService.dateOfToday()));
+		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+		if(!list.isEmpty()) {
+			for(Object user:list) {
+				System.out.println(((Users)user).getUserName());
+			}
+		}
 	}
 }

@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="panel panel-primary">
-		<div class="panel-heading">子功能</div>
+		<div class="panel-heading">相關功能</div>
 		<div class="panel-body">
 			<div>
 				<a href="<c:url value="/XXX.do"/>">新增課程</a>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>教育訓練</title>
+<title>番茄科技 教育訓練</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
 <link

@@ -48,39 +48,40 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">差旅費查詢</p>
+					<p class="functionTitle">差旅費簽核</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<form action="FeeAllPage.action" method="post">
-							<div class="st1">
-								<label class="ca1 " for="">查詢區間:</label> <label><input
-									type="date"   name="searchA"></label>
-
+						<form action="FeeSingerPage.action" method="post">
 							
-								<label class="ca1 " for="">-</label> <label><input
-									type="date"    name="searchB"></label>
-								
-								
-							</div>
-							<table>
-								<tr>
-									<th>申請時間</th>
+							<table style="border:1px solid black;">
+								<tr style="border:1px solid black;">
+									<th>部門</th>
+									<th>員工姓名</th>
 									<th>申請項目</th>
+									<th>申請日期</th>
 									<th>申請金額</th>
-									<th>簽核狀態</th>
-									<th>詳細資訊</th>
-
+									<th>詳細內容</th>
+									<th>簽核勾選</th>
+									<th>簽核送出</th>
 								</tr>
 
-								<c:forEach var='applyDetail' items='${dList}' varStatus='vs'>
+								<c:forEach var='applyDetail' items='${dSList}' varStatus='vs'>
 									<tr>
-										<td>${applyDetail.appTime.substring(0,16)}</td>
+										<td>${applyDetail.department}</td>
+										<td>${applyDetail.employeeID}</td>
 										<td>${applyDetail.appItem}</td>
+										<td>${applyDetail.appTime.substring(0,16)}</td>
 										<td>${applyDetail.appMoney}</td>
-										<td>${applyDetail.signerStatus}</td>
 										<td>
-										<button class="classD" name="edit">編輯</button>
+										<button class="classD" name="FeeDetail">詳細內容</button>
+										</td>
+										<td>
+											<input type="checkbox" name="Status" value="Pass">Pass
+											<input type="checkbox" name="Status" value="Return">Return
+										</td>																				
+										<td>
+										<button class="classD" name="send">送出</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -88,8 +89,7 @@ p {
 
 
 							<div class="st2">
-								<input type="submit" name="New" value="搜尋" /> <input
-									type="reset" value="清除" />
+								<input type="submit" name="New" value="搜尋" /> 
 							</div>
 						</form>
 						<div class="list_footer">

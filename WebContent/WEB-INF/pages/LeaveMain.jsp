@@ -6,14 +6,19 @@
 <meta charset="UTF-8">
 <title>請假主頁面</title>
 <link rel="stylesheet" type="text/css" href="css/LeaveMain.css">
+<style>
+.title{
+	font-weight:bold;
+}
+</style>
 </head>
 <body>
 	<div class="panel panel-primary">
-		<div class="panel-heading">子功能</div>
+		<div class="panel-heading">相關功能</div>
 		<div class="panel-body">
 
 
-			<div>個人專區</div>
+			<div class="title">個人專區</div>
 
 			<div>
 				<a href="preapplypage">請假申請</a>
@@ -24,9 +29,10 @@
 			<div>
 				<a href="preleavetype">剩餘假別</a>
 			</div>
+			<br>
 
 
-			<div>主管專區</div>
+			<div class="title">主管專區</div>
 
 			<div>
 				<a href="preunsignedpage">人員請假-未簽核</a>
