@@ -42,7 +42,7 @@ fieldset {
 <body>
 	<a href="FeeAllPage.action">差旅費申請主頁</a>
 	<a href="AddFeeApp.action">差旅費申請</a>
-
+	<a href="FeeSingerPage.action">差旅費簽核</a>
 	<fieldset>
 		<legend>差旅費申請</legend>
 		<form action="AddFeeApp.action" method="post">
