@@ -24,6 +24,7 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
 </style>
 </head>
 <body>
@@ -53,9 +54,14 @@ p {
 					<div class="panel-body">
 						<form action="FeeAllPage.action" method="post">
 							<div class="st1">
-								<label class="ca1" for="xx1">員工編號: </label><input type="text"
-									id="xx1" name="employeeID" placeholder="guest" autofocus
-									autocomplete="off" size="20">
+								<label class="ca1 " for="">查詢區間:</label> <label><input
+									type="date"   name="searchA"></label>
+
+							
+								<label class="ca1 " for="">-</label> <label><input
+									type="date"    name="searchB"></label>
+								
+								
 							</div>
 							<table>
 								<tr>
@@ -63,15 +69,19 @@ p {
 									<th>申請項目</th>
 									<th>申請金額</th>
 									<th>簽核狀態</th>
+									<th>詳細資訊</th>
 
 								</tr>
 
 								<c:forEach var='applyDetail' items='${dList}' varStatus='vs'>
 									<tr>
-										<td>${applyDetail.appTime}</td>
+										<td>${applyDetail.appTime.substring(0,16)}</td>
 										<td>${applyDetail.appItem}</td>
 										<td>${applyDetail.appMoney}</td>
 										<td>${applyDetail.signerStatus}</td>
+										<td>
+										<button class="classD" name="edit">編輯</button>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>

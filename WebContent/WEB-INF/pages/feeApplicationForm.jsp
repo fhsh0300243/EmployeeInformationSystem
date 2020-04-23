@@ -10,11 +10,7 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-	$(function() {
-		$("#datepicker").datepicker();
-	});
-</script>
+
 <style>
 body {
 	background-image: url(../../images/picture_back.jpg)
@@ -69,10 +65,10 @@ fieldset {
 			-->
 			<div class="st1">
 				<label for="" class="ca1">申請項目:</label> <select name="appItem">
-					<option value="traffic">交通</option>
-					<option value="accommodation">住宿</option>
-					<option value="meals">餐費</option>
-					<option value="other">其他</option>
+					<option value="交通">交通</option>
+					<option value="住宿">住宿</option>
+					<option value="餐費">餐費</option>
+					<option value="其他">其他</option>
 
 				</select>
 			</div>
@@ -85,7 +81,7 @@ fieldset {
 			-->
 			<div class="st1">
 				<label class="ca1 " for="">發票日期:</label> <label><input
-					type="text"  id="datepicker" name="invoiceTime"></label>
+					type="date"   name="invoiceTime"></label>
 
 			</div>			
 			<div class="st1">
