@@ -39,10 +39,10 @@ p {
 	width:30%;
 }
 .home{
-	width:30%;
+	width:26%;
 }
 .logout{
-	width:30%;
+	width:26.5%;
 }
 .CanNotRightDownDiv{
 	width:15%;
