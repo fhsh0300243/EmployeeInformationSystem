@@ -6,66 +6,97 @@
 <head>
 <meta charset="UTF-8">
 <title>布告欄維護系統</title>
-
+<link rel="stylesheet"
+	href="<c:url value = "/js/BulletinBoard/wysibb/theme/default/wbbtheme.css"/>" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <style>
 #editor {
 	width: 60%;
-	height: 500px;
+	height: 250px;
 }
-
 #title {
 	width: 60%;
 }
-
 .date {
 	width: 24%
 }
-
 #BulletinBoardid, .none {
 	display: none;
 }
-
 body {
 	font-family: 微軟正黑體;
 }
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size:18px;
+}
+
+.imgButton{
+	width:30%;
+}
+.home{
+	width:26%;
+}
+.logout{
+	width:26.5%;
+}
+.CanNotRightDownDiv{
+	width:15%;
+	left:3.5%;
+	z-index:2;
+}
+.functionTitle{
+	right: 0px;
+}
 </style>
-
-
-<link rel="stylesheet"
-	href="<c:url value = "/js/BulletinBoard/wysibb/theme/default/wbbtheme.css"/>" />
-<link rel="stylesheet" href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
-
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
+<br>
+
+	<div class="cont">
+		<div class="row1">
 
 			<!--左邊欄位-->
-			<div class="col-sm-4">
-				<div class="well">
+			<div class="leftTop">
+				<div class="leftTopP">
 					<p>Hi, ${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
-
-			<!--  include file="SubFeatureForEmpManage.jsp"%> -->
-
+				<div class="leftSideBar">
+					<a href="<c:url value="/mainPage"/>"><img class="imgButton home"
+						src="images/home.png" border="0"></a> 
+					<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
+						src="images/left1.png" border="0"></a> 
+					<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
+						src="images/left2.png" border="0"></a> 
+					<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
+						src="images/left3.png" border="0"></a> 
+					<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
+						src="images/left4.png" border="0"></a> 
+					<a href="<c:url value="/xxx.do"/>"><img class="imgButton"
+						src="images/left5.png" border="0"></a> 
+					<a href="<c:url value="/EmployeePage.do"/>"><img
+						class="imgButton" src="images/left6.png" border="0"></a> 
+					<a href="<c:url value="/BullenBoardPage"/>"><img class="imgButton"
+						src="images/left7.png" border="0"></a> 
+					<a href="<c:url value="/toLoginPage"/>"><img
+						class="imgButton logout" src="images/logout.png" border="0"></a>
+				</div>
 			</div>
-
-
-
-
 			<!--右邊欄位-->
 
-			<div class="col-sm-8">
+			<div class="rightTop">
 
-				<div class="panel panel-primary">
-					<p class="functionTitle">布告欄維護系統</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
-					<div class="panel-body">
-						<section
-							class="container text-center my-5 shadow-sm p-3 mb-5 bg-white rounded">
-							<h2>布告欄維護系統</h2>
+				<div class="panel2 panel-primary2">
+					<div class="panel-heading2"></div>
+					<div class="panel-body2">
+						<section class="BBSboard">
+							
+							<p class="functionTitle">布告欄</p>
 
 							<div>
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -98,7 +129,7 @@ body {
 
 									<div class="tab-pane fade" id="update" role="tabpanel"
 										aria-labelledby="contact-tab">
-										<h3 id="updateName">通知維護系統</h3>
+										<h3 id="updateName">新增/更新通知</h3>
 
 										<form id="insertNotice" name="insertNotice"
 											action='<c:url value="/insert"></c:url>' method="post"
@@ -162,6 +193,8 @@ body {
 			</div>
 		</div>
 	</div>
+	
+
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>

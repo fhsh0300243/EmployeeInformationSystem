@@ -41,14 +41,9 @@ public class AttendanceController {
 		this.HCService = HCService;
 	}
 
-	@RequestMapping(path = "/gotoMainAttendancePage", method = RequestMethod.GET)
-	public String gotoMainAttendancePage() {
-		return "MainAttendancePage";
-	}
-
-	@RequestMapping(path = "/InquiryPage", method = RequestMethod.GET)
-	public String goToInquiryPage() {
-		return "AttendanceInquiry";
+	@RequestMapping(path = "/gotoAttendanceOwnPage", method = RequestMethod.GET)
+	public String gotoAttendanceOwnPage() {
+		return "AttendanceOwnPage";
 	}
 
 	@RequestMapping(path = "/InquiryDepartmentPage", method = RequestMethod.GET)
@@ -56,7 +51,7 @@ public class AttendanceController {
 			HttpServletRequest request) {
 		String Title = usersResultMap.get("Title");
 		if (Title.equals("staff")) {
-			return "MainAttendancePage";
+			return "AttendanceInquiryDepartment";
 		}
 		List<Users> userslist = UService.findStaff(usersResultMap);
 		request.setAttribute("userslist", userslist);
@@ -68,7 +63,7 @@ public class AttendanceController {
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
 		List<Attendance> attlist = AttService.InquiryAttendance(usersResultMap, month);
 		request.setAttribute("attlist", attlist);
-		return "AttendanceInquiry";
+		return "AttendanceOwnPage";
 	}
 
 	@RequestMapping(path = "/InquiryToday", method = RequestMethod.GET)
@@ -76,7 +71,7 @@ public class AttendanceController {
 			HttpServletRequest request) throws Exception {
 		List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
 		request.setAttribute("myPunch", myPunch);
-		return "AttendancePunch";
+		return "AttendancePunchPage";
 	}
 
 	@RequestMapping(path = "/PunchAction", method = RequestMethod.POST)

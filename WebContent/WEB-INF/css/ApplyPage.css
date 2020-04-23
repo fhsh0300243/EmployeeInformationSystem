@@ -1,14 +1,14 @@
-* {
-	font-family: 微軟正黑體;
-}
-
 h2 {
 	text-align: center;
 }
 
 .for2 {
-	width: 900px;
+	width: 70%;
 	margin: 30px auto;
+}
+
+#idtable4 {
+	width: 100%;
 }
 
 #idtable4 td {
@@ -21,11 +21,7 @@ h2 {
 	font-weight: bolder;
 }
 
-.tdErr {
-	width: 50%;
-}
-
-.span1 {
+.tdErr, .span1 {
 	color: red;
 }
 
