@@ -1,5 +1,12 @@
 $(document).ready(
+		
 				function() {
+					var path = location.pathname.split("/");
+					if(path[2]=="insert"){
+						$("#profile-tab").tab('show');
+					}
+					
+					console.log(path);
 					$("#tttttt").click(function() {
 						alert("$('#file').val():" + $('#file').val())
 					})
@@ -44,19 +51,30 @@ $(document).ready(
 										for (var i = 0; i < rs2.length; i++) {
 
 											str += '<div class="card">'
-												+'<div class="card-header" id="heading'+i+'">'
+												+'<div class="card-header" id="Record'+i+'">'
 												+'<h2 class="mb-0">'
-												+'<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+i+'" aria-expanded="true" aria-controls="collapse'+i+'">'
-												+rs2[i].Title
+												+'<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dataRecord'+i+'" aria-expanded="true" aria-controls="collapse'+i+'">'
+												+'<span class="mx-4">['+rs2[i].Department+']'+rs2[i].Title+'</span>'
+												+'<span class="mx-1">分發至:</span><span class="cardAuthority">' + rs2[i].Authority + '</span>'
 												+'</button></h2></div>'
-												+' <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#result">'													
+												+' <div id="dataRecord'+i+'" class="collapse" aria-labelledby="Record'+i+'" data-parent="#result">'													
 												+'<div class="card-body">'
-												+rs2[i].Context
-												+'<p>權限:' + rs2[i].Authority + '</p>'
-												+'<p>上線日期:' + rs2[i].upTime + '</p>'
-												+'<p>下架日期:' + rs2[i].downTime + '</p>'
-												+'<p>創造日期:' + rs2[i].Date + '</p>'
-												+'</div></div></div>'
+												+'<p>內容:</p>'
+												+'<div class="cardContext border w70 center">' + rs2[i].Context + '</div>'
+												+'<div class="row w70 center">'
+												+'<div class="col border"><p>上線日期:</p><div>' + rs2[i].upTime + '</div></div>'
+												+'<div class="col border"><p>下架日期:</p><div>' + rs2[i].downTime + '</div></div>'
+												+'<div class="col border"><p>創造日期:</p><div>' + rs2[i].Date.split("\.",1) + '</div></div>'
+												+'</div>'
+												
+												if(rs2[i].AttachedFilesName == undefined){
+													str	+='<span>附件:</span><p>無</p>'												
+														+'</div></div></div>'
+												}
+												else{
+													str	+='<span>附件:</span><p><a class="AttachedFilesName" href="http://localhost:8080/EmployeeInformationSystem/download?BulletinBoardID='+rs2[i].BulletinBoardID+'&fileName='+rs2[i].AttachedFilesName+'">' + rs2[i].AttachedFilesName + '</a></p>'												
+													+'</div></div></div>'
+												}
 											
 										}
 
@@ -85,21 +103,23 @@ $(document).ready(
 										console.log("rs2.length:" + rs2.length);
 										
 										for (var i = 0; i < rs2.length; i++) {
-			
+											console.log("id:"+rs2[i].BulletinBoardID);
 											str += '<div class="card">'
 												+'<div class="card-header" id="heading'+i+'">'
 												+'<h2 class="mb-0">'
 												+'<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+i+'" aria-expanded="true" aria-controls="collapse'+i+'">'
-												+rs2[i].Title
+												+'<span class="cardtitle mx-4">'+rs2[i].Title+'</span>'
+												+'<span class="mx-1">分發至:</span><span class="cardAuthority">' + rs2[i].Authority + '</span>'
 												+'</button></h2></div>'
 												+' <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#checkData">'													
-												+'<div class="card-body" id="'+rs2[i].BulletinBoardID+'">'
-												+'<p class="cardContext">' + rs2[i].Context + '</p>'
-												+'<span>權限:</span><p class="cardAuthority">' + rs2[i].Authority + '</p>'
-												+'<span>上線日期:</span><p class="cardupTime">' + rs2[i].upTime + '</p>'
-												+'<span>下架日期:</span><p class="carddownTime">' + rs2[i].downTime + '</p>'
-												+'<span>創造日期:</span><p class="cardDate">' + rs2[i].Date + '</p>'
-												
+												+'<div class="card-body idName" id="'+rs2[i].BulletinBoardID+'">'
+												+'<p>內容:</p>'
+												+'<div class="cardContext border w70 center">' + rs2[i].Context + '</div>'
+												+'<div class="row w70 center">'
+												+'<div class="col border"><p>上線日期:</p><div class="cardupTime">' + rs2[i].upTime + '</div></div>'
+												+'<div class="col border"><p>下架日期:</p><div class="carddownTime">' + rs2[i].downTime + '</div></div>'
+												+'<div class="col border"><p>創造日期:</p><div>' + rs2[i].Date.split("\.",1) + '</div></div>'
+												+'</div>'
 												if(rs2[i].AttachedFilesName == undefined){
 												str	+='<span>附件:</span><p>無</p>'												
 												}
@@ -108,7 +128,7 @@ $(document).ready(
 												}
 												
 													
-											str +='<a class="btn btn-primary change " id="ch'  + i + '" data-toggle="tab" href="#update" role="tab" aria-controls="update">更改</a>'
+											str +='<a class="btn btn-primary change " id="ch'  + i + '">更改</a>'
 												+'<input type="button" class="btn btn-primary del mx-1" id="de' + i + '" value="刪除">'
 												+'</div></div></div>'
 										
@@ -118,19 +138,16 @@ $(document).ready(
 										$(document).on("click",".card-body a.change",function() {
 											var ind = $(".card-body a.change").index(this)
 											var idd = $(this).attr("id")
-											$("#contact-tab").addClass("active");
-											$("#profile-tab").removeClass("active");
-											console.log("ind.change:"+ind);
-											console.log("idd.change:"+idd);
+																				
+											$("#BulletinBoardid").val($(".idName").eq(ind).attr("id"))
+		
 											
-											$("#BulletinBoardid").val($(".card-body").eq(ind).attr("id"))
-											alert($("#BulletinBoardid").val())
-											$("#title").val($(".card-header .btn-link").eq(ind).html());
+											$("#title").val($(".card-header .btn-link .cardtitle").eq(ind).html());
 											$("#editor").htmlcode($(".card-body .cardContext").eq(ind).html());
 											$("#uptime").val($(".card-body .cardupTime").eq(ind).html());
 											$("#downtime").val($(".card-body .carddownTime").eq(ind).html());
-											
-											
+
+											$("#contact-tab").tab('show');												
 											console.log($(".card-body .cardAuthority").eq(ind).html());
 											
 											

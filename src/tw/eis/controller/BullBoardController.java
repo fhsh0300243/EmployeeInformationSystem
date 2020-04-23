@@ -116,6 +116,7 @@ public class BullBoardController {
 			job.put("upTime", BulletinBoard.getUpTime());
 			job.put("downTime", BulletinBoard.getDownTime());
 			job.put("Date", BulletinBoard.getDate());
+			job.put("Department",BulletinBoard.getUsers().getDepartment());
 			jay.put(job);
 		}
 		
@@ -126,9 +127,10 @@ public class BullBoardController {
 	
 	public @ResponseBody String checkdata(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException {
 		List<BulletinBoard> BulletinBoards = BulletinBoardService.queryBulletinByOwnCreate(loginOK.getEmployeeID());
-		
+
 		JSONArray jay = new JSONArray();
 		for(BulletinBoard BulletinBoard:BulletinBoards) {
+			
 			JSONObject job = new JSONObject();
 			job.put("BulletinBoardID", BulletinBoard.getBulletinBoardID());
 			job.put("Title", BulletinBoard.getTitle());
@@ -139,6 +141,7 @@ public class BullBoardController {
 			job.put("upTime", BulletinBoard.getUpTime());
 			job.put("downTime", BulletinBoard.getDownTime());
 			job.put("Date", BulletinBoard.getDate());
+			job.put("Department",BulletinBoard.getUsers().getDepartment());
 			jay.put(job);
 		}
 
@@ -161,6 +164,7 @@ public class BullBoardController {
 			job.put("upTime", BulletinBoard.getUpTime());
 			job.put("downTime", BulletinBoard.getDownTime());
 			job.put("Date", BulletinBoard.getDate());
+			job.put("Department",BulletinBoard.getUsers().getDepartment());
 			jay.put(job);
 		
 		}
