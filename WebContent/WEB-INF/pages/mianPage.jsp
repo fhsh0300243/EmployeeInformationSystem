@@ -34,7 +34,7 @@
 							<a href="<c:url value="/preapplypage"/>"><img class="imgButton"
 							src="images/left1.png" border="0"></a>
 							
-							<a href="<c:url value="/gotoMainAttendancePage"/>"><img class="imgButton"
+							<a href="<c:url value="/InquiryToday"/>"><img class="imgButton"
 							src="images/left2.png" border="0"></a> 
 							
 							<a href="<c:url value="/performance"/>"><img class="imgButton"
