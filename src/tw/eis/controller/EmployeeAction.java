@@ -624,9 +624,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		for (BulletinBoard b : bService.queryBulletinForLook("HR")) {
-			System.out.println(GlobalService.formatToyyyyMMddHHmmss(b.getDate()));
-		}
+		eService.test();
 	}
 
 }
