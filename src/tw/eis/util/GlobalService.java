@@ -37,4 +37,9 @@ public class GlobalService {
 		return today;
 	}
 	
+	public static String formatToyyyyMMddHHmmss(Timestamp datetime) { //yyyy-MM-dd HH:mm:ss
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(datetime);
+	}
+	
 }
