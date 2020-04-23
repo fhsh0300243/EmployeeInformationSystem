@@ -5,6 +5,9 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link href="//code.jquery.com/ui/1.11.3/jquery-ui.min.css" rel="stylesheet" />
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 <meta charset="UTF-8">
 <title>Assign Work</title>
 <style type="text/css">
@@ -54,6 +57,7 @@ background-color:#ccc;
 }
 </style>
 </head>
+
 <body>
 	<div id="main"></div>
 	<div id="employee"></div>
@@ -71,9 +75,9 @@ background-color:#ccc;
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div id = \"work\"ondragover=\"event.preventDefault()\"><ul ondraged border=\"1\" id=\"s"+j+"\">";
+								txt += "<div id = \"work\" ondragover=\"event.preventDefault()\"><ul ondraged border=\"1\" id=\"s"+j+"\">";
 								txt += "<li class = \"wkul\">" + member[j].Work;
-								txt += "<p class = \"wkp\">"
+								txt += "<p class = \"wkp\" ondrop=\"event.dataTransfer.getData(\"text/plain\")\"  >";
 								txt += "</ul></div>"
 							}
 							$("#main").html(txt);
@@ -84,15 +88,21 @@ background-color:#ccc;
 						function(employee) {
 							var em;
 							em += "員工名單"
-							em += "<ul id=\"e\">";
+							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {
-								em += "<li id = \"e\" draggable=\"true\" class=\"emul\"ondragstart=\"event.dataTransfer.setData(\"text/plain\", event.target)>"
+								em += "<li id = \"e\" class=\"emul\" draggable=\"true\">"
 										+ employee[k].name + "</li>";
 							}
 							em += "<p><li class = \"emul\">xxxx</li>"
 							em += "</ul>"
 							$("#employee").html(em);
 						});
+		
+		$(document).on("drop",".wkul",function(event){
+			var data = event.dataTransfer.getData("text/plain");
+			  event.target.textContent = data;
+			  event.preventDefault();
+		})
 	</script>
 </body>
 </html>
