@@ -612,7 +612,7 @@ public class EmployeeAction {
 				jsonobject.put("announcer", b.getUsers().getEmployee().getName());
 				jsonobject.put("title", b.getTitle());
 				jsonobject.put("content", b.getContent());
-				jsonobject.put("announcDate", b.getDate().toString());
+				jsonobject.put("announcDate", GlobalService.formatToyyyyMMddHHmmss(b.getDate()));
 				jsonarray.put(jsonobject);
 			}
 			return jsonarray.toString();
@@ -624,8 +624,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		//eService.test();
-		System.out.println(GlobalService.dateOfToday().toString());
+		eService.test();
 	}
 
 }

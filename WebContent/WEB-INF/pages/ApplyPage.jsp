@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>請假申請</title>
+<title>番茄科技 請假系統</title>
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
 	rel="stylesheet">
@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/ApplyPage.css">
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
+<link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
 	text-align: center;
@@ -92,7 +93,7 @@ p {
 							<tr>
 								<td></td>
 								<td class="tdErr"><img id="dateImg"> <span
-									id="dateCheck"></span></td>
+									id="dateCheck">${DateError}</span></td>
 							</tr>
 
 							<tr>
@@ -148,38 +149,76 @@ p {
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
-		$("#idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM").change(
-				function() {
-					var startD = $("#idStartDate").val();
-					var startH = $("#idSH").val();
-					var startM = $("#idSM").val();
-					var endD = $("#idEndDate").val();
-					var endH = $("#idEH").val();
-					var endM = $("#idEM").val();
-					if (startD != null && startD.length != 0 && startH != null
-							&& startH.length != 0 && startM != null
-							&& startM.length != 0 && endD != null
-							&& endD.length != 0 && endH != null
-							&& endH.length != 0 && endM != null
-							&& endM.length != 0) {
-						$.ajax({
-							url : "changeDHM",
-							data : {
-								startdate : startD,
-								selSH : startH,
-								selSM : startM,
-								enddate : endD,
-								selEH : endH,
-								selEM : endM
-							},
-							type : "POST",
-							success : function(data) {
-								$(".sumHours").text(data);
+		$("#idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM")
+				.change(
+						function() {
+							$("#dateImg").attr("src", "");
+							$("#dateCheck").empty();
+							$(".sumHours").empty();
+
+							var startD = $("#idStartDate").val();
+							var startH = $("#idSH").val();
+							var startM = $("#idSM").val();
+							var endD = $("#idEndDate").val();
+							var endH = $("#idEH").val();
+							var endM = $("#idEM").val();
+							if ((startH == 12 && startM == 30)
+									|| (endH == 12 && endM == 30)
+									|| (endH == 8 && endM.length == 1 && endM == 0)
+									|| (endH == 17 && endM == 30)) {
+								if ((startH == 12 && startM == 30)
+										|| (endH == 12 && endM == 30)) {
+									$("#dateImg").attr("src",
+											"images/X_icon.png");
+									$("#dateCheck").append("12:30為休息時間。");
+								}
+								if (endH == 8 && endM.length == 1 && endM == 0) {
+									$("#dateImg").attr("src",
+											"images/X_icon.png");
+									$("#dateCheck").append("結束時間不能選取8:00。");
+								}
+								if (endH == 17 && endM == 30) {
+									$("#dateImg").attr("src",
+											"images/X_icon.png");
+									$("#dateCheck").append("17:30為休息時間。");
+								}
+							} else {
+								if (startD != null && startD.length != 0
+										&& startH != null && startH.length != 0
+										&& startM != null && startM.length != 0
+										&& endD != null && endD.length != 0
+										&& endH != null && endH.length != 0
+										&& endM != null && endM.length != 0) {
+
+									startH = parseInt(startH);
+									startM = parseInt(startM);
+									endH = parseInt(endH);
+									endM = parseInt(endM);
+									if (startD < endD
+											|| (startD == endD && (startH < endH || (startH == endH && startM < endM)))) {
+										$.ajax({
+											url : "changeDHM",
+											data : {
+												startdate : startD,
+												selSH : startH,
+												selSM : startM,
+												enddate : endD,
+												selEH : endH,
+												selEM : endM
+											},
+											type : "POST",
+											success : function(data) {
+												$(".sumHours").text(data);
+											}
+										})
+									} else {
+										$("#dateImg").attr("src",
+												"images/X_icon.png");
+										$("#dateCheck").append("結束時間必須大於開始時間");
+									}
+								}
 							}
-						})
-					}
-					$(".sumHours").empty();
-				});
+						});
 
 		$("#idLT").change(function() {
 
@@ -202,14 +241,16 @@ p {
 		});
 
 		function cls() {
-			$("#causeImg").attr("src", "");
-			$("#causeCheck").empty();
 			$("#leaveTypeImg").attr("src", "");
 			$("#leaveTypeCheck").empty();
-			$("#attImg").attr("src", "");
-			$("#attCheck").empty();
 			$(".surplusHours").empty();
 			$(".sumHours").empty();
+			$("#dateImg").attr("src", "");
+			$("#dateCheck").empty();
+			$("#causeImg").attr("src", "");
+			$("#causeCheck").empty();
+			$("#attImg").attr("src", "");
+			$("#attCheck").empty();
 		}
 
 		function checkCause() {
@@ -243,6 +284,7 @@ p {
 		function checkSubmit() {
 			var inputLT = $("#idLT").val();
 			var checkSubLT = $("#leaveTypeCheck").text();
+			var checkSubDate = $("#dateCheck").text();
 			var checkSubCause = $("#causeCheck").text();
 			var checkSubAtt = $("#attCheck").text();
 
@@ -252,7 +294,7 @@ p {
 				return false;
 			} else {
 				if (checkSubCause == "" && checkSubLT == ""
-						&& checkSubAtt == "") {
+						&& checkSubAtt == "" && checkSubDate == "") {
 					return true;
 				} else {
 					return false;

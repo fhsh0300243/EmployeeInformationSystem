@@ -12,7 +12,7 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
-
+<link rel="icon" href="images/favicon.ico">
 <style>
 .well, .panel {
 	text-align: center;

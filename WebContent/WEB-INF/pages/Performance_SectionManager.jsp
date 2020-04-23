@@ -6,7 +6,7 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta charset="UTF-8">
-<title>performance_manager</title>
+<title>番茄科技 績效系統</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
 <link
@@ -17,6 +17,7 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="icon" href="images/favicon.ico">
 <style type="text/css">
 #title {
 	width: 80%
@@ -66,7 +67,7 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">績效</p>
+					<p class="functionTitle">績效管理</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">

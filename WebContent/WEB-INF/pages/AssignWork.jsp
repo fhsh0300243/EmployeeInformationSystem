@@ -9,7 +9,18 @@
 <link href="//code.jquery.com/ui/1.11.3/jquery-ui.min.css" rel="stylesheet" />
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 <meta charset="UTF-8">
-<title>Assign Work</title>
+<title>番茄科技 績效系統</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="icon" href="images/favicon.ico">
 <style type="text/css">
 table {
 	float: left;
@@ -29,14 +40,16 @@ table {
 	border: 2px solid #CCC;
 	flex: 1;
 	float: left;
-	margin-right:15px;
+	margin-right: 15px;
 }
-#employee{
-	weight:20px;
+
+#employee {
+	weight: 20px;
 	height: 500px;
 	border: 2px solid #ccc;
 	float: right;
 }
+
 li.emul {
 	list-style-type: none;
 	margin: 10px;
@@ -45,22 +58,79 @@ li.emul {
 	color: #666;
 	cursor: move;
 }
-li.wkul{
-	list-style-type:none;
-	margin:10px;
-	border:1px solid #ccc;
-	color:#666;
+
+li.wkul {
+	list-style-type: none;
+	margin: 10px;
+	border: 1px solid #ccc;
+	color: #666;
 }
-li.emul:hover{
-background-color:#ccc;
+
+li.emul:hover {
+	background-color: #ccc;
 }
+
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
+}
+
+.well, .panel {
+	text-align: center;
+}
+
+.main {
+	position: relative;
+	left: 20%;
+	width: 82%;
 }
 </style>
 </head>
 
 <body>
-	<div id="main"></div>
-	<div id="employee"></div>
+
+
+	<br>
+	<div class="container-fluid">
+		<div class="row">
+
+			<!--左邊欄位-->
+			<div class="col-sm-4">
+				<div class="well">
+					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>歡迎登入番茄科技員工資訊系統
+				</div>
+
+				<%@ include file="SubFeatureForPerformance.jsp"%>
+
+			</div>
+
+			<!--右邊欄位-->
+
+			<div class="col-sm-8">
+
+				<div class="panel panel-primary">
+					<p class="functionTitle">工作分派</p>
+					<div class="panel-heading"><%@ include
+							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-body">
+
+						<div id="main"></div>
+						<div id="employee"></div>
+						
+						<div class="list_footer">
+							<div id="tag"></div>
+							<div id="page"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
+
 	<script type="text/javascript">
 		$
 				.getJSON(

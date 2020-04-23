@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>布告欄維護系統</title>
+<title>番茄科技 布告欄系統</title>
 <link rel="stylesheet"
 	href="<c:url value = "/js/BulletinBoard/wysibb/theme/default/wbbtheme.css"/>" />
 <link
@@ -13,6 +13,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" href='<c:url value = "/lib/bootstrap-4.4.1/css/bootstrap.css"/>' />
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="icon" href="images/favicon.ico">
 <style>
 #editor {
 	width: 60%;

@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,81 +57,104 @@ public class AFLController {
 			@RequestParam("startdate") String startD, @RequestParam("selSH") String startH,
 			@RequestParam("selSM") String startM, @RequestParam("enddate") String endD,
 			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM, @RequestParam("cause") String cause,
-			@RequestParam("myFile") MultipartFile mFile, HttpServletRequest request) throws ParseException {
+			@RequestParam("myFile") MultipartFile mFile, HttpServletRequest request, Model model)
+			throws ParseException {
 
-		ApplyForLeave aBean = new ApplyForLeave();
-		int userID = userBean.getEmployeeID();
+		// 開始時間、結束時間-判斷是否為休假日
+		String strError = "";
+		Calendar aCalendar = Calendar.getInstance();
 
-		// 取得現在的時刻設定為建立時間
-//		long cDate = new Date().getTime();
-//		Timestamp createTime = new Timestamp(cDate);
-		Date cTime = new Date();
-		String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
-		aBean.setCreateTime(createTime);
-
-		// 設定EmployeeId
-		Employee eBean = eService.empData(userID);
-		aBean.setEmployeeId(eBean);
-
-		// 設定LeaveType
-		aBean.setLeaveType(leaveType);
-
-		// 起始時間格式化輸入的時間 (HH可顯示為12:00，hh會轉成00:00)
-		Date sTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startD + " " + startH + ":" + startM);
-		String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sTime);
-//		long sDate = inputSD.getTime();
-//		Timestamp startTime = new Timestamp(sDate);
-		aBean.setStartTime(startTime);
-
-		// 結束時間格式化輸入的時間 (HH可顯示為12:00，hh會轉成00:00)
-		String endTime = endD + " " + endH + ":" + endM;
-		aBean.setEndTime(endTime);
-
-		// 起始時間-結束時間換算成總時數
-		BigDecimal sumHours = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
-		aBean.setSumHours(sumHours);
-
-		// 設定Cause
-		if (cause != null && cause.length() != 0) {
-			aBean.setCause(cause);
+		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+		aCalendar.setTime(startDate);
+		int sDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+		if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
+			strError += startD + "為休假日。";
+		}
+		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+		aCalendar.setTime(endDate);
+		int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+		if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
+			strError += endD + "為休假日。";
 		}
 
-		// 取得EmployeeID直屬主管signerId的UsersBean
-		Employee mBean = eService.empData(userID).getManager();
-		aBean.setSignerId(mBean);
+		// 判斷不是休假日才執行以下
+		if (strError.length() == 0) {
+			ApplyForLeave aBean = new ApplyForLeave();
+			int userID = userBean.getEmployeeID();
 
-		// 設定SigningProgress
-		aBean.setSigningProgress("未簽核");
+			// 取得現在的時刻設定為建立時間
+//			long cDate = new Date().getTime();
+//			Timestamp createTime = new Timestamp(cDate);
+			Date cTime = new Date();
+			String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+			aBean.setCreateTime(createTime);
 
-		// 上傳檔案存入SQL欄位Attachment
-		try {
-			String fileName = mFile.getOriginalFilename();
-			String savePath = request.getServletContext().getRealPath("/") + fileName;
-			// "FileTemp\\" +
+			// 設定EmployeeId
+			Employee eBean = eService.empData(userID);
+			aBean.setEmployeeId(eBean);
 
-			System.out.println(savePath);
+			// 設定LeaveType
+			aBean.setLeaveType(leaveType);
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.IMAGE_JPEG);
+			// 設定開始時間、結束時間
+			String startTime = startD + " " + startH + ":" + startM;
+			String endTime = endD + " " + endH + ":" + endM;
+			aBean.setStartTime(startTime);
+			aBean.setEndTime(endTime);
 
-			File saveFile = new File(savePath);
+			// 起始時間-結束時間換算成總時數
+			BigDecimal sumHours = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
+			aBean.setSumHours(sumHours);
 
-			mFile.transferTo(saveFile);
-			if (fileName != null && fileName.length() != 0) {
-				InputStream is1 = new FileInputStream(savePath);
-				byte[] b = new byte[is1.available()];
-				is1.read(b);
-				is1.close();
-				aBean.setAttachment(b);
+			// 設定Cause
+			if (cause != null && cause.length() != 0) {
+				aBean.setCause(cause);
 			}
-			// 若無上傳附件則不setAttachment()
-		} catch (IOException e) {
+
+			// 取得EmployeeID直屬主管signerId的UsersBean
+			Employee mBean = eService.empData(userID).getManager();
+			aBean.setSignerId(mBean);
+
+			// 設定SigningProgress
+			aBean.setSigningProgress("未簽核");
+
+			// 上傳檔案存入SQL欄位Attachment
+			try {
+				String fileName = mFile.getOriginalFilename();
+				String savePath = request.getServletContext().getRealPath("/") + fileName;
+				// "FileTemp\\" +
+
+				System.out.println(savePath);
+
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.IMAGE_JPEG);
+
+				File saveFile = new File(savePath);
+
+				mFile.transferTo(saveFile);
+				if (fileName != null && fileName.length() != 0) {
+					InputStream is1 = new FileInputStream(savePath);
+					byte[] b = new byte[is1.available()];
+					is1.read(b);
+					is1.close();
+					aBean.setAttachment(b);
+				}
+				// 若無上傳附件則不setAttachment()
+			} catch (IOException e) {
+				aService.addApply(aBean);
+				System.out.println("NO Image.");
+				return "ApplySuccess";
+			}
 			aService.addApply(aBean);
-			System.out.println("NO Image.");
 			return "ApplySuccess";
 		}
-		aService.addApply(aBean);
-		return "ApplySuccess";
+		model.addAttribute("DateError", strError);
+
+		model.addAttribute("selSH", aService.getStartHoursTag());
+		model.addAttribute("selEH", aService.getEndHoursTag());
+		Integer employeeID = Integer.valueOf(userBean.getEmployeeID());
+		model.addAttribute("selLT", eldService.getLeaveTypeTag(employeeID));
+		return "ApplyPage";
 	}
 
 	@RequestMapping(path = "signforleave", method = RequestMethod.POST)

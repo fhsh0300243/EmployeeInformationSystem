@@ -180,6 +180,17 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	public void test() {
-
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
+		mainQuery.createAlias("employee", "e");
+		mainQuery.add(Restrictions.eq("userName", "EEIT11202"));
+		//mainQuery.add(Property.forName("UserName"));
+		mainQuery.add(Restrictions.eq("userPassword", "D783BFB71A21F6B6706D25ACE3176C4B"));
+		mainQuery.add(Restrictions.gt("e.lastWorkDay", GlobalService.dateOfToday()));
+		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+		if(!list.isEmpty()) {
+			for(Object user:list) {
+				System.out.println(((Users)user).getUserName());
+			}
+		}
 	}
 }
