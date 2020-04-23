@@ -624,7 +624,8 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		eService.test();
+		//eService.test();
+		System.out.println(GlobalService.dateOfToday().toString());
 	}
 
 }

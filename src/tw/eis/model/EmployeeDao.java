@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import tw.eis.util.GlobalService;
+
 @Repository("employeeDao")
 public class EmployeeDao implements IEmployeeDao {
 
@@ -32,9 +34,7 @@ public class EmployeeDao implements IEmployeeDao {
 	@Override
 	public List<?> allEmpData() {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
-		Timestamp tsmp = new Timestamp(System.currentTimeMillis());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date today = Date.valueOf(sdf.format(tsmp));
+		Date today = GlobalService.dateOfToday();
 		mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
 		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
@@ -43,9 +43,7 @@ public class EmployeeDao implements IEmployeeDao {
 	@Override
 	public List<?> queryEmp(int id, String Name, String Department, String Resigned) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
-		Timestamp tsmp = new Timestamp(System.currentTimeMillis());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date today = Date.valueOf(sdf.format(tsmp));
+		Date today = GlobalService.dateOfToday();
 		if (Resigned.equals("true")) {
 			mainQuery.add(Restrictions.lt("lastWorkDay", today));
 		}else {
@@ -182,7 +180,6 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	public void test() {
-//		Date d=new Date(Timestamp.);
-//		System.out.println();
+
 	}
 }

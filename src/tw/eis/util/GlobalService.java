@@ -3,6 +3,9 @@ package tw.eis.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,5 +30,11 @@ public class GlobalService {
 		}
 	}
 	
-
+	public static Date dateOfToday() { //yyyy-MM-dd
+		Timestamp tsmp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = Date.valueOf(sdf.format(tsmp));
+		return today;
+	}
+	
 }
