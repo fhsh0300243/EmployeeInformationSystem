@@ -35,8 +35,8 @@ p {
 }
 .main{
 	position: relative; 
-	left: 15%;
-
+	left: 20%;
+	width:82%;
 
 }
 </style>
