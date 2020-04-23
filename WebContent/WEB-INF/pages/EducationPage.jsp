@@ -101,7 +101,7 @@ table {
 									<li class="am-active"><a href="[data-tab-panel-0]">課程介绍</a></li>
 									<li class=""><a href="[data-tab-panel-1]">開課日期</a></li>
 									<li class=""><a href="[data-tab-panel-2]">開課時間</a></li>
-									<li class=""><a href="[data-tab-panel-3]">講師</a></li>
+									<li class=""><a href="[data-tab-panel-3]">課程講師</a></li>
 									<li class=""><a href="[data-tab-panel-4]">評價</a></li>
 								</ul>
 								<div class="am-tabs-bd">
