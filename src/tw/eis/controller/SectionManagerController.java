@@ -1,6 +1,5 @@
 package tw.eis.controller;
 
-import java.lang.annotation.Repeatable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +8,6 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,16 +32,21 @@ public class SectionManagerController {
 	}
 	@RequestMapping(path = "/performance", method = RequestMethod.GET)
 	public String Performance(Model m,@ModelAttribute(name="LoginOK") Users u) {
-		String title = u.getTitle();
-		int deptid = wpService.getdeptid(m, u.getDepartment());
-		String dag = wpService.getdag(m, deptid);
-		System.out.print(dag);
-		m.addAttribute("dag", dag);
-		int level = wpService.getlevel(m, title);
-		if(level == 3) {
-			return "Performance_Manager";
-		}else if(level == 2) {
-			return "Performance_SectionManager";
+		try{
+			System.out.print("============="+u.getTitle());
+			String title = u.getTitle();
+			int deptid = wpService.getdeptid(m, u.getDepartment());
+			String dag = wpService.getdag(m, deptid);
+			System.out.print(dag);
+			m.addAttribute("dag", dag);
+			int level = wpService.getlevel(m, title);
+			if(level == 3) {
+				return "Performance_Manager";
+			}else if(level == 2) {
+				return "Performance_SectionManager";
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -26,6 +26,31 @@ table {
 	border: 2px solid #CCC;
 	flex: 1;
 	float: left;
+	margin-right:15px;
+}
+#employee{
+	weight:20px;
+	height: 500px;
+	border: 2px solid #ccc;
+	float: right;
+}
+li.emul {
+	list-style-type: none;
+	margin: 10px;
+	border: 1px solid #ccc;
+	padding: 4px;
+	color: #666;
+	cursor: move;
+}
+li.wkul{
+	list-style-type:none;
+	margin:10px;
+	border:1px solid #ccc;
+	color:#666;
+}
+li.emul:hover{
+background-color:#ccc;
+}
 }
 </style>
 </head>
@@ -33,51 +58,41 @@ table {
 	<div id="main"></div>
 	<div id="employee"></div>
 	<script type="text/javascript">
-		$.getJSON("assignwork", function(member) {
-			var txt;
-			txt += "<table border=\"1\" id=\"t\">";
-			txt += "<tr><th>" + member[0].pqt;
-			for (let i = 0; i < member.length; i++) {
-				txt += "<tr><td>" + member[i].Work;
-			}
-			txt += "</table>"
+		$
+				.getJSON(
+						"assignwork",
+						function(member) {
+							var txt;
+							txt += "<table border=\"1\" id=\"t\">";
+							txt += "<tr><th>" + member[0].pqt;
+							for (let i = 0; i < member.length; i++) {
+								txt += "<tr><td>" + member[i].Work;
+							}
+							txt += "</table>"
 
-			for (let j = 0; j < member.length; j++) {
-				txt += "<div id = \"work\"><table border=\"1\" id=\"s"+j+"\">";
-				txt += "<tr><th>" + member[j].Work;
-				txt += "</table></div>"
-			}
-			$("#main").html(txt);
-		});
-		$.getJSON(
-				"employeelist",
-				function(employee) {
-					var em;
-					em += "<table border=\"1\" id=\"e\">";
-					em += "<tr><th><input type=\"button\" value=\"員工名單\">";
-					for (let k = 0; k < employee.length; k++) {
-						em += "<tr><td><input type=\"button\" value=\""+employee[k].name+"\" id = \"e\" draggable=\"true\">";
-					}
-					em += "</table>"
-					$("#employee").html(em);
-				});
-		$("#e").on("drag", function(e) {
-			e.dataTransfer.setData('text/plain', e.target.id)
-		});
-		$("#work").on({
-			"dragover" : function(e) {
-				ev.preventDefault();
-				// Set the dropEffect to move
-				ev.dataTransfer.dropEffect = "move"
-			},
-			"drop" : function(e) {
-				ev.preventDefault();
-				// Get the id of the target and add the moved element to the target's DOM
-				var data = ev.dataTransfer.getData("text");
-				ev.target.appendChild(document.getElementById(data));
-			}
-		});
-
+							for (let j = 0; j < member.length; j++) {
+								txt += "<div id = \"work\"ondragover=\"event.preventDefault()\"><ul ondraged border=\"1\" id=\"s"+j+"\">";
+								txt += "<li class = \"wkul\">" + member[j].Work;
+								txt += "<p class = \"wkp\">"
+								txt += "</ul></div>"
+							}
+							$("#main").html(txt);
+						});
+		$
+				.getJSON(
+						"employeelist",
+						function(employee) {
+							var em;
+							em += "員工名單"
+							em += "<ul id=\"e\">";
+							for (let k = 0; k < employee.length; k++) {
+								em += "<li id = \"e\" draggable=\"true\" class=\"emul\"ondragstart=\"event.dataTransfer.setData(\"text/plain\", event.target)>"
+										+ employee[k].name + "</li>";
+							}
+							em += "<p><li class = \"emul\">xxxx</li>"
+							em += "</ul>"
+							$("#employee").html(em);
+						});
 	</script>
 </body>
 </html>

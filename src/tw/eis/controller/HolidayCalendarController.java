@@ -37,7 +37,7 @@ public class HolidayCalendarController {
 			request.setAttribute("calenderlist", calenderlist);
 			return "HolidayCalendarSetup";
 		}
-		return "LoginSucess";
+		return "HolidayCalendarSetup";
 	}
 
 	@RequestMapping(path = "/HolidayAction", method = RequestMethod.POST)
