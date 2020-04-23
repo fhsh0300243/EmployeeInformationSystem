@@ -46,6 +46,7 @@ public class PersonalQuarterlyTargetDAO {
 				JSONArray jay = new JSONArray();
 				for (WorkProject w : wlist) {
 					JSONObject jb = new JSONObject();
+					jb.put("dag", plist.get(i).getDepartmentAnnualGoal());
 					jb.put("pID", plist.get(i).getPid());
 					jb.put("PersonalQuarterlyTarget", plist.get(i).getPersonalQuarterlyTarget());
 					jb.put("Work", w.getWork());

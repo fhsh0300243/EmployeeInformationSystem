@@ -96,7 +96,7 @@ p {
 
 	<script>
 		$.getJSON("managertable",function(member) {
-							var txt;
+	var txt="";
 							for (let i = 0; i < member.length; i++) {
 								txt += "<table border=\"1\" id=\"t\">";
 								txt += "<tr><th><a href=\"ChangePQT?pid="

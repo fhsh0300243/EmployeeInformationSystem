@@ -58,7 +58,6 @@ public class WorkProjectDAO {
 				String hqlwork = "From WorkProject Where pID =:pid";
 				Query<WorkProject> wquery = session.createQuery(hqlwork, WorkProject.class);
 				List<WorkProject> wlist = wquery.setParameter("pid", plist.get(i).getPid()).list();
-				System.out.println(plist.get(i).getPid());
 				JSONArray jay = new JSONArray();
 				for (WorkProject w : wlist) {
 					JSONObject jb = new JSONObject();
@@ -75,10 +74,10 @@ public class WorkProjectDAO {
 
 			}
 			j = ja;
+			System.out.println("==========="+j);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.print(j);
 		return j;
 	}
 	public void insertwork(PersonalQuarterlyTarget p, WorkProject w,Model m) {
@@ -90,7 +89,7 @@ public class WorkProjectDAO {
 			e.printStackTrace();
 		}
 	}
-	//��pid�q�����W���ѼƧ��?
+	//��pid�q�����W���ѼƧ��?
 	public PersonalQuarterlyTarget getpqt(int pid,Model m ) {
 		Session session = sessionFactory.getCurrentSession();
 		String sqlstr = "From PersonalQuarterlyTarget Where pID =: pid";

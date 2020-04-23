@@ -5,9 +5,7 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<link href="//code.jquery.com/ui/1.11.3/jquery-ui.min.css" rel="stylesheet" />
-<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <meta charset="UTF-8">
 <title>番茄科技 績效系統</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
@@ -136,7 +134,7 @@ p {
 				.getJSON(
 						"assignwork",
 						function(member) {
-							var txt;
+var txt="";
 							txt += "<table border=\"1\" id=\"t\">";
 							txt += "<tr><th>" + member[0].pqt;
 							for (let i = 0; i < member.length; i++) {
@@ -147,7 +145,7 @@ p {
 							for (let j = 0; j < member.length; j++) {
 								txt += "<div id = \"work\" ondragover=\"event.preventDefault()\"><ul ondraged border=\"1\" id=\"s"+j+"\">";
 								txt += "<li class = \"wkul\">" + member[j].Work;
-								txt += "<p class = \"wkp\" ondrop=\"event.dataTransfer.getData(\"text/plain\")\"  >";
+								txt += "<p class = \"wkp\">";
 								txt += "</ul></div>"
 							}
 							$("#main").html(txt);
@@ -156,7 +154,7 @@ p {
 				.getJSON(
 						"employeelist",
 						function(employee) {
-							var em;
+	var em="";
 							em += "員工名單"
 							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {
@@ -167,8 +165,10 @@ p {
 							em += "</ul>"
 							$("#employee").html(em);
 						});
-		
-		$(document).on("drop",".wkul",function(event){
+		$(document).on("drag",".emul",function(event){
+			event.dataTransfer.setData("text/plain",event.target)
+		})
+		$(document).on("drop",".wkp",function(event){
 			var data = event.dataTransfer.getData("text/plain");
 			  event.target.textContent = data;
 			  event.preventDefault();
