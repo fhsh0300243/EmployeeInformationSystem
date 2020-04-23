@@ -23,8 +23,8 @@ public class feeAppService implements IfeeAppService{
 			String invoiceTime,String invoiceNb,int editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
 		return feeAppDAO.addFeeApp(department,employeeID,appItem,appTime,invoiceTime,invoiceNb,editor,remark,appMoney,signerTime,signerStatus,signerID);
 	}
-	public List<feeAppMember> qFeeApp(int employeeID) {
-		return feeAppDAO.qFeeApp(employeeID);
+	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB) {
+		return feeAppDAO.qFeeApp(employeeID,searchA,searchB);
 	}
 
 	
