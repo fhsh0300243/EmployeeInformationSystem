@@ -24,7 +24,27 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+.tb{
+	margin: 0 auto;
+}
+#idtable1 {
+	margin: 30px auto;
+	border-collapse: collapse;
+}
 
+#idtable1 tr {
+	text-align: center;
+}
+
+#idtable1 th {
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+#idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
 </style>
 </head>
 <body>
@@ -63,7 +83,7 @@ p {
 								
 								
 							</div>
-							<table>
+							<table id="idtable1">
 								<tr>
 									<th>申請時間</th>
 									<th>申請項目</th>
