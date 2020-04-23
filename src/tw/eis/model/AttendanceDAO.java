@@ -60,7 +60,7 @@ public class AttendanceDAO {
 		return null;
 	}
 
-	public boolean InsertStartTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
+	public boolean InsertStartTime(Map<String, String> usersResultMap, java.sql.Date Date, java.sql.Time Time) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
@@ -74,7 +74,7 @@ public class AttendanceDAO {
 		return true;
 	}
 
-	public boolean InsertEndTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
+	public boolean InsertEndTime(Map<String, String> usersResultMap, java.sql.Date Date, java.sql.Time Time) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
@@ -88,7 +88,7 @@ public class AttendanceDAO {
 		return true;
 	}
 
-	public boolean UpdateEndTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
+	public boolean UpdateEndTime(Map<String, String> usersResultMap, java.sql.Date Date, java.sql.Time Time) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			String hqlstr = "Update Attendance SET EndTime=:Time where Date=:Date and EmployeeID=:EmployeeID";
@@ -102,19 +102,33 @@ public class AttendanceDAO {
 		}
 		return true;
 	}
-	
-	public boolean UpdateStatus(Map<String, String> usersResultMap,java.sql.Date Date,String Status) {
-		try {
-			Session session = sessionFacotry.getCurrentSession();
-			String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmployeeID=:EmployeeID";
-			Query query = session.createQuery(hqlstr);
-			query.setParameter("Status", Status);
-			query.setParameter("Date", Date);
-			query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
-			query.executeUpdate();
-		} catch (Exception e) {
-			System.out.println("e:" + e);
-		}
+
+	public List<Attendance> InquiryAllToday() {
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		String today = nowdate.format(new Date());
+		String hqlstr = "from Attendance where Date like:today";
+		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
+		query.setParameter("today", today);
+		List<Attendance> AllToday = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return AllToday;
+	}
+
+	public boolean UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status) {
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmployeeID=:EmployeeID";
+		Query query = session.createQuery(hqlstr);
+		query.setParameter("Status", Status);
+		query.setParameter("Date", Date);
+		query.setParameter("EmployeeID", Id);
+		query.executeUpdate();
+		session.getTransaction().commit();
+		session.close();
 		return true;
 	}
 

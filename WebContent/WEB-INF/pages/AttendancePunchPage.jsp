@@ -29,9 +29,21 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
+#clock {
+	color: white;
+	font: 3em sans-serif;
+	background: black;
+	margin: 5px;
+	padding: 5px;
+	border: solid gray 2px;
+	border-radius: 10px;
+	width: 480px;
+	text-align: center;
+}
 </style>
 </head>
-<body>
+<body onload="startTime()">
 	<br>
 	<div class="container-fluid">
 		<div class="row">
@@ -59,17 +71,11 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-
-						<h2>
-							日期：<span id="nowdate"></span>
-						</h2>
-						<h2>
-							時間：<span id="nowtime"></span>
-						</h2>
+						<div id="clock"></div>
 						<form action="<c:url value="/PunchAction" />" method="post">
 							<input type="submit" value="打卡" />
 						</form>
-						<p/>
+						<p />
 						<table width="800" border="1" align="center">
 							<tr>
 								<td><b>日期</b></td>
@@ -121,25 +127,35 @@ p {
 </body>
 </html>
 <script type="text/javascript">
-	function showTime() {
+	function startTime() {
 		var today = new Date();
-		var hour = parseInt(today.getHours()) < 10 ? '0' + today.getHours()
-				: today.getHours();
+		var yyyy = today.getFullYear();
+		var MM = (today.getMonth()) + 1;
+		var dd = today.getDate();
+		var weekday = new Array(7)
+		weekday[0] = "星期日"
+		weekday[1] = "星期一"
+		weekday[2] = "星期二"
+		weekday[3] = "星期三"
+		weekday[4] = "星期四"
+		weekday[5] = "星期五"
+		weekday[6] = "星期六"
+		var week = weekday[today.getDay()]
 
-		var min = parseInt(today.getMinutes()) < 10 ? '0' + today.getMinutes()
-				: today.getMinutes();
-
-		var sec = parseInt(today.getSeconds()) < 10 ? '0' + today.getSeconds()
-				: today.getSeconds();
-
-		document.getElementById('nowtime').innerHTML = hour + ':' + min + ':'
-				+ sec
+		var hh = today.getHours();
+		var mm = today.getMinutes();
+		var ss = today.getSeconds();
+		mm = checkTime(mm);
+		ss = checkTime(ss);
+		document.getElementById('clock').innerHTML = yyyy + "年" + MM + "月" + dd
+				+ "日" + " " + week + " " + hh + ":" + mm + ":" + ss;
+		var timeoutId = setTimeout(startTime, 500);
 	}
-	window.onload = function() {
-		setInterval(showTime, 1000);
-		var today = new Date();
-		document.getElementById('nowdate').textContent = today.getFullYear()
-				+ '/' + (today.getMonth() + 1) + '/' + today.getDate() + '/'
-				+ '星期' + today.getDay()
+
+	function checkTime(i) {
+		if (i < 10) {
+			i = "0" + i;
+		}
+		return i;
 	}
 </script>

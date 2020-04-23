@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Attendance")
 public class Attendance {
+	private int AttendanceID;
 	private int EmployeeID;
 	private Date Date;
 	private Time StartTime;
@@ -20,8 +21,11 @@ public class Attendance {
 
 	public Attendance() {
 	}
-	
-	public Attendance(Date Date,Time StartTime,Time EndTime,String Status,String LeaveType) {
+
+	public Attendance(int AttendanceID, int EmployeeID, Date Date, Time StartTime, Time EndTime, String Status,
+			String LeaveType) {
+		this.AttendanceID = AttendanceID;
+		this.EmployeeID = EmployeeID;
 		this.Date = Date;
 		this.StartTime = StartTime;
 		this.EndTime = EndTime;
@@ -29,7 +33,17 @@ public class Attendance {
 		this.LeaveType = LeaveType;
 	}
 
-	@Column(name = "EMPLOYEEID") 
+	@Id
+	@Column(name = "ATTENDANCEID")
+	public int getAttId() {
+		return AttendanceID;
+	}
+
+	public void setAttId(int attendanceid) {
+		this.AttendanceID = attendanceid;
+	}
+
+	@Column(name = "EMPLOYEEID")
 	public int getId() {
 		return EmployeeID;
 	}
@@ -38,7 +52,6 @@ public class Attendance {
 		this.EmployeeID = id;
 	}
 
-	@Id 
 	@Column(name = "DATE")
 	public Date getDate() {
 		return Date;
@@ -47,7 +60,7 @@ public class Attendance {
 	public void setDate(Date date) {
 		this.Date = date;
 	}
-	
+
 	@Column(name = "STARTTIME")
 	public Time getStartTime() {
 		return StartTime;
@@ -56,7 +69,7 @@ public class Attendance {
 	public void setStartTime(Time starttime) {
 		this.StartTime = starttime;
 	}
-	
+
 	@Column(name = "ENDTIME")
 	public Time getEndTime() {
 		return EndTime;
@@ -65,7 +78,7 @@ public class Attendance {
 	public void setEndTime(Time endtime) {
 		this.EndTime = endtime;
 	}
-	
+
 	@Column(name = "STATUS")
 	public String getStatus() {
 		return Status;
@@ -74,7 +87,7 @@ public class Attendance {
 	public void setStatus(String status) {
 		this.Status = status;
 	}
-	
+
 	@Column(name = "LEAVETYPE")
 	public String getLeaveType() {
 		return LeaveType;
@@ -83,5 +96,5 @@ public class Attendance {
 	public void setLeaveType(String leavetype) {
 		this.LeaveType = leavetype;
 	}
-	
+
 }

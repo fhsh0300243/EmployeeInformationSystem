@@ -40,8 +40,12 @@ public class AttendanceService {
 		return attendanceDao.UpdateEndTime(usersResultMap,Date,Time);
 	}
 	
-	public boolean UpdateStatus(Map<String, String> usersResultMap,java.sql.Date Date,String Status) {
-		return attendanceDao.UpdateStatus(usersResultMap,Date,Status);
+	public boolean UpdateAttendanceStatus(java.sql.Date Date,int Id,String Status) {
+		return attendanceDao.UpdateAttendanceStatus(Date,Id,Status);
+	}
+	
+	public List<Attendance> InquiryAllToday() {
+		return attendanceDao.InquiryAllToday();
 	}
 
 }
