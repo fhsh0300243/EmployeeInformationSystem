@@ -117,12 +117,8 @@ public class EmployeeDao implements IEmployeeDao {
 			if (Salary != 0) {
 				myEmp.setSalary(Salary);
 			}
-			if (HireDay != null) {
-				myEmp.setHireDay(HireDay);
-			}
-			if (LastWorkDay != null) {
-				myEmp.setLastWorkDay(LastWorkDay);
-			}
+			myEmp.setHireDay(HireDay);
+			myEmp.setLastWorkDay(LastWorkDay);
 			if (EmpDept != null) {
 				myEmp.setEmpDept(EmpDept);
 			}
