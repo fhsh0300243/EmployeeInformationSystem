@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>差旅費申請主頁</title>
+<title>番茄科技 差旅費系統</title>
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
 	rel="stylesheet">
@@ -14,6 +14,7 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="icon" href="images/favicon.ico">
 <style>
 .well, .panel {
 	text-align: center;

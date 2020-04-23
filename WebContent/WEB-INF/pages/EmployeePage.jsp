@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>員工管理</title>
+<title>番茄科技 員工管理</title>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-
+<link rel="icon" href="images/favicon.ico">
 <style>
 .well, .panel {
 	text-align: center;
