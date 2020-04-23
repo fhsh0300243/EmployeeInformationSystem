@@ -142,7 +142,7 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 	public String getStartHoursTag() {
 		String ans = "";
 
-		for (int i = 8; i <= 17; i++) {
+		for (int i = 8; i <= 16; i++) {
 			ans += "<option value='" + i + "'>" + i + "</option>";
 		}
 		return ans;
