@@ -82,6 +82,22 @@ public class EmployeeAction {
 		}
 		return "AuthorityErrorPage";
 	}
+	
+	@RequestMapping(path = "/QueryEmpAttendance.do", method = RequestMethod.GET)
+	public String processQueryEmpAttendancePage(@ModelAttribute("EmployeeID") String empId) {
+		int level = 0;
+		try {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+			// level=LoginOK.getEmployee().getEmpTitle().getLevel();
+		} catch (Exception e) {
+			System.out.println("e:" + e);
+			level = 0;
+		}
+		if (level == 1 || level == 2 || level == 3 || level == 4) {
+			return "QueryEmpAttendance";
+		}
+		return "AuthorityErrorPage";
+	}
 
 	@RequestMapping(path = "/AddEmployee.do", method = RequestMethod.GET)
 	public String processAddEmployee(@ModelAttribute("EmployeeID") String empId) {
