@@ -5,9 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>請假簽核</title>
+<title>番茄科技 請假系統</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+
+<link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/DetailPage.css">
 <link rel="stylesheet" type="text/css" href="css/Menu.css">
+<link rel="icon" href="images/favicon.ico">
+<style>
+.col-sm-4, .functionTitle {
+	text-align: center;
+}
+
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
+}
+</style>
 </head>
 <body>
 	<br>
