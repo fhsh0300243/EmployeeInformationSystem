@@ -48,8 +48,8 @@ public class AttendanceService {
 		return attendanceDao.InquiryAllToday();
 	}
 	
-	public boolean NewAttendance(int Id,java.sql.Date Date) {
-		return attendanceDao.NewAttendance(Id,Date);
+	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
+		return attendanceDao.NewAttendance(Emp,Date);
 	}
 
 	public List<?> queryEmpAttendanceData(int empId, String Name, String Department){

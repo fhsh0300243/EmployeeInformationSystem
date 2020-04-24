@@ -156,11 +156,11 @@ public class AttendanceDAO {
 		return true;
 	}
 	
-	public boolean NewAttendance(int Id,java.sql.Date Date) {
+	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
 		Attendance attendance = new Attendance();
-		attendance.setId(Id);
+		attendance.setEmployee(Emp);
 		attendance.setDate(Date);
 		session.save(attendance);
 		session.getTransaction().commit();
