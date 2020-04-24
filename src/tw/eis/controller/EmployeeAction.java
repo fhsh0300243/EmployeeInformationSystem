@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.eis.model.AttendanceService;
 import tw.eis.model.BulletinBoard;
 import tw.eis.model.BulletinBoardService;
 import tw.eis.model.Department;
@@ -40,16 +41,19 @@ public class EmployeeAction {
 	private DepartmentService dService;
 	private TitleService tService;
 	private BulletinBoardService bService;
+	private AttendanceService aService;
 	AESUtil aes = new AESUtil();
 
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
-			TitleService tService, BulletinBoardService bService) {
+			TitleService tService, BulletinBoardService bService,AttendanceService aService) {
 		this.uService = uService;
 		this.eService = eService;
 		this.dService = dService;
 		this.tService = tService;
 		this.bService = bService;
+		this.aService=aService;
+		
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
@@ -79,6 +83,22 @@ public class EmployeeAction {
 		}
 		if (level == 1 || level == 2 || level == 3 || level == 4) {
 			return "QueryEmployee";
+		}
+		return "AuthorityErrorPage";
+	}
+	
+	@RequestMapping(path = "/QueryEmpAttendance.do", method = RequestMethod.GET)
+	public String processQueryEmpAttendancePage(@ModelAttribute("EmployeeID") String empId) {
+		int level = 0;
+		try {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+			// level=LoginOK.getEmployee().getEmpTitle().getLevel();
+		} catch (Exception e) {
+			System.out.println("e:" + e);
+			level = 0;
+		}
+		if (level == 1 || level == 2 || level == 3 || level == 4) {
+			return "QueryEmpAttendance";
 		}
 		return "AuthorityErrorPage";
 	}
@@ -624,7 +644,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		eService.test();
+		List<?> list = aService.queryEmpAttendanceData(1, "Robert", "RD");
 	}
 
 }

@@ -1,100 +1,113 @@
 package tw.eis.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
-@Table(name = "Attendance")
-public class Attendance {
-	private int AttendanceID;
-	private int EmployeeID;
-	private Date Date;
-	private Time StartTime;
-	private Time EndTime;
-	private String Status;
-	private String LeaveType;
+@Table(name = "attendance")
+@Component
+public class Attendance implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int attendanceID;
+	private Users users;
+	private Date date;
+	private Time startTime;
+	private Time endTime;
+	private String status;
+	private String leaveType;
+
 
 	public Attendance() {
 	}
-
-	public Attendance(int AttendanceID, int EmployeeID, Date Date, Time StartTime, Time EndTime, String Status,
-			String LeaveType) {
-		this.AttendanceID = AttendanceID;
-		this.EmployeeID = EmployeeID;
-		this.Date = Date;
-		this.StartTime = StartTime;
-		this.EndTime = EndTime;
-		this.Status = Status;
-		this.LeaveType = LeaveType;
+	
+	public Attendance(Users users,Date date,Time startTime,Time endTime,String status,String leaveType) {
+		this.users = users;
+		this.date = date;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.status = status;
+		this.leaveType = leaveType;
 	}
 
 	@Id
 	@Column(name = "ATTENDANCEID")
-	public int getAttId() {
-		return AttendanceID;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getAttendanceID() {
+		return attendanceID;	       
 	}
 
-	public void setAttId(int attendanceid) {
-		this.AttendanceID = attendanceid;
+	public void setAttendanceID(int attendanceID) {
+		this.attendanceID = attendanceID;
 	}
 
-	@Column(name = "EMPLOYEEID")
-	public int getId() {
-		return EmployeeID;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="EMPLOYEEID")
+	public Users getUsers() {
+		return users;
 	}
 
-	public void setId(int id) {
-		this.EmployeeID = id;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
-
+	
 	@Column(name = "DATE")
 	public Date getDate() {
-		return Date;
+		return date;
 	}
 
 	public void setDate(Date date) {
-		this.Date = date;
+		this.date = date;
 	}
 
 	@Column(name = "STARTTIME")
 	public Time getStartTime() {
-		return StartTime;
+		return startTime;
 	}
 
-	public void setStartTime(Time starttime) {
-		this.StartTime = starttime;
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
 	}
 
 	@Column(name = "ENDTIME")
 	public Time getEndTime() {
-		return EndTime;
+		return endTime;
 	}
 
-	public void setEndTime(Time endtime) {
-		this.EndTime = endtime;
+	public void setEndTime(Time endTime) {
+		this.endTime = endTime;
 	}
 
 	@Column(name = "STATUS")
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		this.Status = status;
+		this.status = status;
 	}
 
 	@Column(name = "LEAVETYPE")
 	public String getLeaveType() {
-		return LeaveType;
+		return leaveType;
 	}
 
-	public void setLeaveType(String leavetype) {
-		this.LeaveType = leavetype;
+	public void setLeaveType(String leaveType) {
+		this.leaveType = leaveType;
 	}
-
 }

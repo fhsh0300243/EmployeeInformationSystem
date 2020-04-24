@@ -22,7 +22,10 @@
 				<a href="<c:url value="/AddEmployee.do"/>">新增員工</a>
 			</div>
 			<div>
-				<a href="<c:url value="/QueryEmployee.do"/>">查詢員工</a>
+				<a href="<c:url value="/QueryEmployee.do"/>">查詢/編輯員工</a>
+			</div>
+			<div>
+				<a href="<c:url value="/QueryEmpAttendance.do"/>">員工出勤查詢</a>
 			</div>
 			<div>
 				<a href="<c:url value="/InqueryCalendar"/>">設定行事曆</a>

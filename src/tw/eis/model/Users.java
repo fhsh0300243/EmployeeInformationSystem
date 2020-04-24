@@ -21,12 +21,17 @@ import org.springframework.stereotype.Component;
 @Table(name = "users")
 @Component
 public class Users implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int employeeID;
 	private String userName;
 	private String userPassword;
 	private String title;
 	private String department;
 	private Employee employee;
+	private Set<Attendance> attRecords =new HashSet<Attendance>(0);
 	
 //	布告欄映射 BY GK Start
 	private Set<BulletinBoard> bulletinBoard = new HashSet<BulletinBoard>(0);
@@ -102,6 +107,15 @@ public class Users implements Serializable{
 		this.employee = employee;
 	}
 	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+	public Set<Attendance> getAttRecords() {
+		return attRecords;
+	}
+
+	public void setAttRecords(Set<Attendance> attRecords) {
+		this.attRecords = attRecords;
+	}
+	
 //	布告欄 getter&setter
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "Users")
 	public Set<BulletinBoard> getBulletinBoard() {
@@ -111,7 +125,6 @@ public class Users implements Serializable{
 	public void setBulletinBoard(Set<BulletinBoard> bulletinBoard) {
 		this.bulletinBoard = bulletinBoard;
 	}
-	
 //	End
 	
 }
