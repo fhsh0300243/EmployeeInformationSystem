@@ -9,27 +9,32 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 //@RequestMapping(path = "/login")
 @SessionAttributes(value = { "LoginOK", "Msg" })
 public class EduMainPageController {
-	
+
 	@RequestMapping(path = "/EducationPage.do", method = RequestMethod.GET)
 	public String EducationMainPage() {
 		return "EducationPage";
 	}
-	
+
 	@RequestMapping(path = "/EduBasicInfo.do", method = RequestMethod.GET)
 	public String EducationBasicInfoPage() {
 		return "EduBasicInfo";
 	}
-	
+
 	@RequestMapping(path = "/Topic.do", method = RequestMethod.GET)
 	public String Topic() {
 		return "Topic";
 	}
-	
+
 	@RequestMapping(path = "/EducationIndex.do", method = RequestMethod.GET)
 	public String EducationIndex() {
 		return "EducationIndex";
 	}
-	
+
+	@RequestMapping(path = "/EduEmpComment.do", method = RequestMethod.GET)
+	public String EduEmpComment() {
+		return "EduEmpComment";
+	}
+
 	@RequestMapping(path = "/LoginSuccess", method = RequestMethod.GET)
 	public String LoginSuccess() {
 		return "LoginSuccess";
