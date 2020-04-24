@@ -25,7 +25,34 @@ p {
 	font-size: 18px;
 }
 
+#idtable1 {
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+
+#idtable1 tr {
+	text-align: center;
+}
+
+#idtable1 th {
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+#idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
 </style>
+<script>
+	function check(obj) {
+		if (obj.id == 'checkbox1' && obj.checked == true) {
+			document.getElementById('checkbox2').checked = false;
+		} else if (obj.id == 'checkbox2' && obj.checked == true) {
+			document.getElementById('checkbox1').checked = false;
+		}
+	}
+</script>
 </head>
 <body>
 	<br>
@@ -53,9 +80,9 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<form action="FeeSingerPage.action" method="post">
-							
-							<table style="border:1px solid black;">
-								<tr style="border:1px solid black;">
+
+							<table id="idtable1">
+								<tr>
 									<th>部門</th>
 									<th>員工姓名</th>
 									<th>申請項目</th>
@@ -74,14 +101,12 @@ p {
 										<td>${applyDetail.appTime.substring(0,16)}</td>
 										<td>${applyDetail.appMoney}</td>
 										<td>
-										<button class="classD" name="FeeDetail">詳細內容</button>
+											<button class="classD" name="FeeDetail">詳細內容</button>
 										</td>
+										<td><input type="checkbox" id='checkbox1'onclick='check(this)' name="Status" value="Pass">Pass
+											<input type="checkbox" id='checkbox2' onclick='check(this)' name="Status" value="Return">Return</td>
 										<td>
-											<input type="checkbox" name="Status" value="Pass">Pass
-											<input type="checkbox" name="Status" value="Return">Return
-										</td>																				
-										<td>
-										<button class="classD" name="send">送出</button>
+											<button class="classD" name="send">送出</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -89,7 +114,7 @@ p {
 
 
 							<div class="st2">
-								<input type="submit" name="New" value="搜尋" /> 
+								<input type="submit" name="New" value="搜尋" />
 							</div>
 						</form>
 						<div class="list_footer">
