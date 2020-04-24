@@ -177,14 +177,6 @@ table {
 			$("#page").html("第" + nowpage + "頁");
 			showemps();
 		}
-		/*
-		 $("#search").keydown(function(e) {
-		 code = (e.keyCode ? e.keyCode : e.which);
-		 if (code == 13) {
-		 //startSearch();
-		 }
-		 });
-		 */
 
 		var chk_status;
 		$("#search").click(

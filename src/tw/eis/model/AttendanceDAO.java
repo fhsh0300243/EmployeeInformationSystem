@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import tw.eis.model.Attendance;
+import tw.eis.util.GlobalService;
 
 @Repository
 public class AttendanceDAO {
@@ -181,10 +182,24 @@ public class AttendanceDAO {
 		return attlist;
 	}
 
-	public List<?> queryEmpAttendanceData(int empId, String Name, String Department) {
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department,java.sql.Date StartDate,java.sql.Date EndDate) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Attendance.class);
 		DetachedCriteria subQuery = DetachedCriteria.forClass(Employee.class);
+		subQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", GlobalService.dateOfToday()),
+				Restrictions.isNull("lastWorkDay")));
 		subQuery.setProjection(Property.forName("empID"));
+		if(StartDate!=null && EndDate!=null) {
+			mainQuery.add(Restrictions.between("date", StartDate, EndDate));
+		}
+		
+		if(StartDate!=null) {
+			mainQuery.add(Restrictions.ge("date", StartDate));
+		}
+		
+		if(EndDate!=null) {
+			mainQuery.add(Restrictions.le("date", EndDate));
+		}
+		
 		if (empId != 0) {
 			subQuery.add(Restrictions.eq("empID", empId));
 		}
@@ -194,7 +209,7 @@ public class AttendanceDAO {
 		if (!Department.equals("na")) {
 			subQuery.add(Restrictions.eq("department", Department));
 		}
-		List<?> list = mainQuery.add(Property.forName("EmployeeID").in(subQuery))
+		List<?> list = mainQuery.add(Property.forName("employee").in(subQuery))
 				.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
 		return list;
 	}

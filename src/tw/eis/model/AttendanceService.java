@@ -24,6 +24,7 @@ public class AttendanceService {
 		return attendanceDao.InquiryToday(usersResultMap);
 	}
 	
+
 	public List<Attendance> InquiryAttendance(String Id, String month) {
 		return attendanceDao.InquiryAttendance(Id, month);
 	}
@@ -48,11 +49,13 @@ public class AttendanceService {
 		return attendanceDao.InquiryAllToday();
 	}
 	
+
 	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
 		return attendanceDao.NewAttendance(Emp,Date);
 	}
 
-	public List<?> queryEmpAttendanceData(int empId, String Name, String Department){
-		return attendanceDao.queryEmpAttendanceData(empId, Name, Department);
+
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department,java.sql.Date StartDate,java.sql.Date EndDate){
+		return attendanceDao.queryEmpAttendanceData(empId, Name, Department,StartDate,EndDate);
 	}
 }

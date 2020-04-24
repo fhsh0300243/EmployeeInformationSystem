@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.eis.model.Attendance;
 import tw.eis.model.AttendanceService;
 import tw.eis.model.BulletinBoard;
 import tw.eis.model.BulletinBoardService;
@@ -570,6 +571,76 @@ public class EmployeeAction {
 		}
 	}
 
+	@RequestMapping(path = "/QueryEmpAttdenance.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String queryEmpAttendance(@RequestParam(name = "searchid", required = false) String idstr,
+			@RequestParam(name = "searchname", required = false) String Name,
+			@RequestParam(name = "searchdept", required = false) String Department,
+			@RequestParam(name = "startdate", required = false) String StartDate,
+			@RequestParam(name = "enddate", required = false) String EndDate, Model model) {
+
+		Map<String, String> msgmap = new HashMap<String, String>();
+		model.addAttribute("msgmap", msgmap);
+		int id = 0;
+		try {
+			id = Integer.parseInt(idstr);
+		} catch (Exception e) {
+			System.out.println("Integer.parseInt exception:" + e);
+			id = 0;
+		}
+		if (Name == null || Name.length() == 0) {
+			Name = "na";
+		}
+		if (Department == null || Department.length() == 0) {
+			Department = "na";
+		}
+		if (StartDate == null || StartDate.length() == 0) {
+			StartDate = "na";
+		}
+		if (EndDate == null || EndDate.length() == 0) {
+			EndDate = "na";
+		}	
+		List<?> list = null;
+		java.sql.Date startDate;
+		java.sql.Date endDate;
+		if (Name.equals("na") && Department.equals("na") && id == 0 && StartDate.equals("na") && EndDate.equals("na")) {
+			return "[]";
+		} else {
+			try {
+				startDate=java.sql.Date.valueOf(StartDate);
+			}catch(Exception e) {
+				startDate=null;
+			}
+			try {
+				endDate=java.sql.Date.valueOf(EndDate);
+			}catch(Exception e) {
+				endDate=null;
+			}			
+			list=aService.queryEmpAttendanceData(id, Name, Department, startDate, endDate);
+		}
+		try {
+			JSONArray jsonarray = new JSONArray();
+			for (Object att : list) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("empID", ((Attendance) att).getEmployee().getEmpID());
+				jsonobject.put("name", ((Attendance) att).getEmployee().getName());				
+				if (((Attendance) att).getEmployee().getDepartment() == null) {
+					jsonobject.put("department", "--");
+				} else {
+					jsonobject.put("department", ((Attendance) att).getEmployee().getDepartment());
+				}
+				jsonobject.put("date", ((Attendance) att).getDate());	
+				jsonobject.put("starttime", ((Attendance) att).getStartTime());	
+				jsonobject.put("endtime", ((Attendance) att).getEndTime());	
+				jsonobject.put("status", ((Attendance) att).getStatus());	
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		} catch (Exception e) {
+			System.out.println("From queryEmpAttendance:" + e);
+			return "[]";
+		}
+	}
+
 	@RequestMapping(path = "/EmpList", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
 	public @ResponseBody String empList() {
 		try {
@@ -644,10 +715,11 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		// List<?> list = aService.queryEmpAttendanceData(1, "Robert", "RD");
-		List<Integer> list = eService.allEmpIdforTask();
-		for (Integer id : list) {
-			System.out.println(id);
+		List<?> list = aService.queryEmpAttendanceData(1, "Robert", "RD",Date.valueOf("2020-04-01"),null);
+		for (Object att : list) {
+			System.out.println(((Attendance) att).getEmployee().getName());
+			System.out.println(((Attendance) att).getStartTime());
+			System.out.println(((Attendance) att).getEndTime());
 		}
 	}
 
