@@ -40,6 +40,8 @@ p {
 	border-radius: 10px;
 	width: 480px;
 	text-align: center;
+	position: relative;
+	left: 28.5%;
 }
 </style>
 </head>
@@ -67,15 +69,17 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">出勤系統</p>
+					<p class="functionTitle">打卡</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<div id="clock"></div>
+						<br>
 						<form action="<c:url value="/PunchAction" />" method="post">
-							<input type="submit" value="打卡" />
+							<input type="submit" class="btn btn-primary btn-lg" value="打卡" />
 						</form>
 						<p />
+						<br>
 						<table width="800" border="1" align="center">
 							<tr>
 								<td><b>日期</b></td>
