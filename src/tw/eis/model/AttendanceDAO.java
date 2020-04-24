@@ -22,11 +22,17 @@ import tw.eis.model.Attendance;
 public class AttendanceDAO {
 
 	private SessionFactory sessionFacotry;
+	//private UsersService uService;
 
 	@Autowired
 	public AttendanceDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFacotry) {
 		this.sessionFacotry = sessionFacotry;
 	}
+	
+//	@Autowired
+//	public AttendanceDAO(UsersService uService) {
+//		this.uService = uService;
+//	}
 
 	public List<Attendance> InquiryToday(Map<String, String> usersResultMap) {
 		try {
@@ -67,7 +73,7 @@ public class AttendanceDAO {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
-			attendance.setId(Integer.parseInt(usersResultMap.get("EmployeeID")));
+			//attendance.setUsers(uService.userData(Integer.parseInt(usersResultMap.get("EmployeeID"))));
 			attendance.setDate(Date);
 			attendance.setStartTime(Time);
 			session.save(attendance);
@@ -81,7 +87,7 @@ public class AttendanceDAO {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
-			attendance.setId(Integer.parseInt(usersResultMap.get("EmployeeID")));
+			//attendance.setUsers(uService.userData(Integer.parseInt(usersResultMap.get("EmployeeID"))));
 			attendance.setDate(Date);
 			attendance.setEndTime(Time);
 			session.save(attendance);
