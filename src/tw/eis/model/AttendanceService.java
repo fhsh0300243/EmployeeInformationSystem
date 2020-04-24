@@ -24,8 +24,8 @@ public class AttendanceService {
 		return attendanceDao.InquiryToday(usersResultMap);
 	}
 	
-	public List<Attendance> InquiryAttendance(Map<String, String> usersResultMap, String month) {
-		return attendanceDao.InquiryAttendance(usersResultMap, month);
+	public List<Attendance> InquiryAttendance(String Id, String month) {
+		return attendanceDao.InquiryAttendance(Id, month);
 	}
 	
 	public boolean InsertStartTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
@@ -48,8 +48,11 @@ public class AttendanceService {
 		return attendanceDao.InquiryAllToday();
 	}
 	
-	public boolean NewAttendance(int Id,java.sql.Date Date) {
-		return attendanceDao.NewAttendance(Id,Date);
+	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
+		return attendanceDao.NewAttendance(Emp,Date);
 	}
 
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department){
+		return attendanceDao.queryEmpAttendanceData(empId, Name, Department);
+	}
 }

@@ -29,7 +29,7 @@
 				<a href="<c:url value="/gotoAttendanceOwnPage"/>">個人出勤查詢</a>
 			</div>
 			<div>
-				<a href="<c:url value="/InquiryDepartmentPage"/>">部門出勤查詢</a>
+				<a href="<c:url value="/gotoAttendanceDepartmentPage"/>">部門出勤查詢</a>
 			</div>
 			<div>
 				<a href="<c:url value="/InqueryCalendar"/>">設定行事曆</a>

@@ -8,6 +8,9 @@ import java.util.TimeZone;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,11 +22,17 @@ import tw.eis.model.Attendance;
 public class AttendanceDAO {
 
 	private SessionFactory sessionFacotry;
+	//private UsersService uService;
 
 	@Autowired
 	public AttendanceDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFacotry) {
 		this.sessionFacotry = sessionFacotry;
 	}
+	
+//	@Autowired
+//	public AttendanceDAO(UsersService uService) {
+//		this.uService = uService;
+//	}
 
 	public List<Attendance> InquiryToday(Map<String, String> usersResultMap) {
 		try {
@@ -43,12 +52,12 @@ public class AttendanceDAO {
 		return null;
 	}
 
-	public List<Attendance> InquiryAttendance(Map<String, String> usersResultMap, String month) {
+	public List<Attendance> InquiryAttendance(String Id, String month) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-			query.setParameter("id", usersResultMap.get("EmployeeID"));
+			query.setParameter("id", Id);
 			query.setParameter("Month", month + "%");
 
 			List<Attendance> attlist = query.list();
@@ -64,7 +73,7 @@ public class AttendanceDAO {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
-			attendance.setId(Integer.parseInt(usersResultMap.get("EmployeeID")));
+			//attendance.setUsers(uService.userData(Integer.parseInt(usersResultMap.get("EmployeeID"))));
 			attendance.setDate(Date);
 			attendance.setStartTime(Time);
 			session.save(attendance);
@@ -78,7 +87,7 @@ public class AttendanceDAO {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
-			attendance.setId(Integer.parseInt(usersResultMap.get("EmployeeID")));
+			//attendance.setUsers(uService.userData(Integer.parseInt(usersResultMap.get("EmployeeID"))));
 			attendance.setDate(Date);
 			attendance.setEndTime(Time);
 			session.save(attendance);
@@ -102,8 +111,23 @@ public class AttendanceDAO {
 		}
 		return true;
 	}
+	
 
-	public List<Attendance> InquiryAllToday() {
+	public boolean UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
+		try {
+			Session session = sessionFacotry.getCurrentSession();
+			String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmployeeID=:EmployeeID";
+			Query query = session.createQuery(hqlstr);
+			query.setParameter("Status", Status);
+			query.setParameter("Date", Date);
+			query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
+			query.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("e:" + e);
+		}
+		return true;
+	}
+		public List<Attendance> InquiryAllToday() {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
 		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
@@ -132,16 +156,47 @@ public class AttendanceDAO {
 		return true;
 	}
 	
-	public boolean NewAttendance(int Id,java.sql.Date Date) {
+	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
 		Attendance attendance = new Attendance();
-		attendance.setId(Id);
+		attendance.setEmployee(Emp);
 		attendance.setDate(Date);
 		session.save(attendance);
 		session.getTransaction().commit();
-		session.close();
+		session.close();		
 		return true;
+	}
+	
+	public List<?> StatusErrorTimes(String Id, String month) {
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
+		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
+		query.setParameter("id", Id);
+		query.setParameter("Month", month + "%");
+		List<Attendance> attlist = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return attlist;
+	}
+
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department) {
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Attendance.class);
+		DetachedCriteria subQuery = DetachedCriteria.forClass(Employee.class);
+		subQuery.setProjection(Property.forName("empID"));
+		if (empId != 0) {
+			subQuery.add(Restrictions.eq("empID", empId));
+		}
+		if (!Name.equals("na")) {
+			subQuery.add(Restrictions.eq("name", Name));
+		}
+		if (!Department.equals("na")) {
+			subQuery.add(Restrictions.eq("department", Department));
+		}
+		List<?> list = mainQuery.add(Property.forName("EmployeeID").in(subQuery))
+				.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
+		return list;
 	}
 
 }

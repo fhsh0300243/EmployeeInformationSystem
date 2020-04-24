@@ -21,6 +21,10 @@ import org.springframework.stereotype.Component;
 @Table(name = "users")
 @Component
 public class Users implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int employeeID;
 	private String userName;
 	private String userPassword;
@@ -111,7 +115,6 @@ public class Users implements Serializable{
 	public void setBulletinBoard(Set<BulletinBoard> bulletinBoard) {
 		this.bulletinBoard = bulletinBoard;
 	}
-	
 //	End
 	
 }

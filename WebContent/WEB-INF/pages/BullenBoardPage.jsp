@@ -126,6 +126,8 @@ p {
 									<li class="nav-item "><a class="nav-link active"
 										id="Main-tab" data-toggle="tab" href="#boardlook" role="tab"
 										aria-controls="#check" aria-selected="true">通知檢閱</a></li>
+										
+									<c:if test="${Level!=1}">
 									<li class="nav-item "><a class="nav-link" id="profile-tab"
 										data-toggle="tab" href="#check" role="tab"
 										aria-controls="#check" aria-selected="false">個人發布通知列表</a></li>
@@ -135,6 +137,7 @@ p {
 									<li class="nav-item"><a class="nav-link" id="record-tab"
 										data-toggle="tab" href="#record" role="tab"
 										aria-controls="#record" aria-selected="false">歷年紀錄</a></li>
+									</c:if>
 								</ul>
 								<div class="tab-content" id="myTabContent">
 									<div class="tab-pane fade active show" id="boardlook"

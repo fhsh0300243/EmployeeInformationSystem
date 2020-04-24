@@ -75,8 +75,8 @@ public class SpringTaskController {
 			List<?> allEmp = EmService.allEmpData();
 			System.out.println("allEmp:"+allEmp);
 			for (Object element : allEmp) {
-				int Id = ((Employee) element).getEmpID();
-				boolean New = AttService.NewAttendance(Id,Date);
+				Employee Emp = ((Employee) element);
+				boolean New = AttService.NewAttendance(Emp,Date);
 			}
 			
 			
@@ -146,7 +146,7 @@ public class SpringTaskController {
 						sTime.set(Calendar.MINUTE, mm);
 						sTime.set(Calendar.SECOND, ss);
 						Date StartTime = sTime.getTime();
-						int Id = ((Attendance) element).getId();
+						int Id = ((Attendance) element).getEmployee().getEmpID();
 						if (StartTime.before(Time08)) {
 							boolean Update = AttService.UpdateAttendanceStatus(Date, Id, "正常");
 						} else {
@@ -155,7 +155,7 @@ public class SpringTaskController {
 					}
 				} else {
 					for (Object element : AllToday) {
-						int Id = ((Attendance) element).getId();
+						int Id = ((Attendance) element).getEmployee().getEmpID();
 						boolean Update = AttService.UpdateAttendanceStatus(Date, Id, "加班");
 					}
 				}
