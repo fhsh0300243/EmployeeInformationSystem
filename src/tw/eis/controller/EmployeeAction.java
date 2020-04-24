@@ -46,14 +46,14 @@ public class EmployeeAction {
 
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
-			TitleService tService, BulletinBoardService bService,AttendanceService aService) {
+			TitleService tService, BulletinBoardService bService, AttendanceService aService) {
 		this.uService = uService;
 		this.eService = eService;
 		this.dService = dService;
 		this.tService = tService;
 		this.bService = bService;
-		this.aService=aService;
-		
+		this.aService = aService;
+
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
@@ -86,7 +86,7 @@ public class EmployeeAction {
 		}
 		return "AuthorityErrorPage";
 	}
-	
+
 	@RequestMapping(path = "/QueryEmpAttendance.do", method = RequestMethod.GET)
 	public String processQueryEmpAttendancePage(@ModelAttribute("EmployeeID") String empId) {
 		int level = 0;
@@ -644,7 +644,11 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		List<?> list = aService.queryEmpAttendanceData(1, "Robert", "RD");
+		// List<?> list = aService.queryEmpAttendanceData(1, "Robert", "RD");
+		List<Integer> list = eService.allEmpIdforTask();
+		for (Integer id : list) {
+			System.out.println(id);
+		}
 	}
 
 }
