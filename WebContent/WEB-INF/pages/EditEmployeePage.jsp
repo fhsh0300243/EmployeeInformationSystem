@@ -179,8 +179,8 @@ p {
 								<br>
 								<table class="tb">
 									<tr>
-										<td><input type="submit" value="送出"> <input
-											type="reset" value="清除" onclick="reset()"></td>
+										<td><input type="submit" value="送出" class="btn btn-info"> <input
+											type="reset" value="清除" onclick="reset()" class="btn btn-info"></td>
 										<td class="msgmap">${msgmap.status}</td>
 									</tr>
 								</table>

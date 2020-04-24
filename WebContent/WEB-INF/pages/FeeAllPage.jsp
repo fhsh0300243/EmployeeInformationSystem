@@ -15,6 +15,12 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -24,9 +30,11 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-.tb{
+
+.tb {
 	margin: 0 auto;
 }
+
 #idtable1 {
 	margin: 30px auto;
 	border-collapse: collapse;
@@ -46,6 +54,7 @@ p {
 	padding: 10px 20px;
 }
 </style>
+
 </head>
 <body>
 	<br>
@@ -75,41 +84,42 @@ p {
 						<form action="FeeAllPage.action" method="post">
 							<div class="st1">
 								<label class="ca1 " for="">查詢區間:</label> <label><input
-									type="date"   name="searchA"></label>
+									type="date" name="searchA"></label> <label class="ca1 " for="">-</label>
+								<label><input type="date" name="searchB"></label> <input
+									type="submit" name="New" value="搜尋" />
 
-							
-								<label class="ca1 " for="">-</label> <label><input
-									type="date"    name="searchB"></label>
-								
-								
 							</div>
-							<table id="idtable1">
+							
+
+						</form>
+						
+						<table id="idtable1">
 								<tr>
 									<th>申請時間</th>
 									<th>申請項目</th>
+									<th>發票日期</th>
+									<th>發票號碼</th>
 									<th>申請金額</th>
 									<th>簽核狀態</th>
-									<th>詳細資訊</th>
-
+									
 								</tr>
 
 								<c:forEach var='applyDetail' items='${dList}' varStatus='vs'>
 									<tr>
 										<td>${applyDetail.appTime.substring(0,16)}</td>
 										<td>${applyDetail.appItem}</td>
+										<td>${applyDetail.invoiceTime}</td>
+										<td>${applyDetail.invoiceNb}</td>
 										<td>${applyDetail.appMoney}</td>
 										<td>${applyDetail.signerStatus}</td>
 										<td>
-										<button class="classD" name="edit">編輯</button>
-										</td>
-									</tr>
+										<button class="btn btn-info" name="edit">編輯</button>										</td>									</tr>
 								</c:forEach>
 							</table>
-
-
+											
 							<div class="st2">
-								<input type="submit" name="New" value="搜尋" /> <input
-									type="reset" value="清除" />
+								<input type="submit" name="New" value="搜尋" class="btn btn-info"/> <input
+									type="reset" value="清除" class="btn btn-info" />
 							</div>
 						</form>
 						<div class="list_footer">

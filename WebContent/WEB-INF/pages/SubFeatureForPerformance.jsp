@@ -19,19 +19,19 @@
 		<div class="panel-heading">相關功能</div>
 		<div class="panel-body">
 			<div>
-				<a href="hrtarget"><input type="button" value="人資部" id=a1></a>
+				<a href="hrtarget" id=a1>人資部</a>
 			</div>
 			<div>
-				<a href="rdtarget"><input type="button" value="研發部" id=a1></a>
+				<a href="rdtarget" id=a1>研發部</a>
 			</div>
 			<div>
-				<a href="qatarget"><input type="button" value="測試部" id=a1></a>
+				<a href="qatarget" id=a1>測試部</a>
 			</div>
 			<div>
-				<a href="salestarget"><input type="button" value="銷售部" id=a1></a>
+				<a href="salestarget" id=a1>銷售部</a>
 			</div>
 			<div>
-				<a href="pmtarget"><input type="button" value="專案管理部" id=a1></a>
+				<a href="pmtarget" id=a1>專案管理部</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

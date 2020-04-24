@@ -29,6 +29,11 @@ public class EmployeeService implements IEmployeeService {
 	public List<?> allEmpData() {
 		return employeeDao.allEmpData();
 	}
+	
+	@Override
+	public List<Integer> allEmpIdforTask(){
+		return employeeDao.allEmpIdforTask();
+	}
 
 	@Override
 	public List<?> queryEmp(int id, String Name, String Department, String Resigned) {

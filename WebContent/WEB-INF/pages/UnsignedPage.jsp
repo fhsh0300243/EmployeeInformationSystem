@@ -77,7 +77,7 @@ p {
 								<td>${signDetail.endTime}</td>
 								<td>${signDetail.sumHours}</td>
 								<td>
-									<button class="classS" name="${signDetail.applyId}">進入簽核</button>
+									<button class="btn btn-info" name="${signDetail.applyId}">進入簽核</button>
 								</td>
 							</tr>
 						</c:forEach>

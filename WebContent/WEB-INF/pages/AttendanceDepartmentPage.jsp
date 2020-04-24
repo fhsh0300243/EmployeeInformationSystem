@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="tw.eis.model.Attendance, java.util.*"%>
-<!DOCTYPE html>
+<%@ page import="tw.eis.model.Employee,java.util.*"%>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>番茄科技 打卡系統</title>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
-	rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
 	rel="stylesheet">
@@ -20,32 +14,22 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<style>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<style type="text/css">
 .ui-datepicker-calendar {
 	display: none;
-}
-
-p {
-	font-family: 'Noto Sans TC', sans-serif;
-	font-size: 18px;
 }
 
 .well, .panel {
 	text-align: center;
 }
 
-.f1 {
-	position: relative;
-	width: 70%;
-	left: 30%;
-}
-.tb{
-	position: relative;
-	width: 70%;
-	left: 28.5%;
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
 }
 </style>
 </head>
@@ -65,63 +49,59 @@ p {
 
 			</div>
 
+
 			<!--右邊欄位-->
 
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">個人出勤查詢</p>
+					<p class="functionTitle">部門出勤查詢</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<div class="f1">
-							<form action="<c:url value='/InquiryAttendance'/>" method="post">
-								<div class="col-md-7">
-									<input type="text" id="datepicker"
-										class="datepicker form-control" name="month" value=""
-										placeholder="選擇查詢月份" autocomplete="off"> <input
-										type="submit" value="查詢" class="btn btn-info"/>
-								</div>
-							</form>
-						</div>
-						<br>
-						<br>
-						<br>
-						<br>
-						<div class="tb">
-							<table width="500" border="1">
-								<tr>
-									<td><b>日期</b></td>
-									<td><b>上班時間</b></td>
-									<td><b>下班時間</b></td>
-									<td><b>狀態</b></td>
-									<td><b>假別</b></td>
-								</tr>
-								<%
-									List<Attendance> attlist = (List<Attendance>) request.getAttribute("attlist");
-									if (attlist == null || attlist.size() < 1) {
-								%>
-								<tr id="test">
-									<td align="center" colspan="5">沒有資料!</td>
-								</tr>
-								<%
-									} else {
-										for (Attendance att : attlist) {
-								%>
+						${errormsg}
+						<form action="<c:url value='/InquiryAttendanceDepartment'/>" method="post">
+							<div class="col-md-7">
+								<input type="text" id="datepicker"
+									class="datepicker form-control" name="month" value=""
+									placeholder="選擇查詢月份" autocomplete="off"> <input
+									type="submit" value="查詢" class="btn btn-info"/>
+							</div>
+						</form>
+						<table width="500" border="1">
+							<tr>
+								<td><b>員工ID</b></td>
+								<td><b>姓名</b></td>
+								<td><b>部門</b></td>
+								<td><b>職稱</b></td>
+								<td><b>異常次數</b></td>
+								<td><b>詳細資料</b></td>
+							</tr>
+							<%
+								List<?> AllEmp = (List<?>) request.getAttribute("AllEmp");
+								if (AllEmp == null || AllEmp.size() < 1) {
+							%>
+							<tr id="test">
+								<td align="center" colspan="6">沒有資料!</td>
+							</tr>
+							<%
+								} else {
+									for (Object Emp : AllEmp) {
+							%>
 
-								<tr align="center">
-									<td><%=att.getDate()%></td>
-									<td><%=att.getStartTime()%></td>
-									<td><%=att.getEndTime()%></td>
-									<td><%=att.getStatus()%></td>
-									<td><%=att.getLeaveType()%></td>
-								</tr>
-								<%
-									}
-									}
-								%>
-							</table>
-						</div>
+							<tr align="center">
+								<td><%=((Employee)Emp).getEmpID()%></td>
+								<td><%=((Employee)Emp).getName()%></td>
+								<td><%=((Employee)Emp).getDepartment()%></td>
+								<td><%=((Employee)Emp).getTitle()%></td>
+								<td>0</td>
+								<td><input type="button" name="id" value="詳細資料" class="btn btn-info"></td>
+							</tr>
+							<%
+								}
+								}
+							%>
+						</table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -134,6 +114,7 @@ p {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
+
 	<script>
 		$(function() {
 			$('#datepicker')
@@ -170,7 +151,5 @@ p {
 							});
 		});
 	</script>
-
-
-</body>
 </html>
+</body>

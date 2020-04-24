@@ -22,7 +22,7 @@ public class feeAppDAO implements IfeeAppDAO {
 	public feeAppDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFacotry) {
 		this.sessionFacotry = sessionFacotry;
 	}
-
+	//新增申請差旅費進資料庫
 	public boolean addFeeApp(String department, int employeeID, String appItem, String appTime, String invoiceTime,
 			String invoiceNb, int editor, String remark, int appMoney, String signerTime, String signerStatus,
 			int signerID) {
@@ -34,7 +34,7 @@ public class feeAppDAO implements IfeeAppDAO {
 		return true;
 
 	}
-
+	//查詢差旅費-員工編號、時間區間
 	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB) {
 		
 		Session session = sessionFacotry.getCurrentSession();
@@ -60,7 +60,7 @@ public class feeAppDAO implements IfeeAppDAO {
 //		}
 		return list;
 	}
-
+	//查詢差旅費-主管簽核頁面
 	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(feeAppMember.class);
 		mainQuery.add(Restrictions.eq("department", department));

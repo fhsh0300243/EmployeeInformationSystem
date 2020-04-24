@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>番茄科技 員工管理</title>
+<title>員工出勤資料</title>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<link rel="icon" href="images/favicon.ico">
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -37,16 +37,9 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
-}
 </style>
 </head>
 <body>
-	<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -69,7 +62,7 @@ table {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">查詢員工資料</p>
+					<p class="functionTitle">員工出勤查詢</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -78,13 +71,11 @@ table {
 							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
 							name="searchname" size="30"><br /> <select
 							name="searchdept" id="searchdept"></select><input type="checkbox"
-							id="resigned" name="resigned" value="resigned"> <label
-							for="" class="t1">離職員工</label> <input type="button" id="search"
-							name="search" value="搜尋" class="btn btn-info">
+							id="resigned" name="resigned" value="resigned">
+							<label for="" class="t1">離職員工</label> <input type="button" id="search"
+							name="search" value="搜尋">
 						<p>${msg[0]}</p>
-						<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
-						<br>
-						<table border="1" id="emplist" style="margin: 0 auto"></table>
+						<table border="1" id="emplist"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -186,23 +177,23 @@ table {
 		 });
 		 */
 
-		var chk_status;
+		var chk_status ;
 		$("#search").click(
 				function() {
-					if ($("#resigned").prop("checked")) {
-						chk_status = true;
-					} else {
-						chk_status = false;
-					}
+					if($("#resigned").prop("checked")){
+						chk_status=true;
+						}else{
+							chk_status=false;
+							}
 					nowpage = 1;
 					$.ajax({
 						url : "QueryEmp.action?searchid="
 								+ $("#searchid").val() + "&searchname="
 								+ $("#searchname").val() + "&searchdept="
-								+ $("#searchdept").val() + "&resigned="
-								+ chk_status,
+								+ $("#searchdept").val()
+								+ "&resigned="+chk_status,
 						type : "GET",
-						traditional : true,
+						traditional: true,
 						success : function(Str) {
 							emps = JSON.parse(Str);
 							pagination(emps, nowpage);

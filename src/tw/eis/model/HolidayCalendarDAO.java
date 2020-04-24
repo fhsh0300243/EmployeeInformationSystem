@@ -38,17 +38,15 @@ public class HolidayCalendarDAO {
 	}
 	
 	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
-		try {
-			Session session = sessionFacotry.getCurrentSession();
-			String hqlstr = "from HolidayCalendar where Date like :Date";
-			Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
-			query.setParameter("Date", datestr);
-			List<HolidayCalendar> calenderlist = query.list();
-			return calenderlist;
-		} catch (Exception e) {
-			System.out.println("e:" + e);
-		}
-		return null;
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "from HolidayCalendar where Date =:Date";
+		Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
+		query.setParameter("Date", datestr);
+		List<HolidayCalendar> calenderlist = query.list();
+		session.getTransaction().commit();
+	    session.close();
+		return calenderlist;
 	}
 	
 	public boolean InsertCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
