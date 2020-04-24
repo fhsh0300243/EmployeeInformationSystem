@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>請假主頁面</title>
 <link rel="stylesheet" type="text/css" href="css/LeaveMain.css">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet"></link>
 <style>
 .title{
 	font-weight:bold;
