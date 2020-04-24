@@ -43,12 +43,12 @@ public class AttendanceDAO {
 		return null;
 	}
 
-	public List<Attendance> InquiryAttendance(Map<String, String> usersResultMap, String month) {
+	public List<Attendance> InquiryAttendance(String Id, String month) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-			query.setParameter("id", usersResultMap.get("EmployeeID"));
+			query.setParameter("id", Id);
 			query.setParameter("Month", month + "%");
 
 			List<Attendance> attlist = query.list();
@@ -142,6 +142,19 @@ public class AttendanceDAO {
 		session.getTransaction().commit();
 		session.close();
 		return true;
+	}
+	
+	public List<?> StatusErrorTimes(String Id, String month) {
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
+		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
+		query.setParameter("id", Id);
+		query.setParameter("Month", month + "%");
+		List<Attendance> attlist = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return attlist;
 	}
 
 }

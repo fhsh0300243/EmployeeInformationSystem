@@ -67,6 +67,6 @@
 	</task:scheduled-tasks>
 	<task:scheduled-tasks>
 		<task:scheduled ref="springTaskController"
-			method="CreateTable0300" cron="*/5 * * * * ?" />
+			method="CreateTable0300" cron= "0 30 8 * * ?"/>
 	</task:scheduled-tasks>
 </beans>
