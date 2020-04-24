@@ -29,6 +29,11 @@ p {
 	border-collapse: collapse;
 }
 
+
+
+
+
+
 #idtable1 tr {
 	text-align: center;
 }
@@ -43,6 +48,15 @@ p {
 	padding: 10px 20px;
 }
 </style>
+<script>
+	function check(obj) {
+		if (obj.id == 'checkbox1' && obj.checked == true) {
+			document.getElementById('checkbox2').checked = false;
+		} else if (obj.id == 'checkbox2' && obj.checked == true) {
+			document.getElementById('checkbox1').checked = false;
+		}
+	}
+</script>
 </head>
 <body>
 	<br>
@@ -70,9 +84,9 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<form action="FeeSingerPage.action" method="post">
-							
-							<table style="border:1px solid black;" id="idtable1">
-								<tr style="border:1px solid black;">
+
+														<table style="border:1px solid black;" id="idtable1">
+																<tr style="border:1px solid black;">
 									<th>部門</th>
 									<th>員工姓名</th>
 									<th>申請項目</th>
@@ -91,14 +105,12 @@ p {
 										<td>${applyDetail.appTime.substring(0,16)}</td>
 										<td>${applyDetail.appMoney}</td>
 										<td>
-										<button class="classD" name="FeeDetail">詳細內容</button>
+											<button class="classD" name="FeeDetail">詳細內容</button>
 										</td>
+										<td><input type="checkbox" id='checkbox1'onclick='check(this)' name="Status" value="Pass">Pass
+											<input type="checkbox" id='checkbox2' onclick='check(this)' name="Status" value="Return">Return</td>
 										<td>
-											<input type="checkbox" name="Status" value="Pass">Pass
-											<input type="checkbox" name="Status" value="Return">Return
-										</td>																				
-										<td>
-										<button class="classD" name="send">送出</button>
+											<button class="classD" name="send">送出</button>
 										</td>
 									</tr>
 								</c:forEach>

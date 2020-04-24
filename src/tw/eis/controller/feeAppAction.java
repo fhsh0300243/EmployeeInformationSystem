@@ -79,21 +79,5 @@ public class feeAppAction {
 		 return "FeeAllPage";
 	}
 	
-	@RequestMapping(path = "/FeeSingerPage.action", method = RequestMethod.POST)
-	public String qfeeSingerApp(@ModelAttribute("LoginOK") Users userBean,
-			@RequestParam(name = "FeeDetail", required = false)String FeeDetail,
-			@RequestParam(name = "Status", required = false)String Status,
-			@RequestParam(name = "send", required = false)String send, Model model) {
-		String department = userBean.getDepartment();
-		String signerStatus="Send";
-		int Level = userBean.getEmployee().getLevel();
-		System.out.println("Level:"+Level);
-		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level);
-		model.addAttribute("dSList", dSList);
-		
-		 return "FeeSingerPage";
-	}
-			
-
 	}
 
