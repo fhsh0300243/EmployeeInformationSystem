@@ -45,7 +45,8 @@ public class BullBoardController {
 	}
 	
 	@RequestMapping(path = "/BullenBoardPage",method = RequestMethod.GET)
-	public String MainPage() {
+	public String MainPage(@ModelAttribute(name = "LoginOK") Users loginOK,Model model) {
+		model.addAttribute("Level", loginOK.getEmployee().getLevel());
 		return "BullenBoardPage";
 	}
 	
@@ -126,6 +127,7 @@ public class BullBoardController {
 	@RequestMapping(path = "/checkdata",method = RequestMethod.GET,produces = "html/text;charset=utf-8")
 	
 	public @ResponseBody String checkdata(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException {
+		System.out.println("getEmployeeID"+loginOK.getEmployeeID());
 		List<BulletinBoard> BulletinBoards = BulletinBoardService.queryBulletinByOwnCreate(loginOK.getEmployeeID());
 
 		JSONArray jay = new JSONArray();

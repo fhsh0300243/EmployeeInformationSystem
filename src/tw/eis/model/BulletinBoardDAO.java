@@ -59,7 +59,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	@Override
 	public List<BulletinBoard> queryBulletinByOwnCreate(int EmployeeID) {
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and (GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0)",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0))",BulletinBoard.class);
 		query.setInteger("EmployeeID", EmployeeID);
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;
