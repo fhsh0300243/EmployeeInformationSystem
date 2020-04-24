@@ -8,6 +8,9 @@ import java.util.TimeZone;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -102,8 +105,23 @@ public class AttendanceDAO {
 		}
 		return true;
 	}
+	
 
-	public List<Attendance> InquiryAllToday() {
+	public boolean UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
+		try {
+			Session session = sessionFacotry.getCurrentSession();
+			String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmployeeID=:EmployeeID";
+			Query query = session.createQuery(hqlstr);
+			query.setParameter("Status", Status);
+			query.setParameter("Date", Date);
+			query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
+			query.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("e:" + e);
+		}
+		return true;
+	}
+		public List<Attendance> InquiryAllToday() {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
 		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
@@ -140,8 +158,26 @@ public class AttendanceDAO {
 		attendance.setDate(Date);
 		session.save(attendance);
 		session.getTransaction().commit();
-		session.close();
+		session.close();		
 		return true;
+	}
+
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department) {
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Attendance.class);
+		DetachedCriteria subQuery = DetachedCriteria.forClass(Employee.class);
+		subQuery.setProjection(Property.forName("empID"));
+		if (empId != 0) {
+			subQuery.add(Restrictions.eq("empID", empId));
+		}
+		if (!Name.equals("na")) {
+			subQuery.add(Restrictions.eq("name", Name));
+		}
+		if (!Department.equals("na")) {
+			subQuery.add(Restrictions.eq("department", Department));
+		}
+		List<?> list = mainQuery.add(Property.forName("EmployeeID").in(subQuery))
+				.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
+		return list;
 	}
 
 }

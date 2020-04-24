@@ -51,5 +51,9 @@ public class AttendanceService {
 	public boolean NewAttendance(int Id,java.sql.Date Date) {
 		return attendanceDao.NewAttendance(Id,Date);
 	}
+	
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department){
+		return attendanceDao.queryEmpAttendanceData(empId, Name, Department);
+	}
 
 }
