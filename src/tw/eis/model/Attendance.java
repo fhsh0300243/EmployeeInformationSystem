@@ -25,7 +25,7 @@ public class Attendance implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private int attendanceID;
-	private Users users;
+	private Employee employee;
 	private Date date;
 	private Time startTime;
 	private Time endTime;
@@ -36,8 +36,8 @@ public class Attendance implements Serializable{
 	public Attendance() {
 	}
 	
-	public Attendance(Users users,Date date,Time startTime,Time endTime,String status,String leaveType) {
-		this.users = users;
+	public Attendance(Employee employee,Date date,Time startTime,Time endTime,String status,String leaveType) {
+		this.employee = employee;
 		this.date = date;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -57,13 +57,13 @@ public class Attendance implements Serializable{
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="EMPLOYEEID")
-	public Users getUsers() {
-		return users;
+	@JoinColumn(name="EMPID")
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 	@Column(name = "DATE")

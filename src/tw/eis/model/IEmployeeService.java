@@ -9,6 +9,8 @@ import tw.eis.model.Title;
 
 public interface IEmployeeService {
 	public List<?> allEmpData();
+	
+	public List<Integer> allEmpIdforTask();
 
 	public List<?> queryEmp(int id, String Name, String Department, String Resigned);
 
