@@ -24,7 +24,24 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+#idtable1 {
+	margin: 30px auto;
+	border-collapse: collapse;
+}
 
+#idtable1 tr {
+	text-align: center;
+}
+
+#idtable1 th {
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+#idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
 </style>
 </head>
 <body>
@@ -54,7 +71,7 @@ p {
 					<div class="panel-body">
 						<form action="FeeSingerPage.action" method="post">
 							
-							<table style="border:1px solid black;">
+							<table style="border:1px solid black;" id="idtable1">
 								<tr style="border:1px solid black;">
 									<th>部門</th>
 									<th>員工姓名</th>
@@ -89,7 +106,7 @@ p {
 
 
 							<div class="st2">
-								<input type="submit" name="New" value="搜尋" /> 
+								<input type="submit" name="New" value="搜尋" class="btn btn-info"/> 
 							</div>
 						</form>
 						<div class="list_footer">

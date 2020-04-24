@@ -80,7 +80,7 @@ table {
 							name="searchdept" id="searchdept"></select><input type="checkbox"
 							id="resigned" name="resigned" value="resigned"> <label
 							for="" class="t1">離職員工</label> <input type="button" id="search"
-							name="search" value="搜尋">
+							name="search" value="搜尋" class="btn btn-info">
 						<p>${msg[0]}</p>
 						<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
 						<br>

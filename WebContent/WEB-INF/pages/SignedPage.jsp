@@ -77,7 +77,7 @@ p {
 								<td>${signDetail.sumHours}</td>
 								<td>${signDetail.signingProgress}</td>
 								<td>
-									<button class="classD" name="${signDetail.applyId}">詳細資訊</button>
+									<button class="btn btn-info" name="${signDetail.applyId}">詳細資訊</button>
 								</td>
 							</tr>
 						</c:forEach>

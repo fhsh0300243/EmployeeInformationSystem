@@ -65,7 +65,7 @@ p {
 								<input type="text" id="datepicker"
 									class="datepicker form-control" name="month" value=""
 									placeholder="選擇查詢月份" autocomplete="off"> <input
-									type="submit" value="查詢" />
+									type="submit" value="查詢" class="btn btn-info"/>
 							</div>
 						</form>
 						<table width="500" border="1">
@@ -93,7 +93,7 @@ p {
 								<td><%=users.getUserName()%></td>
 								<td><%=users.getTitle()%></td>
 								<td>0</td>
-								<td><input type="button" name="id" value="詳細資料"></td>
+								<td><input type="button" name="id" value="詳細資料" class="btn btn-info"></td>
 							</tr>
 							<%
 								}

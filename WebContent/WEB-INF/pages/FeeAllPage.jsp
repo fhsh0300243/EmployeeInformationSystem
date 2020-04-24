@@ -100,7 +100,7 @@ p {
 										<td>${applyDetail.appMoney}</td>
 										<td>${applyDetail.signerStatus}</td>
 										<td>
-										<button class="classD" name="edit">編輯</button>
+										<button class="btn btn-info" name="edit">編輯</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -108,8 +108,8 @@ p {
 
 
 							<div class="st2">
-								<input type="submit" name="New" value="搜尋" /> <input
-									type="reset" value="清除" />
+								<input type="submit" name="New" value="搜尋" class="btn btn-info"/> <input
+									type="reset" value="清除" class="btn btn-info" />
 							</div>
 						</form>
 						<div class="list_footer">

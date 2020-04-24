@@ -148,8 +148,8 @@ p {
 								</div>
 
 								<div class="st2">
-									<input type="submit" name="New" value="申請" /> <input
-										type="reset" value="清除" />
+									<input type="submit" name="New" value="申請" class="btn btn-info"/> <input
+										type="reset" value="清除" class="btn btn-info"/>
 								</div>
 
 							</form>

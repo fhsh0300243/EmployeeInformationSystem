@@ -131,8 +131,8 @@ p {
 						<hr />
 
 						<div class="btn1">
-							<input type="reset" value="清除" onclick="cls();" /> <input
-								type="submit" value="送出" onclick="return checkSubmit();" />
+							<input type="reset" value="清除" onclick="cls();" class="btn btn-info"/> <input
+								type="submit" value="送出" onclick="return checkSubmit();" class="btn btn-info"/>
 						</div>
 					</form>
 					<div class="list_footer">
