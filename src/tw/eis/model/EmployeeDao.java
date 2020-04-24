@@ -33,10 +33,14 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	public List<?> allEmpData() {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
 		Date today = GlobalService.dateOfToday();
 		mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
-		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+		List<?> list = mainQuery.getExecutableCriteria(session).list();
+		session.getTransaction().commit();
+		session.close();
 		return list;
 	}
 

@@ -47,5 +47,9 @@ public class AttendanceService {
 	public List<Attendance> InquiryAllToday() {
 		return attendanceDao.InquiryAllToday();
 	}
+	
+	public boolean NewAttendance(int Id,java.sql.Date Date) {
+		return attendanceDao.NewAttendance(Id,Date);
+	}
 
 }

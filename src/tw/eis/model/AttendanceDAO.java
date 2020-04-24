@@ -131,5 +131,17 @@ public class AttendanceDAO {
 		session.close();
 		return true;
 	}
+	
+	public boolean NewAttendance(int Id,java.sql.Date Date) {
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		Attendance attendance = new Attendance();
+		attendance.setId(Id);
+		attendance.setDate(Date);
+		session.save(attendance);
+		session.getTransaction().commit();
+		session.close();
+		return true;
+	}
 
 }
