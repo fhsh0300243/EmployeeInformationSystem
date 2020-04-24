@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="tw.eis.model.Users, java.util.*"%>
+<%@ page import="tw.eis.model.Employee,java.util.*"%>
 <html>
 <head>
 <title>番茄科技 打卡系統</title>
@@ -59,8 +59,8 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-
-						<form action="<c:url value='/InquiryAttendance'/>" method="post">
+						${errormsg}
+						<form action="<c:url value='/InquiryAttendanceDepartment'/>" method="post">
 							<div class="col-md-7">
 								<input type="text" id="datepicker"
 									class="datepicker form-control" name="month" value=""
@@ -72,26 +72,28 @@ p {
 							<tr>
 								<td><b>員工ID</b></td>
 								<td><b>姓名</b></td>
+								<td><b>部門</b></td>
 								<td><b>職稱</b></td>
 								<td><b>異常次數</b></td>
 								<td><b>詳細資料</b></td>
 							</tr>
 							<%
-								List<Users> userslist = (List<Users>) request.getAttribute("userslist");
-								if (userslist == null || userslist.size() < 1) {
+								List<?> AllEmp = (List<?>) request.getAttribute("AllEmp");
+								if (AllEmp == null || AllEmp.size() < 1) {
 							%>
 							<tr id="test">
-								<td align="center" colspan="5">沒有資料!</td>
+								<td align="center" colspan="6">沒有資料!</td>
 							</tr>
 							<%
 								} else {
-									for (Users users : userslist) {
+									for (Object Emp : AllEmp) {
 							%>
 
 							<tr align="center">
-								<td><%=users.getEmployeeID()%></td>
-								<td><%=users.getUserName()%></td>
-								<td><%=users.getTitle()%></td>
+								<td><%=((Employee)Emp).getEmpID()%></td>
+								<td><%=((Employee)Emp).getName()%></td>
+								<td><%=((Employee)Emp).getDepartment()%></td>
+								<td><%=((Employee)Emp).getTitle()%></td>
 								<td>0</td>
 								<td><input type="button" name="id" value="詳細資料" class="btn btn-info"></td>
 							</tr>

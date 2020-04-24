@@ -52,12 +52,12 @@ public class AttendanceDAO {
 		return null;
 	}
 
-	public List<Attendance> InquiryAttendance(Map<String, String> usersResultMap, String month) {
+	public List<Attendance> InquiryAttendance(String Id, String month) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-			query.setParameter("id", usersResultMap.get("EmployeeID"));
+			query.setParameter("id", Id);
 			query.setParameter("Month", month + "%");
 
 			List<Attendance> attlist = query.list();
@@ -156,16 +156,29 @@ public class AttendanceDAO {
 		return true;
 	}
 	
-	public boolean NewAttendance(int Id,java.sql.Date Date) {
+	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
 		Attendance attendance = new Attendance();
-		attendance.setId(Id);
+		attendance.setEmployee(Emp);
 		attendance.setDate(Date);
 		session.save(attendance);
 		session.getTransaction().commit();
 		session.close();		
 		return true;
+	}
+	
+	public List<?> StatusErrorTimes(String Id, String month) {
+		Session session = sessionFacotry.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
+		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
+		query.setParameter("id", Id);
+		query.setParameter("Month", month + "%");
+		List<Attendance> attlist = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return attlist;
 	}
 
 	public List<?> queryEmpAttendanceData(int empId, String Name, String Department) {
