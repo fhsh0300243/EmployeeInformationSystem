@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -246,5 +247,17 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		BigDecimal sumHours = new BigDecimal(sum);
 
 		return sumHours;
+	}
+	
+	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "from ApplyForLeave where (:Time BETWEEN StartTime AND EndTime) and SigningProgress='同意'";
+		Query<ApplyForLeave> query = session.createQuery(hqlstr, ApplyForLeave.class);
+		query.setParameter("Time", Time);
+		List<ApplyForLeave> list = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return list;
 	}
 }

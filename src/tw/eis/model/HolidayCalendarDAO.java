@@ -16,16 +16,16 @@ import tw.eis.model.HolidayCalendar;
 @Repository
 public class HolidayCalendarDAO {
 
-	private SessionFactory sessionFacotry;
+	private SessionFactory sessionFactory;
 
 	@Autowired
-	public HolidayCalendarDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFacotry) {
-		this.sessionFacotry = sessionFacotry;
+	public HolidayCalendarDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	public List<HolidayCalendar> InqueryCalendar(int year) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			String hqlstr = "from HolidayCalendar where Date like :Year order by Date";
 			Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
 			query.setParameter("Year", year + "%");
@@ -37,12 +37,12 @@ public class HolidayCalendarDAO {
 		return null;
 	}
 	
-	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
-		Session session = sessionFacotry.getCurrentSession();
+	public List<HolidayCalendar> InqueryCalendarToday(String todaystr) {
+		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		String hqlstr = "from HolidayCalendar where Date =:Date";
 		Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
-		query.setParameter("Date", datestr);
+		query.setParameter("Date", todaystr);
 		List<HolidayCalendar> calenderlist = query.list();
 		session.getTransaction().commit();
 	    session.close();
@@ -51,7 +51,7 @@ public class HolidayCalendarDAO {
 	
 	public void InsertCalendar(Employee Emp, String date, String dateType, String remark) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			SimpleDateFormat nowdate = new SimpleDateFormat("MM/dd/yyyy");
 			java.util.Date utildate = nowdate.parse(date);
 			java.sql.Date Date = new java.sql.Date(utildate.getTime());
@@ -68,7 +68,7 @@ public class HolidayCalendarDAO {
 
 	public void UpdateCalendar(Employee Emp, String date, String dateType, String remark) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			SimpleDateFormat nowdate = new SimpleDateFormat("MM/dd/yyyy");
 			java.util.Date utildate = nowdate.parse(date);
 			java.sql.Date Date = new java.sql.Date(utildate.getTime());
@@ -86,7 +86,7 @@ public class HolidayCalendarDAO {
 
 	public void DeleteCalendar(List<String> date) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			for (String element : date) {
 				String hqlstr = "Delete from HolidayCalendar where Date =:Date";
 				Query query = session.createQuery(hqlstr);

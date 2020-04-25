@@ -1,12 +1,10 @@
 package tw.eis.controller;
 
 import java.net.InetAddress;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -19,16 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.eis.model.Attendance;
-import tw.eis.model.HolidayCalendar;
-import tw.eis.model.Users;
 import tw.eis.model.AttendanceService;
 import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
 import tw.eis.model.HolidayCalendarService;
+import tw.eis.model.Users;
 import tw.eis.model.UsersService;
 
 @Controller
@@ -56,46 +52,42 @@ public class AttendanceController {
 
 	@RequestMapping(path = "/gotoAttendanceDepartmentPage", method = RequestMethod.GET)
 	public String goToInquiryDepartmentPage() {
-			return "AttendanceDepartmentPage";
+		return "AttendanceDepartmentPage";
 	}
 
 	@RequestMapping(path = "/InquiryAttendance", method = RequestMethod.POST)
-	public String InquiryAttendance(@ModelAttribute("LoginOK") Users userBean,
-			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
+	public String InquiryAttendance(@ModelAttribute("LoginOK") Users userBean, @RequestParam("month") String month,
+			HttpServletRequest request) throws Exception {
 		List<Attendance> attlist = AttService.InquiryAttendance(userBean.getEmployeeID(), month);
 		request.setAttribute("attlist", attlist);
 		return "AttendanceOwnPage";
 	}
-	
+
 	@RequestMapping(path = "/InquiryAttendanceDepartment", method = RequestMethod.POST)
 	public String InquiryAttendanceDepartment(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
-		int level = 4;
-//		try {
-//			level = EmService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
-//		} catch (Exception e) {
-//			System.out.println("e:" + e);
-//			level = 0;
-//		}
-		if (level == 2 || level == 3 ) {
-
+		Map<Employee, Integer> countMap = new HashMap<Employee, Integer>();
+		int level = userBean.getEmployee().getLevel();
+		String Department = userBean.getEmployee().getDepartment();
+		if (level == 2 || level == 3 || level == 4) {
+			List<Employee> AllEmp = EmService.allEmpIdforTask();
+			for (Employee element : AllEmp) {
+				if (element.getLevel() <= level || element.getDepartment().equals(Department)) {
+					int countError = AttService.CountError(element, month);
+					System.out.println(countError);
+					countMap.put(element, countError);
+				}
+			}
+			request.setAttribute("countMap", countMap);
 			return "AttendanceDepartmentPage";
-		}
-		else if(level == 4){
-			List<?> AllEmp= EmService.allEmpData();
-			
-			
-			request.setAttribute("AllEmp", AllEmp);
-			return "AttendanceDepartmentPage";
-		}else {
+		} else {
 			request.setAttribute("errormsg", "您的權限不足");
 			return "AttendanceDepartmentPage";
 		}
 	}
 
 	@RequestMapping(path = "/InquiryToday", method = RequestMethod.GET)
-	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean,
-			HttpServletRequest request) throws Exception {
+	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request) throws Exception {
 		List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
 		request.setAttribute("myPunch", myPunch);
 		return "AttendancePunchPage";

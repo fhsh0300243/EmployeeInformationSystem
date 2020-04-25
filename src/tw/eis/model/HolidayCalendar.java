@@ -5,8 +5,6 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,11 +13,10 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "HolidayCalendar")
+@Table(name = "holidaycalendar")
 @Component
 public class HolidayCalendar {
 	
-	private static final long serialVersionUID = 1L;
 	private Date Date;
 	private String DateType;
 	private String Remark;
@@ -37,7 +34,6 @@ public class HolidayCalendar {
 
 	@Id 
 	@Column(name = "DATE")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Date getDate() {
 		return Date;
 	}

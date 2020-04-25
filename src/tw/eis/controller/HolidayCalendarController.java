@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.eis.model.Employee;
-import tw.eis.model.EmployeeService;
 import tw.eis.model.HolidayCalendar;
 import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.Users;
@@ -24,7 +23,6 @@ import tw.eis.model.Users;
 public class HolidayCalendarController {
 
 	private HolidayCalendarService HCService;
-	private EmployeeService eService;
 
 	@Autowired
 	public HolidayCalendarController(HolidayCalendarService HCService) {
