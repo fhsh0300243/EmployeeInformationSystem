@@ -39,7 +39,7 @@ p {
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
-				<%@ include file="SubFeatureForEmpManage.jsp"%>
+				 <%-- <%@ include file="SubFeatureForEmpManage.jsp"%>--%>
 
 			</div>
 

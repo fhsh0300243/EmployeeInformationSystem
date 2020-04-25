@@ -48,6 +48,7 @@ body {
 	border: 2px solid tan;
 	border-radius: 15px;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;

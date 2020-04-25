@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-
+<link rel="icon" href="images/favicon.ico">
 <style>
 .well, .panel {
 	text-align: center;
@@ -37,6 +37,7 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
+
 </style>
 </head>
 <body>

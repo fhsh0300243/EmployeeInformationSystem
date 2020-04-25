@@ -82,7 +82,7 @@ table {
 							for="" class="t1">離職員工</label> <input type="button" id="search"
 							name="search" value="搜尋" class="btn btn-info">
 						<p>${msg[0]}</p>
-						<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
+						<!--  <img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />-->
 						<br>
 						<table border="1" id="emplist" style="margin: 0 auto"></table>
 						<div class="list_footer">
