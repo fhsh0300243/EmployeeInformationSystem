@@ -15,12 +15,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <style>
 .well, .panel {
 	text-align: center;
@@ -30,11 +24,6 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-
-.tb {
-	margin: 0 auto;
-}
-
 #idtable1 {
 	margin: 30px auto;
 	border-collapse: collapse;
@@ -54,7 +43,15 @@ p {
 	padding: 10px 20px;
 }
 </style>
-
+<script>
+	function check(obj) {
+		if (obj.id == 'checkbox1' && obj.checked == true) {
+			document.getElementById('checkbox2').checked = false;
+		} else if (obj.id == 'checkbox2' && obj.checked == true) {
+			document.getElementById('checkbox1').checked = false;
+		}
+	}
+</script>
 </head>
 <body>
 	<br>
@@ -77,47 +74,55 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">差旅費查詢</p>
+					<p class="functionTitle">差旅費簽核</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<form action="FeeAllPage.action" method="post">
-							<div class="st1">
-								<label class="ca1 " for="">查詢區間:</label> <label><input
-									type="date" name="searchA"></label> <label class="ca1 " for="">-</label>
-								<label><input type="date" name="searchB"></label> <input
-									type="submit" name="New" value="搜尋" />
-
-							</div>
-							
-
-						</form>
+						<table align="center">
+						<tr>
+						<td>員工編號:</td>
+						<td>${S_feeAppID}</td>
+						</tr>
+						<tr>
+						<td>員工部門:</td>
+						<td>${S_department}</td>
+						</tr>
+						<tr>
+						<td>申請項目:</td>
+						<td>${S_appItem}</td>
+						</tr>
+						<tr>
+						<td>申請時間:</td>
+						<td>${S_appTime}</td>
+						</tr>
+						<tr>
+						<td>發票時間:</td>
+						<td>${S_invoiceTime}</td>
+						</tr>
+						<tr>
+						<td>發票號碼:</td>
+						<td>${S_invoiceNb}</td>
+						</tr>
+						<tr>
+						<td>統編:</td>
+						<td>${S_editor}</td>
+						</tr>
 						
-						<table id="idtable1">
-								<tr>
-									<th>申請時間</th>
-									<th>申請項目</th>
-									<th>發票日期</th>
-									<th>發票號碼</th>
-									<th>申請金額</th>
-									<th>簽核狀態</th>
-									
-								</tr>
-
-								<c:forEach var='applyDetail' items='${dList}' varStatus='vs'>
-									<tr>
-										<td>${applyDetail.appTime.substring(0,16)}</td>
-										<td>${applyDetail.appItem}</td>
-										<td>${applyDetail.invoiceTime}</td>
-										<td>${applyDetail.invoiceNb}</td>
-										<td>${applyDetail.appMoney}</td>
-										<td>${applyDetail.signerStatus}</td>
-									</tr>
-								</c:forEach>
-							</table>
-											
-							
-						
+						<tr>
+						<td>申請金額:</td>
+						<td>${S_appMoney}</td>
+						</tr>
+						<tr>
+						<td>備註:</td>
+						<td>${S_remark}</td>
+						</tr>
+						</table>	
+ 						<input type="checkbox" id="checkbox1" name="hobby" value="music" onclick = 'check(this)'>Pass
+          
+ 		               	<input type="checkbox" id="checkbox2" name="hobby" value="sport" onclick = 'check(this)'>Return
+ 		               	<div>
+						<input type="submit" value="送出">
+						</div>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -130,6 +135,8 @@ p {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
+
+	
 
 </body>
 </html>

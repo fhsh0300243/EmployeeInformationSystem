@@ -69,5 +69,16 @@ public class feeAppDAO implements IfeeAppDAO {
 		  List<feeAppMember> list2 = mainQuery.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
 		return list2;
 	}
+	public List<feeAppMember> qfeeSingerApp(int feeAppID) {
+		Session session = sessionFacotry.getCurrentSession();
+	
+		Query query = session.createQuery("from feeAppMember where feeAppID=?0",feeAppMember.class);
+	
+		query.setParameter(0, feeAppID);
+
+		
+		List<feeAppMember> listByID = query.list();
+		return listByID;
+	}
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import tw.eis.model.ApplyForLeave;
 import tw.eis.model.Users;
 import tw.eis.model.feeAppMember;
 import tw.eis.model.feeAppService;
@@ -77,6 +78,55 @@ public class feeAppAction {
 			model.addAttribute("dList", dList);
 		
 		 return "FeeAllPage";
+	}
+	
+	@RequestMapping(path = "/SingerPage", method = RequestMethod.GET)
+	public String SingerPage(@RequestParam("feeAppID") int feeAppID, Model model) {
+		List<feeAppMember> applyIDList = feeAppService.qapplyId(feeAppID);
+		
+		
+		int S_feeAppID=0;
+		String S_department="";
+		String S_appItem="";
+		String S_appTime="";
+		String S_invoiceTime="";
+		String S_invoiceNb="";
+		int S_editor=0;
+		String S_remark="";
+		int S_appMoney=0;
+		
+		
+		
+		for(feeAppMember feeAppMember:applyIDList) {
+			S_feeAppID = feeAppMember.getFeeAppID();
+			S_department = feeAppMember.getDepartment();
+			S_appItem = feeAppMember.getAppItem();
+			S_appTime = feeAppMember.getAppTime();
+			S_invoiceTime = feeAppMember.getInvoiceTime();
+			S_invoiceNb = feeAppMember.getInvoiceNb();
+			S_editor = feeAppMember.getEditor();
+			S_remark = feeAppMember.getRemark();
+			S_appMoney = feeAppMember.getAppMoney();
+		}
+		
+		model.addAttribute("S_feeAppID", S_feeAppID);
+		model.addAttribute("S_department", S_department);
+		model.addAttribute("S_appItem", S_appItem);
+		model.addAttribute("S_appTime", S_appTime);
+		model.addAttribute("S_feeAppID", S_feeAppID);
+		model.addAttribute("S_invoiceTime", S_invoiceTime);
+		model.addAttribute("S_invoiceNb", S_invoiceNb);
+		model.addAttribute("S_editor", S_editor);
+		model.addAttribute("S_remark", S_remark);
+		model.addAttribute("S_appMoney", S_appMoney);
+		
+		
+		
+		
+//		model.addAttribute("applyIDList", applyIDList);
+//	System.out.print("test:"+feeAppID);
+	 return "FeeSingerDetails";
+
 	}
 	
 	}

@@ -8,4 +8,5 @@ public interface IfeeAppDAO {
 			String invoiceTime,String invoiceNb,int editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID);
 	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB);
 	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level);
+	public List<feeAppMember> qfeeSingerApp(int feeAppID);
 }

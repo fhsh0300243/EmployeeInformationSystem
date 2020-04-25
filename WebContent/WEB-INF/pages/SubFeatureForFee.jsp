@@ -21,11 +21,12 @@
 			<div>
 				<a href="<c:url value="/AddFeeApp.action"/>">差旅費申請</a>
 			</div>
-			<div>
-				<a href="<c:url value="/FeeSingerPage.action"/>">差旅費簽核</a>
-			</div>
+			
 			<div>
 				<a href="<c:url value="/FeeAllPage.action"/>">差旅費查詢</a>
+			</div>
+			<div>
+				<a href="<c:url value="/FeeSingerPage.action"/>">差旅費簽核</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

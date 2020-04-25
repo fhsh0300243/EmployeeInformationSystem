@@ -31,6 +31,10 @@ public class feeAppService implements IfeeAppService{
 		return feeAppDAO.qfeeSingerApp(department,signerStatus,level);
 	}
 
+	public List<feeAppMember> qapplyId(int feeAppID) {
+		return feeAppDAO.qfeeSingerApp(feeAppID);
+	}
+
 	
 
 

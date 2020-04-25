@@ -29,11 +29,6 @@ p {
 	border-collapse: collapse;
 }
 
-
-
-
-
-
 #idtable1 tr {
 	text-align: center;
 }
@@ -83,44 +78,39 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<form action="FeeSingerPage.action" method="post">
+						
 
-														<table style="border:1px solid black;" id="idtable1">
-																<tr style="border:1px solid black;">
+														<table id="idtable1">
+																<tr >
 									<th>部門</th>
 									<th>員工姓名</th>
 									<th>申請項目</th>
 									<th>申請日期</th>
 									<th>申請金額</th>
-									<th>詳細內容</th>
-									<th>簽核勾選</th>
+									
+									
 									<th>簽核送出</th>
 								</tr>
 
-								<c:forEach var='applyDetail' items='${dSList}' varStatus='vs'>
+								<c:forEach var='appfee' items='${dSList}' varStatus='vs'>
 									<tr>
-										<td>${applyDetail.department}</td>
-										<td>${applyDetail.employeeID}</td>
-										<td>${applyDetail.appItem}</td>
-										<td>${applyDetail.appTime.substring(0,16)}</td>
-										<td>${applyDetail.appMoney}</td>
+										<td>${appfee.department}</td>
+										<td>${appfee.feeAppID}</td>
+										<td>${appfee.appItem}</td>
+										<td>${appfee.appTime.substring(0,16)}</td>
+										<td>${appfee.appMoney}</td>
+										
+										
 										<td>
-											<button class="classD" name="FeeDetail">詳細內容</button>
-										</td>
-										<td><input type="checkbox" id='checkbox1'onclick='check(this)' name="Status" value="Pass">Pass
-											<input type="checkbox" id='checkbox2' onclick='check(this)' name="Status" value="Return">Return</td>
-										<td>
-											<button class="classD" name="send">送出</button>
+											<button class="btn-info" name="${appfee.feeAppID}">簽核</button>
 										</td>
 									</tr>
 								</c:forEach>
 							</table>
 
 
-							<div class="st2">
-								<input type="submit" name="New" value="搜尋" class="btn btn-info"/> 
-							</div>
-						</form>
+							
+						
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -133,6 +123,17 @@ p {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
+
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script>
+	$(function() {
+		$("td:empty").text("-");
+	})
+	$(".btn-info").click(function() {
+		var feeAppID = $(this).attr("name");
+		location.href = "SingerPage?feeAppID=" + feeAppID;
+	})
+	</script>
 
 </body>
 </html>
