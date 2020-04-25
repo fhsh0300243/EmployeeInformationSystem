@@ -2,6 +2,7 @@ package tw.eis.model;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,11 @@ public class ApplyForLeaveService implements IApplyForLeaveService {
 	@Override
 	public ApplyForLeave queryApplyByAID(int applyId) {
 		return aDAO.queryApplyByAID(applyId);
+	}
+
+	@Override
+	public List<ApplyForLeave> checkApplyTime(Date startTime, Date endTime, int employeeId) {
+		return aDAO.checkApplyTime(startTime, endTime, employeeId);
 	}
 
 	@Override

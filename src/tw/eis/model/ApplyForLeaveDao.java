@@ -138,23 +138,24 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		return result;
 	}
 
-//	public List<ApplyForLeave> checkApplyTime(String startTime, String endTime) {
-//		Query<ApplyForLeave> query = getSession().createQuery("From ApplyForLeave Where StartTime=?0 and EndTime<>?1",
-//				ApplyForLeave.class);
-//		query.setParameter(0, startTime);
-//		query.setParameter(1, endTime);
-//		List<ApplyForLeave> list = query.list();
-//		if (list.size() != 0) {
-//			for (int i = 0; i < list.size(); i++) {
-//				ApplyForLeave aBean = list.get(i);
-//				aBean.setCreateTime(aBean.getCreateTime().substring(0, 16));
-//				aBean.setStartTime(aBean.getStartTime().substring(0, 16));
-//				aBean.setEndTime(aBean.getEndTime().substring(0, 16));
-//			}
-//			return list;
-//		}
-//		return null;
-//	}
+	@Override
+	public List<ApplyForLeave> checkApplyTime(Date startTime, Date endTime, int employeeId) {
+		String hql = "From ApplyForLeave where EmployeeID=?0 and StartTime<=?1 and EndTime>=?2";
+		Query<ApplyForLeave> Query = getSession().createQuery(hql, ApplyForLeave.class);
+		Query.setParameter(0, employeeId);
+		Query.setParameter(1, endTime);
+		Query.setParameter(2, startTime);
+		List<ApplyForLeave> list = Query.list();
+
+		if (list.size() != 0) {
+			for (int i = 0; i < list.size(); i++) {
+				ApplyForLeave aBean = list.get(i);
+				aBean.setCreateTime(aBean.getCreateTime().substring(0, 16));
+			}
+			return list;
+		}
+		return null;
+	}
 
 	@Override
 	public String getStartHoursTag() {

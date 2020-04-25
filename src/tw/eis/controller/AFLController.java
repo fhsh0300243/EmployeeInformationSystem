@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,7 @@ public class AFLController {
 			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM, @RequestParam("cause") String cause,
 			@RequestParam("myFile") MultipartFile mFile, HttpServletRequest request, Model model)
 			throws ParseException {
+		int userID = userBean.getEmployeeID();
 
 		// 開始時間、結束時間-判斷是否為休假日
 		String strError = "";
@@ -76,16 +78,29 @@ public class AFLController {
 		if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
 			strError += endD + "為休假日。";
 		}
-		
-		// 開始時間、結束時間-判斷是否重複申請
-		String startTime = startD + " " + startH + ":" + startM;
-		String endTime = endD + " " + endH + ":" + endM;
-		
 
-		// 判斷不是休假日才執行以下
-		if (strError.length() == 0) {
+		// 開始時間、結束時間-格式化輸入的時間 (HH可顯示為12:00，hh會轉成00:00)
+		Date sTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startD + " " + startH + ":" + startM);
+		String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(sTime);
+		Date eTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endD + " " + endH + ":" + endM);
+		String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(eTime);
+
+		// 確認申請的開始時間、結束時間，是否與先前申請的時間重複
+		List<ApplyForLeave> aBeanOLD = aService.checkApplyTime(sTime, eTime, userID);
+		System.out.println("aBeanOLD RUN1");
+		if (aBeanOLD != null) {
+			Iterator<ApplyForLeave> iterator = aBeanOLD.iterator();
+			while (iterator.hasNext()) {
+				ApplyForLeave dBean = iterator.next();
+				strError += "與" + dBean.getCreateTime() + "申請的時間重複。";
+				System.out.println("aBeanOLD RUN2");
+			}
+		}
+		System.out.println("aBeanOLD RUN3");
+		// 判斷以上無錯誤訊息(休假日、重複申請)，才執行以下資料存入SQL
+		if (strError.length() == 0 && aBeanOLD == null) {
+			System.out.println("aBeanOLD RUN4");
 			ApplyForLeave aBean = new ApplyForLeave();
-			int userID = userBean.getEmployeeID();
 
 			// 取得現在的時刻設定為建立時間
 //			long cDate = new Date().getTime();
@@ -98,18 +113,18 @@ public class AFLController {
 			Employee eBean = eService.empData(userID);
 			aBean.setEmployeeId(eBean);
 
-			// 設定LeaveType
+			// 設定請假類別
 			aBean.setLeaveType(leaveType);
 
 			// 設定開始時間、結束時間
 			aBean.setStartTime(startTime);
 			aBean.setEndTime(endTime);
 
-			// 起始時間-結束時間換算成總時數
+			// 設定總時數-起始時間到結束時間，換算成總時數
 			BigDecimal sumHours = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
 			aBean.setSumHours(sumHours);
 
-			// 設定Cause
+			// 設定事由
 			if (cause != null && cause.length() != 0) {
 				aBean.setCause(cause);
 			}
@@ -118,7 +133,7 @@ public class AFLController {
 			Employee mBean = eService.empData(userID).getManager();
 			aBean.setSignerId(mBean);
 
-			// 設定SigningProgress
+			// 設定簽核狀態
 			aBean.setSigningProgress("未簽核");
 
 			// 上傳檔案存入SQL欄位Attachment
@@ -155,8 +170,7 @@ public class AFLController {
 
 		model.addAttribute("selSH", aService.getStartHoursTag());
 		model.addAttribute("selEH", aService.getEndHoursTag());
-		Integer employeeID = Integer.valueOf(userBean.getEmployeeID());
-		model.addAttribute("selLT", eldService.getLeaveTypeTag(employeeID));
+		model.addAttribute("selLT", eldService.getLeaveTypeTag(userID));
 		return "ApplyPage";
 	}
 
@@ -206,7 +220,6 @@ public class AFLController {
 			}
 
 			aService.signOffApply(AID, confirmBean);
-
 			return "SignSuccess";
 		} else {
 			List<ApplyForLeave> SignList = aService.queryUnsignedApplyBySID(userID);
@@ -227,8 +240,6 @@ public class AFLController {
 	public String changeLeaveType(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap,
 			@RequestParam("leaveType") String leaveType) {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
-		System.out.println("leaveType=" + leaveType);
-
 		EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(employeeID, leaveType);
 
 		BigDecimal SH = eldBean.getSurplusHours();
@@ -242,9 +253,7 @@ public class AFLController {
 		java.sql.Date eD = eldBean.getEndDate();
 
 		String str = leaveType + "剩餘：" + hours + "時" + mins + "分，有效期限：" + sD + "~" + eD + "。";
-
 		return str;
-
 	}
 
 	@ResponseBody
@@ -252,7 +261,6 @@ public class AFLController {
 	public String changeDateHourMin(@RequestParam("startdate") String startD, @RequestParam("selSH") String startH,
 			@RequestParam("selSM") String startM, @RequestParam("enddate") String endD,
 			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM) throws ParseException {
-
 		BigDecimal sumH = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
 		DecimalFormat df1 = new DecimalFormat("0.0");
 		String strSumH = df1.format(sumH);
@@ -262,8 +270,6 @@ public class AFLController {
 		Integer mins = (int) (Integer.valueOf(data[1]) * 0.1 * 60);
 
 		String sumHours = "總計：" + hours + "時" + mins + "分。";
-
 		return sumHours;
 	}
-
 }
