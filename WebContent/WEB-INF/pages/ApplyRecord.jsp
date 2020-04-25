@@ -97,7 +97,7 @@ p {
 		$(function() {
 			$("td:empty").text("-");
 		})
-		$(".classD").click(function() {
+		$(".btn-info").click(function() {
 			var applyId = $(this).attr("name");
 			location.href = "preleavedetail?applyId=" + applyId;
 		})

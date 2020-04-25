@@ -102,7 +102,7 @@ p {
 		$(function() {
 			$("td:empty").text("-");
 		})
-		$(".classS").click(function() {
+		$(".btn-info").click(function() {
 			var applyId = $(this).attr("name");
 			location.href = "presigningpage?applyId=" + applyId;
 		})
