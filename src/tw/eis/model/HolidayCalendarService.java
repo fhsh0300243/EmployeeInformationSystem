@@ -23,8 +23,8 @@ public class HolidayCalendarService {
 		return calendarDao.InqueryCalendar(year);
 	}
 	
-	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
-		return calendarDao.InqueryCalendarToday(datestr);
+	public List<HolidayCalendar> InqueryCalendarToday(String todaystr) {
+		return calendarDao.InqueryCalendarToday(todaystr);
 	}
 
 	public void InsertCalendar(Employee Emp, String date, String dateType, String remark) {

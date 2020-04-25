@@ -41,12 +41,12 @@ public class AttendanceService {
 		attendanceDao.UpdateEndTime(Emp,Date,Time);
 	}
 	
-	public void UpdateAttendanceStatus(java.sql.Date Date,int Id,String Status) {
-		attendanceDao.UpdateAttendanceStatus(Date,Id,Status);
+	public void UpdateAttendanceStatus(java.sql.Date Date,int Id,String Status ,String LeaveType) {
+		attendanceDao.UpdateAttendanceStatus(Date,Id,Status,LeaveType);
 	}
 	
-	public List<Attendance> InquiryAllToday() {
-		return attendanceDao.InquiryAllToday();
+	public List<Attendance> InquiryAllToday(String todaystr) {
+		return attendanceDao.InquiryAllToday(todaystr);
 	}
 	
 

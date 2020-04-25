@@ -72,4 +72,8 @@ public class ApplyForLeaveService implements IApplyForLeaveService {
 			String endM) throws ParseException {
 		return aDAO.countLeaveHours(startD, endD, startH, endH, startM, endM);
 	}
+	
+	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
+		return aDAO.getTodayLeaveforTask(Time);
+	}
 }

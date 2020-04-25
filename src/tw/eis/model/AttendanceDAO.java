@@ -22,12 +22,12 @@ import tw.eis.util.GlobalService;
 @Repository
 public class AttendanceDAO {
 
-	private SessionFactory sessionFacotry;
+	private SessionFactory sessionFactory;
 	//private UsersService uService;
 
 	@Autowired
-	public AttendanceDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFacotry) {
-		this.sessionFacotry = sessionFacotry;
+	public AttendanceDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 	
 //	@Autowired
@@ -37,7 +37,7 @@ public class AttendanceDAO {
 
 	public List<Attendance> InquiryToday(int EmpId) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 			nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 			String today = nowdate.format(new Date());
@@ -55,7 +55,7 @@ public class AttendanceDAO {
 
 	public List<Attendance> InquiryAttendance(int EmpId, String month) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			String hqlstr = "from Attendance where EmpId=:id and Date like :Month";
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
 			query.setParameter("id", EmpId);
@@ -72,7 +72,7 @@ public class AttendanceDAO {
 
 	public void InsertStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			Attendance attendance = new Attendance();
 			attendance.setEmployee(Emp);
 			attendance.setDate(Date);
@@ -85,7 +85,7 @@ public class AttendanceDAO {
 
 	public void InsertEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			Attendance attendance = new Attendance();
 			attendance.setEmployee(Emp);
 			attendance.setDate(Date);
@@ -98,7 +98,7 @@ public class AttendanceDAO {
 
 	public void UpdateEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			String hqlstr = "Update Attendance SET EndTime=:Time where Date=:Date and EmpId=:Employee";
 			Query query = session.createQuery(hqlstr);
 			query.setParameter("Time", Time);
@@ -113,7 +113,7 @@ public class AttendanceDAO {
 
 	public void UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";
 			Query query = session.createQuery(hqlstr);
 			query.setParameter("Status", Status);
@@ -124,27 +124,25 @@ public class AttendanceDAO {
 			System.out.println("e:" + e);
 		}
 	}
-		public List<Attendance> InquiryAllToday() {
-		Session session = sessionFacotry.getCurrentSession();
+		public List<Attendance> InquiryAllToday(String todaystr) {
+		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
-		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-		String today = nowdate.format(new Date());
 		String hqlstr = "from Attendance where Date like:today";
 		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-		query.setParameter("today", today);
+		query.setParameter("today", todaystr);
 		List<Attendance> AllToday = query.list();
 		session.getTransaction().commit();
 		session.close();
 		return AllToday;
 	}
 
-	public void UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status) {
-		Session session = sessionFacotry.getCurrentSession();
+	public void UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status ,String LeaveType) {
+		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";
+		String hqlstr = "Update Attendance SET Status=:Status ,LeaveType=:LeaveType where Date=:Date and EmpId=:EmployeeID";
 		Query query = session.createQuery(hqlstr);
 		query.setParameter("Status", Status);
+		query.setParameter("LeaveType", LeaveType);
 		query.setParameter("Date", Date);
 		query.setParameter("EmployeeID", Id);
 		query.executeUpdate();
@@ -153,7 +151,7 @@ public class AttendanceDAO {
 	}
 	
 	public void NewAttendance(Employee Emp,java.sql.Date Date) {
-		Session session = sessionFacotry.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		Attendance attendance = new Attendance();
 		attendance.setEmployee(Emp);
@@ -164,7 +162,7 @@ public class AttendanceDAO {
 	}
 	
 	public List<?> StatusErrorTimes(String Id, String month) {
-		Session session = sessionFacotry.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		String hqlstr = "from Attendance where EmpId=:id and Date like :Month";
 		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
@@ -204,7 +202,7 @@ public class AttendanceDAO {
 			subQuery.add(Restrictions.eq("department", Department));
 		}
 		List<?> list = mainQuery.add(Property.forName("employee").in(subQuery))
-				.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
+				.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
 	}
 

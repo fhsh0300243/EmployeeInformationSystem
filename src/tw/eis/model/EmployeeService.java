@@ -31,7 +31,7 @@ public class EmployeeService implements IEmployeeService {
 	}
 	
 	@Override
-	public List<Integer> allEmpIdforTask(){
+	public List<Employee> allEmpIdforTask(){
 		return employeeDao.allEmpIdforTask();
 	}
 

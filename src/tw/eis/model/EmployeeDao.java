@@ -40,18 +40,15 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
-	public List<Integer> allEmpIdforTask() {
+	public List<Employee> allEmpIdforTask() {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		Query<Employee> query = session.createQuery("From Employee", Employee.class);
 		List<Employee> list = query.list();
 		ArrayList<Integer> empid = new ArrayList<Integer>();
-		for (Employee emp : list) {
-			empid.add(emp.getEmpID());
-		}
 		session.getTransaction().commit();
 		session.close();
-		return empid;
+		return list;
 	}
 
 	@Override
@@ -207,4 +204,5 @@ public class EmployeeDao implements IEmployeeDao {
 			}
 		}
 	}
+	
 }
