@@ -2,6 +2,7 @@ package tw.eis.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -23,13 +24,13 @@ import tw.eis.util.GlobalService;
 public class AttendanceDAO {
 
 	private SessionFactory sessionFactory;
-	//private UsersService uService;
+	// private UsersService uService;
 
 	@Autowired
 	public AttendanceDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 //	@Autowired
 //	public AttendanceDAO(UsersService uService) {
 //		this.uService = uService;
@@ -60,9 +61,7 @@ public class AttendanceDAO {
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
 			query.setParameter("id", EmpId);
 			query.setParameter("Month", month + "%");
-
 			List<Attendance> attlist = query.list();
-
 			return attlist;
 		} catch (Exception e) {
 			System.out.println("e:" + e);
@@ -109,7 +108,6 @@ public class AttendanceDAO {
 			System.out.println("e:" + e);
 		}
 	}
-	
 
 	public void UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
 		try {
@@ -124,7 +122,8 @@ public class AttendanceDAO {
 			System.out.println("e:" + e);
 		}
 	}
-		public List<Attendance> InquiryAllToday(String todaystr) {
+
+	public List<Attendance> InquiryAllToday(String todaystr) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		String hqlstr = "from Attendance where Date like:today";
@@ -136,7 +135,7 @@ public class AttendanceDAO {
 		return AllToday;
 	}
 
-	public void UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status ,String LeaveType) {
+	public void UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status, String LeaveType) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		String hqlstr = "Update Attendance SET Status=:Status ,LeaveType=:LeaveType where Date=:Date and EmpId=:EmployeeID";
@@ -149,8 +148,8 @@ public class AttendanceDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
-	
-	public void NewAttendance(Employee Emp,java.sql.Date Date) {
+
+	public void NewAttendance(Employee Emp, java.sql.Date Date) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		Attendance attendance = new Attendance();
@@ -158,40 +157,28 @@ public class AttendanceDAO {
 		attendance.setDate(Date);
 		session.save(attendance);
 		session.getTransaction().commit();
-		session.close();		
-	}
-	
-	public List<?> StatusErrorTimes(String Id, String month) {
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		String hqlstr = "from Attendance where EmpId=:id and Date like :Month";
-		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-		query.setParameter("id", Id);
-		query.setParameter("Month", month + "%");
-		List<Attendance> attlist = query.list();
-		session.getTransaction().commit();
 		session.close();
-		return attlist;
 	}
 
-	public List<?> queryEmpAttendanceData(int empId, String Name, String Department,java.sql.Date StartDate,java.sql.Date EndDate) {
+	public List<?> queryEmpAttendanceData(int empId, String Name, String Department, java.sql.Date StartDate,
+			java.sql.Date EndDate) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Attendance.class);
 		DetachedCriteria subQuery = DetachedCriteria.forClass(Employee.class);
 		subQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", GlobalService.dateOfToday()),
 				Restrictions.isNull("lastWorkDay")));
 		subQuery.setProjection(Property.forName("empID"));
-		if(StartDate!=null && EndDate!=null) {
+		if (StartDate != null && EndDate != null) {
 			mainQuery.add(Restrictions.between("date", StartDate, EndDate));
 		}
-		
-		if(StartDate!=null) {
+
+		if (StartDate != null) {
 			mainQuery.add(Restrictions.ge("date", StartDate));
 		}
-		
-		if(EndDate!=null) {
+
+		if (EndDate != null) {
 			mainQuery.add(Restrictions.le("date", EndDate));
 		}
-		
+
 		if (empId != 0) {
 			subQuery.add(Restrictions.eq("empID", empId));
 		}
@@ -206,4 +193,17 @@ public class AttendanceDAO {
 		return list;
 	}
 
+	public int CountError(Employee Emp, String month) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "Select Count(Status) from Attendance where EmpId=:Emp and Date like :month and Status='異常'";
+		Query query = session.createQuery(hqlstr);
+		query.setParameter("Emp", Emp);
+		query.setParameter("month", month + "%");
+		Object result = query.uniqueResult();
+		int countError = Integer.parseInt(result.toString());
+		session.getTransaction().commit();
+		session.close();
+		return countError;
+	}
 }

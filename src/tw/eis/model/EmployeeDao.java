@@ -45,7 +45,6 @@ public class EmployeeDao implements IEmployeeDao {
 		session.beginTransaction();
 		Query<Employee> query = session.createQuery("From Employee", Employee.class);
 		List<Employee> list = query.list();
-		ArrayList<Integer> empid = new ArrayList<Integer>();
 		session.getTransaction().commit();
 		session.close();
 		return list;

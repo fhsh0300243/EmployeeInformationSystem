@@ -58,4 +58,8 @@ public class AttendanceService {
 	public List<?> queryEmpAttendanceData(int empId, String Name, String Department,java.sql.Date StartDate,java.sql.Date EndDate){
 		return attendanceDao.queryEmpAttendanceData(empId, Name, Department,StartDate,EndDate);
 	}
+	
+	public int CountError(Employee Emp,String month) {
+		return attendanceDao.CountError(Emp,month);
+	}
 }

@@ -78,28 +78,29 @@ p {
 								<td><b>詳細資料</b></td>
 							</tr>
 							<%
-								List<?> AllEmp = (List<?>) request.getAttribute("AllEmp");
-								if (AllEmp == null || AllEmp.size() < 1) {
+							Map<Employee,Integer> countMap = (Map<Employee,Integer>)request.getAttribute("countMap");
+								if (countMap == null || countMap.size() < 1) {
 							%>
 							<tr id="test">
 								<td align="center" colspan="6">沒有資料!</td>
 							</tr>
 							<%
 								} else {
-									for (Object Emp : AllEmp) {
+									for (Map.Entry<Employee,Integer> element : countMap.entrySet()) {
 							%>
 
 							<tr align="center">
-								<td><%=((Employee)Emp).getEmpID()%></td>
-								<td><%=((Employee)Emp).getName()%></td>
-								<td><%=((Employee)Emp).getDepartment()%></td>
-								<td><%=((Employee)Emp).getTitle()%></td>
-								<td>0</td>
+								<td><%=element.getKey().getEmpID() %></td>
+								<td><%=element.getKey().getName() %></td>
+								<td><%=element.getKey().getDepartment() %></td>
+								<td><%=element.getKey().getTitle() %></td>
+								<td><%=element.getValue() %></td>
 								<td><input type="button" name="id" value="詳細資料" class="btn btn-info"></td>
 							</tr>
 							<%
 								}
 								}
+								
 							%>
 						</table>
 						<div class="list_footer">
