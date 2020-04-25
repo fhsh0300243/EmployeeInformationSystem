@@ -35,15 +35,15 @@ public class AttendanceDAO {
 //		this.uService = uService;
 //	}
 
-	public List<Attendance> InquiryToday(Map<String, String> usersResultMap) {
+	public List<Attendance> InquiryToday(int EmpId) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 			nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 			String today = nowdate.format(new Date());
-			String hqlstr = "from Attendance where EmployeeID=:EmployeeID and Date =:Date";
+			String hqlstr = "from Attendance where EmpId=:EmployeeID and Date =:Date";
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-			query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
+			query.setParameter("EmployeeID", EmpId);
 			query.setParameter("Date", today);
 			List<Attendance> myPunch = query.list();
 			return myPunch;
@@ -53,12 +53,12 @@ public class AttendanceDAO {
 		return null;
 	}
 
-	public List<Attendance> InquiryAttendance(String Id, String month) {
+	public List<Attendance> InquiryAttendance(int EmpId, String month) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
-			String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
+			String hqlstr = "from Attendance where EmpId=:id and Date like :Month";
 			Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
-			query.setParameter("id", Id);
+			query.setParameter("id", EmpId);
 			query.setParameter("Month", month + "%");
 
 			List<Attendance> attlist = query.list();
@@ -70,54 +70,51 @@ public class AttendanceDAO {
 		return null;
 	}
 
-	public boolean InsertStartTime(Map<String, String> usersResultMap, java.sql.Date Date, java.sql.Time Time) {
+	public void InsertStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
-			//attendance.setUsers(uService.userData(Integer.parseInt(usersResultMap.get("EmployeeID"))));
+			attendance.setEmployee(Emp);
 			attendance.setDate(Date);
 			attendance.setStartTime(Time);
 			session.save(attendance);
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return true;
 	}
 
-	public boolean InsertEndTime(Map<String, String> usersResultMap, java.sql.Date Date, java.sql.Time Time) {
+	public void InsertEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
 			Attendance attendance = new Attendance();
-			//attendance.setUsers(uService.userData(Integer.parseInt(usersResultMap.get("EmployeeID"))));
+			attendance.setEmployee(Emp);
 			attendance.setDate(Date);
 			attendance.setEndTime(Time);
 			session.save(attendance);
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return true;
 	}
 
-	public boolean UpdateEndTime(Map<String, String> usersResultMap, java.sql.Date Date, java.sql.Time Time) {
+	public void UpdateEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
-			String hqlstr = "Update Attendance SET EndTime=:Time where Date=:Date and EmployeeID=:EmployeeID";
+			String hqlstr = "Update Attendance SET EndTime=:Time where Date=:Date and EmpId=:Employee";
 			Query query = session.createQuery(hqlstr);
 			query.setParameter("Time", Time);
 			query.setParameter("Date", Date);
-			query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
+			query.setParameter("Employee", Emp);
 			query.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return true;
 	}
 	
 
-	public boolean UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
+	public void UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
 		try {
 			Session session = sessionFacotry.getCurrentSession();
-			String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmployeeID=:EmployeeID";
+			String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";
 			Query query = session.createQuery(hqlstr);
 			query.setParameter("Status", Status);
 			query.setParameter("Date", Date);
@@ -126,7 +123,6 @@ public class AttendanceDAO {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return true;
 	}
 		public List<Attendance> InquiryAllToday() {
 		Session session = sessionFacotry.getCurrentSession();
@@ -143,10 +139,10 @@ public class AttendanceDAO {
 		return AllToday;
 	}
 
-	public boolean UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status) {
+	public void UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status) {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
-		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmployeeID=:EmployeeID";
+		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";
 		Query query = session.createQuery(hqlstr);
 		query.setParameter("Status", Status);
 		query.setParameter("Date", Date);
@@ -154,10 +150,9 @@ public class AttendanceDAO {
 		query.executeUpdate();
 		session.getTransaction().commit();
 		session.close();
-		return true;
 	}
 	
-	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
+	public void NewAttendance(Employee Emp,java.sql.Date Date) {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
 		Attendance attendance = new Attendance();
@@ -166,13 +161,12 @@ public class AttendanceDAO {
 		session.save(attendance);
 		session.getTransaction().commit();
 		session.close();		
-		return true;
 	}
 	
 	public List<?> StatusErrorTimes(String Id, String month) {
 		Session session = sessionFacotry.getCurrentSession();
 		session.beginTransaction();
-		String hqlstr = "from Attendance where EmployeeID=:id and Date like :Month";
+		String hqlstr = "from Attendance where EmpId=:id and Date like :Month";
 		Query<Attendance> query = session.createQuery(hqlstr, Attendance.class);
 		query.setParameter("id", Id);
 		query.setParameter("Month", month + "%");

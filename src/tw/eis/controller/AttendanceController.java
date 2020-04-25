@@ -26,6 +26,7 @@ import tw.eis.model.Attendance;
 import tw.eis.model.HolidayCalendar;
 import tw.eis.model.Users;
 import tw.eis.model.AttendanceService;
+import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
 import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.UsersService;
@@ -54,21 +55,20 @@ public class AttendanceController {
 	}
 
 	@RequestMapping(path = "/gotoAttendanceDepartmentPage", method = RequestMethod.GET)
-	public String goToInquiryDepartmentPage(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
-			HttpServletRequest request) {
+	public String goToInquiryDepartmentPage() {
 			return "AttendanceDepartmentPage";
 	}
 
 	@RequestMapping(path = "/InquiryAttendance", method = RequestMethod.POST)
-	public String InquiryAttendance(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
+	public String InquiryAttendance(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
-		List<Attendance> attlist = AttService.InquiryAttendance(usersResultMap.get("EmployeeID"), month);
+		List<Attendance> attlist = AttService.InquiryAttendance(userBean.getEmployeeID(), month);
 		request.setAttribute("attlist", attlist);
 		return "AttendanceOwnPage";
 	}
 	
 	@RequestMapping(path = "/InquiryAttendanceDepartment", method = RequestMethod.POST)
-	public String InquiryAttendanceDepartment(@ModelAttribute("EmployeeID") String empId,@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
+	public String InquiryAttendanceDepartment(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
 		int level = 4;
 //		try {
@@ -78,10 +78,7 @@ public class AttendanceController {
 //			level = 0;
 //		}
 		if (level == 2 || level == 3 ) {
-			
-			
-			
-			
+
 			return "AttendanceDepartmentPage";
 		}
 		else if(level == 4){
@@ -97,16 +94,17 @@ public class AttendanceController {
 	}
 
 	@RequestMapping(path = "/InquiryToday", method = RequestMethod.GET)
-	public String InquiryToday(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
+	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean,
 			HttpServletRequest request) throws Exception {
-		List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
+		List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
 		request.setAttribute("myPunch", myPunch);
 		return "AttendancePunchPage";
 	}
 
 	@RequestMapping(path = "/PunchAction", method = RequestMethod.POST)
-	public String PunchAction(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap) throws Exception {
+	public String PunchAction(@ModelAttribute("LoginOK") Users userBean) throws Exception {
 		try {
+			Employee Emp = userBean.getEmployee();
 			InetAddress localIp;
 			localIp = InetAddress.getLocalHost();
 			String ip = localIp.getHostAddress();
@@ -130,18 +128,18 @@ public class AttendanceController {
 				cal.set(Calendar.SECOND, 0);
 				Date Time1700 = cal.getTime();
 				Date now = new Date();
-				List<Attendance> myPunch = AttService.InquiryToday(usersResultMap);
+				List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
 				if (now.before(Time1700)) {
 					if (myPunch == null || myPunch.size() == 0) {
-						boolean Insert = AttService.InsertStartTime(usersResultMap, Date, Time);
+						AttService.InsertStartTime(Emp, Date, Time);
 					} else {
-						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+						AttService.UpdateEndTime(Emp, Date, Time);
 					}
 				} else {
 					if (myPunch == null || myPunch.size() == 0) {
-						boolean Insert = AttService.InsertEndTime(usersResultMap, Date, Time);
+						AttService.InsertEndTime(Emp, Date, Time);
 					} else {
-						boolean Update = AttService.UpdateEndTime(usersResultMap, Date, Time);
+						AttService.UpdateEndTime(Emp, Date, Time);
 					}
 				}
 				System.out.println("IP正確");

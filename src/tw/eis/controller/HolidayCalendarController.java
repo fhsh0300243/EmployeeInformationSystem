@@ -2,24 +2,29 @@ package tw.eis.controller;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import tw.eis.model.Employee;
+import tw.eis.model.EmployeeService;
 import tw.eis.model.HolidayCalendar;
 import tw.eis.model.HolidayCalendarService;
+import tw.eis.model.Users;
 
 @Controller
+@SessionAttributes(names = { "LoginOK", "usersResultMap", "errorMsgMap" })
 public class HolidayCalendarController {
 
 	private HolidayCalendarService HCService;
+	private EmployeeService eService;
 
 	@Autowired
 	public HolidayCalendarController(HolidayCalendarService HCService) {
@@ -27,35 +32,33 @@ public class HolidayCalendarController {
 	}
 
 	@RequestMapping(path = "/InqueryCalendar", method = RequestMethod.GET)
-	public String InqueryCalendar(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
+	public String InqueryCalendar(@ModelAttribute("LoginOK") Users userBean,
 			HttpServletRequest request) {
-		String Department = usersResultMap.get("Department");
-		if(Department.equals("HR")) {
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(year);
 			request.setAttribute("calenderlist", calenderlist);
 			return "HolidayCalendarSetup";
-		}
-		return "HolidayCalendarSetup";
 	}
 
 	@RequestMapping(path = "/HolidayAction", method = RequestMethod.POST)
-	public String HolidayAction(@SessionAttribute("usersResultMap") Map<String, String> usersResultMap,
+	public String HolidayAction(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("action") int action, @RequestParam("date") String date,
 			@RequestParam("dateType") String dateType, @RequestParam("remark") String remark,
 			HttpServletRequest request) {
+		Employee Emp = userBean.getEmployee();
+		System.out.println(date);
 		if (action == 1) {
-			boolean Insert = HCService.InsertCalendar(usersResultMap, date, dateType, remark);
+			HCService.InsertCalendar(Emp, date, dateType, remark);
 		} else {
-			boolean Update = HCService.UpdateCalendar(usersResultMap, date, dateType, remark);
+			HCService.UpdateCalendar(Emp, date, dateType, remark);
 		}
 		return "redirect:/InqueryCalendar";
 	}
 
 	@RequestMapping(path = "/DeleteCalendar", method = RequestMethod.POST)
 	public String DeleteCalendar(@RequestParam("Date") List<String> date) {
-		boolean Delete = HCService.DeleteCalendar(date);
+		HCService.DeleteCalendar(date);
 		return "redirect:/InqueryCalendar";
 	}
 

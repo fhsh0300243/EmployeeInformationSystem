@@ -8,6 +8,7 @@ import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.eis.model.Attendance;
 import tw.eis.model.AttendanceService;
@@ -18,6 +19,7 @@ import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.UsersService;
 
 @Controller
+@SessionAttributes(names = { "LoginOK", "usersResultMap", "errorMsgMap" })
 public class SpringTaskController {
 
 	private AttendanceService AttService;
@@ -76,7 +78,7 @@ public class SpringTaskController {
 			System.out.println("allEmp:"+allEmp);
 			for (Object element : allEmp) {
 				Employee Emp = ((Employee) element);
-				boolean New = AttService.NewAttendance(Emp,Date);
+				AttService.NewAttendance(Emp,Date);
 			}
 			
 			
@@ -148,15 +150,15 @@ public class SpringTaskController {
 						Date StartTime = sTime.getTime();
 						int Id = ((Attendance) element).getEmployee().getEmpID();
 						if (StartTime.before(Time08)) {
-							boolean Update = AttService.UpdateAttendanceStatus(Date, Id, "正常");
+							AttService.UpdateAttendanceStatus(Date, Id, "正常");
 						} else {
-							boolean Update = AttService.UpdateAttendanceStatus(Date, Id, "異常");
+							AttService.UpdateAttendanceStatus(Date, Id, "異常");
 						}
 					}
 				} else {
 					for (Object element : AllToday) {
 						int Id = ((Attendance) element).getEmployee().getEmpID();
-						boolean Update = AttService.UpdateAttendanceStatus(Date, Id, "加班");
+						AttService.UpdateAttendanceStatus(Date, Id, "加班");
 					}
 				}
 			}

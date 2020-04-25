@@ -97,7 +97,7 @@ p {
 									<td><%=cal.getDate()%></td>
 									<td><%=cal.getDateType()%></td>
 									<td><%=cal.getRemark()%></td>
-									<td><%=cal.getId()%></td>
+									<td><%=cal.getEmployee().getEmpID()%></td>
 									<td><input type="checkbox" name="Date"
 										value="<%=cal.getDate()%>"></td>
 								</tr>

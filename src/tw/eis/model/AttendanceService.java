@@ -20,29 +20,29 @@ public class AttendanceService {
 		this.attendanceDao = attendanceDao;
 	}
 	
-	public List<Attendance> InquiryToday(Map<String, String> usersResultMap) {
-		return attendanceDao.InquiryToday(usersResultMap);
+	public List<Attendance> InquiryToday(int EmpId) {
+		return attendanceDao.InquiryToday(EmpId);
 	}
 	
 
-	public List<Attendance> InquiryAttendance(String Id, String month) {
-		return attendanceDao.InquiryAttendance(Id, month);
+	public List<Attendance> InquiryAttendance(int EmpId, String month) {
+		return attendanceDao.InquiryAttendance(EmpId, month);
 	}
 	
-	public boolean InsertStartTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
-		return attendanceDao.InsertStartTime(usersResultMap,Date,Time);
+	public void InsertStartTime(Employee Emp,java.sql.Date Date,java.sql.Time Time) {
+		attendanceDao.InsertStartTime(Emp,Date,Time);
 	}
 	
-	public boolean InsertEndTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
-		return attendanceDao.InsertEndTime(usersResultMap,Date,Time);
+	public void InsertEndTime(Employee Emp,java.sql.Date Date,java.sql.Time Time) {
+		attendanceDao.InsertEndTime(Emp,Date,Time);
 	}
 	
-	public boolean UpdateEndTime(Map<String, String> usersResultMap,java.sql.Date Date,java.sql.Time Time) {
-		return attendanceDao.UpdateEndTime(usersResultMap,Date,Time);
+	public void UpdateEndTime(Employee Emp,java.sql.Date Date,java.sql.Time Time) {
+		attendanceDao.UpdateEndTime(Emp,Date,Time);
 	}
 	
-	public boolean UpdateAttendanceStatus(java.sql.Date Date,int Id,String Status) {
-		return attendanceDao.UpdateAttendanceStatus(Date,Id,Status);
+	public void UpdateAttendanceStatus(java.sql.Date Date,int Id,String Status) {
+		attendanceDao.UpdateAttendanceStatus(Date,Id,Status);
 	}
 	
 	public List<Attendance> InquiryAllToday() {
@@ -50,8 +50,8 @@ public class AttendanceService {
 	}
 	
 
-	public boolean NewAttendance(Employee Emp,java.sql.Date Date) {
-		return attendanceDao.NewAttendance(Emp,Date);
+	public void NewAttendance(Employee Emp,java.sql.Date Date) {
+		attendanceDao.NewAttendance(Emp,Date);
 	}
 
 
