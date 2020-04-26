@@ -26,17 +26,20 @@
 .st1 {
 	width: 450px;
 	padding-bottom: 10px;
+
 }
 
 .st2 {
 	width: 450px;
 	text-align: center;
+
 }
 
 .ca1 {
 	width: 100px;
 	float: left;
 	text-align: right;
+
 }
 
 fieldset {
@@ -106,9 +109,11 @@ p {
 					autocomplete="off" size="20">
 			</div>
 			-->
+								
+								
 								<div class="st1">
 								
-									<label for="" class="ca1"><span class="mark1">*</span>申請項目:</label> 
+									<label class="ca1"><span class="mark1">*</span>申請項目:</label> 
 									<select name="appItem">
 										<option value="交通">交通</option>
 										<option value="住宿">住宿</option>
@@ -126,7 +131,7 @@ p {
 			</div>
 			-->
 								<div class="st1">
-									<label class="ca1 " for="">發票日期:</label> <label><input
+									<label class="ca1 " for=""><span class="mark1">*</span>發票日期:</label> <label><input
 										type="date" name="invoiceTime"></label>
 
 								</div>

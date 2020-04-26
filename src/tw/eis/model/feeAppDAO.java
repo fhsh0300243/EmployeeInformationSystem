@@ -24,7 +24,7 @@ public class feeAppDAO implements IfeeAppDAO {
 	}
 	//新增申請差旅費進資料庫
 	public boolean addFeeApp(String department, int employeeID, String appItem, String appTime, String invoiceTime,
-			String invoiceNb, int editor, String remark, int appMoney, String signerTime, String signerStatus,
+			String invoiceNb, String editor, String remark, int appMoney, String signerTime, String signerStatus,
 			int signerID) {
 		Session session = sessionFacotry.getCurrentSession();
 		feeAppMember feeapp = new feeAppMember(department, employeeID, appItem, appTime, invoiceTime, invoiceNb, editor,
@@ -87,6 +87,29 @@ public class feeAppDAO implements IfeeAppDAO {
 	
 		return true;
 		
+	}
+	public List<feeAppMember> qfeeAppByID(int employeeID, String signerStatus) {
+		Session session = sessionFacotry.getCurrentSession();
+	
+		Query qReturnByID = session.createQuery("from feeAppMember where employeeID=?0 and signerStatus=?1",feeAppMember.class);	
+		qReturnByID.setParameter(0, employeeID);
+		qReturnByID.setParameter(1, signerStatus);
+		List<feeAppMember> qlistByID = qReturnByID.list();
+		return qlistByID;
+	}
+	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor,
+			int appMoney, String remark, String signerStatus) {
+		Session session = sessionFacotry.getCurrentSession();
+		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
+		feeAppMember.setAppTime(appTime);
+		feeAppMember.setInvoiceTime(invoiceTime);
+		feeAppMember.setInvoiceNb(invoiceNb);
+		feeAppMember.setEditor(editor);
+		feeAppMember.setAppMoney(appMoney);
+		feeAppMember.setRemark(remark);;
+		feeAppMember.setSignerStatus(signerStatus);
+		session.update(feeAppMember);
+		return true;
 	}
 	
 }

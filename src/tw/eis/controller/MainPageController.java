@@ -35,6 +35,15 @@ public class MainPageController {
 	public String feeAppPage() {
 		return "feeApplicationForm";
 	}
+	//轉頁差旅費退件頁面
+		@RequestMapping(path = "/FeeReturnPage.action",method =RequestMethod.GET)
+		public String qfeeAppByID(@ModelAttribute("LoginOK") Users LoginOK, Model model) {
+			int EmployeeID = LoginOK.getEmployeeID();
+			String signerStatus="退件";
+			List<feeAppMember> qfeeAppByID= feeAppService.qfeeAppByID(EmployeeID,signerStatus);
+			model.addAttribute("qfeeAppByID", qfeeAppByID);
+			return "FeeReturnPage";
+		}
 
 	//轉頁差旅費簽核頁面+權限判斷
 	@RequestMapping(path = "/FeeSingerPage.action", method = RequestMethod.GET)
@@ -51,7 +60,7 @@ public class MainPageController {
 			}
 			if (deptid >1) {		
 		String department = LoginOK.getDepartment();
-		String signerStatus="Send";
+		String signerStatus="簽核中";
 		int Level = LoginOK.getEmployee().getLevel();
 		System.out.println("Level:"+Level);
 		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level);

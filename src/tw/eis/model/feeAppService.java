@@ -20,7 +20,7 @@ public class feeAppService implements IfeeAppService{
 	}
 	
 	public boolean addFeeApp(String department,int employeeID,String appItem,String appTime,
-			String invoiceTime,String invoiceNb,int editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
+			String invoiceTime,String invoiceNb,String editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
 		return feeAppDAO.addFeeApp(department,employeeID,appItem,appTime,invoiceTime,invoiceNb,editor,remark,appMoney,signerTime,signerStatus,signerID);
 	}
 	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB) {
@@ -37,6 +37,16 @@ public class feeAppService implements IfeeAppService{
 
 	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,int signerID) {
 		return feeAppDAO.EditFeeApp(feeAppID, signerStatus,singerTime,signerID);
+		
+	}
+
+	public List<feeAppMember> qfeeAppByID(int employeeID, String signerStatus) {
+		return feeAppDAO.qfeeAppByID(employeeID,signerStatus);
+	}
+
+	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor, int appMoney,
+			String remark, String signerStatus) {
+		return feeAppDAO.ReturnEditFee(feeAppID, appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);
 		
 	}
 

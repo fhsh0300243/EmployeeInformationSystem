@@ -80,6 +80,10 @@ p {
 					<div class="panel-body">
 						<table align="center">
 						<tr>
+						<td>申請編號:</td>
+						<td>${S_feeAppID}</td>
+						</tr>
+						<tr>
 						<td>員工編號:</td>
 						<td>${S_feeAppID}</td>
 						</tr>
@@ -121,9 +125,9 @@ p {
 						<form class="for1"
 						action="<c:url value="/SingerPassPage?feeAppID=${S_feeAppID}"/>"
 						method="post">
- 						<input type="checkbox" id="checkbox1" name="decide" value="Pass" onclick = 'check(this)'>Pass
+ 						<input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過
           
- 		               	<input type="checkbox" id="checkbox2" name="decide" value="Return" onclick = 'check(this)'>Return
+ 		               	<input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件
  		               	<div>
 						<input type="submit" value="送出">
 						</div>
