@@ -22,8 +22,15 @@ public class EmployeeLeaveDetail {
 	private int eldId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
-	private Users employeeId;
+	@JoinColumn(name = "CREATORID", referencedColumnName = "EMPID")
+	private Employee creatorId;
+
+	@Column(name = "CREATETIME")
+	private String createTime;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "EMPLOYEEID", referencedColumnName = "EMPID")
+	private Employee employeeId;
 
 	@Column(name = "LEAVETYPE")
 	private String leaveType;
@@ -33,6 +40,9 @@ public class EmployeeLeaveDetail {
 
 	@Column(name = "USEDHOURS")
 	private BigDecimal usedHours;
+
+	@Column(name = "APPLYHOURS")
+	private BigDecimal applyHours;
 
 	@Column(name = "SURPLUSHOURS")
 	private BigDecimal surplusHours;
@@ -54,11 +64,27 @@ public class EmployeeLeaveDetail {
 		this.eldId = eldId;
 	}
 
-	public Users getEmployeeId() {
+	public Employee getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Employee creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public Employee getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Users employeeId) {
+	public void setEmployeeId(Employee employeeId) {
 		this.employeeId = employeeId;
 	}
 
@@ -84,6 +110,14 @@ public class EmployeeLeaveDetail {
 
 	public void setUsedHours(BigDecimal usedHours) {
 		this.usedHours = usedHours;
+	}
+
+	public BigDecimal getApplyHours() {
+		return applyHours;
+	}
+
+	public void setApplyHours(BigDecimal applyHours) {
+		this.applyHours = applyHours;
 	}
 
 	public BigDecimal getSurplusHours() {
