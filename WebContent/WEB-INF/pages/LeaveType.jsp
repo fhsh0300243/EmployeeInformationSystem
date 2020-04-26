@@ -57,6 +57,7 @@ p {
 							<th>請假類別</th>
 							<th>可用時數</th>
 							<th>已用時數</th>
+							<th>申請時數</th>
 							<th>剩餘時數</th>
 							<th>有效期限</th>
 						</tr>
@@ -65,6 +66,7 @@ p {
 								<td>${leaveDetail.leaveType}</td>
 								<td>${leaveDetail.maxHours}</td>
 								<td>${leaveDetail.usedHours}</td>
+								<td>${leaveDetail.applyHours}</td>
 								<td>${leaveDetail.surplusHours}</td>
 								<td>${leaveDetail.startDate}~${leaveDetail.endDate}</td>
 								<!-- <td>
