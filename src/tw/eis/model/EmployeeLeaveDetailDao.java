@@ -31,10 +31,10 @@ public class EmployeeLeaveDetailDao implements IEmployeeLeaveDetailDao {
 	}
 
 	@Override
-	public void updateDetail(int eldId, EmployeeLeaveDetail employeeLeaveDetail) {
+	public void updateHours(int eldId, EmployeeLeaveDetail employeeLeaveDetail) {
 		EmployeeLeaveDetail result = getSession().get(EmployeeLeaveDetail.class, eldId);
-
 		result.setUsedHours(employeeLeaveDetail.getUsedHours());
+		result.setApplyHours(employeeLeaveDetail.getApplyHours());
 		result.setSurplusHours(employeeLeaveDetail.getSurplusHours());
 		getSession().update(result);
 	}

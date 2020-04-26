@@ -126,8 +126,9 @@ p {
 						</table>
 						<hr>
 						<div class="btn2">
-							<input type="reset" value="清除" onclick="cls();" class="btn btn-info"/> <input
-								type="submit" value="送出" onclick="return checkSubmit();" class="btn btn-info"/>
+							<input type="reset" value="清除" onclick="cls();"
+								class="btn btn-info" /> <input type="submit" value="送出"
+								onclick="return checkSubmit();" class="btn btn-info" />
 						</div>
 					</form>
 
@@ -196,21 +197,30 @@ p {
 									endM = parseInt(endM);
 									if (startD < endD
 											|| (startD == endD && (startH < endH || (startH == endH && startM < endM)))) {
-										$.ajax({
-											url : "changeDHM",
-											data : {
-												startdate : startD,
-												selSH : startH,
-												selSM : startM,
-												enddate : endD,
-												selEH : endH,
-												selEM : endM
-											},
-											type : "POST",
-											success : function(data) {
-												$(".sumHours").text(data);
-											}
-										})
+										$
+												.ajax({
+													url : "changeDHM",
+													data : {
+														leaveType : $("#idLT")
+																.val(),
+														startdate : startD,
+														selSH : startH,
+														selSM : startM,
+														enddate : endD,
+														selEH : endH,
+														selEM : endM
+													},
+													type : "POST",
+													dataType : "json",
+													success : function(data) {
+														$(".sumHours")
+																.text(
+																		data[0]["sumHours"]);
+														$("#dateCheck")
+																.text(
+																		data[0]["sumHoursError"]);
+													}
+												})
 									} else {
 										$("#dateImg").attr("src",
 												"images/X_icon.png");
