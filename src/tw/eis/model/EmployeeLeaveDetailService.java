@@ -22,9 +22,8 @@ public class EmployeeLeaveDetailService implements IEmployeeLeaveDetailService {
 	}
 
 	@Override
-	public void updateDetail(int eldId, EmployeeLeaveDetail employeeLeaveDetail) {
-		// TODO Auto-generated method stub
-
+	public void updateHours(int eldId, EmployeeLeaveDetail employeeLeaveDetail) {
+		eldDAO.updateHours(eldId, employeeLeaveDetail);
 	}
 
 	@Override

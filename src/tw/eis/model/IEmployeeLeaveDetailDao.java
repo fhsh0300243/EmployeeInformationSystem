@@ -6,7 +6,7 @@ public interface IEmployeeLeaveDetailDao {
 
 	public void addDetail(EmployeeLeaveDetail employeeLeaveDetail);
 
-	public void updateDetail(int eldId, EmployeeLeaveDetail employeeLeaveDetail);
+	public void updateHours(int eldId, EmployeeLeaveDetail employeeLeaveDetail);
 
 	public void deleteDetail(int eldId);
 

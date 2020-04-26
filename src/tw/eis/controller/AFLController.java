@@ -16,6 +16,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -162,6 +164,19 @@ public class AFLController {
 			// 設定簽核狀態
 			aBean.setSigningProgress("未簽核");
 
+			// 申請完成同時修改EmployeeLeaveDetail的申請時數與剩餘時數
+			EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(userID, leaveType);
+			// 取得原本的時數
+			BigDecimal oldAH = eldBean.getApplyHours();
+			BigDecimal oldSH = eldBean.getSurplusHours();
+			// 扣除此次申請的時數
+			BigDecimal newAH = oldAH.add(sumHours);
+			BigDecimal newSH = oldSH.subtract(sumHours);
+			// 執行更新
+			eldBean.setApplyHours(newAH);
+			eldBean.setSurplusHours(newSH);
+			eldService.updateHours(eldBean.getEldId(), eldBean);
+
 			// 上傳檔案存入SQL欄位Attachment
 			try {
 				String fileName = mFile.getOriginalFilename();
@@ -210,27 +225,36 @@ public class AFLController {
 		if (aBean.getSignerId().getEmpID() == userID && aBean.getSigningProgress().equalsIgnoreCase("未簽核")) {
 
 			ApplyForLeave confirmBean = new ApplyForLeave();
+			int EID = aBean.getEmployeeId().getEmpID();
+			String leaveType = aBean.getLeaveType();
+			EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(EID, leaveType);
+			BigDecimal confirmUH = aBean.getSumHours();
 
 			if (sign.equalsIgnoreCase("yes")) {
 				confirmBean.setSigningProgress("同意");
 
-				int EID = aBean.getEmployeeId().getEmpID();
-				String leaveType = aBean.getLeaveType();
-				EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(EID, leaveType);
-
-				BigDecimal confirmUH = aBean.getSumHours();
 				BigDecimal oldUH = eldBean.getUsedHours();
-				BigDecimal oldSH = eldBean.getSurplusHours();
+				BigDecimal oldAH = eldBean.getApplyHours();
 
 				BigDecimal newUH = oldUH.add(confirmUH);
-				BigDecimal newSH = oldSH.subtract(confirmUH);
+				BigDecimal newAH = oldAH.subtract(confirmUH);
 
 				eldBean.setUsedHours(newUH);
-				eldBean.setSurplusHours(newSH);
-				eldService.updateDetail(eldBean.getEldId(), eldBean);
+				eldBean.setApplyHours(newAH);
+				eldService.updateHours(eldBean.getEldId(), eldBean);
 
 			} else {
 				confirmBean.setSigningProgress("不同意");
+
+				BigDecimal oldAH = eldBean.getApplyHours();
+				BigDecimal oldSH = eldBean.getSurplusHours();
+
+				BigDecimal newAH = oldAH.subtract(confirmUH);
+				BigDecimal newSH = oldSH.add(confirmUH);
+
+				eldBean.setApplyHours(newAH);
+				eldBean.setSurplusHours(newSH);
+				eldService.updateHours(eldBean.getEldId(), eldBean);
 			}
 
 			Date cfTime = new Date();
@@ -280,10 +304,25 @@ public class AFLController {
 
 	@ResponseBody
 	@RequestMapping(path = "/changeDHM", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String changeDateHourMin(@RequestParam("startdate") String startD, @RequestParam("selSH") String startH,
-			@RequestParam("selSM") String startM, @RequestParam("enddate") String endD,
-			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM) throws ParseException {
+	public String changeDateHourMin(@ModelAttribute("LoginOK") Users userBean,
+			@RequestParam("leaveType") String leaveType, @RequestParam("startdate") String startD,
+			@RequestParam("selSH") String startH, @RequestParam("selSM") String startM,
+			@RequestParam("enddate") String endD, @RequestParam("selEH") String endH,
+			@RequestParam("selEM") String endM) throws ParseException {
+
+		JSONArray json = new JSONArray();
+		JSONObject object = new JSONObject();
+		int userID = userBean.getEmployeeID();
 		BigDecimal sumH = countReallySumHours(startD, startH, startM, endD, endH, endM);
+
+		// 取得剩餘假別的資料
+		EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(userID, leaveType);
+		BigDecimal surplusHours = eldBean.getSurplusHours();
+		if (sumH.compareTo(surplusHours) == 1) {
+			String sumHoursError = "申請時數大於" + leaveType + "剩餘時數。";
+			object.put("sumHoursError", sumHoursError);
+		}
+
 		DecimalFormat df1 = new DecimalFormat("0.0");
 		String strSumH = df1.format(sumH);
 
@@ -292,7 +331,10 @@ public class AFLController {
 		Integer mins = (int) (Integer.valueOf(data[1]) * 0.1 * 60);
 
 		String sumHours = "總計：" + hours + "時" + mins + "分。";
-		return sumHours;
+		object.put("sumHours", sumHours);
+
+		json.put(object);
+		return json.toString();
 	}
 
 	// 開始時間、結束時間-計算區間內實際請假的總工時
