@@ -78,8 +78,10 @@ p {
 
 				<div class="panel panel-primary">
 					<p class="functionTitle">差旅費查詢</p>
+					
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
+							
 					<div class="panel-body">
 						<form action="FeeAllPage.action" method="post">
 							<div class="st1">
@@ -95,6 +97,7 @@ p {
 						
 						<table id="idtable1">
 								<tr>
+									<th>申請編號</th>
 									<th>申請時間</th>
 									<th>申請項目</th>
 									<th>發票日期</th>
@@ -106,6 +109,7 @@ p {
 
 								<c:forEach var='applyDetail' items='${dList}' varStatus='vs'>
 									<tr>
+										<td>${applyDetail.feeAppID}</td>
 										<td>${applyDetail.appTime.substring(0,16)}</td>
 										<td>${applyDetail.appItem}</td>
 										<td>${applyDetail.invoiceTime}</td>
