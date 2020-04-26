@@ -43,15 +43,7 @@ p {
 	padding: 10px 20px;
 }
 </style>
-<script>
-	function check(obj) {
-		if (obj.id == 'checkbox1' && obj.checked == true) {
-			document.getElementById('checkbox2').checked = false;
-		} else if (obj.id == 'checkbox2' && obj.checked == true) {
-			document.getElementById('checkbox1').checked = false;
-		}
-	}
-</script>
+
 </head>
 <body>
 	<br>
@@ -79,38 +71,7 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						
-
-														<table id="idtable1">
-																<tr >
-									<th>部門</th>
-									<th>員工姓名</th>
-									<th>申請項目</th>
-									<th>申請日期</th>
-									<th>申請金額</th>
-									
-									
-									<th>簽核送出</th>
-								</tr>
-
-								<c:forEach var='appfee' items='${dSList}' varStatus='vs'>
-									<tr>
-										<td>${appfee.department}</td>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.appItem}</td>
-										<td>${appfee.appTime.substring(0,16)}</td>
-										<td>${appfee.appMoney}</td>
-										
-										
-										
-										<td>
-											<button class="btn-info" name="${appfee.feeAppID}">簽核</button>
-										</td>
-									</tr>
-								</c:forEach>
-							</table>
-
-
-							
+						<h2>差旅費已簽核</h2>
 						
 						<div class="list_footer">
 							<div id="tag"></div>
@@ -125,16 +86,7 @@ p {
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script>
-	$(function() {
-		$("td:empty").text("-");
-	})
-	$(".btn-info").click(function() {
-		var feeAppID = $(this).attr("name");
-		location.href = "SingerPage?feeAppID=" + feeAppID;
-	})
-	</script>
+	
 
 </body>
 </html>

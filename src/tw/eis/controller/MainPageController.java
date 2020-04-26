@@ -25,45 +25,41 @@ public class MainPageController {
 	public MainPageController(feeAppService feeAppService) {
 		this.feeAppService=feeAppService;
 	}
-
+	//轉頁差旅費查詢頁面
 	@RequestMapping(path = "/FeeAllPage.action",method =RequestMethod.GET)
 	public String MinPage() {
 		return "FeeAllPage";
 	}
+	//轉頁差旅費申請頁面
 	@RequestMapping(path = "/AddFeeApp.action",method =RequestMethod.GET)
 	public String feeAppPage() {
 		return "feeApplicationForm";
 	}
-//	@RequestMapping(path = "/FeeSingerPage.action",method =RequestMethod.GET)
-//	public String FeeSingerPage(@ModelAttribute("LoginOK") Users LoginOK) {
-//		
-//		int deptid = 0;
-//		try {
-//			// deptid = eService.empData(Integer.parseInt(empId)).getEmpDept().getDeptID();
-//			deptid = LoginOK.getEmployee().getLevel();
-//		} catch (Exception e) {
-//			deptid = 0;
-//		}
-//		if (deptid >1) {
-//			return "FeeSingerPage";
-//		}
-//		
-//		return "AuthorityErrorPage";
-//	}
-	
+
+	//轉頁差旅費簽核頁面+權限判斷
 	@RequestMapping(path = "/FeeSingerPage.action", method = RequestMethod.GET)
-	public String qfeeSingerApp(@ModelAttribute("LoginOK") Users userBean,
+	public String qfeeSingerApp(@ModelAttribute("LoginOK") Users LoginOK,
 			@RequestParam(name = "FeeDetail", required = false)String FeeDetail,
 			@RequestParam(name = "Status", required = false)String Status,
 			@RequestParam(name = "send", required = false)String send, Model model) {
-		String department = userBean.getDepartment();
+					
+			int deptid = 0;
+			try {
+				deptid = LoginOK.getEmployee().getLevel();
+			} catch (Exception e) {
+				deptid = 0;
+			}
+			if (deptid >1) {		
+		String department = LoginOK.getDepartment();
 		String signerStatus="Send";
-		int Level = userBean.getEmployee().getLevel();
+		int Level = LoginOK.getEmployee().getLevel();
 		System.out.println("Level:"+Level);
 		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level);
 		model.addAttribute("dSList", dSList);
 		
 		 return "FeeSingerPage";
+	}
+			return "AuthorityErrorPage";
 	}
 	
 

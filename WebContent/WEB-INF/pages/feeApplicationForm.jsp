@@ -53,6 +53,10 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
+.mark1 {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -84,6 +88,7 @@ p {
 						<fieldset style="margin: 0 auto">
 							
 							<form action="AddFeeApp.action" method="post">
+								<!--  
 								<div class="st1">
 									<label for="" class="ca1">部門:</label> 
 									<select name="department">
@@ -94,7 +99,7 @@ p {
 										<option value="PM">PM(專案管理)</option>
 									</select>
 								</div>
-								<!--  
+								
 			<div class="st1">
 				<label class="ca1" for="xx1">員工編號:</label><input type="text"
 					id="xx1" name="employeeID" placeholder="guest" autofocus
@@ -102,10 +107,13 @@ p {
 			</div>
 			-->
 								<div class="st1">
-									<label for="" class="ca1">申請項目:</label> <select name="appItem">
+								
+									<label for="" class="ca1"><span class="mark1">*</span>申請項目:</label> 
+									<select name="appItem">
 										<option value="交通">交通</option>
 										<option value="住宿">住宿</option>
 										<option value="餐費">餐費</option>
+										<option value="加班費">加班費</option>
 										<option value="其他">其他</option>
 
 									</select>
@@ -142,7 +150,7 @@ p {
 									<textarea cols="30" rows="3" id="comment1" name="remark"></textarea>
 								</div>
 								<div class="st1">
-									<label class="ca1 " for="">金額:</label> <label><input
+									<label class="ca1 " for=""><span class="mark1">*</span>金額:</label> <label><input
 										type="tel" name="appMoney"></label>
 
 								</div>

@@ -9,4 +9,5 @@ public interface IfeeAppDAO {
 	public List<feeAppMember> qFeeApp(int employeeID,String searchA,String searchB);
 	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level);
 	public List<feeAppMember> qfeeSingerApp(int feeAppID);
+	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,int signerID);
 }

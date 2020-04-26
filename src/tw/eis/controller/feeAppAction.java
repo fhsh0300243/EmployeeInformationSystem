@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import tw.eis.model.ApplyForLeave;
+
 import tw.eis.model.Users;
 import tw.eis.model.feeAppMember;
 import tw.eis.model.feeAppService;
@@ -34,9 +34,10 @@ public class feeAppAction {
 	public feeAppAction(feeAppService feeAppService) {
 		this.feeAppService=feeAppService;
 	}
-	
+	//差旅費申請+查詢資料庫
 	@RequestMapping(path = "/AddFeeApp.action", method = RequestMethod.POST)
-	public String addfeeApp(@ModelAttribute("LoginOK") Users userBean,@RequestParam(name = "department", required = false) String department,
+	public String addfeeApp(@ModelAttribute("LoginOK") Users userBean,
+			//@RequestParam(name = "department", required = false) String department,
 			//@RequestParam(name = "employeeID", required = false) String employeeID,
 			@RequestParam(name = "appItem", required = false) String appItem,
 			//@RequestParam(name = "appTime", required = false) String appTime,
@@ -48,10 +49,12 @@ public class feeAppAction {
 		String signerTime=null;
 		String signerStatus="Send";
 		int signerID=1;
-				
+		String department = userBean.getDepartment();		
 		//int employeeIDint= Integer.parseInt(employeeID);
 		int employeeIDint = userBean.getEmployeeID();
 		//Date invoiceTimeD = Date.valueOf(invoiceTime);
+	
+		
 		int editorint= Integer.parseInt(editor);
 		int appMoneyint= Integer.parseInt(appMoney);
 		
@@ -68,7 +71,7 @@ public class feeAppAction {
 		
 		 return "feeApplicationForm";
 	}
-	
+	//差旅費查詢頁面+查詢資料庫
 	@RequestMapping(path = "/FeeAllPage.action", method = RequestMethod.POST)
 	public String qfeeApp(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam(name = "searchA", required = false)String searchA,
@@ -83,8 +86,7 @@ public class feeAppAction {
 	@RequestMapping(path = "/SingerPage", method = RequestMethod.GET)
 	public String SingerPage(@RequestParam("feeAppID") int feeAppID, Model model) {
 		List<feeAppMember> applyIDList = feeAppService.qapplyId(feeAppID);
-		
-		
+				
 		int S_feeAppID=0;
 		String S_department="";
 		String S_appItem="";
@@ -94,9 +96,7 @@ public class feeAppAction {
 		int S_editor=0;
 		String S_remark="";
 		int S_appMoney=0;
-		
-		
-		
+				
 		for(feeAppMember feeAppMember:applyIDList) {
 			S_feeAppID = feeAppMember.getFeeAppID();
 			S_department = feeAppMember.getDepartment();
@@ -120,14 +120,21 @@ public class feeAppAction {
 		model.addAttribute("S_remark", S_remark);
 		model.addAttribute("S_appMoney", S_appMoney);
 		
-		
-		
-		
-//		model.addAttribute("applyIDList", applyIDList);
-//	System.out.print("test:"+feeAppID);
 	 return "FeeSingerDetails";
-
 	}
-	
+	@RequestMapping(path = "/SingerPassPage", method = RequestMethod.POST)
+	public String SingerPassPage(@ModelAttribute("LoginOK") Users LoginOK,
+			@RequestParam("feeAppID") int feeAppID,
+			@RequestParam("decide") String signerStatus,Model model) {
+		
+		SimpleDateFormat SingerFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String singerTime = SingerFormat.format(date);
+		
+		int signerID = LoginOK.getEmployeeID();
+		
+		feeAppService.EditFeeApp(feeAppID,signerStatus,singerTime,signerID);		
+	 return "FeeSingerDecide";
+	}
 	}
 
