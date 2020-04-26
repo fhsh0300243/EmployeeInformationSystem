@@ -74,9 +74,9 @@ public class ApplyForLeaveService implements IApplyForLeaveService {
 	}
 
 	@Override
-	public BigDecimal countLeaveHours(String startD, String endD, String startH, String endH, String startM,
+	public BigDecimal countHoursSTtoET(String startD, String endD, String startH, String endH, String startM,
 			String endM) throws ParseException {
-		return aDAO.countLeaveHours(startD, endD, startH, endH, startM, endM);
+		return aDAO.countHoursSTtoET(startD, endD, startH, endH, startM, endM);
 	}
 	
 	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {

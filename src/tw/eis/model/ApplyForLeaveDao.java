@@ -179,18 +179,37 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 	}
 
 	@Override
-	public BigDecimal countLeaveHours(String startD, String endD, String startH, String endH, String startM,
+	public BigDecimal countHoursSTtoET(String startD, String endD, String startH, String endH, String startM,
 			String endM) throws ParseException {
 		// 起始時間-結束時間換算成總時數
-		// 天-轉時數 1.先將日期轉成數字
 		Calendar aCalendar = Calendar.getInstance();
-		Date startTime = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
-		aCalendar.setTime(startTime);
-		int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
-		Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
-		aCalendar.setTime(endTime);
-		int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
-		int leaveDay = day2 - day1;
+		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+
+		aCalendar.setTime(startDate);
+		int yearS = aCalendar.get(Calendar.YEAR);
+
+		aCalendar.setTime(endDate);
+		int yearE = aCalendar.get(Calendar.YEAR);
+
+		// 天-轉時數 1.先將日期轉成數字
+		aCalendar.setTime(startDate);
+		int dayS = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+		aCalendar.setTime(endDate);
+		int dayE = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+		int leaveDay = 0;
+		if (yearS == yearE) {
+			leaveDay = dayE - dayS;
+		} else {
+			String lastDateOfYear = yearS + "-12-31";
+			Date lastDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastDateOfYear);
+			aCalendar.setTime(lastDate);
+			int dayL = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+			leaveDay = dayL - dayS + dayE;
+		}
 
 		// 天-轉時數 2.天數轉時數
 		int dSumH = 0;
@@ -245,7 +264,6 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		// 加總時數-轉成BigDecimal型別，設定SumHours
 		double sum = dSumH + hSumH + firstM + lastM;
 		BigDecimal sumHours = new BigDecimal(sum);
-
 		return sumHours;
 	}
 

@@ -28,6 +28,6 @@ public interface IApplyForLeaveDao {
 
 	public String getEndHoursTag();
 
-	public BigDecimal countLeaveHours(String startD, String endD, String startH, String endH, String startM,
+	public BigDecimal countHoursSTtoET(String startD, String endD, String startH, String endH, String startM,
 			String endM) throws ParseException;
 }

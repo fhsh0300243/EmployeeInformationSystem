@@ -110,7 +110,7 @@ public class AFLController {
 		Date eTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endD + " " + endH + ":" + endM);
 		String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(eTime);
 
-		// 確認申請的開始時間、結束時間，是否與先前申請的時間重複
+		// 開始時間、結束時間-確認是否與先前申請的時間重複
 		List<ApplyForLeave> aBeanOLD = aService.checkApplyTime(sTime, eTime, userID);
 
 		if (aBeanOLD != null) {
@@ -147,7 +147,7 @@ public class AFLController {
 			aBean.setEndTime(endTime);
 
 			// 設定總時數-起始時間到結束時間，換算成總時數
-			BigDecimal sumHours = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
+			BigDecimal sumHours = countReallySumHours(startD, startH, startM, endD, endH, endM);
 			aBean.setSumHours(sumHours);
 
 			// 設定事由
@@ -283,7 +283,7 @@ public class AFLController {
 	public String changeDateHourMin(@RequestParam("startdate") String startD, @RequestParam("selSH") String startH,
 			@RequestParam("selSM") String startM, @RequestParam("enddate") String endD,
 			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM) throws ParseException {
-		BigDecimal sumH = aService.countLeaveHours(startD, endD, startH, endH, startM, endM);
+		BigDecimal sumH = countReallySumHours(startD, startH, startM, endD, endH, endM);
 		DecimalFormat df1 = new DecimalFormat("0.0");
 		String strSumH = df1.format(sumH);
 
@@ -293,5 +293,65 @@ public class AFLController {
 
 		String sumHours = "總計：" + hours + "時" + mins + "分。";
 		return sumHours;
+	}
+
+	// 開始時間、結束時間-計算區間內實際請假的總工時
+	public BigDecimal countReallySumHours(String startD, String startH, String startM, String endD, String endH,
+			String endM) throws ParseException {
+		// 開始時間、結束時間-格式化輸入的資料，轉換成方便計算的型態
+		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+
+		Calendar startCal = Calendar.getInstance();
+		startCal.setTime(startDate);
+		int dayS = startCal.get(Calendar.DAY_OF_YEAR);
+		int yearS = startCal.get(Calendar.YEAR);
+
+		Calendar endCal = Calendar.getInstance();
+		endCal.setTime(endDate);
+		int dayE = endCal.get(Calendar.DAY_OF_YEAR);
+		int yearE = endCal.get(Calendar.YEAR);
+
+		// 開始時間、結束時間-判斷是否跨年度
+		int leaveDay = 0;
+		if (yearS == yearE) {
+			leaveDay = dayE - dayS;
+		} else {
+			Calendar lastCal = Calendar.getInstance();
+			String lastDateOfYear = yearS + "-12-31";
+			Date lastDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastDateOfYear);
+			lastCal.setTime(lastDate);
+			int dayL = lastCal.get(Calendar.DAY_OF_YEAR);
+
+			leaveDay = dayL - dayS + dayE;
+		}
+
+		// 開始時間、結束時間-計算共有幾天休假日
+		int count = 0;
+		if (leaveDay >= 2) {
+			for (int i = 1; i < leaveDay; i++) {
+				startCal.add(Calendar.DAY_OF_YEAR, 1);
+				Date nDate = startCal.getTime();
+				String newDate = new SimpleDateFormat("yyyy-MM-dd").format(nDate);
+
+				int newWeek = startCal.get(Calendar.DAY_OF_WEEK);
+				List<HolidayCalendar> hceBean = hcService.queryCalendarByDate(newDate);
+				if (hceBean.size() != 0) {
+					if (hceBean.get(0).getDateType().equals("國定假日")) {
+						count++;
+					}
+				} else {
+					if (newWeek == Calendar.SATURDAY || newWeek == Calendar.SUNDAY) {
+						count++;
+					}
+				}
+			}
+		}
+
+		// 開始時間、結束時間-區間總工時扣除休假日的時數
+		BigDecimal sumHRaw = aService.countHoursSTtoET(startD, endD, startH, endH, startM, endM);
+		BigDecimal sumHHoliday = new BigDecimal(count * 8.0);
+		BigDecimal sumH = sumHRaw.subtract(sumHHoliday);
+		return sumH;
 	}
 }
