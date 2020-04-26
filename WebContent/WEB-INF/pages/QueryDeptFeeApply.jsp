@@ -73,18 +73,7 @@ table {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30"><br /> <label
-							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><input type="checkbox"
-							id="resigned" name="resigned" value="resigned"> <label
-							for="" class="t1">離職員工</label> <input type="button" id="search"
-							name="search" value="搜尋" class="btn btn-info">
-						<p>${msg[0]}</p>
-						<!--  <img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />-->
-						<br>
-						<table border="1" id="emplist" style="margin: 0 auto"></table>
+						<table border="1" id="datalist" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -102,105 +91,58 @@ table {
 
 
 	<script>
-		var depts;
-		$('#searchdept').empty();
-		$.ajax({
-			url : "DeptList",
-			type : "GET",
-			success : function(Str) {
-				depts = JSON.parse(Str);
-				$('#searchdept').append("<option value=''>選擇部門</option>");
-				for (let i = 0; i < depts.length; i++) {
-					$('#searchdept').append(
-							"<option value='"+depts[i].deptabb+"'>"
-									+ depts[i].deptabb + "</option>")
-				}
-			}
-		});
-
-		var emps;
+		var data;
 		const perpage = 10;
 		let nowpage = 1;
-		showemps();
+		showdata();
 		//從資料庫取得資料
-		function showemps() {
+		function showdata() {
 			$.ajax({
-				url : "EmpList",
+				url : "thisSeasonDeptCostPercent.action",
 				type : "GET",
 				success : function(Str) {
-					emps = JSON.parse(Str);
-					pagination(emps, nowpage);
+					data = JSON.parse(Str);
+					pagination(data, nowpage);
 				}
 			});
 		}
 		//產生顯示的資料
-		function pagination(emps, nowpage) {
-			$("#emplist").html("");
-			const datatotal = emps.length;
+		function pagination(data, nowpage) {
+			$("#datalist").html("");
+			const datatotal = data.length;
 			const pagesTotal = Math.ceil(datatotal / perpage);
 			let currentPage = nowpage;
 			var minData = (currentPage * perpage) - perpage + 1;
 			var maxData = (currentPage * perpage);
-			//產生<a>標籤
-			atag = "<a href=# name='1' onclick='f(this)'>" + 1 + "</a> ";
-			for (let i = 2; i <= pagesTotal; i++) {
-				atag += "<a href=# name='" + i + "' onclick='f(this)'>" + i
-						+ "</a> ";
-			}
-			document.getElementById("tag").innerHTML = atag;
-			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
+
+
+			var txt = "<tr><th>部門<th>季花費百分比<th>";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
 			for (let i = minData - 1; i < maxData; i++) {
-				txt += "<tr><td>" + emps[i].empID;
-				txt += "<td>" + emps[i].department;
-				txt += "<td>" + emps[i].title;
-				txt += "<td>" + emps[i].name;
-				txt += "<td>" + emps[i].manager;
-				txt += "<td>" + emps[i].extensionNum;
-				txt += "<td>" + emps[i].email;
+				txt += "<tr><td>" + "HR部門";
+				txt += "<td>" + data[i].HRcost;
+				txt += "<tr><td>" + "RD部門";
+				txt += "<td>" + data[i].RDcost;
+				txt += "<tr><td>" + "QA部門";
+				txt += "<td>" + data[i].QAcost;
+				txt += "<tr><td>" + "Sales部門";
+				txt += "<td>" + data[i].Salescost;
+				txt += "<tr><td>" + "PM部門";
+				txt += "<td>" + data[i].PMcost;
+				/*
 				txt += "<td><a href='<c:url value='/EditEmployee.do?id="
 						+ emps[i].empID + "'/>' name='" + emps[i].empID
 						+ "'>Edit</a>";
-
+				*/
 			}
 
-			$("#emplist").html(txt);
+			$("#datalist").html(txt);
 		}
 
-		//換頁		
-		function f(obj) {
-			nowpage = obj.name;
-			$("#page").html("第" + nowpage + "頁");
-			showemps();
-		}
 
-		var chk_status;
-		$("#search").click(
-				function() {
-					if ($("#resigned").prop("checked")) {
-						chk_status = true;
-					} else {
-						chk_status = false;
-					}
-					nowpage = 1;
-					$.ajax({
-						url : "QueryEmp.action?searchid="
-								+ $("#searchid").val() + "&searchname="
-								+ $("#searchname").val() + "&searchdept="
-								+ $("#searchdept").val() + "&resigned="
-								+ chk_status,
-						type : "GET",
-						traditional : true,
-						success : function(Str) {
-							emps = JSON.parse(Str);
-							pagination(emps, nowpage);
-						}
-					});
-				});
 	</script>
 </body>
 </html>

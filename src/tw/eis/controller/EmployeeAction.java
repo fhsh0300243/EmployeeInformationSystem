@@ -590,6 +590,27 @@ public class EmployeeAction {
 			return "";
 		}
 	}
+	
+	@RequestMapping(path = "/thisSeasonDeptCostPercent.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String thisSeasonDeptCostPercent() {
+		List<Map<String, String>> list = feeAppService.deptFeeApplyCostPerSeason();
+		try {
+			JSONArray jsonarray = new JSONArray();
+			for (Map<String, String> data : list) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("HRcost", data.get("HR"));
+				jsonobject.put("RDcost", data.get("RD"));
+				jsonobject.put("QAcost", data.get("QA"));
+				jsonobject.put("Salescost", data.get("Sales"));
+				jsonobject.put("PMcost", data.get("PM"));
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		} catch (Exception e) {
+			System.out.println("From thisSeasonDeptCostPercent:" + e);
+			return "";
+		}
+	}
 
 	@RequestMapping(path = "/QueryEmpAttdenance.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
 	public @ResponseBody String queryEmpAttendance(@RequestParam(name = "searchid", required = false) String idstr,

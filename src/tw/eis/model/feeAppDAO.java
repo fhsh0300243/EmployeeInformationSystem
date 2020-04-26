@@ -113,13 +113,13 @@ public class feeAppDAO implements IfeeAppDAO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(GlobalService.dateOfToday());
 		DecimalFormat  nf = (DecimalFormat) NumberFormat.getPercentInstance();
-		nf.applyPattern("00%"); //00表示小數點2位
-		nf.setMaximumFractionDigits(2); //4表示精確到小數點後4位
+		nf.applyPattern("0%"); //00表示小數點2位
+		nf.setMaximumFractionDigits(2); //2表示精確到小數點後2位
 		int year = Integer.parseInt(today.substring(0, 4));
 		int month = Integer.parseInt(today.substring(5, 7));
 		String totalhql = "select sum(appMoney) from feeAppMember where appTime BETWEEN :start And :end ";
 		String depthql = "select sum(appMoney) from feeAppMember where department=:dept and appTime BETWEEN :start And :end ";
-		double thisSeasonTotalCost=0;
+		double thisSeasonTotalCost=1;
 		double thisSeasonHRCost=0;
 		double thisSeasonRDCost=0;
 		double thisSeasonQACost=0;
@@ -129,32 +129,52 @@ public class feeAppDAO implements IfeeAppDAO {
 			Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-01-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000");
-			thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
-			
+			try {
+				thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonTotalCost=1;
+			}		
 			Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-01-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "HR");
-			thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
-			
+			try {
+				thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonHRCost=0;
+			}			
 			Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-01-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "RD");
-			thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
-			
+					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "RD");			
+			try {
+				thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonRDCost=0;
+			}
 			Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-01-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "QA");
-			thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
-			
+					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "QA");			
+			try {
+				thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonQACost=0;
+			}
 			Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-01-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "Sales");
-			thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
+			try {
+				thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonSalesCost=0;
+			}
 			
 			Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-01-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "PM");
-			thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+					.setParameter("end", today.substring(0, 4) + "-04-01 00:00:00.000").setParameter("dept", "PM");			
+			try {
+				thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonPMCost=0;
+			}
 			deptCostPercent.put("HR", nf.format(thisSeasonHRCost/thisSeasonTotalCost));
 			deptCostPercent.put("RD", nf.format(thisSeasonRDCost/thisSeasonTotalCost));
 			deptCostPercent.put("QA", nf.format(thisSeasonQACost/thisSeasonTotalCost));
@@ -167,32 +187,53 @@ public class feeAppDAO implements IfeeAppDAO {
 			Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-04-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000");
-			thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
-			
+			try {
+				thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonTotalCost=1;
+			}
 			Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-04-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "HR");
-			thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
-			
+			try {
+				thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonHRCost=0;
+			}	
 			Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-04-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "RD");
-			thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
-			
+			try {
+				thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonRDCost=0;
+			}		
 			Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-04-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "QA");
-			thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
+					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "QA");		
+			try {
+				thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonQACost=0;
+			}
 			
 			Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-04-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "Sales");
-			thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
+					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "Sales");		
+			try {
+				thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonSalesCost=0;
+			}
 			
 			Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-04-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-07-01 00:00:00.000").setParameter("dept", "PM");
-			thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+			try {
+				thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonPMCost=0;
+			}
 			deptCostPercent.put("HR", nf.format(thisSeasonHRCost/thisSeasonTotalCost));
 			deptCostPercent.put("RD", nf.format(thisSeasonRDCost/thisSeasonTotalCost));
 			deptCostPercent.put("QA", nf.format(thisSeasonQACost/thisSeasonTotalCost));
@@ -205,32 +246,52 @@ public class feeAppDAO implements IfeeAppDAO {
 			Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-07-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000");
-			thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
-			
+			try {
+				thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonTotalCost=1;
+			}
 			Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-07-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "HR");
-			thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
-			
+					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "HR");		
+			try {
+				thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonHRCost=0;
+			}
 			Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-07-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "RD");
-			thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
+					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "RD");		
+			try {
+				thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonRDCost=0;
+			}
 			
 			Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-07-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "QA");
-			thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
-			
+					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "QA");		
+			try {
+				thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonQACost=0;
+			}	
 			Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-07-01 00:00:00.000")
 					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "Sales");
-			thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
-			
+			try {
+				thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonSalesCost=0;
+			}			
 			Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-07-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "PM");
-			thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+					.setParameter("end", today.substring(0, 4) + "-10-01 00:00:00.000").setParameter("dept", "PM");		
+			try {
+				thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonPMCost=0;
+			}
 			deptCostPercent.put("HR", nf.format(thisSeasonHRCost/thisSeasonTotalCost));
 			deptCostPercent.put("RD", nf.format(thisSeasonRDCost/thisSeasonTotalCost));
 			deptCostPercent.put("QA", nf.format(thisSeasonQACost/thisSeasonTotalCost));
@@ -244,32 +305,51 @@ public class feeAppDAO implements IfeeAppDAO {
 			Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-10-01 00:00:00.000")
 					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000");
-			thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
-			
+			try {
+				thisSeasonTotalCost = Double.parseDouble(total.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonTotalCost=1;
+			}
 			Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-10-01 00:00:00.000")
-					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "HR");
-			thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
-			
+					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "HR");			
+			try {
+				thisSeasonHRCost =Double.parseDouble(HR.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonHRCost=0;
+			}
 			Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-10-01 00:00:00.000")
-					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "RD");
-			thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
-			
+					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "RD");		
+			try {
+				thisSeasonRDCost =Double.parseDouble(RD.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonRDCost=0;
+			}
 			Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-10-01 00:00:00.000")
-					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "QA");
-			thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
-			
+					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "QA");			
+			try {
+				thisSeasonQACost =Double.parseDouble(QA.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonQACost=0;
+			}
 			Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-10-01 00:00:00.000")
-					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "Sales");
-			thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
-			
+					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "Sales");		
+			try {
+				thisSeasonSalesCost =Double.parseDouble(Sales.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonSalesCost=0;
+			}
 			Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-10-01 00:00:00.000")
-					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "PM");
-			thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+					.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000").setParameter("dept", "PM");		
+			try {
+				thisSeasonPMCost =Double.parseDouble(PM.list().get(0).toString());
+			}catch(Exception e) {
+				thisSeasonPMCost=0;
+			}
 			deptCostPercent.put("HR", nf.format(thisSeasonHRCost/thisSeasonTotalCost));
 			deptCostPercent.put("RD", nf.format(thisSeasonRDCost/thisSeasonTotalCost));
 			deptCostPercent.put("QA", nf.format(thisSeasonQACost/thisSeasonTotalCost));
