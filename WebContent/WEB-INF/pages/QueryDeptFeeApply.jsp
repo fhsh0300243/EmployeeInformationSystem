@@ -69,7 +69,7 @@ table {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">查詢/編輯員工</p>
+					<p class="functionTitle">部門差旅費用</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">

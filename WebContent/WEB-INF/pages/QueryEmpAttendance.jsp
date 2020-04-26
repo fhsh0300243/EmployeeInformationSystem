@@ -157,9 +157,6 @@ table {
 		
 		$("#search").click(
 				function() {
-					if($("#searchid").val()==null && $("#searchname").val()==null && $("#searchdept").val()==null && $("#startdate").val()==null && $("#enddate").val()==null){
-						$("#emplist").html("");
-						}
 					nowpage = 1;
 					$.ajax({
 						url : "QueryEmpAttdenance.action?searchid="

@@ -2,6 +2,7 @@ package tw.eis.model;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class feeAppService implements IfeeAppService{
 		return feeAppDAO.qfeeSingerApp(department,signerStatus,level);
 	}
 
+
 	public List<feeAppMember> qapplyId(int feeAppID) {
 		return feeAppDAO.qfeeSingerApp(feeAppID);
 	}
@@ -40,7 +42,9 @@ public class feeAppService implements IfeeAppService{
 		
 	}
 
-	
-
-
+	// add by 揚明--start
+	public List<Map<String,String>> deptFeeApplyCostPerSeason(){
+		return feeAppDAO.deptFeeApplyCostPerSeason();
+	}
+	// add by 揚明--end
 }

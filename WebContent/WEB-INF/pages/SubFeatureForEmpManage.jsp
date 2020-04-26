@@ -28,6 +28,9 @@
 				<a href="<c:url value="/QueryEmpAttendance.do"/>">員工出勤查詢</a>
 			</div>
 			<div>
+				<a href="<c:url value="/QueryDeptFeeApply.do"/>">部門差旅費用</a>
+			</div>
+			<div>
 				<a href="<c:url value="/InqueryCalendar"/>">設定行事曆</a>
 			</div>
 		</div>

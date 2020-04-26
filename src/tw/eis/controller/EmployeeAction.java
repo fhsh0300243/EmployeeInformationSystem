@@ -30,6 +30,7 @@ import tw.eis.model.Title;
 import tw.eis.model.TitleService;
 import tw.eis.model.Users;
 import tw.eis.model.UsersService;
+import tw.eis.model.feeAppService;
 import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
 
@@ -43,18 +44,21 @@ public class EmployeeAction {
 	private TitleService tService;
 	private BulletinBoardService bService;
 	private AttendanceService aService;
+	private feeAppService feeAppService;
 	AESUtil aes = new AESUtil();
+
 
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
-			TitleService tService, BulletinBoardService bService, AttendanceService aService) {
+			TitleService tService, BulletinBoardService bService, AttendanceService aService,
+			feeAppService feeAppService) {
 		this.uService = uService;
 		this.eService = eService;
 		this.dService = dService;
 		this.tService = tService;
 		this.bService = bService;
 		this.aService = aService;
-
+		this.feeAppService=feeAppService;
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
@@ -84,6 +88,22 @@ public class EmployeeAction {
 		}
 		if (level == 1 || level == 2 || level == 3 || level == 4) {
 			return "QueryEmployee";
+		}
+		return "AuthorityErrorPage";
+	}
+
+	@RequestMapping(path = "/QueryDeptFeeApply.do", method = RequestMethod.GET)
+	public String processQueryDeptFeeApplyPage(@ModelAttribute("EmployeeID") String empId) {
+		int level = 0;
+		try {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+			// level=LoginOK.getEmployee().getEmpTitle().getLevel();
+		} catch (Exception e) {
+			System.out.println("e:" + e);
+			level = 0;
+		}
+		if (level == 1 || level == 2 || level == 3 || level == 4) {
+			return "QueryDeptFeeApply";
 		}
 		return "AuthorityErrorPage";
 	}
@@ -598,7 +618,7 @@ public class EmployeeAction {
 		}
 		if (EndDate == null || EndDate.length() == 0) {
 			EndDate = "na";
-		}	
+		}
 		List<?> list = null;
 		java.sql.Date startDate;
 		java.sql.Date endDate;
@@ -606,32 +626,32 @@ public class EmployeeAction {
 			return "[]";
 		} else {
 			try {
-				startDate=java.sql.Date.valueOf(StartDate);
-			}catch(Exception e) {
-				startDate=null;
+				startDate = java.sql.Date.valueOf(StartDate);
+			} catch (Exception e) {
+				startDate = null;
 			}
 			try {
-				endDate=java.sql.Date.valueOf(EndDate);
-			}catch(Exception e) {
-				endDate=null;
-			}			
-			list=aService.queryEmpAttendanceData(id, Name, Department, startDate, endDate);
+				endDate = java.sql.Date.valueOf(EndDate);
+			} catch (Exception e) {
+				endDate = null;
+			}
+			list = aService.queryEmpAttendanceData(id, Name, Department, startDate, endDate);
 		}
 		try {
 			JSONArray jsonarray = new JSONArray();
 			for (Object att : list) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("empID", ((Attendance) att).getEmployee().getEmpID());
-				jsonobject.put("name", ((Attendance) att).getEmployee().getName());				
+				jsonobject.put("name", ((Attendance) att).getEmployee().getName());
 				if (((Attendance) att).getEmployee().getDepartment() == null) {
 					jsonobject.put("department", "--");
 				} else {
 					jsonobject.put("department", ((Attendance) att).getEmployee().getDepartment());
 				}
-				jsonobject.put("date", ((Attendance) att).getDate());	
-				jsonobject.put("starttime", ((Attendance) att).getStartTime());	
-				jsonobject.put("endtime", ((Attendance) att).getEndTime());	
-				jsonobject.put("status", ((Attendance) att).getStatus());	
+				jsonobject.put("date", ((Attendance) att).getDate());
+				jsonobject.put("starttime", ((Attendance) att).getStartTime());
+				jsonobject.put("endtime", ((Attendance) att).getEndTime());
+				jsonobject.put("status", ((Attendance) att).getStatus());
 				jsonarray.put(jsonobject);
 			}
 			return jsonarray.toString();
@@ -715,12 +735,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		List<?> list = aService.queryEmpAttendanceData(1, "Robert", "RD",Date.valueOf("2020-04-01"),null);
-		for (Object att : list) {
-			System.out.println(((Attendance) att).getEmployee().getName());
-			System.out.println(((Attendance) att).getStartTime());
-			System.out.println(((Attendance) att).getEndTime());
-		}
+		feeAppService.deptFeeApplyCostPerSeason();
 	}
 
 }
