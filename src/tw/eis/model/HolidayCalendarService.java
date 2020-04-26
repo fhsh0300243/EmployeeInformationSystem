@@ -22,7 +22,7 @@ public class HolidayCalendarService {
 	public List<HolidayCalendar> InqueryCalendar(int year) {
 		return calendarDao.InqueryCalendar(year);
 	}
-	
+
 	public List<HolidayCalendar> InqueryCalendarToday(String todaystr) {
 		return calendarDao.InqueryCalendarToday(todaystr);
 	}
@@ -37,6 +37,10 @@ public class HolidayCalendarService {
 
 	public void DeleteCalendar(List<String> date) {
 		calendarDao.DeleteCalendar(date);
+	}
+
+	public List<HolidayCalendar> queryCalendarByDate(String date) {
+		return calendarDao.queryCalendarByDate(date);
 	}
 
 }

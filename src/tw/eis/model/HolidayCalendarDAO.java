@@ -36,7 +36,7 @@ public class HolidayCalendarDAO {
 		}
 		return null;
 	}
-	
+
 	public List<HolidayCalendar> InqueryCalendarToday(String todaystr) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
@@ -45,10 +45,10 @@ public class HolidayCalendarDAO {
 		query.setParameter("Date", todaystr);
 		List<HolidayCalendar> calenderlist = query.list();
 		session.getTransaction().commit();
-	    session.close();
+		session.close();
 		return calenderlist;
 	}
-	
+
 	public void InsertCalendar(Employee Emp, String date, String dateType, String remark) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -96,6 +96,15 @@ public class HolidayCalendarDAO {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
+	}
+
+	public List<HolidayCalendar> queryCalendarByDate(String date) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from HolidayCalendar where Date =?0";
+		Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
+		query.setParameter(0, date);
+		List<HolidayCalendar> list = query.list();
+		return list;
 	}
 
 }

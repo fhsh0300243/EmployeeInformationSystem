@@ -35,6 +35,8 @@ import tw.eis.model.Employee;
 import tw.eis.model.EmployeeLeaveDetail;
 import tw.eis.model.EmployeeLeaveDetailService;
 import tw.eis.model.EmployeeService;
+import tw.eis.model.HolidayCalendar;
+import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.Users;
 
 @Controller
@@ -44,13 +46,15 @@ public class AFLController {
 	private ApplyForLeaveService aService;
 	private EmployeeService eService;
 	private EmployeeLeaveDetailService eldService;
+	private HolidayCalendarService hcService;
 
 	@Autowired
-	public AFLController(ApplyForLeaveService aService, EmployeeService eService,
-			EmployeeLeaveDetailService eldService) {
+	public AFLController(ApplyForLeaveService aService, EmployeeService eService, EmployeeLeaveDetailService eldService,
+			HolidayCalendarService hcService) {
 		this.aService = aService;
 		this.eService = eService;
 		this.eldService = eldService;
+		this.hcService = hcService;
 	}
 
 	@RequestMapping(path = "applyforleave", method = RequestMethod.POST)
@@ -62,21 +66,42 @@ public class AFLController {
 			throws ParseException {
 		int userID = userBean.getEmployeeID();
 
-		// 開始時間、結束時間-判斷是否為休假日
+		// 開始時間、結束時間-判斷是否為休假日、國定假日
 		String strError = "";
 		Calendar aCalendar = Calendar.getInstance();
-
 		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+
 		aCalendar.setTime(startDate);
 		int sDate = aCalendar.get(Calendar.DAY_OF_WEEK);
-		if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
-			strError += startD + "為休假日。";
+		List<HolidayCalendar> hcsBean = hcService.queryCalendarByDate(startD);
+
+		if (hcsBean.size() != 0) {
+			if (hcsBean.get(0).getDateType().equals("國定假日")) {
+				strError += startD + "為國定假日。";
+			}
+		} else {
+			if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
+				strError += startD + "為休假日。";
+			}
 		}
-		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
-		aCalendar.setTime(endDate);
-		int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
-		if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
-			strError += endD + "為休假日。";
+
+		// 開始時間、結束時間-不同日期再判斷，結束時間是否為休假日、國定假日
+		if (!startDate.equals(endDate)) {
+
+			aCalendar.setTime(endDate);
+			int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+			List<HolidayCalendar> hceBean = hcService.queryCalendarByDate(endD);
+
+			if (hceBean.size() != 0) {
+				if (hceBean.get(0).getDateType().equals("國定假日")) {
+					strError += endD + "為國定假日。";
+				}
+			} else {
+				if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
+					strError += endD + "為休假日。";
+				}
+			}
 		}
 
 		// 開始時間、結束時間-格式化輸入的時間 (HH可顯示為12:00，hh會轉成00:00)
