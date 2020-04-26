@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -141,11 +140,12 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 
 	@Override
 	public List<ApplyForLeave> checkApplyTime(Date startTime, Date endTime, int employeeId) {
-		String hql = "From ApplyForLeave where EmployeeID=?0 and StartTime<=?1 and EndTime>=?2";
+		String hql = "From ApplyForLeave where EmployeeID=?0 and StartTime<?1 and EndTime>?2 and SigningProgress<>?3";
 		Query<ApplyForLeave> Query = getSession().createQuery(hql, ApplyForLeave.class);
 		Query.setParameter(0, employeeId);
 		Query.setParameter(1, endTime);
 		Query.setParameter(2, startTime);
+		Query.setParameter(3, "不同意");
 		List<ApplyForLeave> list = Query.list();
 
 		if (list.size() != 0) {
@@ -248,7 +248,7 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 
 		return sumHours;
 	}
-	
+
 	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();

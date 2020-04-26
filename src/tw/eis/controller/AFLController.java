@@ -87,19 +87,20 @@ public class AFLController {
 
 		// 確認申請的開始時間、結束時間，是否與先前申請的時間重複
 		List<ApplyForLeave> aBeanOLD = aService.checkApplyTime(sTime, eTime, userID);
-		System.out.println("aBeanOLD RUN1");
+
 		if (aBeanOLD != null) {
+			strError += "與";
 			Iterator<ApplyForLeave> iterator = aBeanOLD.iterator();
 			while (iterator.hasNext()) {
 				ApplyForLeave dBean = iterator.next();
-				strError += "與" + dBean.getCreateTime() + "申請的時間重複。";
-				System.out.println("aBeanOLD RUN2");
+				strError += dBean.getCreateTime() + "、";
 			}
+			strError = strError.substring(0, strError.length() - 1);
+			strError += "申請的時間重複。";
 		}
-		System.out.println("aBeanOLD RUN3");
+
 		// 判斷以上無錯誤訊息(休假日、重複申請)，才執行以下資料存入SQL
 		if (strError.length() == 0 && aBeanOLD == null) {
-			System.out.println("aBeanOLD RUN4");
 			ApplyForLeave aBean = new ApplyForLeave();
 
 			// 取得現在的時刻設定為建立時間
@@ -160,7 +161,6 @@ public class AFLController {
 				// 若無上傳附件則不setAttachment()
 			} catch (IOException e) {
 				aService.addApply(aBean);
-				System.out.println("NO Image.");
 				return "ApplySuccess";
 			}
 			aService.addApply(aBean);
@@ -199,9 +199,6 @@ public class AFLController {
 
 				BigDecimal newUH = oldUH.add(confirmUH);
 				BigDecimal newSH = oldSH.subtract(confirmUH);
-
-//				System.out.println("newUH:" + newUH);
-//				System.out.println("newSH:" + newSH);
 
 				eldBean.setUsedHours(newUH);
 				eldBean.setSurplusHours(newSH);
