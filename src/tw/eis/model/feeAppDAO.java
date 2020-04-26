@@ -1,6 +1,6 @@
 package tw.eis.model;
 
-import java.util.Iterator;
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -72,13 +72,21 @@ public class feeAppDAO implements IfeeAppDAO {
 	public List<feeAppMember> qfeeSingerApp(int feeAppID) {
 		Session session = sessionFacotry.getCurrentSession();
 	
-		Query query = session.createQuery("from feeAppMember where feeAppID=?0",feeAppMember.class);
-	
-		query.setParameter(0, feeAppID);
-
-		
+		Query query = session.createQuery("from feeAppMember where feeAppID=?0",feeAppMember.class);	
+		query.setParameter(0, feeAppID);		
 		List<feeAppMember> listByID = query.list();
 		return listByID;
+	}
+	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,int signerID) {
+		Session session = sessionFacotry.getCurrentSession();
+		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
+		feeAppMember.setSignerTime(singerTime);
+		feeAppMember.setSignerStatus(signerStatus);
+		feeAppMember.setSignerID(signerID);
+		session.update(feeAppMember);
+	
+		return true;
+		
 	}
 	
 }

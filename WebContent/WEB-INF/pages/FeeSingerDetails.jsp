@@ -116,13 +116,18 @@ p {
 						<td>備註:</td>
 						<td>${S_remark}</td>
 						</tr>
-						</table>	
- 						<input type="checkbox" id="checkbox1" name="hobby" value="music" onclick = 'check(this)'>Pass
+						</table>
+						<hr/>
+						<form class="for1"
+						action="<c:url value="/SingerPassPage?feeAppID=${S_feeAppID}"/>"
+						method="post">
+ 						<input type="checkbox" id="checkbox1" name="decide" value="Pass" onclick = 'check(this)'>Pass
           
- 		               	<input type="checkbox" id="checkbox2" name="hobby" value="sport" onclick = 'check(this)'>Return
+ 		               	<input type="checkbox" id="checkbox2" name="decide" value="Return" onclick = 'check(this)'>Return
  		               	<div>
 						<input type="submit" value="送出">
 						</div>
+						</form>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>

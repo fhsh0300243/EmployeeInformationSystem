@@ -35,6 +35,11 @@ public class feeAppService implements IfeeAppService{
 		return feeAppDAO.qfeeSingerApp(feeAppID);
 	}
 
+	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,int signerID) {
+		return feeAppDAO.EditFeeApp(feeAppID, signerStatus,singerTime,signerID);
+		
+	}
+
 	
 
 

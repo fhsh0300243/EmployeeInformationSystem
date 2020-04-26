@@ -52,7 +52,7 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 
 					<div id="success">
-						<h2>請假申請已簽核。</h2>
+						<h4>請假申請已簽核。</h4>
 					</div>
 
 					<div class="list_footer">

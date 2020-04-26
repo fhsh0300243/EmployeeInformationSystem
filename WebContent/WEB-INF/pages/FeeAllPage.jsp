@@ -112,6 +112,7 @@ p {
 										<td>${applyDetail.invoiceNb}</td>
 										<td>${applyDetail.appMoney}</td>
 										<td>${applyDetail.signerStatus}</td>
+										
 									</tr>
 								</c:forEach>
 							</table>
