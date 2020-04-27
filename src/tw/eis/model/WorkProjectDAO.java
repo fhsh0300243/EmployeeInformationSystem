@@ -41,6 +41,7 @@ public class WorkProjectDAO {
 			JSONObject jb = new JSONObject();
 			jb.put("pqt",w.getPersonalQuarterlyTarget());
 			jb.put("Work",w.getWork());
+			jb.put("wid",w.getwID());
 			ja.put(jb);
 		}
 		j = ja;
@@ -89,7 +90,7 @@ public class WorkProjectDAO {
 			e.printStackTrace();
 		}
 	}
-	//��pid�q�����W���ѼƧ��?
+	//嚙踝蕭pid嚙緬嚙踝蕭嚙踝蕭嚙磕嚙踝蕭嚙諸數改蕭嚙�?
 	public PersonalQuarterlyTarget getpqt(int pid,Model m ) {
 		Session session = sessionFactory.getCurrentSession();
 		String sqlstr = "From PersonalQuarterlyTarget Where pID =: pid";
@@ -152,6 +153,7 @@ public class WorkProjectDAO {
 		for(Employee e:elist) {
 			JSONObject jb = new JSONObject();
 			jb.put("name", e.getName());
+			jb.put("empid", e.getEmpID());
 			ja.put(jb);
 		}
 		j = ja;

@@ -25,7 +25,7 @@ table {
 }
 
 
-#work {
+.work {
 	weight: 10px;
 	height: 500px;
 	border: 2px solid #CCC;
@@ -133,12 +133,9 @@ p {
 	<script type="text/javascript">
 	jQuery.event.props.push('dataTransfer');
 	//var dragel = null;
-
-		$
-				.getJSON(
-						"assignwork",
-						function(member) {
-var txt="";
+		
+		$.getJSON("assignwork",function(member) {
+							var txt="";
 							txt += "<table border=\"1\" id=\"t\">";
 							txt += "<tr><th>" + member[0].pqt;
 							for (let i = 0; i < member.length; i++) {
@@ -147,21 +144,19 @@ var txt="";
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div id = \"work\" ><ul border=\"1\" id=\"s"+j+"\">";
-								txt += "<li  class = \"wkul\">" + member[j].Work;
+								txt += "<div class = \"work\" wid = "+member[j].wid+" work = "+member[j].Work+"><ul border=\"1\" id="+member[j].Work+">";
+								txt += "<li id = "+member[j].Work+" class = \"wkul\">" + member[j].Work;
 								txt += "</ul></div>"
 							}
 							$("#main").html(txt);
+							
 						});
-		$
-				.getJSON(
-						"employeelist",
-						function(employee) {
-	var em="";
+		$.getJSON("employeelist",function(employee) {
+							var em="";
 							em += "員工名單"
 							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {
-								em += "<li id = "+ employee[k].name +" class=\"emul\" draggable=\"true\">"
+								em += "<li id = "+ employee[k].empid +" class=\"emul\" draggable=\"true\">"
 										+ employee[k].name + "</li>";
 							}
 							em += "<p><li class = \"emul\">xxxx</li>"
@@ -170,26 +165,34 @@ var txt="";
 						});
 		$(document).on("dragstart",".emul",function(event){
 			event.dataTransfer.effectAllowed = "copyMove";
-			event.dataTransfer.setData("text/plain",this.innerHTML);
-		console.log(this.innerHTML);
-		})
-		$(document).on("dragover","#work",function(event){
+			event.dataTransfer.setData("text/plain",event.target.id);
+			console.log(this.innerHTML);
+		});
+		$(document).on("dragover",".work",function(event){
 			 event.stopPropagation();
-	            event.preventDefault();
-	            event.dataTransfer.dropEffect = "Move";
-			})
-		$(document).on("drop","#work",function(event){
+	         event.preventDefault();
+	         event.dataTransfer.dropEffect = "Move";
+		});
+		$(document).on("drop",".work",function(event){
 			 var data = event.dataTransfer.getData("text");
-			 console.log("data:"+data);
-		       event.stopPropagation();//停止冒泡事件、事件往父容器觸發
-	            event.preventDefault();
+			var wid = $(event.target).attr("wid")
+			var work = $(event.target).attr("work");
+			console.log("wid:"+wid);
+			console.log("data:"+data);
+			console.log("work:"+work);
+		     event.stopPropagation();//停止冒泡事件、事件往父容器觸發
+	         event.preventDefault();
 	            //↑上述兩行for firefox，避免瀏覽器直接Redirect
 			 //event.target.appendChild(document.getElementById(data));
 			var nodeCopy = document.getElementById(data).cloneNode(true);
-			nodeCopy.id = "newId";
-			event.target.appendChild(nodeCopy);	 
-			 
-		})
+			//nodeCopy.id = "newId";
+			event.target.appendChild(nodeCopy);
+			//event.target.textContent = data;
+			$.post("insertaw",{empid:data,wid:wid,work:work},function(member,status){
+				if(status =="success")
+					console.log("insert success");
+				});	 
+		});
 	</script>
 </body>
 </html>

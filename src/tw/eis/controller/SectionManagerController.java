@@ -126,4 +126,5 @@ public class SectionManagerController {
 	public String Insertintowork(Model m,@RequestParam(value="pid")int pid,@RequestParam(value="pqt")String pqt) {
 		return "InsertWork";
 	}
+	
 }
