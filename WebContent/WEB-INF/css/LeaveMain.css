@@ -2,20 +2,12 @@
 	font-family: 微軟正黑體;
 }
 
-#main {
-	width: 600px;
+#success h2 {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#success {
+	line-height: 60vh;
 	text-align: center;
-	margin: 50px auto;
-}
-
-#employee, #manager {
-	width: 500px;
-}
-
-#employee td, #manager td {
-	height: 50px;
-}
-
-.tdbtn:hover {
-	background-color: rgba(0, 43, 255, 0.2);
 }

@@ -24,16 +24,6 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-
-#success h2 {
-	display: inline-block;
-	vertical-align: middle;
-}
-
-#success {
-	line-height: 60vh;
-	text-align: center;
-}
 </style>
 </head>
 <body>
