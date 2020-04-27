@@ -5,7 +5,6 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <meta charset="UTF-8">
 <title>番茄科技 績效系統</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
@@ -25,12 +24,6 @@ table {
 	margin-right: 15px;
 }
 
-#e {
-	user-select: none;
-	moz-user-select: none;
-	webkit-user-select: none;
-	ms-user-select: none;
-}
 
 #work {
 	weight: 10px;
@@ -39,6 +32,13 @@ table {
 	flex: 1;
 	float: left;
 	margin-right: 15px;
+}
+
+#e {
+	user-select: none;
+	moz-user-select: none;
+	webkit-user-select: none;
+	ms-user-select: none;
 }
 
 #employee {
@@ -113,7 +113,8 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
-						<div id="main"></div>
+						<div id="main">
+						</div>
 						<div id="employee"></div>
 						
 						<div class="list_footer">
@@ -130,6 +131,9 @@ p {
 	</div>
 
 	<script type="text/javascript">
+	jQuery.event.props.push('dataTransfer');
+	//var dragel = null;
+
 		$
 				.getJSON(
 						"assignwork",
@@ -143,9 +147,8 @@ var txt="";
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div id = \"work\" ondragover=\"event.preventDefault()\"><ul ondraged border=\"1\" id=\"s"+j+"\">";
-								txt += "<li class = \"wkul\">" + member[j].Work;
-								txt += "<p class = \"wkp\">";
+								txt += "<div id = \"work\" ><ul border=\"1\" id=\"s"+j+"\">";
+								txt += "<li  class = \"wkul\">" + member[j].Work;
 								txt += "</ul></div>"
 							}
 							$("#main").html(txt);
@@ -158,20 +161,34 @@ var txt="";
 							em += "員工名單"
 							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {
-								em += "<li id = \"e\" class=\"emul\" draggable=\"true\">"
+								em += "<li id = "+ employee[k].name +" class=\"emul\" draggable=\"true\">"
 										+ employee[k].name + "</li>";
 							}
 							em += "<p><li class = \"emul\">xxxx</li>"
 							em += "</ul>"
 							$("#employee").html(em);
 						});
-		$(document).on("drag",".emul",function(event){
-			event.dataTransfer.setData("text/plain",event.target)
+		$(document).on("dragstart",".emul",function(event){
+			event.dataTransfer.effectAllowed = "copyMove";
+			event.dataTransfer.setData("text/plain",this.innerHTML);
+		console.log(this.innerHTML);
 		})
-		$(document).on("drop",".wkp",function(event){
-			var data = event.dataTransfer.getData("text/plain");
-			  event.target.textContent = data;
-			  event.preventDefault();
+		$(document).on("dragover","#work",function(event){
+			 event.stopPropagation();
+	            event.preventDefault();
+	            event.dataTransfer.dropEffect = "Move";
+			})
+		$(document).on("drop","#work",function(event){
+			 var data = event.dataTransfer.getData("text");
+			 console.log("data:"+data);
+		       event.stopPropagation();//停止冒泡事件、事件往父容器觸發
+	            event.preventDefault();
+	            //↑上述兩行for firefox，避免瀏覽器直接Redirect
+			 //event.target.appendChild(document.getElementById(data));
+			var nodeCopy = document.getElementById(data).cloneNode(true);
+			nodeCopy.id = "newId";
+			event.target.appendChild(nodeCopy);	 
+			 
 		})
 	</script>
 </body>

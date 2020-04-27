@@ -81,7 +81,7 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">新增員工資料</p>
+					<p class="functionTitle">新增員工</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -185,8 +185,8 @@ p {
 								<br>
 								<table class="tb">
 									<tr>
-										<td><input type="submit" value="送出"> <input
-											type="reset" value="清除" onclick="reset()"></td>
+										<td><input type="submit" value="送出" class="btn btn-info"> <input
+											type="reset" value="清除" onclick="reset()" class="btn btn-info"></td>
 										<td class="msgmap">${msgmap.status}</td>
 									</tr>
 								</table>

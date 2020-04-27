@@ -2,6 +2,7 @@ package tw.eis.model;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface IApplyForLeaveService {
@@ -16,15 +17,17 @@ public interface IApplyForLeaveService {
 	public List<ApplyForLeave> queryApplyByEID(int employeeId);
 
 	public List<ApplyForLeave> queryUnsignedApplyBySID(int signatoriesId);
-	
+
 	public List<ApplyForLeave> querySignedApplyBySID(int signerId);
 
 	public ApplyForLeave queryApplyByAID(int applyId);
+
+	public List<ApplyForLeave> checkApplyTime(Date startTime, Date endTime, int employeeId);
 
 	public String getStartHoursTag();
 
 	public String getEndHoursTag();
 
-	public BigDecimal countLeaveHours(String startD, String endD, String startH, String endH, String startM,
+	public BigDecimal countHoursSTtoET(String startD, String endD, String startH, String endH, String startM,
 			String endM) throws ParseException;
 }

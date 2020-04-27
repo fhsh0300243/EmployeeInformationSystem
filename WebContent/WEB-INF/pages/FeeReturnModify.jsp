@@ -74,46 +74,62 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">差旅費簽核</p>
+					<p class="functionTitle">差旅費退件</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
+					<form class="for1"
+						action="<c:url value="/FeeReturnEditPage?feeAppID=${S_feeAppID}"/>"
+						method="post">
+						<table align="center">
+						<tr>
+						<td>申請編號:</td>
+						<td>${S_feeAppID}</td>
+						</tr>
+						<tr>
+						<td>員工編號:</td>
+						<td>${S_feeAppID}</td>
+						</tr>
+						<tr>
+						<td>部門:</td>
+						<td>${S_department}</td>
+						</tr>
+						<tr>
+						<td>申請項目:</td>
+						<td>${S_appItem}</td>
+						</tr>
+						<tr>
+						<td>申請時間:</td>
+						<td>${S_appTime}</td>
+						</tr>
+						<tr>
+						<td>發票時間:</td>
+						<td><input type="date" name="invoiceTime" value="${S_invoiceTime}"></td>
+						</tr>
+						<tr>
+						<td>發票號碼:</td>
+						<td><input	type="tel" name="invoiceNb" value="${S_invoiceNb}"></td>
+						</tr>
+						<tr>
+						<td>統編:</td>
+						<td><input	type="tel" name="editor" value="${S_editor}"></td>
+						</tr>
 						
-
-														<table id="idtable1">
-																<tr >
-									<th>申請編號</th>
-									<th>部門</th>
-									<th>員工姓名</th>
-									<th>申請項目</th>
-									<th>申請日期</th>
-									<th>申請金額</th>
-									
-									
-									<th>簽核送出</th>
-								</tr>
-
-								<c:forEach var='appfee' items='${dSList}' varStatus='vs'>
-									<tr>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.department}</td>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.appItem}</td>
-										<td>${appfee.appTime.substring(0,16)}</td>
-										<td>${appfee.appMoney}</td>
-										
-										
-										
-										<td>
-											<button class="btn-info" name="${appfee.feeAppID}">簽核</button>
-										</td>
-									</tr>
-								</c:forEach>
-							</table>
-
-
-							
-						
+						<tr>
+						<td>申請金額:</td>
+						<td><input	type="tel" name="appMoney" value="${S_appMoney}"></td>
+						</tr>
+						<tr>
+						<td>備註:</td>
+						<td><textarea cols="30" rows="3" id="comment1" name="remark" ></textarea></td>
+						</tr>
+						</table>
+						<hr/>
+		          
+ 		               	<div>
+						<input type="submit" value="修改">
+						</div>
+						</form>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -127,16 +143,7 @@ p {
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script>
-	$(function() {
-		$("td:empty").text("-");
-	})
-	$(".btn-info").click(function() {
-		var feeAppID = $(this).attr("name");
-		location.href = "SingerPage?feeAppID=" + feeAppID;
-	})
-	</script>
+	
 
 </body>
 </html>

@@ -43,15 +43,7 @@ p {
 	padding: 10px 20px;
 }
 </style>
-<script>
-	function check(obj) {
-		if (obj.id == 'checkbox1' && obj.checked == true) {
-			document.getElementById('checkbox2').checked = false;
-		} else if (obj.id == 'checkbox2' && obj.checked == true) {
-			document.getElementById('checkbox1').checked = false;
-		}
-	}
-</script>
+
 </head>
 <body>
 	<br>
@@ -74,7 +66,7 @@ p {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">差旅費簽核</p>
+					<p class="functionTitle">差旅費退件</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -89,23 +81,24 @@ p {
 									<th>申請日期</th>
 									<th>申請金額</th>
 									
-									
-									<th>簽核送出</th>
+									<th>申請狀態</th>
+									<th>修改退件</th>
 								</tr>
 
-								<c:forEach var='appfee' items='${dSList}' varStatus='vs'>
+								<c:forEach var='qfeeApp' items='${qfeeAppByID}' varStatus='vs'>
 									<tr>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.department}</td>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.appItem}</td>
-										<td>${appfee.appTime.substring(0,16)}</td>
-										<td>${appfee.appMoney}</td>
+										<td>${qfeeApp.feeAppID}</td>
+										<td>${qfeeApp.department}</td>
+										<td>${qfeeApp.feeAppID}</td>
+										<td>${qfeeApp.appItem}</td>
+										<td>${qfeeApp.appTime.substring(0,16)}</td>
+										<td>${qfeeApp.appMoney}</td>
+										<td>${qfeeApp.signerStatus}</td>
 										
 										
 										
 										<td>
-											<button class="btn-info" name="${appfee.feeAppID}">簽核</button>
+											<button class="btn-info" name="${qfeeApp.feeAppID}">修改</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -134,7 +127,7 @@ p {
 	})
 	$(".btn-info").click(function() {
 		var feeAppID = $(this).attr("name");
-		location.href = "SingerPage?feeAppID=" + feeAppID;
+		location.href = "ReturnPage?feeAppID=" + feeAppID;
 	})
 	</script>
 

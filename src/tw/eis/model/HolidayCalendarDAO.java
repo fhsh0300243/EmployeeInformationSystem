@@ -16,16 +16,16 @@ import tw.eis.model.HolidayCalendar;
 @Repository
 public class HolidayCalendarDAO {
 
-	private SessionFactory sessionFacotry;
+	private SessionFactory sessionFactory;
 
 	@Autowired
-	public HolidayCalendarDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFacotry) {
-		this.sessionFacotry = sessionFacotry;
+	public HolidayCalendarDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	public List<HolidayCalendar> InqueryCalendar(int year) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			String hqlstr = "from HolidayCalendar where Date like :Year order by Date";
 			Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
 			query.setParameter("Year", year + "%");
@@ -36,22 +36,22 @@ public class HolidayCalendarDAO {
 		}
 		return null;
 	}
-	
-	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
-		Session session = sessionFacotry.getCurrentSession();
+
+	public List<HolidayCalendar> InqueryCalendarToday(String todaystr) {
+		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		String hqlstr = "from HolidayCalendar where Date =:Date";
 		Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
-		query.setParameter("Date", datestr);
+		query.setParameter("Date", todaystr);
 		List<HolidayCalendar> calenderlist = query.list();
 		session.getTransaction().commit();
-	    session.close();
+		session.close();
 		return calenderlist;
 	}
-	
-	public boolean InsertCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
+
+	public void InsertCalendar(Employee Emp, String date, String dateType, String remark) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			SimpleDateFormat nowdate = new SimpleDateFormat("MM/dd/yyyy");
 			java.util.Date utildate = nowdate.parse(date);
 			java.sql.Date Date = new java.sql.Date(utildate.getTime());
@@ -59,49 +59,52 @@ public class HolidayCalendarDAO {
 			calendar.setDate(Date);
 			calendar.setDateType(dateType);
 			calendar.setRemark(remark);
-			calendar.setId(Integer.parseInt(usersResultMap.get("EmployeeID")));
+			calendar.setEmployee(Emp);
 			session.save(calendar);
-			return true;
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return false;
 	}
 
-	public boolean UpdateCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
+	public void UpdateCalendar(Employee Emp, String date, String dateType, String remark) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			SimpleDateFormat nowdate = new SimpleDateFormat("MM/dd/yyyy");
 			java.util.Date utildate = nowdate.parse(date);
 			java.sql.Date Date = new java.sql.Date(utildate.getTime());
-			String hqlstr = "Update HolidayCalendar SET DateType=:DateType , Remark=:Remark ,EmployeeID=:EmployeeID where Date=:Date";
+			String hqlstr = "Update HolidayCalendar SET DateType=:DateType , Remark=:Remark ,EmpId=:EmployeeID where Date=:Date";
 			Query query = session.createQuery(hqlstr);
 			query.setParameter("DateType", dateType);
 			query.setParameter("Remark", remark);
-			query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
+			query.setParameter("EmployeeID", Emp);
 			query.setParameter("Date", Date);
 			query.executeUpdate();
-			return true;
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return false;
 	}
 
-	public boolean DeleteCalendar(List<String> date) {
+	public void DeleteCalendar(List<String> date) {
 		try {
-			Session session = sessionFacotry.getCurrentSession();
+			Session session = sessionFactory.getCurrentSession();
 			for (String element : date) {
 				String hqlstr = "Delete from HolidayCalendar where Date =:Date";
 				Query query = session.createQuery(hqlstr);
 				query.setParameter("Date", element);
 				query.executeUpdate();
 			}
-			return true;
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return false;
+	}
+
+	public List<HolidayCalendar> queryCalendarByDate(String date) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from HolidayCalendar where Date =?0";
+		Query<HolidayCalendar> query = session.createQuery(hqlstr, HolidayCalendar.class);
+		query.setParameter(0, date);
+		List<HolidayCalendar> list = query.list();
+		return list;
 	}
 
 }

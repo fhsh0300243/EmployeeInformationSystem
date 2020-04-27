@@ -27,18 +27,20 @@ table {
 	float: left;
 	margin-right: 15px;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
 .well, .panel {
 	text-align: center;
 }
-.main{
-	position: relative; 
-	left: 33%;
-	width:82%;
 
+.main {
+	position: relative;
+	left: 20%;
+	width: 82%;
 }
 </style>
 </head>
@@ -59,9 +61,6 @@ p {
 
 			</div>
 
-
-
-
 			<!--右邊欄位-->
 
 			<div class="col-sm-8">
@@ -71,8 +70,11 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
+
 					
-						<div id="main" class="main"></div>
+						<div id="main"></div>
+							</table>
+						</span>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -86,39 +88,27 @@ p {
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
-
-
 	<script>
-		$.getJSON("jsontable",
-						function(member) {
-var txt = "";
+		$.getJSON("chairmantable",function(member) {
+							var txt="";
+								txt += "<div><input type =\"button\" value ="+member[0][0].dag+"></div>"
 							for (let i = 0; i < member.length; i++) {
 								txt += "<table border=\"1\" id=\"t\">";
-								txt += "<tr><th><a href = \"toAssignWork?pid="
+								txt += "<tr><th><a href=\"ChangePQT?pid="
 										+ member[i][0].pID
-										+ "\"><input type = \"button\" value=\""+member[i][0].PersonalQuarterlyTarget+"\"></a>";
+										+ "&time="
+										+ member[i][0].time
+										+ "&worksetter="
+										+ member[i][0].worksetter
+										+ "\"><input type=\"button\" value="+ member[i][0].PersonalQuarterlyTarget+">";
 								for (let j = 0; j < member[i].length; j++) {
-									txt += "<tr><td><a href=\"ChangeWork?wid="
-											+ member[i][j].wid
-											+ "&work="
-											+ member[i][j].Work
-											+ "&worksetter="
-											+ member[i][j].worksetter
-											+ "&time="
-											+ member[i][j].time
-											+ "\"><input type=\"button\" value=\""+member[i][j].Work+"\">";
+									txt += "<tr><td>" + member[i][j].Work;
+									console.log(member[i][j].Work);
 								}
-								txt += "<tr><th><a href =\"InsertWork?pid="
-										+ member[i][0].pID
-										+ "&pqt="
-										+ member[i][0].PersonalQuarterlyTarget
-										+ "\"><input type=\"button\" value=\"+\">";
-								txt += "<\/table>"
-
+								txt += "</table>"
 								$("#main").html(txt);
 							}
 						})
 	</script>
-
 </body>
 </html>

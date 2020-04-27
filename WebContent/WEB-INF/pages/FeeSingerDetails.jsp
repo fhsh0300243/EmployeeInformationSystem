@@ -78,42 +78,60 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
+						<table align="center">
+						<tr>
+						<td>申請編號:</td>
+						<td>${S_feeAppID}</td>
+						</tr>
+						<tr>
+						<td>員工編號:</td>
+						<td>${S_feeAppID}</td>
+						</tr>
+						<tr>
+						<td>員工部門:</td>
+						<td>${S_department}</td>
+						</tr>
+						<tr>
+						<td>申請項目:</td>
+						<td>${S_appItem}</td>
+						</tr>
+						<tr>
+						<td>申請時間:</td>
+						<td>${S_appTime}</td>
+						</tr>
+						<tr>
+						<td>發票時間:</td>
+						<td>${S_invoiceTime}</td>
+						</tr>
+						<tr>
+						<td>發票號碼:</td>
+						<td>${S_invoiceNb}</td>
+						</tr>
+						<tr>
+						<td>統編:</td>
+						<td>${S_editor}</td>
+						</tr>
 						
-
-														<table id="idtable1">
-																<tr >
-									<th>申請編號</th>
-									<th>部門</th>
-									<th>員工姓名</th>
-									<th>申請項目</th>
-									<th>申請日期</th>
-									<th>申請金額</th>
-									
-									
-									<th>簽核送出</th>
-								</tr>
-
-								<c:forEach var='appfee' items='${dSList}' varStatus='vs'>
-									<tr>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.department}</td>
-										<td>${appfee.feeAppID}</td>
-										<td>${appfee.appItem}</td>
-										<td>${appfee.appTime.substring(0,16)}</td>
-										<td>${appfee.appMoney}</td>
-										
-										
-										
-										<td>
-											<button class="btn-info" name="${appfee.feeAppID}">簽核</button>
-										</td>
-									</tr>
-								</c:forEach>
-							</table>
-
-
-							
-						
+						<tr>
+						<td>申請金額:</td>
+						<td>${S_appMoney}</td>
+						</tr>
+						<tr>
+						<td>備註:</td>
+						<td>${S_remark}</td>
+						</tr>
+						</table>
+						<hr/>
+						<form class="for1"
+						action="<c:url value="/SingerPassPage?feeAppID=${S_feeAppID}"/>"
+						method="post">
+ 						<input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過
+          
+ 		               	<input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件
+ 		               	<div>
+						<input type="submit" value="送出">
+						</div>
+						</form>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -127,16 +145,7 @@ p {
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script>
-	$(function() {
-		$("td:empty").text("-");
-	})
-	$(".btn-info").click(function() {
-		var feeAppID = $(this).attr("name");
-		location.href = "SingerPage?feeAppID=" + feeAppID;
-	})
-	</script>
+	
 
 </body>
 </html>

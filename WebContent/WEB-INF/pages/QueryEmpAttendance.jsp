@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>番茄科技 員工管理</title>
+<title>員工出勤資料</title>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
@@ -37,16 +37,10 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
-}
+
 </style>
 </head>
 <body>
-	<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -69,7 +63,7 @@ table {
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">查詢/編輯員工</p>
+					<p class="functionTitle">員工出勤查詢</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -77,14 +71,12 @@ table {
 							id="searchid" name="searchid" size="30"><br /> <label
 							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
 							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><input type="checkbox"
-							id="resigned" name="resigned" value="resigned"> <label
-							for="" class="t1">離職員工</label> <input type="button" id="search"
-							name="search" value="搜尋" class="btn btn-info">
-						<p>${msg[0]}</p>
-						<!--  <img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />-->
-						<br>
-						<table border="1" id="emplist" style="margin: 0 auto"></table>
+							name="searchdept" id="searchdept"></select><br /> <span>起訖日</span><input
+							type="date" name="startdate" id="startdate">~<input
+							type="date" name="enddate" id="enddate"><br /> <input
+							type="button" id="search" name="search" value="搜尋">
+						<p>${msgmap.noinputmsg}</p>
+						<table border="1" id="emplist"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -121,18 +113,7 @@ table {
 		var emps;
 		const perpage = 10;
 		let nowpage = 1;
-		showemps();
-		//從資料庫取得資料
-		function showemps() {
-			$.ajax({
-				url : "EmpList",
-				type : "GET",
-				success : function(Str) {
-					emps = JSON.parse(Str);
-					pagination(emps, nowpage);
-				}
-			});
-		}
+
 		//產生顯示的資料
 		function pagination(emps, nowpage) {
 			$("#emplist").html("");
@@ -149,23 +130,19 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
+			var txt = "<tr><th>EmpID<th>姓名<th>部門<th>日期<th>上班<th>下班<th>status<th>";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
 			for (let i = minData - 1; i < maxData; i++) {
 				txt += "<tr><td>" + emps[i].empID;
-				txt += "<td>" + emps[i].department;
-				txt += "<td>" + emps[i].title;
 				txt += "<td>" + emps[i].name;
-				txt += "<td>" + emps[i].manager;
-				txt += "<td>" + emps[i].extensionNum;
-				txt += "<td>" + emps[i].email;
-				txt += "<td><a href='<c:url value='/EditEmployee.do?id="
-						+ emps[i].empID + "'/>' name='" + emps[i].empID
-						+ "'>Edit</a>";
-
+				txt += "<td>" + emps[i].department;
+				txt += "<td>" + emps[i].date;
+				txt += "<td>" + emps[i].starttime;
+				txt += "<td>" + emps[i].endtime;
+				txt += "<td>" + emps[i].status;
 			}
 
 			$("#emplist").html(txt);
@@ -177,24 +154,19 @@ table {
 			$("#page").html("第" + nowpage + "頁");
 			showemps();
 		}
-
-		var chk_status;
+		
 		$("#search").click(
 				function() {
-					if ($("#resigned").prop("checked")) {
-						chk_status = true;
-					} else {
-						chk_status = false;
-					}
 					nowpage = 1;
 					$.ajax({
-						url : "QueryEmp.action?searchid="
+						url : "QueryEmpAttdenance.action?searchid="
 								+ $("#searchid").val() + "&searchname="
 								+ $("#searchname").val() + "&searchdept="
-								+ $("#searchdept").val() + "&resigned="
-								+ chk_status,
+								+ $("#searchdept").val()
+								+ "&startdate="+$("#startdate").val()
+								+ "&enddate="+$("#enddate").val(),
 						type : "GET",
-						traditional : true,
+						traditional: true,
 						success : function(Str) {
 							emps = JSON.parse(Str);
 							pagination(emps, nowpage);

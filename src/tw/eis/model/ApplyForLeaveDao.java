@@ -138,23 +138,25 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		return result;
 	}
 
-//	public List<ApplyForLeave> checkApplyTime(String startTime, String endTime) {
-//		Query<ApplyForLeave> query = getSession().createQuery("From ApplyForLeave Where StartTime=?0 and EndTime<>?1",
-//				ApplyForLeave.class);
-//		query.setParameter(0, startTime);
-//		query.setParameter(1, endTime);
-//		List<ApplyForLeave> list = query.list();
-//		if (list.size() != 0) {
-//			for (int i = 0; i < list.size(); i++) {
-//				ApplyForLeave aBean = list.get(i);
-//				aBean.setCreateTime(aBean.getCreateTime().substring(0, 16));
-//				aBean.setStartTime(aBean.getStartTime().substring(0, 16));
-//				aBean.setEndTime(aBean.getEndTime().substring(0, 16));
-//			}
-//			return list;
-//		}
-//		return null;
-//	}
+	@Override
+	public List<ApplyForLeave> checkApplyTime(Date startTime, Date endTime, int employeeId) {
+		String hql = "From ApplyForLeave where EmployeeID=?0 and StartTime<?1 and EndTime>?2 and SigningProgress<>?3";
+		Query<ApplyForLeave> Query = getSession().createQuery(hql, ApplyForLeave.class);
+		Query.setParameter(0, employeeId);
+		Query.setParameter(1, endTime);
+		Query.setParameter(2, startTime);
+		Query.setParameter(3, "不同意");
+		List<ApplyForLeave> list = Query.list();
+
+		if (list.size() != 0) {
+			for (int i = 0; i < list.size(); i++) {
+				ApplyForLeave aBean = list.get(i);
+				aBean.setCreateTime(aBean.getCreateTime().substring(0, 16));
+			}
+			return list;
+		}
+		return null;
+	}
 
 	@Override
 	public String getStartHoursTag() {
@@ -177,18 +179,37 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 	}
 
 	@Override
-	public BigDecimal countLeaveHours(String startD, String endD, String startH, String endH, String startM,
+	public BigDecimal countHoursSTtoET(String startD, String endD, String startH, String endH, String startM,
 			String endM) throws ParseException {
 		// 起始時間-結束時間換算成總時數
-		// 天-轉時數 1.先將日期轉成數字
 		Calendar aCalendar = Calendar.getInstance();
-		Date startTime = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
-		aCalendar.setTime(startTime);
-		int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
-		Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
-		aCalendar.setTime(endTime);
-		int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
-		int leaveDay = day2 - day1;
+		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+
+		aCalendar.setTime(startDate);
+		int yearS = aCalendar.get(Calendar.YEAR);
+
+		aCalendar.setTime(endDate);
+		int yearE = aCalendar.get(Calendar.YEAR);
+
+		// 天-轉時數 1.先將日期轉成數字
+		aCalendar.setTime(startDate);
+		int dayS = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+		aCalendar.setTime(endDate);
+		int dayE = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+		int leaveDay = 0;
+		if (yearS == yearE) {
+			leaveDay = dayE - dayS;
+		} else {
+			String lastDateOfYear = yearS + "-12-31";
+			Date lastDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastDateOfYear);
+			aCalendar.setTime(lastDate);
+			int dayL = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+			leaveDay = dayL - dayS + dayE;
+		}
 
 		// 天-轉時數 2.天數轉時數
 		int dSumH = 0;
@@ -243,7 +264,18 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		// 加總時數-轉成BigDecimal型別，設定SumHours
 		double sum = dSumH + hSumH + firstM + lastM;
 		BigDecimal sumHours = new BigDecimal(sum);
-
 		return sumHours;
+	}
+
+	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		String hqlstr = "from ApplyForLeave where (:Time BETWEEN StartTime AND EndTime) and SigningProgress='同意'";
+		Query<ApplyForLeave> query = session.createQuery(hqlstr, ApplyForLeave.class);
+		query.setParameter("Time", Time);
+		List<ApplyForLeave> list = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return list;
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+
 import tw.eis.model.Users;
 import tw.eis.model.feeAppMember;
 import tw.eis.model.feeAppService;
@@ -33,9 +34,10 @@ public class feeAppAction {
 	public feeAppAction(feeAppService feeAppService) {
 		this.feeAppService=feeAppService;
 	}
-	
+	//差旅費申請+查詢資料庫
 	@RequestMapping(path = "/AddFeeApp.action", method = RequestMethod.POST)
-	public String addfeeApp(@ModelAttribute("LoginOK") Users userBean,@RequestParam(name = "department", required = false) String department,
+	public String addfeeApp(@ModelAttribute("LoginOK") Users userBean,
+			//@RequestParam(name = "department", required = false) String department,
 			//@RequestParam(name = "employeeID", required = false) String employeeID,
 			@RequestParam(name = "appItem", required = false) String appItem,
 			//@RequestParam(name = "appTime", required = false) String appTime,
@@ -45,13 +47,13 @@ public class feeAppAction {
 			@RequestParam(name = "remark", required = false) String remark,
 			@RequestParam(name = "appMoney", required = false) String appMoney, Model model) {
 		String signerTime=null;
-		String signerStatus="Send";
+		String signerStatus="簽核中";
 		int signerID=1;
-				
+		String department = userBean.getDepartment();		
 		//int employeeIDint= Integer.parseInt(employeeID);
 		int employeeIDint = userBean.getEmployeeID();
 		//Date invoiceTimeD = Date.valueOf(invoiceTime);
-		int editorint= Integer.parseInt(editor);
+					
 		int appMoneyint= Integer.parseInt(appMoney);
 		
 //		Timestamp tsmp=new Timestamp(System.currentTimeMillis());
@@ -63,11 +65,11 @@ public class feeAppAction {
 		Date date = new Date();
 		String appTime = sdFormat.format(date);
 		System.out.println("System Time:"+appTime);
-		feeAppService.addFeeApp(department,employeeIDint,appItem,appTime.toString(),invoiceTime,invoiceNb,editorint,remark,appMoneyint,signerTime,signerStatus,signerID);
+		feeAppService.addFeeApp(department,employeeIDint,appItem,appTime.toString(),invoiceTime,invoiceNb,editor,remark,appMoneyint,signerTime,signerStatus,signerID);
 		
 		 return "feeApplicationForm";
 	}
-	
+	//差旅費查詢頁面+查詢資料庫
 	@RequestMapping(path = "/FeeAllPage.action", method = RequestMethod.POST)
 	public String qfeeApp(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam(name = "searchA", required = false)String searchA,
@@ -79,21 +81,117 @@ public class feeAppAction {
 		 return "FeeAllPage";
 	}
 	
-	@RequestMapping(path = "/FeeSingerPage.action", method = RequestMethod.POST)
-	public String qfeeSingerApp(@ModelAttribute("LoginOK") Users userBean,
-			@RequestParam(name = "FeeDetail", required = false)String FeeDetail,
-			@RequestParam(name = "Status", required = false)String Status,
-			@RequestParam(name = "send", required = false)String send, Model model) {
-		String department = userBean.getDepartment();
-		String signerStatus="Send";
-		int Level = userBean.getEmployee().getLevel();
-		System.out.println("Level:"+Level);
-		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level);
-		model.addAttribute("dSList", dSList);
+	@RequestMapping(path = "/SingerPage", method = RequestMethod.GET)
+	public String SingerPage(@RequestParam("feeAppID") int feeAppID, Model model) {
+		List<feeAppMember> applyIDList = feeAppService.qapplyId(feeAppID);
+				
+		int S_feeAppID=0;
+		String S_department="";
+		String S_appItem="";
+		String S_appTime="";
+		String S_invoiceTime="";
+		String S_invoiceNb="";
+		String S_editor="";
+		String S_remark="";
+		int S_appMoney=0;
+				
+		for(feeAppMember feeAppMember:applyIDList) {
+			S_feeAppID = feeAppMember.getFeeAppID();
+			S_department = feeAppMember.getDepartment();
+			S_appItem = feeAppMember.getAppItem();
+			S_appTime = feeAppMember.getAppTime();
+			S_invoiceTime = feeAppMember.getInvoiceTime();
+			S_invoiceNb = feeAppMember.getInvoiceNb();
+			S_editor = feeAppMember.getEditor();
+			S_remark = feeAppMember.getRemark();
+			S_appMoney = feeAppMember.getAppMoney();
+		}
 		
-		 return "FeeSingerPage";
+		model.addAttribute("S_feeAppID", S_feeAppID);
+		model.addAttribute("S_department", S_department);
+		model.addAttribute("S_appItem", S_appItem);
+		model.addAttribute("S_appTime", S_appTime);
+		model.addAttribute("S_feeAppID", S_feeAppID);
+		model.addAttribute("S_invoiceTime", S_invoiceTime);
+		model.addAttribute("S_invoiceNb", S_invoiceNb);
+		model.addAttribute("S_editor", S_editor);
+		model.addAttribute("S_remark", S_remark);
+		model.addAttribute("S_appMoney", S_appMoney);
+		
+	 return "FeeSingerDetails";
 	}
-			
+	@RequestMapping(path = "/SingerPassPage", method = RequestMethod.POST)
+	public String SingerPassPage(@ModelAttribute("LoginOK") Users LoginOK,
+			@RequestParam("feeAppID") int feeAppID,
+			@RequestParam("decide") String signerStatus,Model model) {
+		
+		SimpleDateFormat SingerFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String singerTime = SingerFormat.format(date);
+		
+		int signerID = LoginOK.getEmployeeID();
+		
+		feeAppService.EditFeeApp(feeAppID,signerStatus,singerTime,signerID);		
+	 return "FeeSingerDecide";
+	}
 
+	@RequestMapping(path = "/ReturnPage", method = RequestMethod.GET)
+	public String ReturnPage(@RequestParam("feeAppID") int feeAppID, Model model) {
+		List<feeAppMember> applyIDList = feeAppService.qapplyId(feeAppID);
+				
+		int S_feeAppID=0;
+		String S_department="";
+		String S_appItem="";
+		String S_appTime="";
+		String S_invoiceTime="";
+		String S_invoiceNb="";
+		String S_editor="";
+		String S_remark="";
+		int S_appMoney=0;
+				
+		for(feeAppMember feeAppMember:applyIDList) {
+			S_feeAppID = feeAppMember.getFeeAppID();
+			S_department = feeAppMember.getDepartment();
+			S_appItem = feeAppMember.getAppItem();
+			S_appTime = feeAppMember.getAppTime();
+			S_invoiceTime = feeAppMember.getInvoiceTime();
+			S_invoiceNb = feeAppMember.getInvoiceNb();
+			S_editor = feeAppMember.getEditor();
+			S_remark = feeAppMember.getRemark();
+			S_appMoney = feeAppMember.getAppMoney();
+		}
+		
+		model.addAttribute("S_feeAppID", S_feeAppID);
+		model.addAttribute("S_department", S_department);
+		model.addAttribute("S_appItem", S_appItem);
+		model.addAttribute("S_appTime", S_appTime);
+		model.addAttribute("S_feeAppID", S_feeAppID);
+		model.addAttribute("S_invoiceTime", S_invoiceTime);
+		model.addAttribute("S_invoiceNb", S_invoiceNb);
+		model.addAttribute("S_editor", S_editor);
+		model.addAttribute("S_remark", S_remark);
+		model.addAttribute("S_appMoney", S_appMoney);
+		
+	 return "FeeReturnModify";
+	}
+	@RequestMapping(path = "/FeeReturnEditPage", method = RequestMethod.POST)
+	public String FeeReturnEditPage(@ModelAttribute("LoginOK") Users LoginOK,
+			@RequestParam("feeAppID") int feeAppID,
+			@RequestParam("invoiceTime") String invoiceTime,
+			@RequestParam("invoiceNb") String invoiceNb,
+			@RequestParam("editor") String editor,
+			@RequestParam("appMoney") int appMoney,
+			@RequestParam("remark") String remark,Model model) {
+		
+		SimpleDateFormat appTimeFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String appTime = appTimeFormat.format(date);
+		String signerStatus="簽核中";	
+		
+		feeAppService.ReturnEditFee(feeAppID,appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);		
+	 return "FeeSingerDecide";
+	}
+	
+	
 	}
 

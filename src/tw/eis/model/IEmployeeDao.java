@@ -10,6 +10,8 @@ import tw.eis.model.Title;
 public interface IEmployeeDao {
 	public List<?> allEmpData();
 
+	public List<Employee> allEmpIdforTask();
+	
 	public List<?> queryEmp(int id, String Name, String Department, String Resigned);
 
 	public Employee empData(int id);

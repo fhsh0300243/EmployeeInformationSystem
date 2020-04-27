@@ -42,4 +42,9 @@ public class GlobalService {
 		return sdf.format(datetime);
 	}
 	
+	public static String formatToyyyyMMdd(String datetime) { //yyyy-MM-dd
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(datetime);
+	}
+	
 }

@@ -22,21 +22,25 @@ public class HolidayCalendarService {
 	public List<HolidayCalendar> InqueryCalendar(int year) {
 		return calendarDao.InqueryCalendar(year);
 	}
-	
-	public List<HolidayCalendar> InqueryCalendarToday(String datestr) {
-		return calendarDao.InqueryCalendarToday(datestr);
+
+	public List<HolidayCalendar> InqueryCalendarToday(String todaystr) {
+		return calendarDao.InqueryCalendarToday(todaystr);
 	}
 
-	public boolean InsertCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
-		return calendarDao.InsertCalendar(usersResultMap, date, dateType, remark);
+	public void InsertCalendar(Employee Emp, String date, String dateType, String remark) {
+		calendarDao.InsertCalendar(Emp, date, dateType, remark);
 	}
 
-	public boolean UpdateCalendar(Map<String, String> usersResultMap, String date, String dateType, String remark) {
-		return calendarDao.UpdateCalendar(usersResultMap, date, dateType, remark);
+	public void UpdateCalendar(Employee Emp, String date, String dateType, String remark) {
+		calendarDao.UpdateCalendar(Emp, date, dateType, remark);
 	}
 
-	public boolean DeleteCalendar(List<String> date) {
-		return calendarDao.DeleteCalendar(date);
+	public void DeleteCalendar(List<String> date) {
+		calendarDao.DeleteCalendar(date);
+	}
+
+	public List<HolidayCalendar> queryCalendarByDate(String date) {
+		return calendarDao.queryCalendarByDate(date);
 	}
 
 }

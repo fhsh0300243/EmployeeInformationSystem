@@ -16,53 +16,63 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-	<context:annotation-config/>
-	<context:component-scan base-package="tw.eis"/>
-	
-	<mvc:annotation-driven/>
-	
-	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+	<context:annotation-config />
+	<context:component-scan base-package="tw.eis" />
+
+	<mvc:annotation-driven />
+
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/images/"
+		mapping="/images/**" />
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
-	
-	<!-- 新增by GK Start存放本機端jq及bootstraps-->
-	<mvc:resources location="/WEB-INF/lib/" mapping="/lib/**"/>
-	<!-- 新增by GK End-->
-	<mvc:view-controller path="/" view-name="redirect:/userLogin"/>
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	
-	<bean id="SQLserverJndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jndiJdbcConnSQLServer/eis"/>
+
+	<!-- 新增by GK Start存放本機端jq及bootstraps -->
+	<mvc:resources location="/WEB-INF/lib/" mapping="/lib/**" />
+	<!-- 新增by GK End -->
+	<mvc:view-controller path="/"
+		view-name="redirect:/userLogin" />
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+
+	<bean id="SQLserverJndiDataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"
+			value="java:comp/env/jndiJdbcConnSQLServer/eis" />
 	</bean>
-	<!--  
-	<bean id="sessionFactory" destroy-method="destroy" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref="SQLserverJndiDataSource"/>
-		<property name="configLocation">
-			<value>classpath:hibernate.cfg.xml</value>
-		</property>
-	</bean>
-	-->
-	<bean id="sessionFactory" destroy-method="destroy" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<!-- <bean id="sessionFactory" destroy-method="destroy" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"> 
+		<property name="dataSource" ref="SQLserverJndiDataSource"/> <property name="configLocation"> 
+		<value>classpath:hibernate.cfg.xml</value> </property> </bean> -->
+	<bean id="sessionFactory" destroy-method="destroy"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="SQLserverJndiDataSource" />
 		<property name="packagesToScan" value="tw.eis"></property>
 		<property name="hibernateProperties">
-		   <props>
-		     <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
-		     <prop key="hibernate.show_sql">true</prop>
-		     <prop key="hibernate.format_sql">true</prop>
-		     <prop key="hibernate.current_session_context_class">thread</prop>
-		     <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
-		   </props>
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+			</props>
 		</property>
-	</bean>	
-	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-	    <property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-		<task:scheduled-tasks>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+<!--<task:scheduled-tasks>
+		<task:scheduled ref="springTaskController"
+			method="CreateTable0300" cron="0 0 3 * * ?" />
+	</task:scheduled-tasks> 
+	<task:scheduled-tasks>
 		<task:scheduled ref="springTaskController"
 			method="CheckStatus0830" cron="0 30 8 * * ?" />
 	</task:scheduled-tasks>
+	<task:scheduled-tasks>
+		<task:scheduled ref="springTaskController"
+			method="CheckStatus2330" cron="0 30 23 * * ?" />
+	</task:scheduled-tasks> -->
 </beans>

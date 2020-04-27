@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "feeApply")
+@Table(name = "feeApply") //<--modify by 揚明
 @Component
 public class feeAppMember {
 	private int feeAppID;
@@ -21,7 +21,7 @@ public class feeAppMember {
 	private String appTime;
 	private String invoiceTime;
 	private String invoiceNb;
-	private int editor;
+	private String editor;
 	private String remark;
 	private int appMoney;
 	private String signerTime;
@@ -32,7 +32,7 @@ public class feeAppMember {
 	}
 	
 	public feeAppMember(String department,int employeeID,String appItem,String appTime,
-			String invoiceTime,String invoiceNb,int editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
+			String invoiceTime,String invoiceNb,String editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
 		this.department=department;
 		this.employeeID=employeeID;
 		this.appItem=appItem;
@@ -107,10 +107,10 @@ public class feeAppMember {
 		this.remark = remark;
 	}
 	@Column(name = "EDITOR")
-	public int getEditor() {
+	public String getEditor() {
 		return editor;
 	}
-	public void setEditor(int editor) {
+	public void setEditor(String editor) {
 		this.editor = editor;
 	}
 	@Column(name = "APPMONEY")

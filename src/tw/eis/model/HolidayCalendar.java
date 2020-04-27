@@ -4,25 +4,32 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
-@Table(name = "HolidayCalendar")
+@Table(name = "holidaycalendar")
+@Component
 public class HolidayCalendar {
+	
 	private Date Date;
 	private String DateType;
 	private String Remark;
-	private int EmployeeID;
+	private Employee employee;
 
 	public HolidayCalendar() {
 	}
 	
-	public HolidayCalendar(Date Date,String DateType,String Remark,int EmployeeID) {
+	public HolidayCalendar(Employee employee,Date Date,String DateType,String Remark,int EmployeeID) {
 		this.Date = Date;
 		this.DateType = DateType;
 		this.Remark = Remark;
-		this.EmployeeID = EmployeeID;
+		this.employee = employee;
 	}
 
 	@Id 
@@ -53,12 +60,13 @@ public class HolidayCalendar {
 		this.Remark = remark;
 	}
 	
-	@Column(name = "EMPLOYEEID") 
-	public int getId() {
-		return EmployeeID;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="EMPID")
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setId(int id) {
-		this.EmployeeID = id;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 }

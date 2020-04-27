@@ -26,17 +26,20 @@
 .st1 {
 	width: 450px;
 	padding-bottom: 10px;
+
 }
 
 .st2 {
 	width: 450px;
 	text-align: center;
+
 }
 
 .ca1 {
 	width: 100px;
 	float: left;
 	text-align: right;
+
 }
 
 fieldset {
@@ -52,6 +55,10 @@ fieldset {
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
+}
+
+.mark1 {
+	color: red;
 }
 </style>
 </head>
@@ -84,6 +91,7 @@ p {
 						<fieldset style="margin: 0 auto">
 							
 							<form action="AddFeeApp.action" method="post">
+								<!--  
 								<div class="st1">
 									<label for="" class="ca1">部門:</label> 
 									<select name="department">
@@ -94,18 +102,23 @@ p {
 										<option value="PM">PM(專案管理)</option>
 									</select>
 								</div>
-								<!--  
+								
 			<div class="st1">
 				<label class="ca1" for="xx1">員工編號:</label><input type="text"
 					id="xx1" name="employeeID" placeholder="guest" autofocus
 					autocomplete="off" size="20">
 			</div>
 			-->
+								
+								
 								<div class="st1">
-									<label for="" class="ca1">申請項目:</label> <select name="appItem">
+								
+									<label class="ca1"><span class="mark1">*</span>申請項目:</label> 
+									<select name="appItem">
 										<option value="交通">交通</option>
 										<option value="住宿">住宿</option>
 										<option value="餐費">餐費</option>
+										<option value="加班費">加班費</option>
 										<option value="其他">其他</option>
 
 									</select>
@@ -118,7 +131,7 @@ p {
 			</div>
 			-->
 								<div class="st1">
-									<label class="ca1 " for="">發票日期:</label> <label><input
+									<label class="ca1 " for=""><span class="mark1">*</span>發票日期:</label> <label><input
 										type="date" name="invoiceTime"></label>
 
 								</div>
@@ -142,14 +155,14 @@ p {
 									<textarea cols="30" rows="3" id="comment1" name="remark"></textarea>
 								</div>
 								<div class="st1">
-									<label class="ca1 " for="">金額:</label> <label><input
+									<label class="ca1 " for=""><span class="mark1">*</span>金額:</label> <label><input
 										type="tel" name="appMoney"></label>
 
 								</div>
 
 								<div class="st2">
-									<input type="submit" name="New" value="申請" /> <input
-										type="reset" value="清除" />
+									<input type="submit" name="New" value="申請" class="btn btn-info"/> <input
+										type="reset" value="清除" class="btn btn-info"/>
 								</div>
 
 							</form>

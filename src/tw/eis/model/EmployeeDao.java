@@ -1,8 +1,7 @@
 package tw.eis.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -41,12 +40,23 @@ public class EmployeeDao implements IEmployeeDao {
 	}
 
 	@Override
+	public List<Employee> allEmpIdforTask() {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Query<Employee> query = session.createQuery("From Employee", Employee.class);
+		List<Employee> list = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return list;
+	}
+
+	@Override
 	public List<?> queryEmp(int id, String Name, String Department, String Resigned) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
 		Date today = GlobalService.dateOfToday();
 		if (Resigned.equals("true")) {
 			mainQuery.add(Restrictions.lt("lastWorkDay", today));
-		}else {
+		} else {
 			mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
 		}
 		if (id != 0) {
@@ -183,14 +193,15 @@ public class EmployeeDao implements IEmployeeDao {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
 		mainQuery.createAlias("employee", "e");
 		mainQuery.add(Restrictions.eq("userName", "EEIT11202"));
-		//mainQuery.add(Property.forName("UserName"));
+		// mainQuery.add(Property.forName("UserName"));
 		mainQuery.add(Restrictions.eq("userPassword", "D783BFB71A21F6B6706D25ACE3176C4B"));
 		mainQuery.add(Restrictions.gt("e.lastWorkDay", GlobalService.dateOfToday()));
 		List<?> list = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
-		if(!list.isEmpty()) {
-			for(Object user:list) {
-				System.out.println(((Users)user).getUserName());
+		if (!list.isEmpty()) {
+			for (Object user : list) {
+				System.out.println(((Users) user).getUserName());
 			}
 		}
 	}
+	
 }

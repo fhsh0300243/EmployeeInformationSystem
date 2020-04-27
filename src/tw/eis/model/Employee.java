@@ -50,6 +50,7 @@ public class Employee implements Serializable {
 	private Set<Employee> subordinates = new HashSet<Employee>();
 	private Department empDept;
 	private Title empTitle;
+	private Set<Attendance> attRecords =new HashSet<Attendance>(0);
 
 	public Employee() {
 
@@ -264,4 +265,12 @@ public class Employee implements Serializable {
 		this.empTitle = empTitle;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+	public Set<Attendance> getAttRecords() {
+		return attRecords;
+	}
+
+	public void setAttRecords(Set<Attendance> attRecords) {
+		this.attRecords = attRecords;
+	}
 }
