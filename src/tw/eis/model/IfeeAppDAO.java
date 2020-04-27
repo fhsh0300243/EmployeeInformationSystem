@@ -11,9 +11,6 @@ public interface IfeeAppDAO {
 public List<feeAppMember> qfeeSingerApp(int feeAppID);
 	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,Employee signerID);
 
-	public List<feeAppMember> qfeeSingerApp(int feeAppID);
-
-	public boolean EditFeeApp(int feeAppID, String signerStatus, String singerTime, int signerID);
 
 
 	// add by 揚明--start
