@@ -49,6 +49,19 @@ public class feeAppAction {
 			@RequestParam(name = "editor", required = false) String editor,
 			@RequestParam(name = "remark", required = false) String remark,
 			@RequestParam(name = "appMoney", required = false) String appMoney, Model model) {
+		
+		Map<String, String> feemsgmap = new HashMap<String, String>();
+		model.addAttribute("feemsgmap", feemsgmap);
+//		System.out.println("System Time:"+"1"+appItem+"1");
+//		if (appItem == "123") {
+//			feemsgmap.put("appItem", "未輸入申請項目");
+//			return "feeApplicationForm";
+//		}
+		if (appMoney == null || appMoney.length() == 0) {
+			feemsgmap.put("appMoney", "未輸入金額");
+			return "feeApplicationForm";
+		}else {
+			
 		String signerTime=null;
 		String signerStatus="簽核中";
 		//int signerID=1;
@@ -68,10 +81,11 @@ public class feeAppAction {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		Date date = new Date();
 		String appTime = sdFormat.format(date);
-		System.out.println("System Time:"+appTime);
+		//System.out.println("System Time:"+appTime);
 		feeAppService.addFeeApp(department,employeeID,appItem,appTime.toString(),invoiceTime,invoiceNb,editor,remark,appMoneyint,signerTime,signerStatus,signerID);
-		
+		feemsgmap.put("Success", "已送簽核");
 		 return "feeApplicationForm";
+		}
 	}
 	//差旅費查詢頁面+查詢資料庫
 	@RequestMapping(path = "/FeeAllPage.action", method = RequestMethod.POST)
@@ -186,6 +200,7 @@ public class feeAppAction {
 	}
 	@RequestMapping(path = "/FeeReturnEditPage", method = RequestMethod.POST)
 	public String FeeReturnEditPage(@ModelAttribute("LoginOK") Users LoginOK,
+					
 			@RequestParam("feeAppID") int feeAppID,
 			@RequestParam("invoiceTime") String invoiceTime,
 			@RequestParam("invoiceNb") String invoiceNb,
@@ -193,12 +208,16 @@ public class feeAppAction {
 			@RequestParam("appMoney") int appMoney,
 			@RequestParam("remark") String remark,Model model) {
 		
+						
 		SimpleDateFormat appTimeFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		Date date = new Date();
 		String appTime = appTimeFormat.format(date);
 		String signerStatus="簽核中";	
 		
-		feeAppService.ReturnEditFee(feeAppID,appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);		
+		feeAppService.ReturnEditFee(feeAppID,appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);	
+		
+		
+		
 	 return "FeeSingerDecide";
 	}
 	
