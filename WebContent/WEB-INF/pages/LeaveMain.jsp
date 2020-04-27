@@ -33,7 +33,7 @@
 				<a href="preleavetype">剩餘假別</a>
 			</div>
 
-			<div id="man">
+			<div id="man" style="display: none;">
 				<br>
 				<div class="title">主管專區</div>
 
@@ -52,8 +52,8 @@
 	<script>
 		$(function() {
 			var level = $("#idLevel").attr("name");
-			if (level == 1) {
-				$("#man").hide()
+			if (level != 1) {
+				$("#man").show()
 			}
 		});
 	</script>
