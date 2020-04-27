@@ -67,6 +67,8 @@ public class AFLController {
 			@RequestParam("myFile") MultipartFile mFile, HttpServletRequest request, Model model)
 			throws ParseException {
 		int userID = userBean.getEmployeeID();
+		int empLevel = eService.empData(userID).getLevel();
+		model.addAttribute("empLevel", empLevel);
 
 		// 開始時間、結束時間-判斷是否為休假日、國定假日
 		String strError = "";
@@ -219,6 +221,9 @@ public class AFLController {
 			@RequestParam("sign") String sign, @RequestParam("comment") String comment, Model model) {
 
 		int userID = userBean.getEmployeeID();
+		int empLevel = eService.empData(userID).getLevel();
+		model.addAttribute("empLevel", empLevel);
+
 		Integer AID = Integer.valueOf(applyId);
 		ApplyForLeave aBean = aService.queryApplyByAID(AID);
 
