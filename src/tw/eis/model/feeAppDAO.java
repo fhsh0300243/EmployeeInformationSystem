@@ -30,9 +30,9 @@ public class feeAppDAO implements IfeeAppDAO {
 	}
 
 	// 新增申請差旅費進資料庫
-	public boolean addFeeApp(String department, int employeeID, String appItem, String appTime, String invoiceTime,
+	public boolean addFeeApp(String department, Employee employeeID, String appItem, String appTime, String invoiceTime,
 			String invoiceNb, String editor, String remark, int appMoney, String signerTime, String signerStatus,
-			int signerID) {
+			Employee signerID) {
 		Session session = sessionFacotry.getCurrentSession();
 		feeAppMember feeapp = new feeAppMember(department, employeeID, appItem, appTime, invoiceTime, invoiceNb, editor,
 				remark, appMoney, signerTime, signerStatus, signerID);
@@ -43,7 +43,7 @@ public class feeAppDAO implements IfeeAppDAO {
 	}
 
 	// 查詢差旅費-員工編號、時間區間
-	public List<feeAppMember> qFeeApp(int employeeID, String searchA, String searchB) {
+	public List<feeAppMember> qFeeApp(Employee EmployeeID1, String searchA, String searchB) {
 
 		Session session = sessionFacotry.getCurrentSession();
 		// String qq="from feeAppMember where employeeID=?"+employeeID+" and invoiceTime
@@ -65,7 +65,8 @@ public class feeAppDAO implements IfeeAppDAO {
 
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(feeAppMember.class);
 		mainQuery.add(Restrictions.between("appTime", searchA, searchB));
-		mainQuery.add(Restrictions.eq("employeeID", employeeID));
+		mainQuery.add(Restrictions.eq("employeeID", EmployeeID1));
+		mainQuery.add(Restrictions.eq("employeeID", EmployeeID1));
 
 		List<feeAppMember> list = mainQuery.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
 //
@@ -74,10 +75,11 @@ public class feeAppDAO implements IfeeAppDAO {
 	}
 
 	// 查詢差旅費-主管簽核頁面
-	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level) {
+	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level,Employee employeeIDB2) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(feeAppMember.class);
 		mainQuery.add(Restrictions.eq("department", department));
 		mainQuery.add(Restrictions.eq("signerStatus", signerStatus));
+		mainQuery.add(Restrictions.eq("signerID", employeeIDB2));
 
 		List<feeAppMember> list2 = mainQuery.getExecutableCriteria(sessionFacotry.getCurrentSession()).list();
 		return list2;
@@ -91,8 +93,8 @@ public class feeAppDAO implements IfeeAppDAO {
 		List<feeAppMember> listByID = query.list();
 		return listByID;
 	}
-
-	public boolean EditFeeApp(int feeAppID, String signerStatus, String singerTime, int signerID) {
+	
+	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,Employee signerID) {
 		Session session = sessionFacotry.getCurrentSession();
 		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
 		feeAppMember.setSignerTime(singerTime);
@@ -104,11 +106,11 @@ public class feeAppDAO implements IfeeAppDAO {
 
 		
 	}
-	public List<feeAppMember> qfeeAppByID(int employeeID, String signerStatus) {
+	public List<feeAppMember> qfeeAppByID(Employee employeeIDB, String signerStatus) {
 		Session session = sessionFacotry.getCurrentSession();
 	
 		Query qReturnByID = session.createQuery("from feeAppMember where employeeID=?0 and signerStatus=?1",feeAppMember.class);	
-		qReturnByID.setParameter(0, employeeID);
+		qReturnByID.setParameter(0, employeeIDB);
 		qReturnByID.setParameter(1, signerStatus);
 		List<feeAppMember> qlistByID = qReturnByID.list();
 		return qlistByID;

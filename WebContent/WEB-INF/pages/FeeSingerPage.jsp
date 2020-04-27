@@ -97,10 +97,11 @@ p {
 									<tr>
 										<td>${appfee.feeAppID}</td>
 										<td>${appfee.department}</td>
-										<td>${appfee.feeAppID}</td>
+										<td>${appfee.employeeID.name}</td>
 										<td>${appfee.appItem}</td>
 										<td>${appfee.appTime.substring(0,16)}</td>
 										<td>${appfee.appMoney}</td>
+										
 										
 										
 										

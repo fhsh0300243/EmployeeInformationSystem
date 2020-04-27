@@ -71,7 +71,7 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						
-						<h2>差旅費已簽核</h2>
+						<h2>完成</h2>
 						
 						<div class="list_footer">
 							<div id="tag"></div>

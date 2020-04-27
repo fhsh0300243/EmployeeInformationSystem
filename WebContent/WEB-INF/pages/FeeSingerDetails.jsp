@@ -78,60 +78,67 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<table align="center">
-						<tr>
-						<td>申請編號:</td>
-						<td>${S_feeAppID}</td>
-						</tr>
-						<tr>
-						<td>員工編號:</td>
-						<td>${S_feeAppID}</td>
-						</tr>
-						<tr>
-						<td>員工部門:</td>
-						<td>${S_department}</td>
-						</tr>
-						<tr>
-						<td>申請項目:</td>
-						<td>${S_appItem}</td>
-						</tr>
-						<tr>
-						<td>申請時間:</td>
-						<td>${S_appTime}</td>
-						</tr>
-						<tr>
-						<td>發票時間:</td>
-						<td>${S_invoiceTime}</td>
-						</tr>
-						<tr>
-						<td>發票號碼:</td>
-						<td>${S_invoiceNb}</td>
-						</tr>
-						<tr>
-						<td>統編:</td>
-						<td>${S_editor}</td>
-						</tr>
-						
-						<tr>
-						<td>申請金額:</td>
-						<td>${S_appMoney}</td>
-						</tr>
-						<tr>
-						<td>備註:</td>
-						<td>${S_remark}</td>
-						</tr>
-						</table>
+						<table id="idtable1">
+								
+								<c:forEach var='appDetail' items='${appIDList}' varStatus='vs'>
+									<tr>
+										<td>申請編號:</td>
+										<td>${appDetail.feeAppID}</td>
+									</tr>
+									<tr>
+										<td >員工姓名:</td>
+										<td>${appDetail.employeeID.name}</td>
+									</tr>
+									<tr>
+										<td>員工部門:</td>
+										<td>${appDetail.department}</td>
+									</tr>
+									<tr>
+										<td>申請項目:</td>
+										<td>${appDetail.appItem}</td>
+									</tr>
+									<tr>
+										<td>申請時間:</td>
+										<td>${appDetail.appTime.substring(0,16)}</td>
+									</tr>
+									<tr>
+										<td>發票日期:</td>
+										<td>${appDetail.invoiceTime}</td>
+									</tr>
+									<tr>
+										<td>發票號碼:</td>
+										<td>${appDetail.invoiceNb}</td>
+									</tr>
+									<tr>
+										<td>統編:</td>
+										<td>${appDetail.editor}</td>
+									</tr>
+									<tr>
+										<td>申請金額:</td>
+										<td>${appDetail.appMoney}</td>
+									</tr>
+									<tr>
+										<td>備註:</td>
+										<td>${appDetail.remark}</td>
+									</tr>
+									
+									
+								</c:forEach>
+							</table>
 						<hr/>
 						<form class="for1"
 						action="<c:url value="/SingerPassPage?feeAppID=${S_feeAppID}"/>"
 						method="post">
- 						<input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過
-          
- 		               	<input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件
- 		               	<div>
-						<input type="submit" value="送出">
-						</div>
+						<table id="idtable1">
+						
+							<th><input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過</th>
+							<th><input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件</th>
+							<th><input type="submit" value="送出"></th>
+						
+ 						
+						</table>
 						</form>
+						
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>

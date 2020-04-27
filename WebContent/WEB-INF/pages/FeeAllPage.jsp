@@ -103,6 +103,7 @@ p {
 									<th>發票日期</th>
 									<th>發票號碼</th>
 									<th>申請金額</th>
+									<th>簽核主管</th>
 									<th>簽核狀態</th>
 									
 								</tr>
@@ -114,7 +115,9 @@ p {
 										<td>${applyDetail.appItem}</td>
 										<td>${applyDetail.invoiceTime}</td>
 										<td>${applyDetail.invoiceNb}</td>
+										
 										<td>${applyDetail.appMoney}</td>
+										<td>${applyDetail.employeeID.name}</td>
 										<td>${applyDetail.signerStatus}</td>
 										
 									</tr>
