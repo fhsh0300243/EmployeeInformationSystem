@@ -33,9 +33,25 @@ p {
 	font-size: 18px;
 }
 
-table {
-	margin: 20px;
+
+.idtable1 {
+	margin: 30px auto;
 	border-collapse: collapse;
+}
+
+.idtable1 tr {
+	text-align: center;
+}
+
+.idtable1 th {
+	text-align: center;
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+.idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
 }
 .userImg {
 	width: 20%;
@@ -82,9 +98,8 @@ table {
 							for="" class="t1">離職員工</label> <input type="button" id="search"
 							name="search" value="搜尋" class="btn btn-info">
 						<p>${msg[0]}</p>
-						<!--  <img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />-->
 						<br>
-						<table border="1" id="emplist" style="margin: 0 auto"></table>
+						<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
