@@ -15,7 +15,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/DetailPage.css">
-<link rel="stylesheet" type="text/css" href="css/Menu.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
