@@ -99,7 +99,15 @@ p {
 									</tr>
 									<tr>
 										<td>申請項目:</td>
-										<td>${appfeeID.appItem}</td>
+										<td><select name="appItem" >
+										<option value="${appfeeID.appItem}">${appfeeID.appItem}</option>
+										<option value="交通">交通</option>
+										<option value="住宿">住宿</option>
+										<option value="餐費">餐費</option>
+										<option value="加班費">加班費</option>
+										<option value="其他">其他</option>
+
+									</select></td>
 									</tr>
 									<tr>
 										<td>申請時間:</td>
