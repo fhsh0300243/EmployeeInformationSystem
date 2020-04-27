@@ -217,8 +217,11 @@ p {
 																.text(
 																		data[0]["sumHours"]);
 														$("#dateCheck")
-																.text(
+																.append(
 																		data[0]["sumHoursError"]);
+														$("#dateCheck")
+																.append(
+																		data[0]["dateError"]);
 													}
 												})
 									} else {

@@ -323,6 +323,31 @@ public class AFLController {
 			object.put("sumHoursError", sumHoursError);
 		}
 
+		// 開始時間、結束時間-判斷是否在有效期限內
+		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+		Calendar dayS = Calendar.getInstance();
+		dayS.setTime(startDate);
+
+		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+		Calendar dayE = Calendar.getInstance();
+		dayE.setTime(endDate);
+
+		java.sql.Date sqlSD = eldBean.getStartDate();
+		Date sqlSDDate = new java.util.Date(sqlSD.getTime());
+		Calendar daySSQL = Calendar.getInstance();
+		daySSQL.setTime(sqlSDDate);
+
+		java.sql.Date sqlED = eldBean.getEndDate();
+		Date sqlEDDate = new java.util.Date(sqlED.getTime());
+		Calendar dayESQL = Calendar.getInstance();
+		dayESQL.setTime(sqlEDDate);
+
+		if (dayS.before(daySSQL) || dayS.after(dayESQL) || dayE.before(daySSQL) || dayE.after(dayESQL)) {
+			String dateError = "申請時間超出" + leaveType + "的有效期限。";
+			object.put("dateError", dateError);
+		}
+
+		// 總計時數字串
 		DecimalFormat df1 = new DecimalFormat("0.0");
 		String strSumH = df1.format(sumH);
 
