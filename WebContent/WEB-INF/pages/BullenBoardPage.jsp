@@ -16,23 +16,27 @@
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
-.center{
-margin : 0 auto;
+.center {
+	margin: 0 auto;
 }
 
 #editor {
 	width: 60%;
 	height: 250px;
 }
-.w80{
+
+.w80 {
 	width: 80%;
 }
-.w50{
-width:50%
+
+.w50 {
+	width: 50%
 }
-.w70{
-width:70%
+
+.w70 {
+	width: 70%
 }
+
 #title {
 	width: 60%;
 }
@@ -126,17 +130,17 @@ p {
 									<li class="nav-item "><a class="nav-link active"
 										id="Main-tab" data-toggle="tab" href="#boardlook" role="tab"
 										aria-controls="#check" aria-selected="true">通知檢閱</a></li>
-										
+
 									<c:if test="${Level!=1}">
-									<li class="nav-item "><a class="nav-link" id="profile-tab"
-										data-toggle="tab" href="#check" role="tab"
-										aria-controls="#check" aria-selected="false">個人發布通知列表</a></li>
-									<li class="nav-item"><a class="nav-link" id="contact-tab"
-										data-toggle="tab" href="#update" role="tab"
-										aria-controls="update" aria-selected="false">新增/更新通知</a></li>
-									<li class="nav-item"><a class="nav-link" id="record-tab"
-										data-toggle="tab" href="#record" role="tab"
-										aria-controls="#record" aria-selected="false">歷年紀錄</a></li>
+										<li class="nav-item "><a class="nav-link"
+											id="profile-tab" data-toggle="tab" href="#check" role="tab"
+											aria-controls="#check" aria-selected="false">個人發布通知列表</a></li>
+										<li class="nav-item"><a class="nav-link" id="contact-tab"
+											data-toggle="tab" href="#update" role="tab"
+											aria-controls="update" aria-selected="false">新增/更新通知</a></li>
+										<li class="nav-item"><a class="nav-link" id="record-tab"
+											data-toggle="tab" href="#record" role="tab"
+											aria-controls="#record" aria-selected="false">歷年紀錄</a></li>
 									</c:if>
 								</ul>
 								<div class="tab-content" id="myTabContent">
@@ -147,8 +151,17 @@ p {
 
 
 									<div class="tab-pane fade" id="check" role="tabpanel"
-										aria-labelledby="profile-tab">										
-										<div class="accordion" id="checkData"></div>
+										aria-labelledby="profile-tab">
+										<section class="row">
+											<div class="col">
+											<h3>已發布</h3>
+											<div class="accordion" id="checkDatanow"></div>
+											</div>
+											<div class="col">
+											<h3>尚未發布</h3>
+											<div class="accordion" id="checkDatawilluping"></div>
+											</div>
+										</section>
 									</div>
 
 									<div class="tab-pane fade" id="update" role="tabpanel"
@@ -169,7 +182,7 @@ p {
 												name="content" class="none content" />
 
 											<div class="w80 container">
-											<textarea placeholder="內文" id="editor"></textarea>
+												<textarea placeholder="內文" id="editor"></textarea>
 											</div>
 											<p>
 												發佈日期：<input class="date" id="uptime" type="date"
@@ -241,7 +254,7 @@ p {
 						function() {
 							var wbbOpt = {
 								buttons : "bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat"
-								}
+							}
 							$("#editor").wysibb(wbbOpt);
 						});
 	</script>

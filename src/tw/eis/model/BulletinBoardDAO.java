@@ -40,7 +40,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	public List<BulletinBoard> queryBulletinRecord(int EmployeeID) {
 
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and (GETDATE()-downTime)>=0",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and (GETDATE()-downTime)>=0 ORDER BY Date desc",BulletinBoard.class);
 		query.setInteger("EmployeeID", EmployeeID);
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;
@@ -49,7 +49,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	@Override
 	public List<BulletinBoard> queryBulletinForLook(String department) {
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where Authority like :department and ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0)",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where Authority like :department and ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0) ORDER BY Date desc",BulletinBoard.class);
 		query.setString("department", "%"+department+"%");
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;
@@ -59,7 +59,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	@Override
 	public List<BulletinBoard> queryBulletinByOwnCreate(int EmployeeID) {
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0))",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0)) ORDER BY Date desc",BulletinBoard.class);
 		query.setInteger("EmployeeID", EmployeeID);
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;

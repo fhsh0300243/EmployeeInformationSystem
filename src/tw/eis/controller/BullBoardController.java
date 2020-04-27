@@ -180,9 +180,8 @@ public class BullBoardController {
 		return Integer.toString(BulletinBoards.size());
 	}
 
-	@RequestMapping(path="/delete",method = RequestMethod.POST,produces = "html/text;charset=utf-8")
+	@RequestMapping(path="/delete",method = RequestMethod.GET,produces = "html/text;charset=utf-8")
 	public @ResponseBody String delete(@RequestParam(value="BulletinBoardid")int id) {
-		
 		BulletinBoardService.deleteBulletin(id);
 		return "true";
 	}
