@@ -92,7 +92,7 @@ table {
   <div class="basicInfo_wrap">
     <!-- banner -->
     <div class="am-container">
-      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" class="am-img-responsive" width=100% alt="培训图片"/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" class="am-img-responsive" width=100% alt="培訓圖片"/>
     </div>
     <!-- address -->
     <div class="am-cf my_address">

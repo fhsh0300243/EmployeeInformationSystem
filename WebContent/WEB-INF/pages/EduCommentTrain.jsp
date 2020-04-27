@@ -47,6 +47,19 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
+
+/* 新增 */
+
+.col-sm-4, .functionTitle {
+	text-align: center;
+}
+
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
+}
+
+
 </style>
 </head>
 <body>
@@ -79,7 +92,7 @@ table {
 						<div class="introduce_wrap mt60">
 
 							<!-- header -->
-							<div class="header am-text-lg am-text-center">
+							<div class="mark am-text-lg am-text-center">
 								<span class="am-icon-chevron-left am-fl left-btn"></span>
 								目前培訓課程名稱
 							</div>
@@ -255,34 +268,34 @@ table {
 												</div>
 											</div>
 
+											
 											<div class="am-panel am-panel-default am-form">
 												<div class="am-panel-bd">
 													<div class='am-text-sm am-cf'>
-														<span>4.</span>課程掌握程度
-													</div>
-													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
-													</div>
-												</div>
-											</div>
-											<div class="am-panel am-panel-default am-form">
-												<div class="am-panel-bd">
-													<div class='am-text-sm am-cf'>
-														<span>5.</span>您對本課程還有其他建議嗎？
+														<span>4.</span>您對本課程還有其他建議嗎？
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<div class="am-form-group">
 															<textarea class="" rows="3"></textarea>
 														</div>
 													</div>
+												<!-- 按鈕 -->
+								<tr>
+								<td></td>
+								<td class=tdNotes>字數限制：100字</td>
+							    </tr>
+							    <tr>
+								<td></td>
+								<td class="tdErr"><img id="causeImg"> <span
+									id="causeCheck"></span></td>
+							    </tr>
+							    
+							    <hr>
+						        <div class="btn2">
+							    <input type="reset" value="清除" onclick="cls();"
+								class="btn btn-info" /> <input type="submit" value="送出"
+								onclick="return checkSubmit();" class="btn btn-info" />
+						        </div>
 												</div>
 												
 											</div>

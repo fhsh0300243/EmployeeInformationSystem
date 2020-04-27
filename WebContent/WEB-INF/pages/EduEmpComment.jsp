@@ -104,7 +104,7 @@ table {
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>xxx課程</span>
+													課程名稱：<span>人資相關課程</span>
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
 												</div>
@@ -122,7 +122,7 @@ table {
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>xxx課程</span>
+													課程名稱：<span>課程</span>
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
 												</div>
