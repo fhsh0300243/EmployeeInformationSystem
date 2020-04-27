@@ -24,7 +24,8 @@ public class CourseType implements Serializable {
 	private String TypeGroup;
 	private String deptHR;
 	private String deptRD;
-	private String deptTest;
+	private String deptQA;
+	private String deptTEST;
 	private String deptSales;
 	private String deptPM;
 
@@ -32,13 +33,14 @@ public class CourseType implements Serializable {
 
 	}
 
-	public CourseType(String TypeName, String TypeGroup, String deptHR, String deptRD, String deptTest,
+	public CourseType(String TypeName, String TypeGroup, String deptHR, String deptRD, String deptQA, String deptTEST,
 			String deptSales, String deptPM) {
 		this.TypeName = TypeName;
 		this.TypeGroup = TypeGroup;
 		this.deptHR = deptHR;
 		this.deptRD = deptRD;
-		this.deptTest = deptTest;
+		this.deptQA = deptQA;
+		this.deptTEST = deptTEST;
 		this.deptSales = deptSales;
 		this.deptPM = deptPM;
 	}
@@ -89,14 +91,25 @@ public class CourseType implements Serializable {
 	public void setDeptRD(String deptRD) {
 		this.deptRD = deptRD;
 	}
-
-	@Column(name = "DEPTTEST")
-	public String getDeptTest() {
-		return deptTest;
+	
+	
+	@Column(name = "DEPTQA")
+	public String getDeptQA() {
+		return deptQA;
 	}
 
-	public void setDeptTest(String deptTest) {
-		this.deptTest = deptTest;
+	public void setDeptQA(String deptQA) {
+		this.deptRD = deptQA;
+	}
+	
+
+	@Column(name = "DEPTTEST")
+	public String getDeptTEST() {
+		return deptTEST;
+	}
+
+	public void setDeptTEST(String deptTEST) {
+		this.deptTEST = deptTEST;
 	}
 
 	@Column(name = "DEPTSALES")
