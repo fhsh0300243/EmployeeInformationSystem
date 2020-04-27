@@ -75,6 +75,8 @@ table {
 
 
 						<div class="introduce_wrap mt60">
+						
+						
 							<!-- banner -->
 							<div class="am-container">
 								<p>目前培訓課程

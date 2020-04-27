@@ -38,13 +38,14 @@ public class CourseTypeController {
 		this.CourseTypeService = CourseTypeService;
 	}
 
-	@RequestMapping(path = "/insertCourseTypePage", method = RequestMethod.POST)
+	@RequestMapping(path = "/insertCourseTypePage.do", method = RequestMethod.POST)
 	public String insertCourseType(@RequestParam(value = "CourseTypeId", required = false) String Id,
 			@RequestParam(value = "TypeName") String TypeName, 
 			@RequestParam(value = "TypeGroup") String TypeGroup,
 			@RequestParam(value = "deptHR") String deptHR,
 			@RequestParam(value = "deptRD") String deptRD, 
-			@RequestParam(value = "deptTest") String deptTest,
+			@RequestParam(value = "deptQA") String deptQA, 
+			@RequestParam(value = "deptTEST") String deptTEST,
 			@RequestParam(value = "deptSales") String deptSales, 
 			@RequestParam(value = "deptPM") String deptPM,
 			@RequestParam(name = "dep", required = false) String dep, 
@@ -66,10 +67,10 @@ public class CourseTypeController {
 		if (Id == null || Id.length() == 0) {
 			CourseTypeService.insertCourseType(CourseType);
 		}
-		return "CourseTypePage";
+		return "insertCourseTypePage";
 	}
 	
-	@RequestMapping(path = "/queryCourseTypeRecords",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	@RequestMapping(path = "/queryCourseTypeRecords.do",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
 	@ResponseBody
 	public String queryCourseTypeRecords(@ModelAttribute(name = "LoginOK") Users loginOK,HttpServletResponse response) throws IOException{
 		List<CourseType> CourseTypes = CourseTypeService.queryCourseTypeRecords(loginOK.getEmployeeID());
@@ -82,7 +83,8 @@ public class CourseTypeController {
 			object.put("TypeGroup",CourseType.getTypeGroup());
 			object.put("deptHR", CourseType.getDeptHR());
 			object.put("deptRD", CourseType.getDeptRD());
-			object.put("deptTest", CourseType.getDeptTest());
+			object.put("deptQA", CourseType.getDeptQA());
+			object.put("deptTest", CourseType.getDeptTEST());
 			object.put("deptSales", CourseType.getDeptSales());
 			object.put("deptPM", CourseType.getDeptPM());
 			json.put(object);
@@ -91,7 +93,7 @@ public class CourseTypeController {
 		return json.toString();	
 	}
 	
-	@RequestMapping(path = "/checkCourseTypeFormData", method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	@RequestMapping(path = "/checkCourseTypeFormData.do", method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
 	public @ResponseBody String checkCourseTypeFormData(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException{
 		List<CourseType> CourseTypes = CourseTypeService.queryCourseTypeByAllow(loginOK.getEmployeeID(), loginOK.getUserName());
 		
@@ -103,7 +105,8 @@ public class CourseTypeController {
 			object.put("TypeGroup",CourseType.getTypeGroup());
 			object.put("deptHR", CourseType.getDeptHR());
 			object.put("deptRD", CourseType.getDeptRD());
-			object.put("deptTest", CourseType.getDeptTest());
+			object.put("deptQA", CourseType.getDeptQA());
+			object.put("deptTEST", CourseType.getDeptTEST());
 			object.put("deptSales", CourseType.getDeptSales());
 			object.put("deptPM", CourseType.getDeptPM());
 			json.put(object);
@@ -112,7 +115,7 @@ public class CourseTypeController {
 		return json.toString();	
 	}
 	
-	@RequestMapping(path = "/queryCourseTypeForLook",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	@RequestMapping(path = "/queryCourseTypeForLook.do",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
 	public @ResponseBody String queryCourseTypeForLook(@ModelAttribute(name = "LoginOK") Users loginOK) {
 		List<CourseType> CourseTypes = CourseTypeService.queryCourseType(loginOK.getDepartment());
 		
@@ -124,7 +127,8 @@ public class CourseTypeController {
 			object.put("TypeGroup",CourseType.getTypeGroup());
 			object.put("deptHR", CourseType.getDeptHR());
 			object.put("deptRD", CourseType.getDeptRD());
-			object.put("deptTest", CourseType.getDeptTest());
+			object.put("deptQA", CourseType.getDeptQA());
+			object.put("deptTEST", CourseType.getDeptTEST());
 			object.put("deptSales", CourseType.getDeptSales());
 			object.put("deptPM", CourseType.getDeptPM());
 			json.put(object);
@@ -133,13 +137,13 @@ public class CourseTypeController {
 		return json.toString();	
 	}
 	
-	@RequestMapping(path = "/reflashCourseTypePage",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
+	@RequestMapping(path = "/reflashCourseTypePage.do",method = RequestMethod.GET,produces = "html/text;charset=UTF-8")
 	public @ResponseBody String reflashCourseTypePage(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException{
 		List<CourseType> CourseTypes = CourseTypeService.queryCourseType(loginOK.getDepartment());
 		return Integer.toString(CourseTypes.size());
 	}
 	
-	@RequestMapping(path = "/deleteCourseType",method = RequestMethod.POST,produces = "html/text;charset=UTF-8")
+	@RequestMapping(path = "/deleteCourseType.do",method = RequestMethod.POST,produces = "html/text;charset=UTF-8")
 	public @ResponseBody String deleteCourseType(@RequestParam(value = "CourseTypeId") int CourseTypeId) {
 		CourseTypeService.deleteCourseType(CourseTypeId);
 		return "true";

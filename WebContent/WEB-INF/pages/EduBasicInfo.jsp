@@ -20,7 +20,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
 
-<link rel="icon" type="image/png" href="images/CompanyLogo.png">
+<link rel="icon" type="images/png" href="images/CompanyLogo.png">
 <link rel="stylesheet" href="css/amazeui.min.css">
 <link rel="stylesheet" href="css/common.css">
 
@@ -144,12 +144,22 @@ table {
 
 		</div>
 
-
+		    </div>
+					      </div>
+					    </div>
+					</div>
+				</div>
+			</div>
+					    
+					    
 
 	</div>
 
 
 	<script src="/js/amazeui.min.js"></script>
+	<div class="CanNotRightDownDiv">
+				<img class="CanNotRightDown" src="images/CompanyLogo.png">
+			</div>
 
 	<script>
 		var depts;
