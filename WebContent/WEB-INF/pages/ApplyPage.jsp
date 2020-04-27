@@ -150,13 +150,14 @@ p {
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
-		$("#idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM")
+		$("#idLT, #idStartDate, #idSH, #idSM, #idEndDate, #idEH, #idEM")
 				.change(
 						function() {
 							$("#dateImg").attr("src", "");
 							$("#dateCheck").empty();
 							$(".sumHours").empty();
 
+							var leaveT = $("#idLT").val();
 							var startD = $("#idStartDate").val();
 							var startH = $("#idSH").val();
 							var startM = $("#idSM").val();
@@ -184,7 +185,8 @@ p {
 									$("#dateCheck").append("17:30為休息時間。");
 								}
 							} else {
-								if (startD != null && startD.length != 0
+								if (leaveT != null && leaveT.length != 0
+										&& startD != null && startD.length != 0
 										&& startH != null && startH.length != 0
 										&& startM != null && startM.length != 0
 										&& endD != null && endD.length != 0
@@ -201,8 +203,7 @@ p {
 												.ajax({
 													url : "changeDHM",
 													data : {
-														leaveType : $("#idLT")
-																.val(),
+														leaveType : leaveT,
 														startdate : startD,
 														selSH : startH,
 														selSM : startM,
