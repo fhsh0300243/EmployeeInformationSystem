@@ -74,6 +74,7 @@ table {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<table border="1" id="datalist" style="margin: 0 auto"></table>
+						<table border="1" id="detaillist" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -92,13 +93,14 @@ table {
 
 	<script>
 		var data;
+		var detail;
 		const perpage = 10;
 		let nowpage = 1;
 		showdata();
 		//從資料庫取得資料
 		function showdata() {
 			$.ajax({
-				url : "thisSeasonDeptCostPercent.action",
+				url : "DeptCostPercent.action",
 				type : "GET",
 				success : function(Str) {
 					data = JSON.parse(Str);
@@ -116,32 +118,80 @@ table {
 			var maxData = (currentPage * perpage);
 
 
-			var txt = "<tr><th>部門<th>季花費百分比<th>";
+			var txt = "<tr><th>部門<th>本月花費百分比<th>本季花費百分比<th>";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
 			for (let i = minData - 1; i < maxData; i++) {
-				txt += "<tr><td>" + "HR部門";
-				txt += "<td>" + data[i].HRcost;
-				txt += "<tr><td>" + "RD部門";
-				txt += "<td>" + data[i].RDcost;
-				txt += "<tr><td>" + "QA部門";
-				txt += "<td>" + data[i].QAcost;
-				txt += "<tr><td>" + "Sales部門";
-				txt += "<td>" + data[i].Salescost;
-				txt += "<tr><td>" + "PM部門";
-				txt += "<td>" + data[i].PMcost;
-				/*
-				txt += "<td><a href='<c:url value='/EditEmployee.do?id="
-						+ emps[i].empID + "'/>' name='" + emps[i].empID
-						+ "'>Edit</a>";
-				*/
+				txt += "<tr><td>" + "HR";
+				txt += "<td><a href='#' name='mHR' onclick='f(this)'>" + data[i].mHRcost+"</a>";
+				txt += "<td><a href='#' name='sHR' onclick='f(this)'>" + data[i].sHRcost+"</a>";
+				txt += "<tr><td>" + "RD";
+				txt += "<td><a href='#' name='mRD' onclick='f(this)'>" + data[i].mRDcost+"</a>";
+				txt += "<td><a href='#' name='sRD' onclick='f(this)'>" + data[i].sRDcost+"</a>";
+				txt += "<tr><td>" + "QA";
+				txt += "<td><a href='#' name='mQA' onclick='f(this)'>" + data[i].mQAcost+"</a>";
+				txt += "<td><a href='#' name='sQA' onclick='f(this)'>" + data[i].sQAcost+"</a>";
+				txt += "<tr><td>" + "Sales";
+				txt += "<td><a href='#' name='mSl' onclick='f(this)'>" + data[i].mSalescost+"</a>";
+				txt += "<td><a href='#' name='sSl' onclick='f(this)'>" + data[i].sSalescost+"</a>";
+				txt += "<tr><td>" + "PM";
+				txt += "<td><a href='#' name='mPM' onclick='f(this)'>" + data[i].mPMcost+"</a>";
+				txt += "<td><a href='#' name='sPM' onclick='f(this)'>" + data[i].sPMcost+"</a>";
+
 			}
 
 			$("#datalist").html(txt);
 		}
+		
+		function f(obj) {
+			type = obj.name;
+			console.log(type);
+			$.ajax({
+				url : "DeptCostDetail.action?type="+type,
+				//url : "DeptCostPercent.action",
+				type : "GET",
+				success : function(Str) {
+					detail = JSON.parse(Str);
+					detailpagination(detail, nowpage);
+				}
+			});
+			
+		}
+		function detailpagination(detail, nowpage) {
+			$("#detaillist").html("");
+			const datatotal = detail.length;
+			const pagesTotal = Math.ceil(datatotal / perpage);
+			let currentPage = nowpage;
+			var minData = (currentPage * perpage) - perpage + 1;
+			var maxData = (currentPage * perpage);
+			//產生<a>標籤
+			atag = "<a href=# name='1' onclick='f(this)'>" + 1 + "</a> ";
+			for (let i = 2; i <= pagesTotal; i++) {
+				atag += "<a href=# name='" + i + "' onclick='f(this)'>" + i
+						+ "</a> ";
+			}
+			document.getElementById("tag").innerHTML = atag;
+			$("#page").html("第" + nowpage + "頁");
+			var txt = "<tr><th>EmpID<th>申請人<th>類別<th>發票時間<th>發票號碼<th>申請時間<th>備註<th>金額<th>";
 
+			if (maxData > datatotal) {
+				maxData = datatotal;
+			}
+			for (let i = minData - 1; i < maxData; i++) {
+				txt += "<tr><td>" + detail[i].empID;
+				txt += "<td>" + detail[i].name;
+				txt += "<td>" + detail[i].appItem;
+				txt += "<td>" + detail[i].invoiceTime;
+				txt += "<td>" + detail[i].invoiceNb;
+				txt += "<td>" + detail[i].appTime;
+				txt += "<td>" + detail[i].remark;
+				txt += "<td>" + detail[i].appMoney;
+
+			}
+			$("#detaillist").html(txt);
+		}
 
 	</script>
 </body>

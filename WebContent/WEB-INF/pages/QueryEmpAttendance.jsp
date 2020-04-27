@@ -76,7 +76,7 @@ table {
 							type="date" name="enddate" id="enddate"><br /> <input
 							type="button" id="search" name="search" value="搜尋">
 						<p>${msgmap.noinputmsg}</p>
-						<table border="1" id="emplist"></table>
+						<table border="1" id="emplist" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>

@@ -30,6 +30,7 @@ import tw.eis.model.Title;
 import tw.eis.model.TitleService;
 import tw.eis.model.Users;
 import tw.eis.model.UsersService;
+import tw.eis.model.feeAppMember;
 import tw.eis.model.feeAppService;
 import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
@@ -47,7 +48,6 @@ public class EmployeeAction {
 	private feeAppService feeAppService;
 	AESUtil aes = new AESUtil();
 
-
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
 			TitleService tService, BulletinBoardService bService, AttendanceService aService,
@@ -58,7 +58,7 @@ public class EmployeeAction {
 		this.tService = tService;
 		this.bService = bService;
 		this.aService = aService;
-		this.feeAppService=feeAppService;
+		this.feeAppService = feeAppService;
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
@@ -590,25 +590,55 @@ public class EmployeeAction {
 			return "";
 		}
 	}
-	
-	@RequestMapping(path = "/thisSeasonDeptCostPercent.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
-	public @ResponseBody String thisSeasonDeptCostPercent() {
-		List<Map<String, String>> list = feeAppService.deptFeeApplyCostPerSeason();
+
+	@RequestMapping(path = "/DeptCostPercent.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String deptCostPercent() {
+		List<Map<String, String>> list = feeAppService.deptFeeApplyCostPercent();
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for (Map<String, String> data : list) {
-				JSONObject jsonobject = new JSONObject();
-				jsonobject.put("HRcost", data.get("HR"));
-				jsonobject.put("RDcost", data.get("RD"));
-				jsonobject.put("QAcost", data.get("QA"));
-				jsonobject.put("Salescost", data.get("Sales"));
-				jsonobject.put("PMcost", data.get("PM"));
-				jsonarray.put(jsonobject);
-			}
+			Map<String, String> sdata = list.get(0);
+			Map<String, String> mdata = list.get(1);
+			JSONObject jsonobject = new JSONObject();
+			jsonobject.put("sHRcost", sdata.get("sHR"));
+			jsonobject.put("sRDcost", sdata.get("sRD"));
+			jsonobject.put("sQAcost", sdata.get("sQA"));
+			jsonobject.put("sSalescost", sdata.get("sSales"));
+			jsonobject.put("sPMcost", sdata.get("sPM"));
+			jsonobject.put("mHRcost", mdata.get("mHR"));
+			jsonobject.put("mRDcost", mdata.get("mRD"));
+			jsonobject.put("mQAcost", mdata.get("mQA"));
+			jsonobject.put("mSalescost", mdata.get("mSales"));
+			jsonobject.put("mPMcost", mdata.get("mPM"));
+			jsonarray.put(jsonobject);
+
 			return jsonarray.toString();
 		} catch (Exception e) {
 			System.out.println("From thisSeasonDeptCostPercent:" + e);
 			return "";
+		}
+	}
+
+	@RequestMapping(path = "/DeptCostDetail.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String deptCostDetail(@RequestParam(name = "type", required = false) String type) {
+		List<feeAppMember> list = feeAppService.deptFeeApplyCostDetail(type.substring(0, 1), type.substring(1));
+		try {
+			JSONArray jsonarray = new JSONArray();
+			for (feeAppMember fee : list) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("empID", fee.getEmployeeID());
+				jsonobject.put("name", eService.empData(fee.getEmployeeID()).getName());
+				jsonobject.put("appItem", fee.getAppItem());
+				jsonobject.put("invoiceTime", fee.getInvoiceTime());
+				jsonobject.put("invoiceNb", fee.getInvoiceNb());
+				jsonobject.put("appTime", fee.getAppTime());
+				jsonobject.put("remark", fee.getRemark());
+				jsonobject.put("appMoney", Integer.toString(fee.getAppMoney()));
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		} catch (Exception e) {
+			System.out.println("From deptCostDetail:" + e);
+			return "[]";
 		}
 	}
 
@@ -756,7 +786,7 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		feeAppService.deptFeeApplyCostPerSeason();
+		feeAppService.deptFeeApplyCostPercent();
 	}
 
 }

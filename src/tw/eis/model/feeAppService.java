@@ -44,8 +44,11 @@ public class feeAppService implements IfeeAppService{
 
 
 	// add by 揚明--start
-	public List<Map<String,String>> deptFeeApplyCostPerSeason(){
-		return feeAppDAO.deptFeeApplyCostPerSeason();
+	public List<Map<String,String>> deptFeeApplyCostPercent(){
+		return feeAppDAO.deptFeeApplyCostPercent();
+	}
+	public List<feeAppMember> deptFeeApplyCostDetail(String sORm,String dept){
+		return feeAppDAO.deptFeeApplyCostDetail(sORm, dept);
 	}
 	// add by 揚明--end
 

@@ -16,7 +16,8 @@ public interface IfeeAppService {
 
 
 	// add by 揚明--start
-	public List<Map<String,String>> deptFeeApplyCostPerSeason();
+	public List<Map<String,String>> deptFeeApplyCostPercent();
+	public List<feeAppMember> deptFeeApplyCostDetail(String sORm,String dept);
 	// add by 揚明--end
 
 
