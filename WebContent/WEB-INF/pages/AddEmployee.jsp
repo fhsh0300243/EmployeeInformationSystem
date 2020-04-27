@@ -88,7 +88,6 @@ p {
 						<div class="div1">
 							<div>
 								<a href="<c:url value="/EmployeePage.do"/>">回HR部門公告</a>
-								<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
 							</div>
 							<br>
 							<form action="<c:url value="/AddEmployee.action"/>" method="POST"

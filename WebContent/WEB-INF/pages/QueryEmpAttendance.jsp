@@ -32,12 +32,25 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-
-table {
-	margin: 20px;
+.idtable1 {
+	margin: 30px auto;
 	border-collapse: collapse;
 }
 
+.idtable1 tr {
+	text-align: center;
+}
+
+.idtable1 th {
+	text-align: center;
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+.idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
 </style>
 </head>
 <body>
@@ -71,12 +84,12 @@ table {
 							id="searchid" name="searchid" size="30"><br /> <label
 							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
 							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><br /> <span>起訖日</span><input
+							name="searchdept" id="searchdept"></select><br /> <label for="" class="t1">起訖日:</label><input
 							type="date" name="startdate" id="startdate">~<input
 							type="date" name="enddate" id="enddate"><br /> <input
 							type="button" id="search" name="search" value="搜尋">
 						<p>${msgmap.noinputmsg}</p>
-						<table border="1" id="emplist" style="margin: 0 auto"></table>
+						<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -130,7 +143,7 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>姓名<th>部門<th>日期<th>上班<th>下班<th>status<th>";
+			var txt = "<tr><th>EmpID<th>姓名<th>部門<th>日期<th>上班<th>下班<th>status";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;

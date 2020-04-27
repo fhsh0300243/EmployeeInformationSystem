@@ -75,7 +75,7 @@ public class feeAppDAO implements IfeeAppDAO {
 	}
 
 	// 查詢差旅費-主管簽核頁面
-	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level,Employee employeeIDB2) {
+	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level, Employee employeeIDB2) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(feeAppMember.class);
 		mainQuery.add(Restrictions.eq("department", department));
 		mainQuery.add(Restrictions.eq("signerStatus", signerStatus));
@@ -93,8 +93,8 @@ public class feeAppDAO implements IfeeAppDAO {
 		List<feeAppMember> listByID = query.list();
 		return listByID;
 	}
-	
-	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,Employee signerID) {
+
+	public boolean EditFeeApp(int feeAppID, String signerStatus, String singerTime, Employee signerID) {
 		Session session = sessionFacotry.getCurrentSession();
 		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
 		feeAppMember.setSignerTime(singerTime);
@@ -104,17 +104,19 @@ public class feeAppDAO implements IfeeAppDAO {
 
 		return true;
 
-		
 	}
+
 	public List<feeAppMember> qfeeAppByID(Employee employeeIDB, String signerStatus) {
 		Session session = sessionFacotry.getCurrentSession();
-	
-		Query qReturnByID = session.createQuery("from feeAppMember where employeeID=?0 and signerStatus=?1",feeAppMember.class);	
+
+		Query qReturnByID = session.createQuery("from feeAppMember where employeeID=?0 and signerStatus=?1",
+				feeAppMember.class);
 		qReturnByID.setParameter(0, employeeIDB);
 		qReturnByID.setParameter(1, signerStatus);
 		List<feeAppMember> qlistByID = qReturnByID.list();
 		return qlistByID;
 	}
+
 	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor,
 			int appMoney, String remark, String signerStatus) {
 		Session session = sessionFacotry.getCurrentSession();
@@ -124,12 +126,12 @@ public class feeAppDAO implements IfeeAppDAO {
 		feeAppMember.setInvoiceNb(invoiceNb);
 		feeAppMember.setEditor(editor);
 		feeAppMember.setAppMoney(appMoney);
-		feeAppMember.setRemark(remark);;
+		feeAppMember.setRemark(remark);
+		;
 		feeAppMember.setSignerStatus(signerStatus);
 		session.update(feeAppMember);
 		return true;
 	}
-	
 
 	// add by 揚明--start
 	public List<Map<String, String>> deptFeeApplyCostPercent() {
@@ -649,12 +651,9 @@ public class feeAppDAO implements IfeeAppDAO {
 
 	public List<feeAppMember> deptFeeApplyCostDetail(String sORm, String dept) {
 		List<feeAppMember> detail = null;
-		if(dept.equals("Sl")) {
-			dept="Sales";			
+		if (dept.equals("Sl")) {
+			dept = "Sales";
 		}
-		System.out.println("-----dept:-----"+dept);
-		System.out.println("-----sORm:-----"+sORm);
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(GlobalService.dateOfToday());
 		int year = Integer.parseInt(today.substring(0, 4));
@@ -713,19 +712,18 @@ public class feeAppDAO implements IfeeAppDAO {
 			if (month == 4 || month == 6 || month == 9 || month == 11) {
 				Query<feeAppMember> query = sessionFacotry.getCurrentSession().createQuery(depthql, feeAppMember.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000").setParameter("dept", dept);
-				System.out.println("-----start:-----"+today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000");
-				System.out.println("-----end:-----"+today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000");
-
+						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+						.setParameter("dept", dept);
 				detail = query.list();
 			}
 			if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
 				Query<feeAppMember> query = sessionFacotry.getCurrentSession().createQuery(depthql, feeAppMember.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000").setParameter("dept", dept);
+						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
+						.setParameter("dept", dept);
 				detail = query.list();
 			}
-		}	
+		}
 		return detail;
 	}
 	// add by 揚明--end

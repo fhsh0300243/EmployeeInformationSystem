@@ -33,15 +33,30 @@ p {
 	font-size: 18px;
 }
 
-table {
-	margin: 20px;
-	border-collapse: collapse;
-}
 .userImg {
 	width: 20%;
 	height: 20%;
 	border: 2px solid tan;
 	border-radius: 15px;
+}
+.idtable1 {
+	margin: 30px auto;
+	border-collapse: collapse;
+}
+
+.idtable1 tr {
+	text-align: center;
+}
+
+.idtable1 th {
+	text-align: center;
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+.idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
 }
 </style>
 </head>
@@ -73,8 +88,8 @@ table {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<table border="1" id="datalist" style="margin: 0 auto"></table>
-						<table border="1" id="detaillist" style="margin: 0 auto"></table>
+						<table id="datalist" class="idtable1" style="margin: 0 auto"></table><br/>
+						<table id="detaillist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -118,7 +133,7 @@ table {
 			var maxData = (currentPage * perpage);
 
 
-			var txt = "<tr><th>部門<th>本月花費百分比<th>本季花費百分比<th>";
+			var txt = "<tr><th>部門<th>本月花費百分比<th>本季花費百分比";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
@@ -174,7 +189,7 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>申請人<th>類別<th>發票時間<th>發票號碼<th>申請時間<th>備註<th>金額<th>";
+			var txt = "<tr><th>EmpID<th>申請人<th>類別<th>發票時間<th>發票號碼<th>申請時間<th>備註<th>金額";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;

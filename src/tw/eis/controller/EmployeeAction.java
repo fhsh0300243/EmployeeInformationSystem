@@ -625,8 +625,8 @@ public class EmployeeAction {
 			JSONArray jsonarray = new JSONArray();
 			for (feeAppMember fee : list) {
 				JSONObject jsonobject = new JSONObject();
-				jsonobject.put("empID", fee.getEmployeeID());
-				//jsonobject.put("name", eService.empData(fee.getEmployeeID()).getName()); <--20200427 18:04 shawn載下來有問題，先註解掉
+				jsonobject.put("empID", fee.getEmployeeID().getEmpID());
+				jsonobject.put("name", fee.getEmployeeID().getName()); 
 				jsonobject.put("appItem", fee.getAppItem());
 				jsonobject.put("invoiceTime", fee.getInvoiceTime());
 				jsonobject.put("invoiceNb", fee.getInvoiceNb());

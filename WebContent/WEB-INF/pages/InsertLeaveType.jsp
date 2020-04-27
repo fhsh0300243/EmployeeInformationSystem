@@ -12,7 +12,6 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
-
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
@@ -43,22 +42,18 @@ p {
 			</div>
 
 			<!--右邊欄位-->
+
 			<div class="col-sm-8">
 
 				<div class="panel panel-primary">
-					<p class="functionTitle">請假申請完成</p>
+					<p class="functionTitle">假別匯入</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
-
-					<div id="success">
-						<h2>請假申請已送簽核。</h2>
-					</div>
-
-					<div class="list_footer">
-						<div id="tag"></div>
-						<div id="page"></div>
-					</div>
+					<div id="tag"></div>
+					<div id="page"></div>
 				</div>
+
+
 			</div>
 		</div>
 	</div>
@@ -66,5 +61,14 @@ p {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
+
+
+
+
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script>
+		
+	</script>
+
 </body>
 </html>

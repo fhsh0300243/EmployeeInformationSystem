@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "feeApply") //<--modify by 揚明
+@Table(name = "feeApply")
 @Component
 public class feeAppMember {
 	private int feeAppID;

@@ -1,11 +1,3 @@
-* {
-	font-family: 微軟正黑體;
-}
-
-h2 {
-	text-align: center;
-}
-
 h6 {
 	color: red;
 	text-align: center;
@@ -21,6 +13,7 @@ h6 {
 }
 
 #idtable1 th {
+	text-align: center;
 	background-color: #E0E0E0;
 	padding: 10px 20px;
 }
