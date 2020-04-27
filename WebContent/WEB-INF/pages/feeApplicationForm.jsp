@@ -115,13 +115,14 @@ p {
 								
 									<label class="ca1"><span class="mark1">*</span>申請項目:</label> 
 									<select name="appItem">
+										
 										<option value="交通">交通</option>
 										<option value="住宿">住宿</option>
 										<option value="餐費">餐費</option>
 										<option value="加班費">加班費</option>
 										<option value="其他">其他</option>
 
-									</select>
+									</select><span class="mark1">${feemsgmap.appItem}</span>
 								</div>
 								<!--  
 			<div class="st1">
@@ -156,13 +157,13 @@ p {
 								</div>
 								<div class="st1">
 									<label class="ca1 " for=""><span class="mark1">*</span>金額:</label> <label><input
-										type="tel" name="appMoney"></label>
+										type="tel" name="appMoney"><span class="mark1">${feemsgmap.appMoney}</span></label>
 
 								</div>
 
 								<div class="st2">
 									<input type="submit" name="New" value="申請" class="btn btn-info"/> <input
-										type="reset" value="清除" class="btn btn-info"/>
+										type="reset" value="清除" class="btn btn-info"/><span class="mark1">${feemsgmap.Success}</span>
 								</div>
 
 							</form>

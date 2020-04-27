@@ -88,6 +88,7 @@ p {
 									<tr>
 										<td>申請編號:</td>
 										<td>${appfeeID.feeAppID}</td>
+										
 									</tr>
 									<tr>
 										<td >員工姓名:</td>
@@ -140,7 +141,8 @@ p {
 						<hr/>
 		          
  		               	<div>
-						<input type="submit" value="修改">
+						<input type="submit"   value="修改">
+						
 						</div>
 						</form>
 						
