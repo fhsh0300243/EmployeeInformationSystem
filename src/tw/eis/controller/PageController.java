@@ -129,4 +129,13 @@ public class PageController {
 		model.addAttribute("empLevel", empLevel);
 		return "LeaveDetail";
 	}
+
+	@RequestMapping(path = "/preinsertleavetype", method = RequestMethod.GET)
+	public String enterInsertLeaveType(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap,
+			Model model) {
+		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
+		int empLevel = eService.empData(employeeID).getLevel();
+		model.addAttribute("empLevel", empLevel);
+		return "InsertLeaveType";
+	}
 }

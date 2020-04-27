@@ -14,7 +14,6 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
-<link rel="stylesheet" type="text/css" href="css/Menu.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
@@ -25,9 +24,18 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
+#success h2 {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#success {
+	line-height: 60vh;
+	text-align: center;
+}
 </style>
 </head>
-<body>
 <body>
 	<br>
 	<div class="container-fluid">

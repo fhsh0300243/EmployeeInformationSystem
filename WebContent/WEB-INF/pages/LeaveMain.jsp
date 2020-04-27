@@ -16,7 +16,7 @@
 </style>
 </head>
 <body>
-	<div class="panel panel-primary" id="idLevel" name="${empLevel}">
+	<div class="panel panel-primary">
 		<div class="panel-heading">相關功能</div>
 		<div class="panel-body">
 
@@ -33,7 +33,7 @@
 				<a href="preleavetype">剩餘假別</a>
 			</div>
 
-			<div id="man" style="display: none;">
+			<div id="manager" name="${empLevel}" style="display: none;">
 				<br>
 				<div class="title">主管專區</div>
 
@@ -44,6 +44,14 @@
 					<a href="presignedpage">人員請假-已簽核</a>
 				</div>
 			</div>
+			<div id="hr">
+				<br>
+				<div class="title">人資專區</div>
+
+				<div>
+					<a href="preinsertleavetype">假別匯入</a>
+				</div>
+			</div>
 		</div>
 		<div class="panel-footer"></div>
 	</div>
@@ -51,9 +59,9 @@
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
 		$(function() {
-			var level = $("#idLevel").attr("name");
+			var level = $("#manager").attr("name");
 			if (level != 1) {
-				$("#man").show()
+				$("#manager").show()
 			}
 		});
 	</script>
