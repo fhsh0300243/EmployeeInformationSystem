@@ -62,6 +62,11 @@ public class feeAppService implements IfeeAppService{
 		
 	}
 
+	public boolean DelectItem(int feeAppID) {
+		return feeAppDAO.DelectItem(feeAppID);
+		
+	}
+
 	
 
 

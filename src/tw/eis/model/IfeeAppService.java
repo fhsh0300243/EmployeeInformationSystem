@@ -24,5 +24,6 @@ public interface IfeeAppService {
 	public List<feeAppMember> qfeeAppByID(Employee employeeIDB, String signerStatus);
 	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor, int appMoney,
 			String remark, String signerStatus);
+	public boolean DelectItem(int feeAppID); 
 
 }
