@@ -1,14 +1,20 @@
 package tw.eis.controller;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.eis.model.AssignWorkService;
+import tw.eis.model.Users;
 @Controller
+@SessionAttributes(names = {"usersResultMap", "errorMsgMap", "LoginOK", "userName","dag","pid","deptid"})
 public class AssignWorkController {
 private AssignWorkService awService;
 @Autowired
@@ -20,5 +26,23 @@ public String InsertAssignWork(Model m,@RequestParam(value="empid")int empid,@Re
 	awService.InsertAssignWork(empid, wid, work);
 	return null;
 }
-
+@ResponseBody
+@RequestMapping(path = "/engworklist",method = RequestMethod.GET)
+public String Engworklist(Model m,@ModelAttribute(name="LoginOK") Users u) {
+	int empid = u.getEmployeeID();
+	JSONArray jay = awService.engworklist(empid);
+	String jaystr = jay.toString();
+	return jaystr;
+}
+@RequestMapping(path = "/workstatus",method = RequestMethod.POST)
+public String workstatus(Model m,@RequestParam(value="awid")int awid,@RequestParam(value="wkstatus")int wkstatus) {
+	if(wkstatus == 1) {
+		awService.setworkstatus1(m, awid);
+	}else if(wkstatus ==2) {
+		awService.setworkstatus2(m, awid);
+	}else if(wkstatus==3) {
+		awService.setworkstatus3(m, awid);
+	}
+	return null;
+}
 }

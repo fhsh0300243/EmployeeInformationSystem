@@ -174,14 +174,14 @@ p {
 	         event.dataTransfer.dropEffect = "Move";
 		});
 		$(document).on("drop",".work",function(event){
-			 var data = event.dataTransfer.getData("text");
+			var data = event.dataTransfer.getData("text");
 			var wid = $(event.target).attr("wid")
 			var work = $(event.target).attr("work");
 			console.log("wid:"+wid);
 			console.log("data:"+data);
 			console.log("work:"+work);
-		     event.stopPropagation();//停止冒泡事件、事件往父容器觸發
-	         event.preventDefault();
+		    event.stopPropagation();//停止冒泡事件、事件往父容器觸發
+	        event.preventDefault();
 	            //↑上述兩行for firefox，避免瀏覽器直接Redirect
 			 //event.target.appendChild(document.getElementById(data));
 			var nodeCopy = document.getElementById(data).cloneNode(true);

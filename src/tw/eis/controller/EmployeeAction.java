@@ -128,13 +128,13 @@ public class EmployeeAction {
 	public String processAddEmployee(@ModelAttribute("EmployeeID") String empId) {
 		int level = 0;
 		try {
-			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
-		} catch (Exception e) {
+		level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+	} catch (Exception e) {
 			level = 0;
 		}
 		if (level == 1 || level == 2 || level == 3) {
 			return "AddEmployee";
-		}	
+	}	
 	    return "AuthorityErrorPage";
 	}
 
@@ -243,32 +243,32 @@ public class EmployeeAction {
 		inputmsg.put("lastWorkDay", LastWorkDay);
 
 		if (UserName == null || UserName.length() == 0) {
-			msgmap.put("username", "請輸入員工帳號");
+			msgmap.put("username", "隢撓��撌亙董���");
 			return "AddEmployee";
 		}
 
 		if (UserPassword == null || UserPassword.length() == 0) {
-			msgmap.put("userpwd", "請輸入員工預設密碼");
+			msgmap.put("userpwd", "隢撓��撌仿�身撖Ⅳ");
 			return "AddEmployee";
 		}
 
 		if (Name == null || Name.length() == 0) {
-			msgmap.put("name", "請輸入員工姓名");
+			msgmap.put("name", "隢撓��撌亙���");
 			return "AddEmployee";
 		}
 
 		if (Titleid.equals("")) {
-			msgmap.put("title", "請選擇員工職稱");
+			msgmap.put("title", "隢��撌亥蝔�");
 			return "AddEmployee";
 		}
 
 		if (Salary.equals("")) {
-			msgmap.put("salary", "請輸入員工薪資");
+			msgmap.put("salary", "隢撓��撌亥鞈�");
 			return "AddEmployee";
 		}
 
 		if (Email.equals("")) {
-			msgmap.put("email", "請輸入email");
+			msgmap.put("email", "隢撓�email");
 			return "AddEmployee";
 		}
 
@@ -277,11 +277,11 @@ public class EmployeeAction {
 		try {
 			salary = Integer.parseInt(Salary);
 			if (salary < 0) {
-				msgmap.put("salary", "薪資不得為負數，請重新輸入");
+				msgmap.put("salary", "�鞈��鞎嚗��頛詨");
 				return "AddEmployee";
 			}
 		} catch (Exception e) {
-			msgmap.put("salary", "薪資輸入錯誤，請重新輸入");
+			msgmap.put("salary", "�鞈撓��隤歹���頛詨");
 			return "AddEmployee";
 		}
 
@@ -337,13 +337,13 @@ public class EmployeeAction {
 					lastWorkDay, department, title);
 
 			if (status == 1) {
-				msgmap.put("status", "新增成功");
+				msgmap.put("status", "�憓���");
 			} else if (status == 2) {
-				msgmap.put("status", "帳號重複，請重新輸入");
+				msgmap.put("status", "撣唾������頛詨");
 			} else if (status == 3) {
-				msgmap.put("status", "email重複，請重新輸入");
+				msgmap.put("status", "email������頛詨");
 			} else {
-				msgmap.put("status", "發生異常，請重新嘗試");
+				msgmap.put("status", "���撣賂�����岫");
 			}
 		}
 		return "AddEmployee";
@@ -421,22 +421,22 @@ public class EmployeeAction {
 			id = 0;
 		}
 		if (Name == null || Name.length() == 0) {
-			msgmap.put("name", "請輸入員工姓名");
+			msgmap.put("name", "隢撓��撌亙���");
 			return "EditEmployeePage";
 		}
 
 		if (Titleid.equals("")) {
-			msgmap.put("title", "請選擇員工職稱");
+			msgmap.put("title", "隢��撌亥蝔�");
 			return "EditEmployeePage";
 		}
 
 		if (Salary.equals("")) {
-			msgmap.put("salary", "請輸入員工薪資");
+			msgmap.put("salary", "隢撓��撌亥鞈�");
 			return "EditEmployeePage";
 		}
 
 		if (Email.equals("")) {
-			msgmap.put("email", "請輸入email");
+			msgmap.put("email", "隢撓�email");
 			return "EditEmployeePage";
 		}
 
@@ -445,11 +445,11 @@ public class EmployeeAction {
 		try {
 			salary = Integer.parseInt(Salary);
 			if (salary < 0) {
-				msgmap.put("salary", "薪資不得為負數，請重新輸入");
+				msgmap.put("salary", "�鞈��鞎嚗��頛詨");
 				return "EditEmployeePage";
 			}
 		} catch (Exception e) {
-			msgmap.put("salary", "薪資輸入錯誤，請重新輸入");
+			msgmap.put("salary", "�鞈撓��隤歹���頛詨");
 			return "EditEmployeePage";
 		}
 		Date birthday;
@@ -502,9 +502,9 @@ public class EmployeeAction {
 					lastWorkDay, department, title);
 
 			if (status) {
-				msgmap.put("status", "修改成功");
+				msgmap.put("status", "靽格����");
 			} else {
-				msgmap.put("status", "修改失敗，請再嘗試");
+				msgmap.put("status", "靽格憭望�����岫");
 			}
 		}
 

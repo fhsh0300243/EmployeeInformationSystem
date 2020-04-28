@@ -10,12 +10,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "AssignWork")
 public class AssignWork {
-	private int asID;
+	private int awID;
 	private int empID;
 	private int wID;
 	private String Work;
 	private int WorkStatus;
 	
+	public AssignWork() {
+		
+	}
 	public AssignWork(int empid,int wid,String work) {
 		this.empID = empid;
 		this.wID = wid;
@@ -23,13 +26,13 @@ public class AssignWork {
 	}
 	
 	@Id
-	@Column(name="ASID")
+	@Column(name="AWID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getAsID() {
-		return asID;
+	public int getAwID() {
+		return awID;
 	}
-	public void setAsID(int asID) {
-		this.asID = asID;
+	public void setAwID(int asID) {
+		this.awID = asID;
 	}
 	@Column(name = "EMPID")
 	public int getEmpID() {
