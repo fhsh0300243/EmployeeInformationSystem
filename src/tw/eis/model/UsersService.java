@@ -1,6 +1,7 @@
 package tw.eis.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -55,5 +56,12 @@ public class UsersService implements IUsersService {
 	
 	public List<Users> findStaff(Map<String, String> usersResultMap){
 		return usersDao.findStaff(usersResultMap);
+	}
+	
+	public Timestamp queryLoginTime(int empyleeID){
+		return usersDao.queryLoginTime(empyleeID);
+	}
+	public void updateLoginTime(Users Users) {
+		usersDao.updateLoginTime(Users);
 	}
 }

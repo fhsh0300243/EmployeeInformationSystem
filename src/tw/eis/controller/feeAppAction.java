@@ -1,6 +1,5 @@
 package tw.eis.controller;
 
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.eis.model.Employee;
@@ -28,111 +28,88 @@ import tw.eis.model.feeAppService;
 @Controller
 @SessionAttributes(names = { "LoginOK", "usersResultMap", "errorMsgMap" })
 public class feeAppAction {
-	
+
 	private feeAppService feeAppService;
 	private EmployeeService eService;
 
 	@Autowired
-	public feeAppAction(feeAppService feeAppService,EmployeeService eService) {
-		this.feeAppService=feeAppService;
+	public feeAppAction(feeAppService feeAppService, EmployeeService eService) {
+		this.feeAppService = feeAppService;
 		this.eService = eService;
 	}
-	//差旅費申請+查詢資料庫
+
+	// 差旅費申請+查詢資料庫
 	@RequestMapping(path = "/AddFeeApp.action", method = RequestMethod.POST)
 	public String addfeeApp(@ModelAttribute("LoginOK") Users userBean,
-			//@RequestParam(name = "department", required = false) String department,
-			//@RequestParam(name = "employeeID", required = false) String employeeID,
+			// @RequestParam(name = "department", required = false) String department,
+			// @RequestParam(name = "employeeID", required = false) String employeeID,
 			@RequestParam(name = "appItem", required = false) String appItem,
-			//@RequestParam(name = "appTime", required = false) String appTime,
+			// @RequestParam(name = "appTime", required = false) String appTime,
 			@RequestParam(name = "invoiceTime", required = false) String invoiceTime,
 			@RequestParam(name = "invoiceNb", required = false) String invoiceNb,
 			@RequestParam(name = "editor", required = false) String editor,
 			@RequestParam(name = "remark", required = false) String remark,
 			@RequestParam(name = "appMoney", required = false) String appMoney, Model model) {
-		
+
 		Map<String, String> feemsgmap = new HashMap<String, String>();
 		model.addAttribute("feemsgmap", feemsgmap);
-		System.out.println("invoiceTime:"+invoiceTime);
-		if (appItem.equals("====請選擇項目====")) {
-			feemsgmap.put("appItem", "未選擇申請項目");			
-			return "feeApplicationForm";
-		}
-		if (invoiceTime.equals("")) {
-			feemsgmap.put("invoiceTime", "請選擇發票日期");			
-			return "feeApplicationForm";
-		}
-//		if (invoiceNb !=null) {
-//						
-//			if (invoiceNb.length()<8) {
-//				feemsgmap.put("invoiceNb", "統編長度有誤");			
-//				return "feeApplicationForm";
-//			}	
-//			
+//		System.out.println("System Time:"+"1"+appItem+"1");
+//		if (appItem == "123") {
+//			feemsgmap.put("appItem", "未輸入申請項目");
+//			return "feeApplicationForm";
 //		}
-		
 		if (appMoney == null || appMoney.length() == 0) {
 			feemsgmap.put("appMoney", "未輸入金額");
 			return "feeApplicationForm";
-		}else {
-			
-		String signerTime=null;
-		String signerStatus="簽核中";
-		//int signerID=1;
-		String department = userBean.getDepartment();		
-		//int employeeIDint= Integer.parseInt(employeeID);
-		int userID = userBean.getEmployeeID();
-		Employee employeeID = eService.empData(userID);
-		//Date invoiceTimeD = Date.valueOf(invoiceTime);
-		
-		int appMoneyint= Integer.parseInt(appMoney);
-		Employee signerID = eService.empData(userID).getManager();
+		} else {
+
+			String signerTime = null;
+			String signerStatus = "簽核中";
+			// int signerID=1;
+			String department = userBean.getDepartment();
+			// int employeeIDint= Integer.parseInt(employeeID);
+			int userID = userBean.getEmployeeID();
+			Employee employeeID = eService.empData(userID);
+			// Date invoiceTimeD = Date.valueOf(invoiceTime);
+
+			int appMoneyint = Integer.parseInt(appMoney);
+			Employee signerID = eService.empData(userID).getManager();
 //		Timestamp tsmp=new Timestamp(System.currentTimeMillis());
 //		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 //		Date appTime = Date.valueOf(sdFormat.format(tsmp));	
 //		System.out.println("System Time:"+appTime.toString());
-		
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-		Date date = new Date();
-		String appTime = sdFormat.format(date);
-		//System.out.println("System Time:"+appTime);
-		feeAppService.addFeeApp(department,employeeID,appItem,appTime.toString(),invoiceTime,invoiceNb,editor,remark,appMoneyint,signerTime,signerStatus,signerID);
-		feemsgmap.put("Success", "已送簽核");
-		 return "feeApplicationForm";
+
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			Date date = new Date();
+			String appTime = sdFormat.format(date);
+			// System.out.println("System Time:"+appTime);
+			feeAppService.addFeeApp(department, employeeID, appItem, appTime.toString(), invoiceTime, invoiceNb, editor,
+					remark, appMoneyint, signerTime, signerStatus, signerID);
+			feemsgmap.put("Success", "已送簽核");
+			return "feeApplicationForm";
 		}
 	}
-	//差旅費查詢頁面+查詢資料庫
+
+	// 差旅費查詢頁面+查詢資料庫
 	@RequestMapping(path = "/FeeAllPage.action", method = RequestMethod.POST)
 	public String qfeeApp(@ModelAttribute("LoginOK") Users userBean,
-			@RequestParam(name = "searchA", required = false)String searchA,
+			@RequestParam(name = "searchA", required = false) String searchA,
 			@RequestParam(name = "searchB", required = false) String searchB, Model model) {
-		
-		Map<String, String> feemsgmap = new HashMap<String, String>();
-		model.addAttribute("feemsgmap", feemsgmap);
-		
-		if (searchA.equals("") || searchB.equals("")) {
-			feemsgmap.put("searchday", "請選擇查詢日期");			
-			return "FeeAllPage";
-		}
-		//int employeeIDint = userBean.getEmployeeID();
+		// int employeeIDint = userBean.getEmployeeID();
 		int userID = userBean.getEmployeeID();
 		Employee EmployeeID1 = eService.empData(userID);
-		//System.out.println("EmployeeID1:"+EmployeeID1);
-		List<feeAppMember> dList = feeAppService.qFeeApp(EmployeeID1,searchA,searchB);					
-			
-			int AppTotalMoney=0;
-			for(feeAppMember feeAppMember:dList) {
-				AppTotalMoney+= feeAppMember.getAppMoney();
-				}
-			model.addAttribute("dList", dList);
-			model.addAttribute("AppTotalMoney", AppTotalMoney);
-		 return "FeeAllPage";
+		// System.out.println("EmployeeID1:"+EmployeeID1);
+		List<feeAppMember> dList = feeAppService.qFeeApp(EmployeeID1, searchA, searchB);
+		model.addAttribute("dList", dList);
+
+		return "FeeAllPage";
 	}
-	
+
 	@RequestMapping(path = "/SingerPage", method = RequestMethod.GET)
 	public String SingerPage(@RequestParam("feeAppID") int feeAppID, Model model) {
 		List<feeAppMember> appIDList = feeAppService.qapplyId(feeAppID);
-				
-		int S_feeAppID=0;
+
+		int S_feeAppID = 0;
 //		String S_department="";
 //		String S_appItem="";
 //		String S_appTime="";
@@ -141,8 +118,8 @@ public class feeAppAction {
 //		String S_editor="";
 //		String S_remark="";
 //		int S_appMoney=0;
-				
-		for(feeAppMember feeAppMember:appIDList) {
+
+		for (feeAppMember feeAppMember : appIDList) {
 			S_feeAppID = feeAppMember.getFeeAppID();
 //			S_department = feeAppMember.getDepartment();
 //			S_appItem = feeAppMember.getAppItem();
@@ -164,37 +141,30 @@ public class feeAppAction {
 //		model.addAttribute("S_editor", S_editor);
 //		model.addAttribute("S_remark", S_remark);
 //		model.addAttribute("S_appMoney", S_appMoney);
-		
-	 return "FeeSingerDetails";
+
+		return "FeeSingerDetails";
 	}
+
 	@RequestMapping(path = "/SingerPassPage", method = RequestMethod.POST)
-	public String SingerPassPage(@ModelAttribute("LoginOK") Users LoginOK,
-			@RequestParam("feeAppID") int feeAppID,
-			@RequestParam("decide") String signerStatus,Model model) {
-		
-		Map<String, String> feemsgmap = new HashMap<String, String>();
-		model.addAttribute("feemsgmap", feemsgmap);
-		//System.out.println("invoiceTime:"+invoiceTime);
-		if (signerStatus.equals("====請選擇項目====")) {
-			feemsgmap.put("appItem", "未選擇申請項目");			
-			return "feeApplicationForm";
-		}
+	public String SingerPassPage(@ModelAttribute("LoginOK") Users LoginOK, @RequestParam("feeAppID") int feeAppID,
+			@RequestParam("decide") String signerStatus, Model model) {
+
 		SimpleDateFormat SingerFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		Date date = new Date();
 		String singerTime = SingerFormat.format(date);
-		
-		//int signerID = LoginOK.getEmployeeID();
+
+		// int signerID = LoginOK.getEmployeeID();
 		int userID = LoginOK.getEmployeeID();
 		Employee signerID = eService.empData(userID);
-		feeAppService.EditFeeApp(feeAppID,signerStatus,singerTime,signerID);		
-	 return "FeeSingerDecide";
+		feeAppService.EditFeeApp(feeAppID, signerStatus, singerTime, signerID);
+		return "FeeSingerDecide";
 	}
 
 	@RequestMapping(path = "/ReturnPage", method = RequestMethod.GET)
 	public String ReturnPage(@RequestParam("feeAppID") int feeAppID, Model model) {
 		List<feeAppMember> appfeeIDList = feeAppService.qapplyId(feeAppID);
-				
-		int S_feeAppID=0;
+
+		int S_feeAppID = 0;
 //		String S_department="";
 //		String S_feeAppName="";
 //		String S_appItem="";
@@ -204,8 +174,8 @@ public class feeAppAction {
 //		String S_editor="";
 //		String S_remark="";
 //		int S_appMoney=0;
-				
-		for(feeAppMember feeAppMember:appfeeIDList) {
+
+		for (feeAppMember feeAppMember : appfeeIDList) {
 			S_feeAppID = feeAppMember.getFeeAppID();
 //			S_feeAppName=feeAppMember.getEmployeeID().getName();
 //			S_department = feeAppMember.getDepartment();
@@ -228,39 +198,34 @@ public class feeAppAction {
 //		model.addAttribute("S_editor", S_editor);
 //		model.addAttribute("S_remark", S_remark);
 //		model.addAttribute("S_appMoney", S_appMoney);
-		
-	 return "FeeReturnModify";
-	}
-	@RequestMapping(path = "/FeeReturnEditPage", method = RequestMethod.POST)
-	public String FeeReturnEditPage(@ModelAttribute("LoginOK") Users LoginOK,
-			@RequestParam("bot") String bot,		
-			@RequestParam("feeAppID") int feeAppID,
-			@RequestParam("invoiceTime") String invoiceTime,
-			@RequestParam("invoiceNb") String invoiceNb,
-			@RequestParam("editor") String editor,
-			@RequestParam("appMoney") int appMoney,
-			@RequestParam("remark") String remark,Model model) {
-		
-		if (bot.equals("送出")) {
-			
-			SimpleDateFormat appTimeFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-			Date date = new Date();
-			String appTime = appTimeFormat.format(date);
-			String signerStatus="簽核中";	
-			
-			feeAppService.ReturnEditFee(feeAppID,appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);	
-			return "FeeSingerDecide";
-		}	
-		if (bot.equals("刪除此筆申請")) {
-			
-			feeAppService.DelectItem(feeAppID);	
-			return "FeeSingerDecide";
-		}
-		
-				
-	 return "FeeSingerDecide";
-	}
-	
-	
+
+		return "FeeReturnModify";
 	}
 
+	@RequestMapping(path = "/FeeReturnEditPage", method = RequestMethod.POST)
+	public String FeeReturnEditPage(@ModelAttribute("LoginOK") Users LoginOK,
+
+			@RequestParam("feeAppID") int feeAppID, @RequestParam("invoiceTime") String invoiceTime,
+			@RequestParam("invoiceNb") String invoiceNb, @RequestParam("editor") String editor,
+			@RequestParam("appMoney") int appMoney, @RequestParam("remark") String remark, Model model) {
+
+		SimpleDateFormat appTimeFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String appTime = appTimeFormat.format(date);
+		String signerStatus = "簽核中";
+
+		feeAppService.ReturnEditFee(feeAppID, appTime, invoiceTime, invoiceNb, editor, appMoney, remark, signerStatus);
+
+		return "FeeSingerDecide";
+	}
+
+//	即時顯示主管是否簽核 by GK
+
+	@RequestMapping(path = "/queySingerPage", method = RequestMethod.GET,produces = "html/text;charset=utf-8")
+	public @ResponseBody String queySingerPage(@ModelAttribute("LoginOK") Users LoginOK) {
+		return Integer.toString(feeAppService.query(LoginOK.getEmployeeID()));
+	}
+
+//	end
+
+}

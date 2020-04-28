@@ -1,6 +1,8 @@
 package tw.eis.model;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +33,10 @@ public class Users implements Serializable{
 	private String title;
 	private String department;
 	private Employee employee;
+	
+//	登入時間 by gk
+	private Timestamp loginTime;;
+//	end
 	
 //	布告欄映射 BY GK Start
 	private Set<BulletinBoard> bulletinBoard = new HashSet<BulletinBoard>(0);
@@ -116,5 +122,17 @@ public class Users implements Serializable{
 		this.bulletinBoard = bulletinBoard;
 	}
 //	End
+
+//	登入時間 getter&setter 
+	@Column(name="LOGINTIME")
+	public Timestamp getLoginTime() {
+		return loginTime;
+	}
+
+	public void setLoginTime(Timestamp tim) {
+		this.loginTime = tim;
+	}
+//	End
+	
 	
 }
