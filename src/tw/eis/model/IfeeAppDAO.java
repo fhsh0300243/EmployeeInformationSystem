@@ -10,8 +10,9 @@ public interface IfeeAppDAO {
 	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level,Employee employeeIDB2);
 public List<feeAppMember> qfeeSingerApp(int feeAppID);
 	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTime,Employee signerID);
-
-
+//	查詢主管是否有簽核 by GK	
+	public int query(int ID);
+//end
 
 	// add by 揚明--start
 	public List<Map<String, String>> deptFeeApplyCostPercent();

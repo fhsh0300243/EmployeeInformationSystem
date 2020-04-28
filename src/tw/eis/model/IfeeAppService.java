@@ -13,7 +13,9 @@ public interface IfeeAppService {
 	public List<feeAppMember> qfeeSingerApp(String department, String signerStatus, int level,Employee employeeIDB2);
 	public List<feeAppMember> qapplyId(int feeAppID);
 	public boolean EditFeeApp(int feeAppID, String signerStatus,String singerTimeint,Employee signerID);
-
+//	add by GK Start
+	public int query(int ID);
+//	End
 
 	// add by 揚明--start
 	public List<Map<String,String>> deptFeeApplyCostPercent();
