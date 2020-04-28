@@ -42,7 +42,8 @@ p {
 	width: 70%;
 	left: 30%;
 }
-.tb{
+
+.tb {
 	position: relative;
 	width: 70%;
 	left: 28.5%;
@@ -78,16 +79,13 @@ p {
 							<form action="<c:url value='/InquiryAttendance'/>" method="post">
 								<div class="col-md-7">
 									<input type="text" id="datepicker"
-										class="datepicker form-control" name="month" value=""
+										class="datepicker form-control" name="month" value="${month}"
 										placeholder="選擇查詢月份" autocomplete="off"> <input
-										type="submit" value="查詢" class="btn btn-info"/>
+										type="submit" value="查詢" class="btn btn-info" />
 								</div>
 							</form>
 						</div>
-						<br>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br> <br>
 						<div class="tb">
 							<table width="500" border="1">
 								<tr>

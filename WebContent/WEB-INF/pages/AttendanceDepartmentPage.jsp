@@ -60,12 +60,13 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						${errormsg}
-						<form action="<c:url value='/InquiryAttendanceDepartment'/>" method="post">
+						<form action="<c:url value='/InquiryAttendanceDepartment'/>"
+							method="post">
 							<div class="col-md-7">
 								<input type="text" id="datepicker"
-									class="datepicker form-control" name="month" value=""
+									class="datepicker form-control" name="month" value="${month}"
 									placeholder="選擇查詢月份" autocomplete="off"> <input
-									type="submit" value="查詢" class="btn btn-info"/>
+									type="submit" value="查詢" class="btn btn-info" />
 							</div>
 						</form>
 						<table width="500" border="1">
@@ -78,7 +79,7 @@ p {
 								<td><b>詳細資料</b></td>
 							</tr>
 							<%
-							Map<Employee,Integer> countMap = (Map<Employee,Integer>)request.getAttribute("countMap");
+								Map<Employee, Integer> countMap = (Map<Employee, Integer>) request.getAttribute("countMap");
 								if (countMap == null || countMap.size() < 1) {
 							%>
 							<tr id="test">
@@ -86,21 +87,22 @@ p {
 							</tr>
 							<%
 								} else {
-									for (Map.Entry<Employee,Integer> element : countMap.entrySet()) {
+									for (Map.Entry<Employee, Integer> element : countMap.entrySet()) {
 							%>
 
 							<tr align="center">
-								<td><%=element.getKey().getEmpID() %></td>
-								<td><%=element.getKey().getName() %></td>
-								<td><%=element.getKey().getDepartment() %></td>
-								<td><%=element.getKey().getTitle() %></td>
-								<td><%=element.getValue() %></td>
-								<td><input type="button" name="id" value="詳細資料" class="btn btn-info"></td>
+								<td><%=element.getKey().getEmpID()%></td>
+								<td><%=element.getKey().getName()%></td>
+								<td><%=element.getKey().getDepartment()%></td>
+								<td><%=element.getKey().getTitle()%></td>
+								<td><%=element.getValue()%></td>
+								<td><input type="submit"
+									name="IDinformation" id="<%=element.getKey().getEmpID()%>" value="詳細資料"
+									class="btn btn-info"></td>
 							</tr>
 							<%
 								}
 								}
-								
 							%>
 						</table>
 						<div class="list_footer">

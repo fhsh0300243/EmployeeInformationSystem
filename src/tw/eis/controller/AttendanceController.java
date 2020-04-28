@@ -23,6 +23,7 @@ import tw.eis.model.Attendance;
 import tw.eis.model.AttendanceService;
 import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
+import tw.eis.model.HolidayCalendar;
 import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.Users;
 import tw.eis.model.UsersService;
@@ -60,6 +61,17 @@ public class AttendanceController {
 			HttpServletRequest request) throws Exception {
 		List<Attendance> attlist = AttService.InquiryAttendance(userBean.getEmployeeID(), month);
 		request.setAttribute("attlist", attlist);
+		request.setAttribute("month", month);
+		return "AttendanceOwnPage";
+	}
+
+	@RequestMapping(path = "/InquiryAttendanceByBoss", method = RequestMethod.GET)
+	public String InquiryAttendanceByBoss(@RequestParam("EmpId") String EmpId, @RequestParam("month") String month,
+			HttpServletRequest request) throws Exception {
+		int id = Integer.parseInt(EmpId);
+		List<Attendance> attlist = AttService.InquiryAttendance(id, month);
+		request.setAttribute("attlist", attlist);
+		request.setAttribute("month", month);
 		return "AttendanceOwnPage";
 	}
 
@@ -72,12 +84,13 @@ public class AttendanceController {
 		if (level == 2 || level == 3 || level == 4) {
 			List<Employee> AllEmp = EmService.allEmpIdforTask();
 			for (Employee element : AllEmp) {
-				if (element.getLevel() <= level || element.getDepartment().equals(Department)) {
+				if (element.getLevel() <= level && element.getDepartment().equals(Department)) {
 					int countError = AttService.CountError(element, month);
 					System.out.println(countError);
 					countMap.put(element, countError);
 				}
 			}
+			request.setAttribute("month", month);
 			request.setAttribute("countMap", countMap);
 			return "AttendanceDepartmentPage";
 		} else {
@@ -121,6 +134,7 @@ public class AttendanceController {
 				Date Time1700 = cal.getTime();
 				Date now = new Date();
 				List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
+
 				if (now.before(Time1700)) {
 					if (myPunch == null || myPunch.size() == 0) {
 						AttService.InsertStartTime(Emp, Date, Time);
@@ -134,6 +148,7 @@ public class AttendanceController {
 						AttService.UpdateEndTime(Emp, Date, Time);
 					}
 				}
+
 				System.out.println("IP正確");
 			} else {
 				System.out.println("IP錯誤");
