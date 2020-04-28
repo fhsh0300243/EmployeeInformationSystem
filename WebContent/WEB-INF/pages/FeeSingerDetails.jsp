@@ -42,6 +42,9 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
+b{
+	font-size:20px;
+}
 </style>
 <script>
 	function check(obj) {
@@ -61,7 +64,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -133,7 +137,7 @@ p {
 						
 							<th><input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過</th>
 							<th><input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件</th>
-							<th><input type="submit" value="送出"></th>
+							<th><input type="submit" name="button" id="button" value="送出"></th>
 						
  						
 						</table>
@@ -151,7 +155,16 @@ p {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
-
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script>
+	$("#button").click(function(){
+		var check=$("input[name='decide']:checked").length;//判斷有多少個方框被勾選
+		if(check==0){
+			alert("您尚未勾選任何項目");
+			return false;//不要提交表單
+		}
+	})
+	</script>
 	
 
 </body>

@@ -727,4 +727,11 @@ public class feeAppDAO implements IfeeAppDAO {
 		return detail;
 	}
 	// add by 揚明--end
+
+	public boolean DelectItem(int feeAppID) {
+		Session session = sessionFacotry.getCurrentSession();
+		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
+		session.delete(feeAppMember);
+		return true;
+	}
 }

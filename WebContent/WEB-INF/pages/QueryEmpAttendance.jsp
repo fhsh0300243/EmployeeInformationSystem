@@ -51,7 +51,21 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
-</style>
+.datepicker{
+    border:1px  solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    line-height:24px;
+    margin:3px;    
+} 
+.datepicker:focus{
+    outline:0 none;
+    border:1px solid #1abc9c;
+        
+}
+b{
+	font-size:20px;
+}</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -60,7 +74,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -81,13 +97,13 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30"><br /> <label
+							id="searchid" name="searchid" size="30" class="datepicker"><br /> <label
 							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><br /> <label for="" class="t1">起訖日:</label><input
-							type="date" name="startdate" id="startdate">~<input
-							type="date" name="enddate" id="enddate"><br /> <input
-							type="button" id="search" name="search" value="搜尋">
+							name="searchname" size="30" class="datepicker"><br /> <select
+							name="searchdept" id="searchdept" class="datepicker"></select><br /> <label for="" class="t1">起訖日:</label><input
+							type="date" name="startdate" id="startdate" class="datepicker">~<input
+							type="date" name="enddate" id="enddate" class="datepicker"><br /> <input
+							type="button" id="search" name="search" value="搜尋" class="btn btn-info">
 						<p>${msgmap.noinputmsg}</p>
 						<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">

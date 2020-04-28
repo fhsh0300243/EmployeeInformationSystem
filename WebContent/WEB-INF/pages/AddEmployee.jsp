@@ -22,7 +22,7 @@
         margin: 0;
         padding: 0;
     }
-    */
+*/    
 body {
 	font-family: 微軟正黑體;
 }
@@ -40,12 +40,6 @@ body {
 	margin: 0 auto;
 	margin-left: 37%;
 }
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
-}
 .well, .panel {
 	text-align: center;
 }
@@ -57,6 +51,21 @@ p {
 	position: relative;
 	left: 30%;
 }
+.datepicker{
+    border:1px  solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    line-height:24px;
+    margin:3px;    
+} 
+.datepicker:focus{
+    outline:0 none;
+    border:1px solid #1abc9c;
+        
+}
+b{
+	font-size:20px;
+}
 </style>
 </head>
 <body>
@@ -67,7 +76,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -96,20 +106,21 @@ p {
 									<tr>
 										<td><span class="span1">*</span>帳號：</td>
 										<td><input type="text" id="account1" name="userName"
-											size="30" value="${inputmsg.username}" autocomplete="off"></td>
+											size="30" value="${inputmsg.username}" autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.username}</td>
 									</tr>
+									
 									<tr>
 										<td><span class="span1">*</span>密碼：</td>
 										<td><input type="password" id="pwd1" name="userPassword"
-											value="aa12345" size="30" autocomplete="off"></td>
+											value="aa12345" size="30" autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.userpwd}</td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>姓名：</td>
 										<td><input type="text" id="name1" name="name"
 											placeholder="請輸入姓名" autocomplete="off" size="30"
-											value="${inputmsg.name}"></td>
+											value="${inputmsg.name}" class="datepicker"></td>
 										<td class="msgmap">${msgmap.name}</td>
 									</tr>
 									<tr>
@@ -121,64 +132,64 @@ p {
 									<tr>
 										<td>生日：</td>
 										<td><input type="date" name="birth"
-											value="${inputmsg.birthday}"></td>
+											value="${inputmsg.birthday}" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>地址：</td>
 										<td><input type="text" name="address"
-											value="${inputmsg.address}" size="30" autocomplete="off"></td>
+											value="${inputmsg.address}" size="30" autocomplete="off" class="datepicker"></td>
 										<td>
 									<tr>
 										<td>部門：</td>
-										<td><select name="dept" id="dept"></select></td>
+										<td><select name="dept" id="dept" class="datepicker"></select></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>職稱：</td>
-										<td><select name="title" id="title"></select></td>
+										<td><select name="title" id="title" class="datepicker"></select></td>
 										<td class="msgmap">${msgmap.title}</td>
 									</tr>
 									<tr>
 										<td>主管：</td>
-										<td><select name="manager" id="manager"></select></td>
+										<td><select name="manager" id="manager" class="datepicker"></select></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>薪水：</td>
 										<td><input type="text" name="salary"
 											value="${inputmsg.salary}" maxlength="10" size="30"
-											autocomplete="off"></td>
+											autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.salary}</td>
 									</tr>
 									<tr>
 										<td>分機號碼：</td>
 										<td><input type="text" name="exnum"
 											value="${inputmsg.extensionNum}" maxlength="10" size="30"
-											autocomplete="off"></td>
+											autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>電話：</td>
 										<td><input type="text" name="phonenum"
 											value="${inputmsg.phoneNum}" maxlength="10" size="30"
-											autocomplete="off"></td>
+											autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>Email：</td>
 										<td><input type="email" name="email"
-											value="${inputmsg.email}" size="30" autocomplete="off"></td>
+											value="${inputmsg.email}" size="30" autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.email}</td>
 									</tr>
 									<tr>
 										<td>照片：</td>
-										<td><input type="file" name="file"></td>
+										<td><input type="file" name="file" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>到職日：</td>
 										<td><input type="date" name="hireDay"
-											value="${inputmsg.hireDay}"></td>
+											value="${inputmsg.hireDay}" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>離職日：</td>
 										<td><input type="date" name="lastWorkDay"
-											value="${inputmsg.lastWorkDay}"></td>
+											value="${inputmsg.lastWorkDay}" class="datepicker"></td>
 									</tr>
 								</table>
 								<br>

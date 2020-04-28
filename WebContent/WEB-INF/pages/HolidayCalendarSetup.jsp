@@ -32,6 +32,9 @@ p {
 	width: 70%;
 	left: 28.5%;
 }
+b{
+	font-size:20px;
+}
 </style>
 </head>
 <body>
@@ -43,7 +46,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
