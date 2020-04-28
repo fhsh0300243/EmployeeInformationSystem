@@ -42,13 +42,6 @@ body {
 	margin-left: 37%;
 }
 
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
-}
-
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
@@ -56,6 +49,19 @@ p {
 .tb{
 	position: relative;
 	left: 30%;
+}
+
+.datepicker{
+    border:1px  solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    line-height:24px;
+    margin:3px;    
+} 
+.datepicker:focus{
+    outline:0 none;
+    border:1px solid #1abc9c;
+        
 }
 </style>
 </head>
@@ -91,7 +97,8 @@ p {
 						<div class="div1">
 							<div>
 								<a href="<c:url value="/EmployeePage.do"/>">回HR部門公告</a> 
-								<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
+								<!--  <img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />-->
+								<img alt="..." src="<c:url value="/empimgurl"/>" class="img-thumbnail" />
 							</div>
 							<br>
 							<form action="<c:url value="/EditAddEmployee.action"/>"
@@ -100,14 +107,14 @@ p {
 									<tr>
 										<td><span class="span1">*</span>帳號：</td>
 										<td><input type="text" id="account1" name="userName"
-											value='${user.userName}' size="30" readonly></td>
+											value='${user.userName}' size="30" readonly class="datepicker"></td>
 										<td class="msgmap">${msgmap.username}</td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>姓名：</td>
 										<td><input type="text" id="name1" name="name"
 											value='${emp.name}' placeholder="請輸入姓名" autocomplete="off"
-											size="30"></td>
+											size="30" class="datepicker"></td>
 										<td class="msgmap">${msgmap.name}</td>
 									</tr>
 									<tr>
@@ -119,62 +126,62 @@ p {
 									<tr>
 										<td>生日：</td>
 										<td><input type="date" name="birth"
-											value='${emp.birthDay}'></td>
+											value='${emp.birthDay}' class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>地址：</td>
 										<td><input type="text" name="address"
-											value='${emp.address}' size="30" autocomplete="off"></td>
+											value='${emp.address}' size="30" autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>部門：</td>
-										<td><select name="dept" id="dept"></select></td>
+										<td><select name="dept" id="dept" class="datepicker"></select></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>職稱：</td>
-										<td><select name="title" id="title"></select></td>
+										<td><select name="title" id="title" class="datepicker"></select></td>
 										<td class="msgmap">${msgmap.title}</td>
 									</tr>
 									<tr>
 										<td>主管：</td>
-										<td><select name="manager" id="manager"></select></td>
+										<td><select name="manager" id="manager" class="datepicker"></select></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>薪水：</td>
 										<td><input type="text" name="salary"
 											value='${emp.salary}' maxlength="10" size="30"
-											autocomplete="off"></td>
+											autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.salary}</td>
 									</tr>
 									<tr>
 										<td>分機號碼：</td>
 										<td><input type="text" name="exnum" maxlength="10"
-											value='${emp.extensionNum}' size="30" autocomplete="off"></td>
+											value='${emp.extensionNum}' size="30" autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>電話：</td>
 										<td><input type="text" name="phonenum" maxlength="10"
-											value='${emp.phoneNum}' size="30" autocomplete="off"></td>
+											value='${emp.phoneNum}' size="30" autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>Email：</td>
 										<td><input type="email" name="email" value='${emp.email}'
-											size="30" autocomplete="off"></td>
+											size="30" autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.email}</td>
 									</tr>
 									<tr>
 										<td>照片：</td>
-										<td><input type="file" name="file"></td>
+										<td><input type="file" name="file" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>到職日：</td>
 										<td><input type="date" name="hireDay"
-											value='${emp.hireDay}'></td>
+											value='${emp.hireDay}' class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>離職日：</td>
 										<td><input type="date" name="lastWorkDay"
-											value='${emp.lastWorkDay}'></td>
+											value='${emp.lastWorkDay}' class="datepicker"></td>
 									</tr>
 								</table>
 								<br>

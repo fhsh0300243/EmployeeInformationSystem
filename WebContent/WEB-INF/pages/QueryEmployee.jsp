@@ -53,11 +53,17 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
+.datepicker{
+    border:1px  solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    line-height:24px;
+    margin:3px;    
+} 
+.datepicker:focus{
+    outline:0 none;
+    border:1px solid #1abc9c;
+        
 }
 </style>
 </head>
@@ -90,10 +96,10 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30"><br /> <label
+							id="searchid" name="searchid" size="30" class="datepicker"><br /> <label
 							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><input type="checkbox"
+							name="searchname" size="30" class="datepicker"><br /> <select
+							name="searchdept" id="searchdept" class="datepicker"></select><input type="checkbox"
 							id="resigned" name="resigned" value="resigned"> <label
 							for="" class="t1">離職員工</label> <input type="button" id="search"
 							name="search" value="搜尋" class="btn btn-info">
