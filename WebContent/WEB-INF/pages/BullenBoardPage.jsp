@@ -79,18 +79,6 @@ p {
 .functionTitle {
 	right: 0px;
 }
-b{
-	font-size:20px;
-}
-p{
-	margin:0;
-	padding:0;
-	margin-bottom:2px;
-}
-
-.leftTopP{
-	margin-bottom:23px;
-}
 </style>
 </head>
 <body>
@@ -102,8 +90,7 @@ p{
 			<!--左邊欄位-->
 			<div class="leftTop">
 				<div class="leftTopP">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>Hi, ${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 				<div class="leftSideBar">
@@ -260,6 +247,8 @@ p{
 		src='<c:url value="/js/BulletinBoard/index.js"></c:url>'></script>
 	<script type="text/javascript"
 		src='<c:url value="/js/BulletinBoard/wysibb/jquery.wysibb.js"></c:url>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/js/BulletinBoard/renew.js"></c:url>'></script>
 
 	<script>
 		$(document)

@@ -132,7 +132,23 @@ public class feeAppDAO implements IfeeAppDAO {
 		session.update(feeAppMember);
 		return true;
 	}
-
+	
+//	查詢主管是否有簽核 by GK
+	public int query(int ID) {
+		Session session = sessionFacotry.getCurrentSession();
+		System.out.println("id:"+ID);
+		Query Query = session.createQuery("from feeAppMember where signerID=:signerID and signerStatus='簽核中'");
+		Query.setInteger("signerID", ID);
+		return Query.list().size();
+	}
+//  End	
+	
+	
+	
+	
+	
+	
+	
 	// add by 揚明--start
 	public List<Map<String, String>> deptFeeApplyCostPercent() {
 		Map<String, String> deptCostPercent = new HashMap<String, String>();
@@ -727,11 +743,4 @@ public class feeAppDAO implements IfeeAppDAO {
 		return detail;
 	}
 	// add by 揚明--end
-
-	public boolean DelectItem(int feeAppID) {
-		Session session = sessionFacotry.getCurrentSession();
-		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
-		session.delete(feeAppMember);
-		return true;
-	}
 }

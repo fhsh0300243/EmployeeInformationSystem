@@ -41,7 +41,11 @@ public class feeAppService implements IfeeAppService{
 		return feeAppDAO.EditFeeApp(feeAppID, signerStatus,singerTime,signerID);
 		
 	}
-
+//	add by GK Start
+	public int query(int ID) {
+		return feeAppDAO.query(ID);
+	}
+//	End
 
 	// add by 揚明--start
 	public List<Map<String,String>> deptFeeApplyCostPercent(){
@@ -59,11 +63,6 @@ public class feeAppService implements IfeeAppService{
 	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor, int appMoney,
 			String remark, String signerStatus) {
 		return feeAppDAO.ReturnEditFee(feeAppID, appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);
-		
-	}
-
-	public boolean DelectItem(int feeAppID) {
-		return feeAppDAO.DelectItem(feeAppID);
 		
 	}
 

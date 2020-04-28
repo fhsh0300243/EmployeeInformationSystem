@@ -125,18 +125,8 @@ public class EmployeeAction {
 	}
 
 	@RequestMapping(path = "/AddEmployee.do", method = RequestMethod.GET)
-	public String processAddEmployee(@ModelAttribute("EmployeeID") String empId) {
-		int level = 0;
-		try {
-		level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
-	} catch (Exception e) {
-			level = 0;
-		}
-		if (level == 1 || level == 2 || level == 3) {
-			return "AddEmployee";
-	}	
-	    return "AuthorityErrorPage";
-	}
+		if (level == 1 || level == 2 || level == 3) {			return "AddEmployee";
+	    return "AuthorityErrorPage";	}
 
 	@RequestMapping(path = "/EditEmployee.do", method = RequestMethod.GET)
 	public String processEditEmployeePage(@ModelAttribute("EmployeeID") String empId, @RequestParam("id") String id,
