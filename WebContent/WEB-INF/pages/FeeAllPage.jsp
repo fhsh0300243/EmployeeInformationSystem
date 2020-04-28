@@ -53,8 +53,11 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
-b{
-	font-size:20px;
+.mark1 {
+	color: blue;
+}
+.mark2 {
+	color: red;
 }
 </style>
 
@@ -85,18 +88,20 @@ b{
 					
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
-							
+								
 					<div class="panel-body">
+				
 						<form action="FeeAllPage.action" method="post">
+						
 							<div class="st1">
 								<label class="ca1 " for="">查詢區間:</label> <label><input
 									type="date" name="searchA"></label> <label class="ca1 " for="">-</label>
 								<label><input type="date" name="searchB"></label> <input
-									type="submit" name="New" value="搜尋" />
+									type="submit" name="New" value="搜尋" /><span class="mark2">${feemsgmap.searchday}</span>
 
 							</div>
 							
-
+						<h4>申請金額 : <span class="mark1">${AppTotalMoney}</span>元</h4>
 						</form>
 						
 						<table id="idtable1">
@@ -126,10 +131,9 @@ b{
 										
 									</tr>
 								</c:forEach>
+								
 							</table>
-											
-							
-						
+														
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>

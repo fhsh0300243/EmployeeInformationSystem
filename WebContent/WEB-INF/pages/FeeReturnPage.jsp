@@ -93,7 +93,7 @@ b{
 									<tr>
 										<td>${qfeeApp.feeAppID}</td>
 										<td>${qfeeApp.department}</td>
-										<td>${qfeeApp.feeAppID}</td>
+										<td>${qfeeApp.employeeID.name}</td>
 										<td>${qfeeApp.appItem}</td>
 										<td>${qfeeApp.appTime.substring(0,16)}</td>
 										<td>${qfeeApp.appMoney}</td>

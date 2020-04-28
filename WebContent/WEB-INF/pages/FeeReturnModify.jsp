@@ -24,6 +24,7 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
 #idtable1 {
 	margin: 30px auto;
 	border-collapse: collapse;
@@ -82,20 +83,20 @@ b{
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-					<form class="for1"
-						action="<c:url value="/FeeReturnEditPage?feeAppID=${S_feeAppID}"/>"
-						method="post">
-				
-						<table id="idtable1">
-								
+						<form class="for1"
+							action="<c:url value="/FeeReturnEditPage?feeAppID=${S_feeAppID}"/>"
+							method="post">
+
+							<table id="idtable1">
+
 								<c:forEach var='appfeeID' items='${appfeeIDList}' varStatus='vs'>
 									<tr>
 										<td>申請編號:</td>
 										<td>${appfeeID.feeAppID}</td>
-										
+
 									</tr>
 									<tr>
-										<td >員工姓名:</td>
+										<td>員工姓名:</td>
 										<td>${appfeeID.employeeID.name}</td>
 									</tr>
 									<tr>
@@ -104,15 +105,15 @@ b{
 									</tr>
 									<tr>
 										<td>申請項目:</td>
-										<td><select name="appItem" >
-										<option value="${appfeeID.appItem}">${appfeeID.appItem}</option>
-										<option value="交通">交通</option>
-										<option value="住宿">住宿</option>
-										<option value="餐費">餐費</option>
-										<option value="加班費">加班費</option>
-										<option value="其他">其他</option>
+										<td><select name="appItem">
+												<option value="${appfeeID.appItem}">${appfeeID.appItem}</option>
+												<option value="交通">交通</option>
+												<option value="住宿">住宿</option>
+												<option value="餐費">餐費</option>
+												<option value="加班費">加班費</option>
+												<option value="其他">其他</option>
 
-									</select></td>
+										</select></td>
 									</tr>
 									<tr>
 										<td>申請時間:</td>
@@ -120,37 +121,42 @@ b{
 									</tr>
 									<tr>
 										<td>發票日期:</td>
-										<td><input type="date" name="invoiceTime" value="${appfeeID.invoiceTime}"></td>
+										<td><input type="date" name="invoiceTime"
+											value="${appfeeID.invoiceTime}"></td>
 									</tr>
 									<tr>
 										<td>發票號碼:</td>
-										<td><input	type="tel" name="invoiceNb" value="${appfeeID.invoiceNb}"></td>
+										<td><input type="tel" name="invoiceNb"
+											value="${appfeeID.invoiceNb}"></td>
 									</tr>
 									<tr>
 										<td>統編:</td>
-										<td><input	type="tel" name="editor" value="${appfeeID.editor}"></td>
+										<td><input type="tel" name="editor"
+											value="${appfeeID.editor}"></td>
 									</tr>
 									<tr>
 										<td>申請金額:</td>
-										<td><input	type="tel" name="appMoney" value="${appfeeID.appMoney}"></td>
+										<td><input type="tel" name="appMoney"
+											value="${appfeeID.appMoney}"></td>
 									</tr>
 									<tr>
 										<td>備註:</td>
-										<td><textarea cols="30" rows="3" id="comment1" name="remark" ></textarea></td>
+										<td><textarea cols="30" rows="3" id="comment1"
+												name="remark"></textarea></td>
 									</tr>
-									
-									
+
+
 								</c:forEach>
 							</table>
-						<hr/>
-		          
- 		               	<div>
-						<input type="submit"   value="修改">
-						
-						</div>
+							<hr />
+
+							<div>
+								<input type="submit" name="bot" value="送出" > 
+								<input type="button" name="bot" value="刪除此筆申請">
+							</div>
 						</form>
-						
-											
+
+
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -163,8 +169,8 @@ b{
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
-
 	
+
 
 </body>
 </html>

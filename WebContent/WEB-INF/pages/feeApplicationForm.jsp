@@ -17,7 +17,7 @@
 <link rel="icon" href="images/favicon.ico">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="icon" href="images/favicon.ico">
@@ -118,8 +118,8 @@ b{
 								<div class="st1">
 								
 									<label class="ca1"><span class="mark1">*</span>申請項目:</label> 
-									<select name="appItem">
-										
+									<select name="appItem" >
+										<option value="====請選擇項目====">====請選擇項目====</option>
 										<option value="交通">交通</option>
 										<option value="住宿">住宿</option>
 										<option value="餐費">餐費</option>
@@ -137,17 +137,19 @@ b{
 			-->
 								<div class="st1">
 									<label class="ca1 " for=""><span class="mark1">*</span>發票日期:</label> <label><input
-										type="date" name="invoiceTime"></label>
+										type="date" name="invoiceTime"><span class="mark1">${feemsgmap.invoiceTime}</span></label>
 
 								</div>
 								<div class="st1">
 									<label class="ca1 " for="">發票號碼:</label> <label><input
-										type="tel" name="invoiceNb"></label>
+										type="tel" name="invoiceNb" maxlength="10"  ></label>
+										
 
 								</div>
 								<div class="st1">
 									<label class="ca1 " for="">統編:</label> <label><input
-										type="tel" name="editor"></label>
+										type="tel" name="editor" maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'') " >
+										<span class="mark1">${feemsgmap.invoiceNb}</span></label>
 
 								</div>
 								<!--

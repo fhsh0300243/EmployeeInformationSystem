@@ -137,7 +137,7 @@ b{
 						
 							<th><input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過</th>
 							<th><input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件</th>
-							<th><input type="submit" value="送出"></th>
+							<th><input type="submit" name="button" id="button" value="送出"></th>
 						
  						
 						</table>
@@ -155,7 +155,16 @@ b{
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
-
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script>
+	$("#button").click(function(){
+		var check=$("input[name='decide']:checked").length;//判斷有多少個方框被勾選
+		if(check==0){
+			alert("您尚未勾選任何項目");
+			return false;//不要提交表單
+		}
+	})
+	</script>
 	
 
 </body>
