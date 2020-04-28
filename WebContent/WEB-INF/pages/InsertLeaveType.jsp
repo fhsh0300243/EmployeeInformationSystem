@@ -24,8 +24,9 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -37,8 +38,9 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -89,7 +91,8 @@ b{
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr"></td>
+								<td class="tdErr" colspan="3"></td>
+								<td id="hTdYear" style="display: none;"></td>
 								<td id="hEYear" class="tdErr" style="display: none;"><img
 									id="yearImg"> <span id="yearCheck"></span></td>
 							</tr>
@@ -104,25 +107,29 @@ b{
 							</tr>
 							<tr>
 								<td></td>
-								<td><input type=checkbox id="idCG" name="leaveType"
-									value="g">公假</td>
+								<td colspan="3"><input type=checkbox id="idCG"
+									name="leaveType" value="g">公假</td>
 								<td id="hTHours" class="tdtag" style="display: none;"><span
 									class="span1">*</span>申請時數：</td>
 								<td id="hHours" style="display: none;"><input type=number
-									step="1" min="0" max="200"><span class="span2">&emsp;最小單位：1小時。</span></td>
+									id="idHours" step="1" min="0" max="200" onblur="checkHours();"><span
+									class="span2">&emsp;最小單位：1小時。</span></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td class="tdErr" colspan="3"></td>
+								<td id="hTdHours" style="display: none;"></td>
+								<td id="hEHours" class="tdErr" style="display: none;"><img
+									id="hoursImg"> <span id="hoursCheck"></span></td>
 							</tr>
 							<tr>
 								<td></td>
-								<td><input type=checkbox id="idCSa" name="leaveType"
-									value="sa">喪假</td>
-								<td id="hTOption" class="tdtag" style="display: none;"><span
+								<td colspan="3"><input type=checkbox id="idCSa"
+									name="leaveType" value="sa">喪假</td>
+								<td id="hTWho" class="tdtag" style="display: none;"><span
 									class="span1">*</span>喪亡者：</td>
-								<td id="hOption" style="display: none;"><select id=idWho
-									name='selWho'>
+								<td id="hWho" style="display: none;"><select id=idWho
+									name='selWho' onchange="checkWho();">
 										<option value="0">==============請選擇==============</option>
 										<option value="1">父母、養父母、繼父母、配偶</option>
 										<option value="2">祖父母、子女、配偶之父母、配偶之養父母或繼父母</option>
@@ -133,6 +140,9 @@ b{
 								<td></td>
 								<td class="tdErr" colspan="3"><img id="leaveTypeImg">
 									<span id="leaveTypeCheck"></span></td>
+								<td id="hTdWho" style="display: none;"></td>
+								<td id="hEWho" class="tdErr" style="display: none;"><img
+									id="whoImg"> <span id="whoCheck"></span></td>
 							</tr>
 						</table>
 						<hr>
@@ -160,32 +170,36 @@ b{
 			$("#leaveTypeImg").attr("src", "");
 			$("#leaveTypeCheck").empty();
 			if ($("#idCS,#idCB,#idCT").is(":checked")) {
-				$("#hTYear,#hYear,#hEYear").show();
+				$("#hTYear,#hTdYear,#hYear,#hEYear").show();
 			} else {
-				$("#hTYear,#hYear,#hEYear").hide();
+				$("#hTYear,#hTdYear,#hYear,#hEYear").hide();
 			}
 			if ($("#idCG").is(":checked")) {
-				$("#hTHours,#hHours").show();
+				$("#hTHours,#hTdHours,#hHours,#hEHours").show();
 			} else {
-				$("#hTHours,#hHours").hide();
+				$("#hTHours,#hTdHours,#hHours,#hEHours").hide();
 			}
 			if ($("#idCSa").is(":checked")) {
-				$("#hTOption,#hOption").show();
+				$("#hTWho,#hTdWho,#hWho,#hEWho").show();
 			} else {
-				$("#hTOption,#hOption").hide();
+				$("#hTWho,#hTdWho,#hWho,#hEWho").hide();
 			}
 		});
 
 		function cls() {
-			$("#hTYear,#hYear").hide();
-			$("#hTHours,#hHours").hide();
-			$("#hTOption,#hOption").hide();
 			$("#empIdImg").attr("src", "");
 			$("#empIdCheck").empty();
 			$("#leaveTypeImg").attr("src", "");
 			$("#leaveTypeCheck").empty();
+			$("#hTYear,#hTdYear,#hYear,#hEYear").hide();
 			$("#yearImg").attr("src", "");
 			$("#yearCheck").empty();
+			$("#hTHours,#hTdHours,#hHours,#hEHours").hide();
+			$("#hoursImg").attr("src", "");
+			$("#hoursCheck").empty();
+			$("#hTWho,#hTdWho,#hWho,#hEWho").hide();
+			$("#whoImg").attr("src", "");
+			$("#whoCheck").empty();
 		}
 
 		function checkEmpId() {
@@ -230,16 +244,51 @@ b{
 			}
 		}
 
+		function checkHours() {
+			var inputHours = $("#idHours").val();
+
+			if ($("#idCG").is(":checked")) {
+				if (inputHours == "" || inputHours.length == 0) {
+					$("#hoursImg").attr("src", "images/X_icon.png");
+					$("#hoursCheck").html("請輸入申請時數");
+				} else {
+					$("#hoursImg").attr("src", "");
+					$("#hoursCheck").empty();
+				}
+			}
+		}
+
+		function checkWho() {
+			var inputWho = $("#idWho").val();
+			$("#whoImg").attr("src", "");
+			$("#whoCheck").empty();
+
+			if ($("#idCSa").is(":checked")) {
+				if (inputWho == 0) {
+					$("#whoImg").attr("src", "images/X_icon.png");
+					$("#whoCheck").html("請選擇喪亡者");
+				} else {
+					$("#whoImg").attr("src", "");
+					$("#whoCheck").empty();
+				}
+			}
+		}
+
 		function checkSubmit() {
 			checkEmpId();
 			checkCheckBox();
 			checkYear();
+			checkHours();
+			checkWho();
 
 			var checkSubEmpId = $("#empIdCheck").text();
 			var checkSubLT = $("#leaveTypeCheck").text();
 			var checkSubYear = $("#yearCheck").text();
+			var checkSubHours = $("#hoursCheck").text();
+			var checkSubWho = $("#whoCheck").text();
 
-			if (checkSubEmpId == "" && checkSubLT == "" && checkSubYear == "") {
+			if (checkSubEmpId == "" && checkSubLT == "" && checkSubYear == ""
+					&& checkSubHours == "" && checkSubWho == "") {
 				return true;
 			} else {
 				return false;

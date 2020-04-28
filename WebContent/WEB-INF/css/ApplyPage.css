@@ -7,17 +7,12 @@
 	width: 100%;
 }
 
-#idtable5 {
-	border: 1px solid black;
-}
-
 #idtable4 td {
 	height: 20px;
 }
 
 #idtable5 td {
 	height: 30px;
-	border: 1px solid black;
 }
 
 .tdtag {
