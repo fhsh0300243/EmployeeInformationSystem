@@ -17,6 +17,9 @@
 .well, .panel {
 	text-align: center;
 }
+b{
+	font-size:30px;
+}
 </style>
 </head>
 <body>
@@ -26,7 +29,11 @@
 	</div>
 	<br>
 			<div class="col-md-5">
-				<div class="well">Hi, ${usersResultMap.UserName} 您好~歡迎登入番茄科技員工資訊系統</div>
+				<div class="well">
+				<b>Hi~</b> ${usersResultMap.Title}, ${usersResultMap.UserName} 您好~<br>
+				歡迎登入番茄科技員工資訊系統
+				
+				</div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">主選單</div>
 					<div class="panel-body">
@@ -55,7 +62,7 @@
 							<a href="<c:url value="/toLoginPage"/>"><img
 							class="imgButton logout" src="images/logout.png" border="0"></a>
 					</div>
-					<div class="panel-footer"></div>
+					
 
 				</div>
 			</div>

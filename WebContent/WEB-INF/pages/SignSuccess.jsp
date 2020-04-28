@@ -24,6 +24,9 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+b{
+	font-size:20px;
+}
 </style>
 </head>
 <body>

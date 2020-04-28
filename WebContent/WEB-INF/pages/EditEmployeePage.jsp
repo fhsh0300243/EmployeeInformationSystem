@@ -50,7 +50,6 @@ p {
 	position: relative;
 	left: 30%;
 }
-
 .datepicker{
     border:1px  solid #ccc;
     border-radius: 4px;
@@ -63,7 +62,9 @@ p {
     border:1px solid #1abc9c;
         
 }
-</style>
+b{
+	font-size:20px;
+}</style>
 </head>
 <body>
 
@@ -74,7 +75,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
