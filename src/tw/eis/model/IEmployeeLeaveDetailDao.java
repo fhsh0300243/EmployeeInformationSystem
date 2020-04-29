@@ -16,7 +16,7 @@ public interface IEmployeeLeaveDetailDao {
 
 	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType);
 
-	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, int year);
+	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, String year);
 
 	public String getLeaveTypeTag(int employeeId);
 }
