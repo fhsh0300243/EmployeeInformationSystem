@@ -268,7 +268,7 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 	}
 
 	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		String hqlstr = "from ApplyForLeave where (:Time BETWEEN StartTime AND EndTime) and SigningProgress='同意'";
 		Query<ApplyForLeave> query = session.createQuery(hqlstr, ApplyForLeave.class);

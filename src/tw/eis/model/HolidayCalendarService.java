@@ -1,13 +1,9 @@
 package tw.eis.model;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import tw.eis.model.HolidayCalendar;
-import tw.eis.model.HolidayCalendarDAO;
 
 @Service
 public class HolidayCalendarService {
@@ -27,12 +23,12 @@ public class HolidayCalendarService {
 		return calendarDao.InqueryCalendarToday(todaystr);
 	}
 
-	public void InsertCalendar(Employee Emp, String date, String dateType, String remark) {
-		calendarDao.InsertCalendar(Emp, date, dateType, remark);
+	public void InsertCalendar(Employee Emp, java.sql.Date Date, String dateType, String remark) {
+		calendarDao.InsertCalendar(Emp, Date, dateType, remark);
 	}
 
-	public void UpdateCalendar(Employee Emp, String date, String dateType, String remark) {
-		calendarDao.UpdateCalendar(Emp, date, dateType, remark);
+	public void UpdateCalendar(Employee Emp, java.sql.Date Date, String dateType, String remark)  {
+		calendarDao.UpdateCalendar(Emp, Date, dateType, remark);
 	}
 
 	public void DeleteCalendar(List<String> date) {

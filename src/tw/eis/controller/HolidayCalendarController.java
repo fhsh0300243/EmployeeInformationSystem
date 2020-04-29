@@ -1,5 +1,6 @@
 package tw.eis.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class HolidayCalendarController {
 		this.HCService = HCService;
 	}
 
+	//查詢當年國定假日行事曆
 	@RequestMapping(path = "/InqueryCalendar", method = RequestMethod.GET)
 	public String InqueryCalendar(@ModelAttribute("LoginOK") Users userBean,
 			HttpServletRequest request) {
@@ -39,21 +41,25 @@ public class HolidayCalendarController {
 			return "HolidayCalendarSetup";
 	}
 
+	//新增、修改國定假日行事曆
 	@RequestMapping(path = "/HolidayAction", method = RequestMethod.POST)
 	public String HolidayAction(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("action") int action, @RequestParam("date") String date,
 			@RequestParam("dateType") String dateType, @RequestParam("remark") String remark,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		Employee Emp = userBean.getEmployee();
-		System.out.println(date);
+		SimpleDateFormat nowdate = new SimpleDateFormat("MM/dd/yyyy");
+		java.util.Date utildate = nowdate.parse(date);
+		java.sql.Date Date = new java.sql.Date(utildate.getTime());
 		if (action == 1) {
-			HCService.InsertCalendar(Emp, date, dateType, remark);
+			HCService.InsertCalendar(Emp, Date, dateType, remark);
 		} else {
-			HCService.UpdateCalendar(Emp, date, dateType, remark);
+			HCService.UpdateCalendar(Emp, Date, dateType, remark);
 		}
 		return "redirect:/InqueryCalendar";
 	}
 
+	//刪除國定假日行事曆
 	@RequestMapping(path = "/DeleteCalendar", method = RequestMethod.POST)
 	public String DeleteCalendar(@RequestParam("Date") List<String> date) {
 		HCService.DeleteCalendar(date);

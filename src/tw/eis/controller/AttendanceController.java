@@ -2,11 +2,15 @@ package tw.eis.controller;
 
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,40 +27,35 @@ import tw.eis.model.Attendance;
 import tw.eis.model.AttendanceService;
 import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
-import tw.eis.model.HolidayCalendar;
-import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.Users;
-import tw.eis.model.UsersService;
 
 @Controller
 @SessionAttributes(value = { "empID", "EmployeeID", "LoginOK" })
 public class AttendanceController {
 
 	private AttendanceService AttService;
-	private UsersService UService;
-	private HolidayCalendarService HCService;
 	private EmployeeService EmService;
 
 	@Autowired
-	public AttendanceController(AttendanceService AttService, UsersService UService, HolidayCalendarService HCService,
-			EmployeeService EmService) {
+	public AttendanceController(AttendanceService AttService, EmployeeService EmService) {
 		this.AttService = AttService;
-		this.UService = UService;
-		this.HCService = HCService;
 		this.EmService = EmService;
 	}
 
-	@RequestMapping(path = "/gotoAttendanceOwnPage", method = RequestMethod.GET)
+	//轉至個人查詢頁面
+	@RequestMapping(path = "/gotoAttendanceOwnPage", method = RequestMethod.GET)	
 	public String gotoAttendanceOwnPage() {
 		return "AttendanceOwnPage";
 	}
 
-	@RequestMapping(path = "/gotoAttendanceDepartmentPage", method = RequestMethod.GET)
+	//轉至部門查詢頁面
+	@RequestMapping(path = "/gotoAttendanceDepartmentPage", method = RequestMethod.GET)	
 	public String goToInquiryDepartmentPage() {
 		return "AttendanceDepartmentPage";
 	}
 
-	@RequestMapping(path = "/InquiryAttendance", method = RequestMethod.POST)
+	//執行個人出勤查詢(月份)
+	@RequestMapping(path = "/InquiryAttendance", method = RequestMethod.POST)	
 	public String InquiryAttendance(@ModelAttribute("LoginOK") Users userBean, @RequestParam("month") String month,
 			HttpServletRequest request) throws Exception {
 		List<Attendance> attlist = AttService.InquiryAttendance(userBean.getEmployeeID(), month);
@@ -65,6 +64,7 @@ public class AttendanceController {
 		return "AttendanceOwnPage";
 	}
 
+	//主管執行員工出勤查詢(月份)
 	@RequestMapping(path = "/InquiryAttendanceByBoss", method = RequestMethod.GET)
 	public String InquiryAttendanceByBoss(@RequestParam("EmpId") String EmpId, @RequestParam("month") String month,
 			HttpServletRequest request) throws Exception {
@@ -75,6 +75,7 @@ public class AttendanceController {
 		return "AttendanceOwnPage";
 	}
 
+	//主管執行部門出勤查詢
 	@RequestMapping(path = "/InquiryAttendanceDepartment", method = RequestMethod.POST)
 	public String InquiryAttendanceDepartment(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
@@ -90,6 +91,12 @@ public class AttendanceController {
 					countMap.put(element, countError);
 				}
 			}
+			List<Map.Entry<Employee, Integer>> list = new ArrayList<Map.Entry<Employee, Integer>>(countMap.entrySet());
+			Collections.sort(list, new Comparator<Map.Entry<Employee, Integer>>() {
+				public int compare(Entry<Employee, Integer> o1, Entry<Employee, Integer> o2) {
+					return o1.getValue().compareTo(o2.getValue());
+				}
+			});
 			request.setAttribute("month", month);
 			request.setAttribute("countMap", countMap);
 			return "AttendanceDepartmentPage";
@@ -99,6 +106,7 @@ public class AttendanceController {
 		}
 	}
 
+	//執行個人當日出勤查詢
 	@RequestMapping(path = "/InquiryToday", method = RequestMethod.GET)
 	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request) throws Exception {
 		List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
@@ -106,6 +114,7 @@ public class AttendanceController {
 		return "AttendancePunchPage";
 	}
 
+	//執行打卡動作
 	@RequestMapping(path = "/PunchAction", method = RequestMethod.POST)
 	public String PunchAction(@ModelAttribute("LoginOK") Users userBean) throws Exception {
 		try {

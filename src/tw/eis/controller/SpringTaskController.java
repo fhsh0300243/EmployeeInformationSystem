@@ -8,6 +8,8 @@ import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.eis.model.ApplyForLeave;
@@ -37,7 +39,9 @@ public class SpringTaskController {
 		this.LeaveService = LeaveService;
 	}
 
-	public void CreateTable0300() {
+	//新建當天出勤資料表
+	@RequestMapping(path = "/CreateTable0300", method = RequestMethod.GET)
+	public String CreateTable0300() {
 		try {
 			SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 			nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
@@ -71,9 +75,12 @@ public class SpringTaskController {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
+		return "AttendancePunchPage";
 	}
 
-	public void CheckStatus0830() {
+	//判斷上班刷卡有無異常
+	@RequestMapping(path = "/CheckStatus0830", method = RequestMethod.GET)
+	public String CheckStatus0830() {
 		try {
 			SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 			nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
@@ -122,9 +129,12 @@ public class SpringTaskController {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
+		return "AttendancePunchPage";
 	}
 
-	public void CheckStatus2330() {
+	//判斷全天刷卡有無異常
+	@RequestMapping(path = "/CheckStatus2330", method = RequestMethod.GET)
+	public String CheckStatus2330() {
 		try {
 			SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 			nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
@@ -176,6 +186,7 @@ public class SpringTaskController {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
+		return "AttendancePunchPage";
 	}
 
 }

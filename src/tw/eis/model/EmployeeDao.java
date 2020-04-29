@@ -41,7 +41,7 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	public List<Employee> allEmpIdforTask() {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Query<Employee> query = session.createQuery("From Employee", Employee.class);
 		List<Employee> list = query.list();
@@ -203,5 +203,5 @@ public class EmployeeDao implements IEmployeeDao {
 			}
 		}
 	}
-	
+
 }
