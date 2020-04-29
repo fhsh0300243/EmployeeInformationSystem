@@ -75,7 +75,7 @@ public class AttendanceDAO {
 
 	public void UpdateEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		String hqlstr = "Update Attendance SET EndTime=:Time where Date=:Date and EmpId=:Employee";
-		Query query = getSession().createQuery(hqlstr);
+		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Time", Time);
 		query.setParameter("Date", Date);
 		query.setParameter("Employee", Emp);
@@ -84,7 +84,7 @@ public class AttendanceDAO {
 
 	public void UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
 		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";
-		Query query = getSession().createQuery(hqlstr);
+		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Status", Status);
 		query.setParameter("Date", Date);
 		query.setParameter("EmployeeID", usersResultMap.get("EmployeeID"));
@@ -107,7 +107,7 @@ public class AttendanceDAO {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		String hqlstr = "Update Attendance SET Status=:Status ,LeaveType=:LeaveType where Date=:Date and EmpId=:EmployeeID";
-		Query query = session.createQuery(hqlstr);
+		Query<?> query = session.createQuery(hqlstr);
 		query.setParameter("Status", Status);
 		query.setParameter("LeaveType", LeaveType);
 		query.setParameter("Date", Date);
@@ -164,7 +164,7 @@ public class AttendanceDAO {
 	public int CountError(Employee Emp, String month) {
 		getSession().beginTransaction();
 		String hqlstr = "Select Count(Status) from Attendance where EmpId=:Emp and Date like :month and Status='異常'";
-		Query query = getSession().createQuery(hqlstr);
+		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Emp", Emp);
 		query.setParameter("month", month + "%");
 		Object result = query.uniqueResult();
