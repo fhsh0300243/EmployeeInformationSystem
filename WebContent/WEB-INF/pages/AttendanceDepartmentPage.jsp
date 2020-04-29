@@ -13,6 +13,7 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="stylesheet" type="text/css" href="css/SearchPage.css">
 <link rel="icon" href="images/favicon.ico">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -31,8 +32,9 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -44,8 +46,9 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -73,41 +76,27 @@ b{
 									type="submit" value="查詢" class="btn btn-info" />
 							</div>
 						</form>
-						<table width="500" border="1">
+						<table id="idtable1">
 							<tr>
-								<td><b>員工ID</b></td>
-								<td><b>姓名</b></td>
-								<td><b>部門</b></td>
-								<td><b>職稱</b></td>
-								<td><b>異常次數</b></td>
-								<td><b>詳細資料</b></td>
+								<th>員工ID</th>
+								<th>姓名</th>
+								<th>部門</th>
+								<th>職稱</th>
+								<th>異常次數</th>
+								<th>詳細資料</th>
 							</tr>
-							<%
-								Map<Employee, Integer> countMap = (Map<Employee, Integer>) request.getAttribute("countMap");
-								if (countMap == null || countMap.size() < 1) {
-							%>
-							<tr id="test">
-								<td align="center" colspan="6">沒有資料!</td>
-							</tr>
-							<%
-								} else {
-									for (Map.Entry<Employee, Integer> element : countMap.entrySet()) {
-							%>
-
-							<tr align="center">
-								<td><%=element.getKey().getEmpID()%></td>
-								<td><%=element.getKey().getName()%></td>
-								<td><%=element.getKey().getDepartment()%></td>
-								<td><%=element.getKey().getTitle()%></td>
-								<td><%=element.getValue()%></td>
-								<td><input type="submit"
-									name="IDinformation" id="<%=element.getKey().getEmpID()%>" value="詳細資料"
-									class="btn btn-info"></td>
-							</tr>
-							<%
-								}
-								}
-							%>
+							<c:forEach var='element' items='${countMap}' varStatus='vs'>
+								<tr class='classtr1'>
+									<td>${element.getKey().getEmpID()}</td>
+									<td>${element.getKey().getName()}</td>
+									<td>${element.getKey().getDepartment()}</td>
+									<td>${element.getKey().getTitle()}</td>
+									<td>${element.getValue()}</td>
+									<td><input type="submit" name="IDinformation"
+										id="${element.getKey().getEmpID()}" value="詳細資料"
+										class="btn btn-info"></td>
+								</tr>
+							</c:forEach>
 						</table>
 						<div class="list_footer">
 							<div id="tag"></div>

@@ -12,6 +12,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="stylesheet" type="text/css" href="css/SearchPage.css">
 <link rel="icon" href="images/favicon.ico">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -27,13 +28,15 @@ p {
 .well, .panel {
 	text-align: center;
 }
-.tb{
+
+.tb {
 	position: relative;
 	width: 70%;
 	left: 28.5%;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -46,8 +49,9 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -76,39 +80,26 @@ b{
 								value="送出" class="btn btn-info" />
 						</form>
 						<hr />
-						<form class="tb" action="<c:url value='/DeleteCalendar'/>" method="post">
-							<table width="500" border="1">
+						<form class="tb" action="<c:url value='/DeleteCalendar'/>"
+							method="post">
+							<table id="idtable1">
 								<tr>
-									<td><b>日期</b></td>
-									<td><b>種類</b></td>
-									<td><b>備註</b></td>
-									<td><b>新增人員ID</b></td>
-									<td><b><input type="submit" value="移除" class="btn btn-info"></b></td>
+									<th>日期</th>
+									<th>種類</th>
+									<th>備註</th>
+									<th>新增人員ID</th>
+									<th><input type="submit" value="移除" class="btn btn-info"></th>
 								</tr>
-								<%
-									List<HolidayCalendar> calenderlist = (List<HolidayCalendar>) request.getAttribute("calenderlist");
-									if (calenderlist == null || calenderlist.size() < 1) {
-								%>
-								<tr id="test">
-									<td align="center" colspan="5">沒有資料!</td>
-								</tr>
-								<%
-									} else {
-										for (HolidayCalendar cal : calenderlist) {
-								%>
-
-								<tr align="center">
-									<td><%=cal.getDate()%></td>
-									<td><%=cal.getDateType()%></td>
-									<td><%=cal.getRemark()%></td>
-									<td><%=cal.getEmployee().getEmpID()%></td>
-									<td><input type="checkbox" name="Date"
-										value="<%=cal.getDate()%>"></td>
-								</tr>
-								<%
-									}
-									}
-								%>
+								<c:forEach var='cal' items='${calenderlist}' varStatus='vs'>
+									<tr class='classtr1'>
+										<td>${cal.getDate()}</td>
+										<td>${cal.getDateType()}</td>
+										<td>${cal.getRemark()}</td>
+										<td>${cal.getEmployee().getEmpID()}</td>
+										<td><input type="checkbox" name="Date"
+											value="${cal.getDate()}"></td>
+									</tr>
+								</c:forEach>
 							</table>
 						</form>
 

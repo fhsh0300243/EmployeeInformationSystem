@@ -2,6 +2,7 @@ package tw.eis.controller;
 
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,14 +19,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.eis.model.AssignWork;
 import tw.eis.model.Attendance;
 import tw.eis.model.AttendanceService;
 import tw.eis.model.BulletinBoard;
 import tw.eis.model.BulletinBoardService;
 import tw.eis.model.Department;
 import tw.eis.model.DepartmentService;
+import tw.eis.model.DepartmentalAnnualGoals;
+import tw.eis.model.DepartmentalAnnualGoalsService;
 import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
+import tw.eis.model.PersonalQuarterlyTarget;
+import tw.eis.model.PersonalQuarterlyTargetService;
 import tw.eis.model.Title;
 import tw.eis.model.TitleService;
 import tw.eis.model.Users;
@@ -36,7 +42,7 @@ import tw.eis.util.AESUtil;
 import tw.eis.util.GlobalService;
 
 @Controller
-@SessionAttributes(value = { "empID", "EmployeeID", "LoginOK" })
+@SessionAttributes(value = { "empID", "EmployeeID", "LoginOK","rate" })
 public class EmployeeAction {
 
 	private UsersService uService;
@@ -46,12 +52,15 @@ public class EmployeeAction {
 	private BulletinBoardService bService;
 	private AttendanceService aService;
 	private feeAppService feeAppService;
+	private DepartmentalAnnualGoalsService dagService;
+	private PersonalQuarterlyTargetService pqtService;
 	AESUtil aes = new AESUtil();
 
 	@Autowired
 	public EmployeeAction(UsersService uService, EmployeeService eService, DepartmentService dService,
 			TitleService tService, BulletinBoardService bService, AttendanceService aService,
-			feeAppService feeAppService) {
+			feeAppService feeAppService, DepartmentalAnnualGoalsService dagService,
+			PersonalQuarterlyTargetService pqtService) {
 		this.uService = uService;
 		this.eService = eService;
 		this.dService = dService;
@@ -59,6 +68,8 @@ public class EmployeeAction {
 		this.bService = bService;
 		this.aService = aService;
 		this.feeAppService = feeAppService;
+		this.dagService = dagService;
+		this.pqtService = pqtService;
 	}
 
 	@RequestMapping(path = "/EmployeePage.do", method = RequestMethod.GET)
@@ -108,6 +119,22 @@ public class EmployeeAction {
 		return "AuthorityErrorPage";
 	}
 
+	@RequestMapping(path = "/QueryPerformance.do", method = RequestMethod.GET)
+	public String processQueryPerformancePage(@ModelAttribute("EmployeeID") String empId) {
+		int level = 0;
+		try {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+			// level=LoginOK.getEmployee().getEmpTitle().getLevel();
+		} catch (Exception e) {
+			System.out.println("e:" + e);
+			level = 0;
+		}
+		if (level == 1 || level == 2 || level == 3 || level == 4) {
+			return "QueryPerformance";
+		}
+		return "AuthorityErrorPage";
+	}
+
 	@RequestMapping(path = "/QueryEmpAttendance.do", method = RequestMethod.GET)
 	public String processQueryEmpAttendancePage(@ModelAttribute("EmployeeID") String empId) {
 		int level = 0;
@@ -128,14 +155,14 @@ public class EmployeeAction {
 	public String processAddEmployee(@ModelAttribute("EmployeeID") String empId) {
 		int level = 0;
 		try {
-		level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
-	} catch (Exception e) {
+			level = eService.empData(Integer.parseInt(empId)).getEmpTitle().getLevel();
+		} catch (Exception e) {
 			level = 0;
 		}
 		if (level == 1 || level == 2 || level == 3) {
 			return "AddEmployee";
-	}	
-	    return "AuthorityErrorPage";
+		}
+		return "AuthorityErrorPage";
 	}
 
 	@RequestMapping(path = "/EditEmployee.do", method = RequestMethod.GET)
@@ -557,6 +584,7 @@ public class EmployeeAction {
 					jsonobject.put("manager", ((Employee) emp).getManager().getName());
 				}
 				jsonobject.put("empID", ((Employee) emp).getEmpID());
+				jsonobject.put("account", ((Employee) emp).getUsers().getUserName());
 				jsonobject.put("name", ((Employee) emp).getName());
 				jsonobject.put("gender", ((Employee) emp).getGender());
 				if (((Employee) emp).getBirthDay() == null) {
@@ -626,7 +654,7 @@ public class EmployeeAction {
 			for (feeAppMember fee : list) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("empID", fee.getEmployeeID().getEmpID());
-				jsonobject.put("name", fee.getEmployeeID().getName()); 
+				jsonobject.put("name", fee.getEmployeeID().getName());
 				jsonobject.put("appItem", fee.getAppItem());
 				jsonobject.put("invoiceTime", fee.getInvoiceTime());
 				jsonobject.put("invoiceNb", fee.getInvoiceNb());
@@ -642,6 +670,92 @@ public class EmployeeAction {
 		}
 	}
 
+	@RequestMapping(path = "/YearDeptGoals.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String thisYearAllDeptGoals() {
+		try {
+			JSONArray jsonarray = new JSONArray();
+			for (DepartmentalAnnualGoals dag : dagService.thisYearAllDeptGoals()) {
+				JSONObject jsonobject = new JSONObject();
+				//jsonobject.put("deptID", dag.getDepartment().getDeptID()); 先註解掉
+				jsonobject.put("deptname", dag.getDeptName());
+				jsonobject.put("goal", dag.getDepartmentAnnualGoal());
+				jsonobject.put("setupdate", GlobalService.formatToyyyyMMdd(dag.getDate()));
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		} catch (Exception e) {
+			System.out.println("From thisYearAllDeptGoals:" + e);
+			return "[]";
+		}
+	}
+
+	@RequestMapping(path = "/DeptPersonTargetDetail.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String deptPersonTargetDetail(@RequestParam(name = "deptid", required = false) String deptid) {
+		try {
+			JSONArray jsonarray = new JSONArray();
+			for (PersonalQuarterlyTarget pqt : pqtService.thisSeasonDeptPsersonTargetDetail(Integer.parseInt(deptid))) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("pID", pqt.getPid());
+				jsonobject.put("deptname", pqt.getDeptName());
+				jsonobject.put("target", pqt.getPersonalQuarterlyTarget());
+				jsonobject.put("setter", pqt.getGoalSetters());
+				jsonobject.put("setupdate", GlobalService.formatToyyyyMMdd(pqt.getDate()));
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		} catch (Exception e) {
+			System.out.println("From deptPersonTargetDetail:" + e);
+			return "[]";
+		}
+	}
+
+	@RequestMapping(path = "/calculateGoalAchievementRate.action", method = RequestMethod.POST, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String calculateGoalAchievementRate(@RequestParam(name = "jsondata", required = false) String jsonstr) {
+		try {
+			JSONArray jay = new JSONArray(jsonstr);
+			JSONArray jsonarray = new JSONArray();
+			LinkedList<Integer> pids=new LinkedList<Integer>();
+			for(int i=0;i<jay.length();i++) {
+				pids.add(jay.getJSONObject(i).getInt("pID"));		
+			}
+			LinkedList<String> data = pqtService.deptGoalAchievementRate(pids);		
+			for(String d:data){
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("rate", d);
+				jsonarray.put(jsonobject);
+			}
+			return jsonarray.toString();
+		}catch(Exception e) {
+			System.out.println("From calculateGoalAchievementRate:" + e);
+			return "[]";
+		}
+
+	}
+
+	@RequestMapping(path = "/personGoalAchievementStatus.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
+	public @ResponseBody String personGoalAchievementStatus(@RequestParam(name = "pid", required = false) String pidstr) {
+		try {
+			JSONArray jsonarray = new JSONArray();
+			List<AssignWork> list = pqtService.personGoalAchievementstatus(Integer.parseInt(pidstr));
+			for(AssignWork a:list) {
+				JSONObject jsonobject = new JSONObject();
+				jsonobject.put("name", eService.empData(a.getEmpID()).getName());
+				jsonobject.put("work", a.getWork());
+				if(a.getWorkStatus()==3) {
+					jsonobject.put("status", "已完成");
+				}else {
+					jsonobject.put("status", "未完成");
+				}	
+				jsonarray.put(jsonobject);
+			}		
+			return jsonarray.toString();
+		}catch(Exception e) {
+			System.out.println("From personGoalAchievementStatus:" + e);
+			return "[]";
+		}
+
+	}
+	
 	@RequestMapping(path = "/QueryEmpAttdenance.action", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
 	public @ResponseBody String queryEmpAttendance(@RequestParam(name = "searchid", required = false) String idstr,
 			@RequestParam(name = "searchname", required = false) String Name,
@@ -730,6 +844,7 @@ public class EmployeeAction {
 					jsonobject.put("manager", ((Employee) emp).getManager().getName());
 				}
 				jsonobject.put("empID", ((Employee) emp).getEmpID());
+				jsonobject.put("account", ((Employee) emp).getUsers().getUserName());
 				jsonobject.put("name", ((Employee) emp).getName());
 				jsonobject.put("gender", ((Employee) emp).getGender());
 				if (((Employee) emp).getBirthDay() == null) {
@@ -786,7 +901,11 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		feeAppService.deptFeeApplyCostPercent();
+		List<AssignWork> list = pqtService.personGoalAchievementstatus(1);
+		for(AssignWork a:list) {
+			System.out.println("name:"+eService.empData(a.getEmpID()).getName());
+			System.out.println("status:"+a.getWorkStatus());
+		}
 	}
 
 }

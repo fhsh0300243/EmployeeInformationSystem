@@ -1,7 +1,11 @@
 package tw.eis.model;
 
 import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,4 +54,16 @@ public class PersonalQuarterlyTargetService {
 	public String getusername(Model m,int empid) {
 		return pqtDao.getusername(m, empid);
 	}
+		
+	//add by 揚明---start
+	public List<PersonalQuarterlyTarget> thisSeasonDeptPsersonTargetDetail(int deptid){
+		return pqtDao.thisSeasonDeptPsersonTargetDetail(deptid);
+	}
+	public LinkedList<String> deptGoalAchievementRate(LinkedList<Integer> pids) {
+		return pqtDao.deptGoalAchievementRate(pids);
+	}
+	public List<AssignWork> personGoalAchievementstatus(int pid){
+		return pqtDao.personGoalAchievementstatus(pid);
+	}
+	//add by 揚明---end
 }

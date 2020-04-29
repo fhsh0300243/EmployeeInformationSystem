@@ -85,7 +85,7 @@ public class EmployeeLeaveDetailDao implements IEmployeeLeaveDetailDao {
 	}
 
 	@Override
-	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, int year) {
+	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, String year) {
 		Query<EmployeeLeaveDetail> query = getSession().createQuery(
 				"From EmployeeLeaveDetail Where EmployeeID=?0 and LeaveType=?1 and StartDate=?2",
 				EmployeeLeaveDetail.class);
