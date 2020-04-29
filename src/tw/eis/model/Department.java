@@ -29,7 +29,8 @@ public class Department implements Serializable{
 	private String deptAbb;
 	private Set<Employee> employees=new LinkedHashSet<Employee>();
 	private Set<Title> titles=new LinkedHashSet<Title>();
-
+	//private Set<PersonalQuarterlyTarget> pqts=new LinkedHashSet<PersonalQuarterlyTarget>();
+	//private Set<DepartmentalAnnualGoals> dags=new LinkedHashSet<DepartmentalAnnualGoals>();
 
 	@Id
 	@Column(name = "DEPTID")
@@ -77,4 +78,23 @@ public class Department implements Serializable{
 	public void setTitles(Set<Title> titles) {
 		this.titles = titles;
 	}
+
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "department",cascade = CascadeType.ALL)
+//	public Set<PersonalQuarterlyTarget> getPqts() {
+//		return pqts;
+//	}
+//
+//	public void setPqts(Set<PersonalQuarterlyTarget> pqts) {
+//		this.pqts = pqts;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "department",cascade = CascadeType.ALL)
+//	public Set<DepartmentalAnnualGoals> getDags() {
+//		return dags;
+//	}
+//
+//	public void setDags(Set<DepartmentalAnnualGoals> dags) {
+//		this.dags = dags;
+//	}
+	
 }

@@ -113,7 +113,8 @@ import tw.eis.model.Users;
 				@WebInitParam(name = "mustLogin89", value = "/InsertPQT"), 
 				@WebInitParam(name = "mustLogin90", value = "/fivedept"), 
 				@WebInitParam(name = "mustLogin91", value = "/qatarget"),
-				@WebInitParam(name = "mustLogin92", value = "/performance")
+				@WebInitParam(name = "mustLogin92", value = "/performance"),
+				@WebInitParam(name = "mustLogin92", value = "/QueryPerformance.do")			
 		})
 public class LoginCheckingFilter implements Filter {
 	List<String> url = new ArrayList<String>();

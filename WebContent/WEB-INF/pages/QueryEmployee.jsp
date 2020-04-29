@@ -174,13 +174,14 @@ b{
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
+			var txt = "<tr><th>EmpID<th>帳號<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
 			for (let i = minData - 1; i < maxData; i++) {
 				txt += "<tr><td>" + emps[i].empID;
+				txt += "<td>" + emps[i].account;
 				txt += "<td>" + emps[i].department;
 				txt += "<td>" + emps[i].title;
 				txt += "<td>" + emps[i].name;
