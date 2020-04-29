@@ -34,6 +34,18 @@
 	webkit-user-select: none;
 	ms-user-select: none;
 }
+.chwli {
+	list-style-type: none;
+	margin: 10px;
+	border: 1px solid #ccc;
+	padding: 4px;
+	color: #666;
+	cursor: move;
+	user-select: none;
+	moz-user-select: none;
+	webkit-user-select: none;
+	ms-user-select: none;
+}
 </style>
 </head>
 <body>
@@ -48,7 +60,7 @@
 							var txt = "";
 							txt += "<ul id=\"wlist\">工作清單";
 							for (let i = 0; i < member.length; i++) {
-								txt += "<li class=\"wli\" id="+member[i].awID+"awid ="+member[i].awID+" draggable=\"true\">"
+								txt += "<li class=\"wli\" id="+member[i].awID+" awid ="+member[i].awID+" draggable=\"true\">"
 										+ member[i].Work;
 							}
 							txt += "</ui>"
@@ -86,16 +98,13 @@
 			event.preventDefault();
 			
 			var awid = nodeCopy.getAttribute("awid");
-			var wkchildren = event.target.children;
-			//for(i=0;i<wkchildren.length;i++){
-				//if(wkchildren[i].getAttribute("awid") == awid){
-					//event.dataTransfer.dropEffect = "none";
-					//return false;
-					//}
-				//};
-
-			nodeCopy = nodeCopy.cloneNode(true)			
-			event.target.appendChild(nodeCopy);
+			if((nodeCopy.getAttribute("class")) == "wli"){
+				//nodeCopy = nodeCopy.cloneNode(true);
+				nodeCopy.setAttribute("class", "chwli");
+				event.target.appendChild(nodeCopy);
+			}else if((nodeCopy.getAttribute("class")) == "chwli")	{
+				event.target.appendChild(nodeCopy);
+			}	
 			$.post("workstatus", {
 				awid : data,
 				wkstatus : wkstatus
@@ -103,7 +112,15 @@
 				if (status == "success")
 					console.log("change work status success");
 			})
-		})
+			$(document).on("dragover", ".chwli", function(event) {
+				event.dataTransfer.dropEffect = "none"
+			})
+			$(document).on("dragstart", ".chwli", function(event) {
+				event.dataTransfer.effectAllowed = "Move";
+				event.dataTransfer.setData("text/plain", event.target.id);
+				console.log(this.innerHTML);
+			});
+		});
 	</script>
 </body>
 </html>

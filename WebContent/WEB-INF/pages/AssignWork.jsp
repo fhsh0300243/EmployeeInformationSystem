@@ -218,10 +218,10 @@ b {
 					}
 				};
 			if ((nodeCopy.getAttribute("class")) == "emul") {
-				nodeCopy = nodeCopy.cloneNode(true)
+				nodeCopy = nodeCopy.cloneNode(true);
 				nodeCopy.setAttribute("wid", cwid);
 				nodeCopy.setAttribute("class", "chemul");
-				nodeCopy.setAttribute("id", data + "ch")
+				nodeCopy.setAttribute("id", data + "ch");
 				//nodeCopy.id = "newId";
 				event.target.appendChild(nodeCopy)
 			} else if ((nodeCopy.getAttribute("class")) == "chemul") {
