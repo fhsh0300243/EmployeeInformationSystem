@@ -1,6 +1,7 @@
 package tw.eis.controller;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -149,7 +150,7 @@ public class feeAppAction {
 	public String SingerPassPage(@ModelAttribute("LoginOK") Users LoginOK, @RequestParam("feeAppID") int feeAppID,
 			@RequestParam("decide") String signerStatus, Model model) {
 
-		SimpleDateFormat SingerFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		SimpleDateFormat SingerFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		String singerTime = SingerFormat.format(date);
 
@@ -219,13 +220,23 @@ public class feeAppAction {
 		return "FeeSingerDecide";
 	}
 
-//	即時顯示主管是否簽核 by GK
+//	主管登入查看有無新申請請需要簽核 by GK
 
 	@RequestMapping(path = "/queySingerPage", method = RequestMethod.GET,produces = "html/text;charset=utf-8")
 	public @ResponseBody String queySingerPage(@ModelAttribute("LoginOK") Users LoginOK) {
 		return Integer.toString(feeAppService.query(LoginOK.getEmployeeID()));
 	}
 
-//	end
+//	員工查詢是否主管以簽核或退件
+
+	@RequestMapping(path = "/querysucess", method = RequestMethod.GET,produces = "html/text;charset=utf-8")
+	public @ResponseBody String querysucess(@ModelAttribute("LoginOK") Users LoginOK,@RequestParam String oldDate,@RequestParam String newDate) throws ParseException {
+		System.out.println("oldDate:"+oldDate);
+		System.out.println("newDate:"+newDate);
+		
+		return Integer.toString(feeAppService.querysucess(LoginOK.getEmployeeID(),oldDate,newDate));
+	}
+
+//	GK End
 
 }

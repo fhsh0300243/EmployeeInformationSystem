@@ -33,6 +33,7 @@ public class EmployeeLeaveDetailDao implements IEmployeeLeaveDetailDao {
 	@Override
 	public void updateHours(int eldId, EmployeeLeaveDetail employeeLeaveDetail) {
 		EmployeeLeaveDetail result = getSession().get(EmployeeLeaveDetail.class, eldId);
+		result.setMaxHours(employeeLeaveDetail.getMaxHours());
 		result.setUsedHours(employeeLeaveDetail.getUsedHours());
 		result.setApplyHours(employeeLeaveDetail.getApplyHours());
 		result.setSurplusHours(employeeLeaveDetail.getSurplusHours());
@@ -79,6 +80,21 @@ public class EmployeeLeaveDetailDao implements IEmployeeLeaveDetailDao {
 		EmployeeLeaveDetail result = list.get(0);
 		if (result != null) {
 			return result;
+		}
+		return null;
+	}
+
+	@Override
+	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, int year) {
+		Query<EmployeeLeaveDetail> query = getSession().createQuery(
+				"From EmployeeLeaveDetail Where EmployeeID=?0 and LeaveType=?1 and StartDate=?2",
+				EmployeeLeaveDetail.class);
+		query.setParameter(0, employeeId);
+		query.setParameter(1, leaveType);
+		query.setParameter(2, year);
+		List<EmployeeLeaveDetail> list = query.list();
+		if (list.size() != 0) {
+			return list;
 		}
 		return null;
 	}

@@ -133,12 +133,23 @@ public class feeAppDAO implements IfeeAppDAO {
 		return true;
 	}
 	
-//	查詢主管是否有簽核 by GK
+//	主管登入查看有無新申請請需要簽核 by GK
 	public int query(int ID) {
 		Session session = sessionFacotry.getCurrentSession();
 		System.out.println("id:"+ID);
 		Query Query = session.createQuery("from feeAppMember where signerID=:signerID and signerStatus='簽核中'");
 		Query.setInteger("signerID", ID);
+		return Query.list().size();
+	}
+	
+//	員工查詢是否主管以簽核或退件
+	public int querysucess(int ID,String oldDate,String newDate) {
+		Session session = sessionFacotry.getCurrentSession();
+		System.out.println("id:"+ID);
+		Query Query = session.createQuery("from feeAppMember where employeeID=:employeeID and signerStatus<>'簽核中' and (signerTime>:oldDate and signerTime<:newDate)");
+		Query.setInteger("employeeID", ID);
+		Query.setString("oldDate", oldDate);
+		Query.setString("newDate", newDate);
 		return Query.list().size();
 	}
 //  End	
@@ -743,4 +754,10 @@ public class feeAppDAO implements IfeeAppDAO {
 		return detail;
 	}
 	// add by 揚明--end
+
+	@Override
+	public boolean DelectItem(int feeAppID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
