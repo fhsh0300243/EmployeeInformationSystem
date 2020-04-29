@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -425,5 +426,234 @@ public class AFLController {
 		BigDecimal sumHHoliday = new BigDecimal(count * 8.0);
 		BigDecimal sumH = sumHRaw.subtract(sumHHoliday);
 		return sumH;
+	}
+
+	@RequestMapping(path = "/insertLT", method = RequestMethod.POST)
+	public String processInsertAction(@ModelAttribute("LoginOK") Users userBean, @RequestParam("empID") String empID,
+			@RequestParam("leaveType") String[] listLT, @RequestParam("year") String year,
+			@RequestParam("hours") String hours, @RequestParam("selWho") String who, Model model) {
+		System.out.println("RUN1");
+
+		int userID = userBean.getEmployeeID();
+		int empLevel = eService.empData(userID).getLevel();
+		model.addAttribute("empLevel", empLevel);
+
+		Integer empIDINT = Integer.valueOf(empID);
+		Integer yearINT = Integer.valueOf(year);
+		Integer whoINT = Integer.valueOf(who);
+
+		Map<String, String> ErrorMap = new HashMap<String, String>();
+		for (String leaveType : listLT) {
+			if (leaveType == "s") {
+				List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "事假", yearINT);
+				if (eldList != null) {
+					String sError = year + "年事假重複建立";
+					ErrorMap.put("sError", sError);
+				}
+			}
+			if (leaveType == "b") {
+				List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "病假", yearINT);
+				if (eldList != null) {
+					String bError = year + "年病假重複建立";
+					ErrorMap.put("bError", bError);
+				}
+			}
+			if (leaveType == "t") {
+				List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "特休", yearINT);
+				if (eldList != null) {
+					String tError = year + "年特休重複建立";
+					ErrorMap.put("tError", tError);
+				}
+			}
+		}
+		if (ErrorMap.size() > 0) {
+			model.addAttribute("ErrorMap", ErrorMap);
+			return "InsertLeaveType";
+		} else {
+
+			EmployeeLeaveDetail eldBean = new EmployeeLeaveDetail();
+
+			Date cTime = new Date();
+			String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+			eldBean.setCreateTime(createTime);
+
+			Employee ueBean = eService.empData(userID);
+			eldBean.setCreatorId(ueBean);
+
+			Employee eeBean = eService.empData(empIDINT);
+			eldBean.setEmployeeId(eeBean);
+
+			eldBean.setUsedHours(new BigDecimal(0.0));
+			eldBean.setApplyHours(new BigDecimal(0.0));
+
+			for (String leaveType : listLT) {
+				if (leaveType == "s") {
+					eldBean.setLeaveType("事假");
+					eldBean.setMaxHours(new BigDecimal(112.0));
+					eldBean.setSurplusHours(new BigDecimal(112.0));
+					eldBean.setStartDate(new java.sql.Date(yearINT / 1 / 1));
+					eldBean.setEndDate(new java.sql.Date(yearINT / 12 / 31));
+					eldBean.setRemarks("1年內合計不得超過14日。");
+					eldService.addDetail(eldBean);
+				}
+				if (leaveType == "b") {
+					eldBean.setLeaveType("病假");
+					eldBean.setMaxHours(new BigDecimal(240.0));
+					eldBean.setSurplusHours(new BigDecimal(240.0));
+					eldBean.setStartDate(new java.sql.Date(yearINT / 1 / 1));
+					eldBean.setEndDate(new java.sql.Date(yearINT / 12 / 31));
+					eldBean.setRemarks("1年內合計不得超過30日。");
+					eldService.addDetail(eldBean);
+				}
+				if (leaveType == "t") {
+					eldBean.setLeaveType("特休");
+
+					java.sql.Date hireDay = eService.empData(empIDINT).getHireDay();
+
+					Calendar calT = Calendar.getInstance();
+					calT.setTime(hireDay);
+					int hYear = calT.get(Calendar.YEAR);
+					int hMonth = calT.get(Calendar.MONTH) + 1;
+					int hDay = calT.get(Calendar.DATE);
+
+					int workingYears = hYear - yearINT;
+					int tHours = 0;
+
+					if (workingYears == 0) {
+						calT.add(Calendar.MONTH, 6);
+						if (calT.get(Calendar.YEAR) == yearINT) {
+							eldBean.setMaxHours(new BigDecimal(24.0));
+							eldBean.setSurplusHours(new BigDecimal(24.0));
+
+							java.sql.Date sDate = (java.sql.Date) calT.getTime();
+							eldBean.setStartDate(sDate);
+
+							calT.add(Calendar.MONTH, 6);
+							calT.add(Calendar.DATE, -1);
+							java.sql.Date eDate = (java.sql.Date) calT.getTime();
+							eldBean.setEndDate(eDate);
+
+							eldBean.setRemarks("6個月至未滿1年：3日。");
+							eldService.addDetail(eldBean);
+						}
+						if (workingYears == 1) {
+							calT.add(Calendar.MONTH, 6);
+							if (calT.get(Calendar.YEAR) == yearINT) {
+								eldBean.setMaxHours(new BigDecimal(24.0));
+								eldBean.setSurplusHours(new BigDecimal(24.0));
+
+								java.sql.Date sDate = (java.sql.Date) calT.getTime();
+								eldBean.setStartDate(sDate);
+
+								calT.add(Calendar.MONTH, 6);
+								calT.add(Calendar.DATE, -1);
+								java.sql.Date eDate = (java.sql.Date) calT.getTime();
+								eldBean.setEndDate(eDate);
+
+								eldBean.setRemarks("6個月至未滿1年：3日。");
+								eldService.addDetail(eldBean);
+							}
+
+							eldBean.setMaxHours(new BigDecimal(56.0));
+							eldBean.setSurplusHours(new BigDecimal(56.0));
+
+							java.sql.Date sDate = new java.sql.Date(yearINT / hMonth / hDay);
+							eldBean.setStartDate(sDate);
+
+							calT.setTime(sDate);
+							calT.add(Calendar.MONTH, 12);
+							calT.add(Calendar.DATE, -1);
+							java.sql.Date eDate = (java.sql.Date) calT.getTime();
+							eldBean.setEndDate(eDate);
+
+							eldBean.setRemarks("工作滿第1年：7日。");
+							eldService.addDetail(eldBean);
+						}
+						if (workingYears >= 2) {
+							if (workingYears == 2) {
+								tHours = 80;
+								eldBean.setRemarks("工作滿第2年：10日。");
+							} else if (workingYears == 3 || workingYears == 4) {
+								tHours = 112;
+								eldBean.setRemarks("工作滿第3~4年：14日。");
+							} else if (workingYears >= 5 && workingYears <= 9) {
+								tHours = 120;
+								eldBean.setRemarks("工作滿第5~9年：15日。");
+							} else if (workingYears >= 10 && workingYears <= 23) {
+								int i = workingYears - 10;
+								tHours = (16 + i) * 8;
+								eldBean.setRemarks("工作滿第" + workingYears + "年：" + (16 + i) + "日。");
+							} else if (workingYears >= 24) {
+								tHours = 240;
+								eldBean.setRemarks("工作滿第24年含以上：30日。");
+							}
+							eldBean.setMaxHours(new BigDecimal(tHours));
+							eldBean.setSurplusHours(new BigDecimal(tHours));
+
+							java.sql.Date sDate = new java.sql.Date(yearINT / hMonth / hDay);
+							eldBean.setStartDate(sDate);
+
+							calT.setTime(sDate);
+							calT.add(Calendar.MONTH, 12);
+							calT.add(Calendar.DATE, -1);
+							java.sql.Date eDate = (java.sql.Date) calT.getTime();
+							eldBean.setEndDate(eDate);
+							eldService.addDetail(eldBean);
+						}
+					}
+
+					if (leaveType == "g") {
+						List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "公休", yearINT);
+						if (eldList != null) {
+							EmployeeLeaveDetail eldBeanOLD = eldList.get(0);
+							BigDecimal maxHNEW = eldBeanOLD.getMaxHours().add(new BigDecimal(hours));
+							eldBeanOLD.setMaxHours(maxHNEW);
+							BigDecimal surplusHNEW = eldBeanOLD.getSurplusHours().add(new BigDecimal(hours));
+							eldBeanOLD.setSurplusHours(surplusHNEW);
+							eldService.updateHours(eldBeanOLD.getEldId(), eldBeanOLD);
+						} else {
+							eldBean.setLeaveType("公假");
+							eldBean.setMaxHours(new BigDecimal(hours));
+							eldBean.setSurplusHours(new BigDecimal(hours));
+							eldBean.setStartDate(new java.sql.Date(yearINT / 1 / 1));
+							eldBean.setEndDate(new java.sql.Date(yearINT / 12 / 31));
+							eldBean.setRemarks("依法令規定應給予公假者，其時數視實際需要定之。");
+							eldService.addDetail(eldBean);
+						}
+					}
+
+					if (leaveType == "sa") {
+						int saHours = 0;
+						if (whoINT == 1) {
+							saHours = 64;
+							eldBean.setRemarks("父母、養父母、繼父母、配偶喪亡者，喪假8日。");
+						} else if (whoINT == 2) {
+							saHours = 48;
+							eldBean.setRemarks("祖父母、子女、配偶之父母、配偶之養父母或繼父母喪亡者，喪假6日。");
+						} else if (whoINT == 3) {
+							saHours = 24;
+							eldBean.setRemarks("曾祖父母、兄弟姊妹、配偶之祖父母喪亡者，喪假3日。");
+						}
+
+						eldBean.setLeaveType("喪假");
+						eldBean.setMaxHours(new BigDecimal(saHours));
+						eldBean.setSurplusHours(new BigDecimal(saHours));
+
+						java.sql.Date sDate = new java.sql.Date(cTime.getTime());
+						eldBean.setStartDate(sDate);
+
+						Calendar calSa = Calendar.getInstance();
+						calSa.setTime(sDate);
+						calSa.add(Calendar.MONTH, 6);
+						calSa.add(Calendar.DATE, -1);
+						java.sql.Date eDate = (java.sql.Date) calSa.getTime();
+						eldBean.setEndDate(eDate);
+
+						eldService.addDetail(eldBean);
+					}
+				}
+			}
+		}
+		return "InsertSuccess";
 	}
 }
