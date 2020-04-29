@@ -26,6 +26,11 @@ public String InsertAssignWork(Model m,@RequestParam(value="empid")int empid,@Re
 	awService.InsertAssignWork(empid, wid, work);
 	return null;
 }
+@RequestMapping(path = "/changeaw", method =RequestMethod.POST)
+public String CharngAssignWork(Model m,@RequestParam(value="empid")int empid,@RequestParam(value="wid")int wid,@RequestParam(value="cwid")int cwid,@RequestParam(value="work")String work) {
+	awService.ChangeAssignWork(empid, wid,cwid, work);
+	return null;
+}
 @ResponseBody
 @RequestMapping(path = "/engworklist",method = RequestMethod.GET)
 public String Engworklist(Model m,@ModelAttribute(name="LoginOK") Users u) {

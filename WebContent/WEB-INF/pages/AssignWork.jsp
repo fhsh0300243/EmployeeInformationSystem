@@ -24,7 +24,6 @@ table {
 	margin-right: 15px;
 }
 
-
 .work {
 	weight: 10px;
 	height: 500px;
@@ -48,7 +47,7 @@ table {
 	float: right;
 }
 
-li.emul {
+li.emul, li.chemul {
 	list-style-type: none;
 	margin: 10px;
 	border: 1px solid #ccc;
@@ -57,7 +56,7 @@ li.emul {
 	cursor: move;
 }
 
-li.wkul {
+li.wkli {
 	list-style-type: none;
 	margin: 10px;
 	border: 1px solid #ccc;
@@ -65,6 +64,10 @@ li.wkul {
 }
 
 li.emul:hover {
+	background-color: #ccc;
+}
+
+li.chemul:hover {
 	background-color: #ccc;
 }
 
@@ -82,8 +85,9 @@ p {
 	left: 20%;
 	width: 82%;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -98,8 +102,9 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -117,10 +122,9 @@ b{
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
-						<div id="main">
-						</div>
+						<div id="main"></div>
 						<div id="employee"></div>
-						
+
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -135,11 +139,14 @@ b{
 	</div>
 
 	<script type="text/javascript">
-	jQuery.event.props.push('dataTransfer');
-	//var dragel = null;
-		
-		$.getJSON("assignwork",function(member) {
-							var txt="";
+		jQuery.event.props.push('dataTransfer');
+		//var dragel = null;
+
+		$
+				.getJSON(
+						"assignwork",
+						function(member) {
+							var txt = "";
 							txt += "<table border=\"1\" id=\"t\">";
 							txt += "<tr><th>" + member[0].pqt;
 							for (let i = 0; i < member.length; i++) {
@@ -148,54 +155,110 @@ b{
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div class = \"work\" wid = "+member[j].wid+" work = "+member[j].Work+"><ul border=\"1\" id="+member[j].Work+">";
-								txt += "<li id = "+member[j].Work+" class = \"wkul\">" + member[j].Work;
+								txt += "<div class = \"work\" wid = "+member[j].wid+" work = "+member[j].Work+"><ul class = \"wkul\" border=\"1\" id="+member[j].Work+">";
+								txt += "<li id = "+member[j].Work+" class = \"wkli\">"
+										+ member[j].Work;
 								txt += "</ul></div>"
 							}
 							$("#main").html(txt);
-							
+
 						});
-		$.getJSON("employeelist",function(employee) {
-							var em="";
+		$
+				.getJSON(
+						"employeelist",
+						function(employee) {
+							var em = "";
 							em += "員工名單"
 							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {
-								em += "<li id = "+ employee[k].empid +" class=\"emul\" draggable=\"true\">"
+								em += "<li id = "+ employee[k].empid +" class=\"emul\" draggable=\"true\" wid=\"\" empid="+employee[k].empid+">"
 										+ employee[k].name + "</li>";
 							}
 							em += "<p><li class = \"emul\">xxxx</li>"
 							em += "</ul>"
 							$("#employee").html(em);
 						});
-		$(document).on("dragstart",".emul",function(event){
+		$(document).on("dragstart", ".emul", function(event) {
 			event.dataTransfer.effectAllowed = "copyMove";
-			event.dataTransfer.setData("text/plain",event.target.id);
+			event.dataTransfer.setData("text/plain", event.target.id);
 			console.log(this.innerHTML);
 		});
-		$(document).on("dragover",".work",function(event){
-			 event.stopPropagation();
-	         event.preventDefault();
-	         event.dataTransfer.dropEffect = "Move";
+		$(document).on("dragover", ".work", function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			event.dataTransfer.dropEffect = "Move";
 		});
-		$(document).on("drop",".work",function(event){
+		$(document).on("dragover", ".emul", function(event) {
+			event.dataTransfer.dropEffect = "none"
+		})
+		$(document).on("dragover", ".wkul", function(event) {
+			event.dataTransfer.dropEffect = "none"
+		})
+		$(document).on("drop", ".work", function(event) {
 			var data = event.dataTransfer.getData("text");
-			var wid = $(event.target).attr("wid")
+			var nodeCopy = document.getElementById(data);
+			var wid = nodeCopy.getAttribute("wid");
+			var cwid = $(event.target).attr("wid");
 			var work = $(event.target).attr("work");
-			console.log("wid:"+wid);
-			console.log("data:"+data);
-			console.log("work:"+work);
-		    event.stopPropagation();//停止冒泡事件、事件往父容器觸發
-	        event.preventDefault();
-	            //↑上述兩行for firefox，避免瀏覽器直接Redirect
-			 //event.target.appendChild(document.getElementById(data));
-			var nodeCopy = document.getElementById(data).cloneNode(true);
-			//nodeCopy.id = "newId";
-			event.target.appendChild(nodeCopy);
+			console.log("wid:" + wid);
+			console.log("data:" + data);
+			console.log("work:" + work);
+			console.log("targetid:"+event.target.children.id);
+			event.stopPropagation();//停止冒泡事件、事件往父容器觸發
+			event.preventDefault();
+			//↑上述兩行for firefox，避免瀏覽器直接Redirect
+			//event.target.appendChild(document.getElementById(data));
+		
+			var empid = nodeCopy.getAttribute("empid")
+			var wchildren = event.target.children;
+			for(i=0;i<wchildren.length;i++){
+				if(wchildren[i].getAttribute("empid") == empid){
+					event.dataTransfer.dropEffect = "none";
+					return false;
+					}
+				};
+			if ((nodeCopy.getAttribute("class")) == "emul") {
+				nodeCopy = nodeCopy.cloneNode(true)
+				nodeCopy.setAttribute("wid", cwid);
+				nodeCopy.setAttribute("class", "chemul");
+				nodeCopy.setAttribute("id", data + "ch")
+				//nodeCopy.id = "newId";
+				event.target.appendChild(nodeCopy)
+			} else if ((nodeCopy.getAttribute("class")) == "chemul") {
+				nodeCopy.setAttribute("id", data + "ch")
+				
+				event.target.appendChild(nodeCopy);
+				$.post("changeaw", {
+					empid : empid,
+					wid : wid,
+					cwid:cwid,
+					work : work
+				}, function(member, status) {
+					if (status == "success")
+						console.log("change success");
+				});
+				nodeCopy.setAttribute("wid", cwid);
+				;
+				return false;
+			}
+			;
 			//event.target.textContent = data;
-			$.post("insertaw",{empid:data,wid:wid,work:work},function(member,status){
-				if(status =="success")
+			$.post("insertaw", {
+				empid : empid,
+				wid : cwid,
+				work : work
+			}, function(member, status) {
+				if (status == "success")
 					console.log("insert success");
-				});	 
+			});
+			$(document).on("dragover", ".chemul", function(event) {
+				event.dataTransfer.dropEffect = "none"
+			})
+			$(document).on("dragstart", ".chemul", function(event) {
+				event.dataTransfer.effectAllowed = "Move";
+				event.dataTransfer.setData("text/plain", event.target.id);
+				console.log(this.innerHTML);
+			});
 		});
 	</script>
 </body>
