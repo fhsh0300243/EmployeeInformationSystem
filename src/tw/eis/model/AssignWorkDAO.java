@@ -27,6 +27,15 @@ public class AssignWorkDAO {
 		AssignWork aw = new AssignWork(empid, wid, work);
 		session.save(aw);
 	}
+	public void ChangeAssignWork(int empid, int wid,int cwid,String work) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "From AssignWork Where empID ="+empid+"And wID=:wid";
+		Query<AssignWork> query = session.createQuery(hqlstr,AssignWork.class);
+		AssignWork aw = query.setParameter("wid", wid).uniqueResult();
+		aw.setwID(cwid);
+		aw.setWork(work);
+		session.save(aw);
+	}
 
 	public JSONArray engworklist(int empid) {
 		Session session = sessionFactory.getCurrentSession();

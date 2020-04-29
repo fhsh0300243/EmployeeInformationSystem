@@ -75,6 +75,8 @@
 				</div>
 				<div class="modal-body">
 					<p id="maintext"></p>
+					<p id="querysucess"></p>
+					<p id="modaltext"></p>
 					<p id="feetext"></p>
 					<p id="bullboardtext"></p>
 					<p id="applyforLeavetext"></p>

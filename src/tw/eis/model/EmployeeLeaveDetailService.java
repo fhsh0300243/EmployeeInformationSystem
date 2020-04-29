@@ -48,6 +48,11 @@ public class EmployeeLeaveDetailService implements IEmployeeLeaveDetailService {
 	}
 
 	@Override
+	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, int year) {
+		return eldDAO.queryLTByEIDLTYear(employeeId, leaveType, year);
+	}
+
+	@Override
 	public String getLeaveTypeTag(int employeeId) {
 		return eldDAO.getLeaveTypeTag(employeeId);
 	}

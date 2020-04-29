@@ -14,6 +14,9 @@ public AssignWorkService(AssignWorkDAO awDao) {
 public void InsertAssignWork(int empid,int wid,String work) {
 	awDao.InsertAssignWork(empid, wid, work);
 }
+public void ChangeAssignWork(int empid, int wid,int cwid,String work) {
+	awDao.ChangeAssignWork(empid,wid, cwid, work);
+}
 public JSONArray engworklist(int empid) {
 	return awDao.engworklist(empid);
 }

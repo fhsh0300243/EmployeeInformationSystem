@@ -56,12 +56,12 @@ b {
 					<p class="functionTitle">假別匯入</p>
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
-					<form class="for2" action="<c:url value="/applyforleave"/>"
-						method="post" enctype="multipart/form-data">
+					<form class="for2" action="<c:url value="/insertLT"/>"
+						method="post">
 						<table id="idtable5">
 							<tr>
 								<td class="tdtag"><span class="span1">*</span>員工編號：</td>
-								<td colspan="3"><input type=number id="idIEmpId" step="1"
+								<td colspan="3"><input type=number id="idIEmpId" name="empID" step="1"
 									min="0" onblur="checkEmpId();"></td>
 							</tr>
 							<tr>
@@ -76,7 +76,7 @@ b {
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3"></td>
+								<td class="tdErr" colspan="3">${ErrorMap.sError}</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -85,13 +85,13 @@ b {
 								<td id=hTYear class="tdtag" style="display: none;"><span
 									class="span1">*</span>年份：<br /></td>
 								<td id="hYear" style="display: none;"><input type=number
-									id="idYear" step="1" min="2020" max="2100"
+									id="idYear" name="year" step="1" min="2020" max="2100"
 									onblur="checkYear();"><span class="span2">&emsp;事假、病假、特休，請輸入年份。</span>
 								</td>
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3"></td>
+								<td class="tdErr" colspan="3">${ErrorMap.bError}</td>
 								<td id="hTdYear" style="display: none;"></td>
 								<td id="hEYear" class="tdErr" style="display: none;"><img
 									id="yearImg"> <span id="yearCheck"></span></td>
@@ -103,7 +103,7 @@ b {
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3"></td>
+								<td class="tdErr" colspan="3">${ErrorMap.tError}</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -112,12 +112,12 @@ b {
 								<td id="hTHours" class="tdtag" style="display: none;"><span
 									class="span1">*</span>申請時數：</td>
 								<td id="hHours" style="display: none;"><input type=number
-									id="idHours" step="1" min="0" max="200" onblur="checkHours();"><span
+									id="idHours" name="hours" step="1" min="0" max="200" onblur="checkHours();"><span
 									class="span2">&emsp;最小單位：1小時。</span></td>
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3"></td>
+								<td colspan="3"></td>
 								<td id="hTdHours" style="display: none;"></td>
 								<td id="hEHours" class="tdErr" style="display: none;"><img
 									id="hoursImg"> <span id="hoursCheck"></span></td>

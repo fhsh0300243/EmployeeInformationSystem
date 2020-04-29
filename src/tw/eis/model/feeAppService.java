@@ -45,6 +45,12 @@ public class feeAppService implements IfeeAppService{
 	public int query(int ID) {
 		return feeAppDAO.query(ID);
 	}
+	
+	public int querysucess(int ID,String oldDate,String newDate) {
+		return feeAppDAO.querysucess(ID,oldDate,newDate);
+	}
+	
+	
 //	End
 
 	// add by 揚明--start
@@ -64,6 +70,12 @@ public class feeAppService implements IfeeAppService{
 			String remark, String signerStatus) {
 		return feeAppDAO.ReturnEditFee(feeAppID, appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);
 		
+	}
+
+	@Override
+	public boolean DelectItem(int feeAppID) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	
