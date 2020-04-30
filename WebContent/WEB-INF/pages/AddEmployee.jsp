@@ -22,7 +22,7 @@
         margin: 0;
         padding: 0;
     }
-*/    
+*/
 body {
 	font-family: 微軟正黑體;
 }
@@ -31,40 +31,86 @@ body {
 	color: red;
 }
 
-.msgmap {
-	color: red;
+.div1 {
+	width: 100%;
+	/*margin: 0 auto;
+	margin-left: 37%;*/
 }
 
-.div1 {
-	width: 30%;
-	margin: 0 auto;
-	margin-left: 37%;
-}
 .well, .panel {
 	text-align: center;
 }
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-.tb{
+
+.datepicker {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	height: 24px;
+	line-height: 24px;
+	margin: 3px;
+	width: 250px;
+}
+
+.datepicker:focus {
+	outline: 0 none;
+	border: 1px solid #1abc9c;
+}
+
+b {
+	font-size: 20px;
+}
+
+.tb {
+	position: absolute;
+	bottom: 30px;
+	right: 40%;
+}
+
+.idtable1 {
 	position: relative;
-	left: 30%;
+	margin: 50px auto;
+	border-collapse: collapse;
+	float: left;
+	left: 100px;
 }
-.datepicker{
-    border:1px  solid #ccc;
-    border-radius: 4px;
-    height: 24px;
-    line-height:24px;
-    margin:3px;    
-} 
-.datepicker:focus{
-    outline:0 none;
-    border:1px solid #1abc9c;
-        
+
+.idtable1 tr {
+	text-align: right;
 }
-b{
-	font-size:20px;
+
+.idtable1 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 10px;
+}
+
+.msgmap {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 0px;
+	color: red;
+}
+
+.idtable2 {
+	position: absolute;
+	margin: 50px auto;
+	border-collapse: collapse;
+	right: 200px;
+}
+
+.idtable2 tr {
+	text-align: right;
+}
+
+.idtable2 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 10px;
+}
+
+.inputtd {
+	text-align: left;
 }
 </style>
 </head>
@@ -76,8 +122,9 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -96,107 +143,124 @@ b{
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<div class="div1">
+							<!--  
 							<div>
 								<a href="<c:url value="/EmployeePage.do"/>">回HR部門公告</a>
 							</div>
+							-->
 							<br>
 							<form action="<c:url value="/AddEmployee.action"/>" method="POST"
-								enctype="multipart/form-data" >
-								<table class="st1">
+								enctype="multipart/form-data">
+								<table class="idtable1">
 									<tr>
 										<td><span class="span1">*</span>帳號：</td>
-										<td><input type="text" id="account1" name="userName"
-											size="30" value="${inputmsg.username}" autocomplete="off" class="datepicker"></td>
+										<td class="inputtd"><input type="text" id="account1"
+											name="userName" value="${inputmsg.username}"
+											autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.username}</td>
 									</tr>
-									
+
 									<tr>
 										<td><span class="span1">*</span>密碼：</td>
-										<td><input type="password" id="pwd1" name="userPassword"
-											value="aa12345" size="30" autocomplete="off" class="datepicker"></td>
+										<td class="inputtd"><input type="password" id="pwd1"
+											name="userPassword" value="aa12345" autocomplete="off"
+											class="datepicker"></td>
 										<td class="msgmap">${msgmap.userpwd}</td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>姓名：</td>
-										<td><input type="text" id="name1" name="name"
-											placeholder="請輸入姓名" autocomplete="off" size="30"
+										<td class="inputtd"><input type="text" id="name1"
+											name="name" placeholder="請輸入姓名" autocomplete="off"
 											value="${inputmsg.name}" class="datepicker"></td>
 										<td class="msgmap">${msgmap.name}</td>
 									</tr>
 									<tr>
 										<td>性別：</td>
-										<td><input type="radio" id="m1" name="gender"
-											value="male">男 <input type="radio" id="m2"
-											name="gender" value="female">女</td>
+										<td class="inputtd"><input type="radio" id="m1"
+											name="gender" value="male">男 <input type="radio"
+											id="m2" name="gender" value="female">女</td>
 									</tr>
 									<tr>
 										<td>生日：</td>
-										<td><input type="date" name="birth"
-											value="${inputmsg.birthday}" class="datepicker"></td>
+										<td class="inputtd"><input type="date" name="birth"
+											id="birth" value="${inputmsg.birthday}" class="datepicker"></td>
 									</tr>
-									<tr>
-										<td>地址：</td>
-										<td><input type="text" name="address"
-											value="${inputmsg.address}" size="30" autocomplete="off" class="datepicker"></td>
-										<td>
+
 									<tr>
 										<td>部門：</td>
-										<td><select name="dept" id="dept" class="datepicker"></select></td>
+										<td class="inputtd"><select name="dept" id="dept"
+											class="datepicker"></select></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>職稱：</td>
-										<td><select name="title" id="title" class="datepicker"></select></td>
+										<td class="inputtd"><select name="title" id="title"
+											class="datepicker"></select></td>
 										<td class="msgmap">${msgmap.title}</td>
 									</tr>
 									<tr>
 										<td>主管：</td>
-										<td><select name="manager" id="manager" class="datepicker"></select></td>
+										<td class="inputtd"><select name="manager" id="manager"
+											class="datepicker"></select></td>
 									</tr>
+								</table>
+								<table class="idtable2">
 									<tr>
 										<td><span class="span1">*</span>薪水：</td>
-										<td><input type="text" name="salary"
-											value="${inputmsg.salary}" maxlength="10" size="30"
-											autocomplete="off" class="datepicker"></td>
+										<td class="inputtd"><input type="text" name="salary" id="salary"
+											value="${inputmsg.salary}" maxlength="10" autocomplete="off"
+											class="datepicker"></td>
 										<td class="msgmap">${msgmap.salary}</td>
 									</tr>
 									<tr>
 										<td>分機號碼：</td>
-										<td><input type="text" name="exnum"
-											value="${inputmsg.extensionNum}" maxlength="10" size="30"
+										<td class="inputtd"><input type="text" name="exnum" id="exnum"
+											value="${inputmsg.extensionNum}" maxlength="10"
 											autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>電話：</td>
-										<td><input type="text" name="phonenum"
-											value="${inputmsg.phoneNum}" maxlength="10" size="30"
+										<td class="inputtd"><input type="text" name="phonenum" id="phonenum"
+											value="${inputmsg.phoneNum}" maxlength="10"
 											autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
+										<td>地址：</td>
+										<td class="inputtd"><input type="text" name="address" id="address"
+											value="${inputmsg.address}" autocomplete="off"
+											class="datepicker"></td>
+										<td>
+									</tr>
+									<tr>
 										<td><span class="span1">*</span>Email：</td>
-										<td><input type="email" name="email"
-											value="${inputmsg.email}" size="30" autocomplete="off" class="datepicker"></td>
+										<td class="inputtd"><input type="email" name="email" id="email"
+											value="${inputmsg.email}" autocomplete="off"
+											class="datepicker"></td>
 										<td class="msgmap">${msgmap.email}</td>
 									</tr>
 									<tr>
 										<td>照片：</td>
-										<td><input type="file" name="file" class="datepicker"></td>
+										<td class="inputtd"><input type="file" name="file"
+											class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>到職日：</td>
-										<td><input type="date" name="hireDay"
+										<td class="inputtd"><input type="date" name="hireDay" id="hireDay"
 											value="${inputmsg.hireDay}" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>離職日：</td>
-										<td><input type="date" name="lastWorkDay"
+										<td class="inputtd"><input type="date" name="lastWorkDay" id="lastWorkDay"
 											value="${inputmsg.lastWorkDay}" class="datepicker"></td>
 									</tr>
 								</table>
 								<br>
 								<table class="tb">
 									<tr>
-										<td><input type="submit" value="送出" class="btn btn-info"> <input
-											type="reset" value="清除" onclick="reset()" class="btn btn-info"></td>
+										<td><input type="submit" value="送出" class="btn btn-info">
+											<input type="reset" value="清除" onclick="reset()"
+											class="btn btn-info">
+										<a href=# onclick="onefinger()"
+												class="btn btn-info">一鍵新增</a></td>
 										<td class="msgmap">${msgmap.status}</td>
 									</tr>
 								</table>
@@ -337,6 +401,21 @@ b{
 				document.getElementById('m2').checked = false;
 			}
 		}
+
+		function onefinger(){
+				$("#account1").attr("value", "EEIT11219");
+				$("#name1").attr("value", "王大明");
+				$("#m1").attr("checked", "check");
+				$("#birth").attr("value", "1990-05-01");
+				//$("#dept").val('RD');
+				//$("#title").val('RD工程師');
+				$("#salary").attr("value", "45000");
+				$("#exnum").attr("value", "8710");
+				$("#phonenum").attr("value", "0987321456");
+				$("#address").attr("value", "台北市大安區復興南路一段390號2樓");
+				$("#email").attr("value", "eis_daming@gmail.com,tw");
+				$("#hireDay").attr("value", "2020-05-08");		
+			}
 	</script>
 </body>
 </html>

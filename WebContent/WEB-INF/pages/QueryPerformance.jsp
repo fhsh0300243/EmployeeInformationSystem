@@ -191,7 +191,7 @@ b{
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>PID<th>部門<th>年度目標<th>訂定人<th>訂定日期<th>達成率";
+			var txt = "<tr><th>PID<th>部門<th>季度目標<th>訂定人<th>訂定日期<th>達成率";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;

@@ -225,7 +225,7 @@ public class EmployeeAction {
 				Employee myEmp = eService.empData(Integer.parseInt(id));
 				Users myUser = uService.userData(Integer.parseInt(id));
 				user.put("userName", myUser.getUserName());
-				// user.put("userPassword", myUser.getUserPassword());
+				user.put("userPassword", myUser.getUserPassword());
 				emp.put("title", Integer.toString(myEmp.getEmpTitle().getTitleID()));
 				if (myEmp.getEmpDept() == null) {
 					emp.put("department", "");
@@ -717,7 +717,7 @@ public class EmployeeAction {
 			JSONArray jsonarray = new JSONArray();
 			for (DepartmentalAnnualGoals dag : dagService.thisYearAllDeptGoals()) {
 				JSONObject jsonobject = new JSONObject();
-				//jsonobject.put("deptID", dag.getDepartment().getDeptID());
+				jsonobject.put("deptID", dag.getDepartment().getDeptID());
 				jsonobject.put("deptname", dag.getDeptName());
 				jsonobject.put("goal", dag.getDepartmentAnnualGoal());
 				jsonobject.put("setupdate", GlobalService.formatToyyyyMMdd(dag.getDate()));
