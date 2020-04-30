@@ -61,8 +61,8 @@ b {
 						<table id="idtable5">
 							<tr>
 								<td class="tdtag"><span class="span1">*</span>員工編號：</td>
-								<td colspan="3"><input type=number id="idIEmpId" name="empID" step="1"
-									min="0" onblur="checkEmpId();"></td>
+								<td colspan="3"><input type=number id="idIEmpId"
+									name="empID" min="1" step="1" onblur="checkEmpId();"></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -112,8 +112,8 @@ b {
 								<td id="hTHours" class="tdtag" style="display: none;"><span
 									class="span1">*</span>申請時數：</td>
 								<td id="hHours" style="display: none;"><input type=number
-									id="idHours" name="hours" step="1" min="0" max="200" onblur="checkHours();"><span
-									class="span2">&emsp;最小單位：1小時。</span></td>
+									id="idHours" name="hours" step="1" min="0" max="200"
+									onblur="checkHours();"><span class="span2">&emsp;最小單位：1小時。</span></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -139,7 +139,7 @@ b {
 							<tr>
 								<td></td>
 								<td class="tdErr" colspan="3"><img id="leaveTypeImg">
-									<span id="leaveTypeCheck"></span></td>
+									<span id="leaveTypeCheck">${ErrorMap.hrError}</span></td>
 								<td id="hTdWho" style="display: none;"></td>
 								<td id="hEWho" class="tdErr" style="display: none;"><img
 									id="whoImg"> <span id="whoCheck"></span></td>
@@ -187,19 +187,13 @@ b {
 		});
 
 		function cls() {
-			$("#empIdImg").attr("src", "");
-			$("#empIdCheck").empty();
-			$("#leaveTypeImg").attr("src", "");
-			$("#leaveTypeCheck").empty();
-			$("#hTYear,#hTdYear,#hYear,#hEYear").hide();
-			$("#yearImg").attr("src", "");
-			$("#yearCheck").empty();
-			$("#hTHours,#hTdHours,#hHours,#hEHours").hide();
-			$("#hoursImg").attr("src", "");
-			$("#hoursCheck").empty();
-			$("#hTWho,#hTdWho,#hWho,#hEWho").hide();
-			$("#whoImg").attr("src", "");
-			$("#whoCheck").empty();
+			$("#empIdImg,#leaveTypeImg,#yearImg,#hoursImg,#whoImg").attr("src",
+					"");
+			$("#empIdCheck,#leaveTypeCheck,#yearCheck,#hoursCheck,#whoCheck")
+					.empty();
+			$(
+					"#hTYear,#hTdYear,#hYear,#hEYear,#hTHours,#hTdHours,#hHours,#hEHours,#hTWho,#hTdWho,#hWho,#hEWho")
+					.hide();
 		}
 
 		function checkEmpId() {
