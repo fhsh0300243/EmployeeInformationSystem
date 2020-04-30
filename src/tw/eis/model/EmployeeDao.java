@@ -86,9 +86,13 @@ public class EmployeeDao implements IEmployeeDao {
 			Session session = sessionFactory.getCurrentSession();
 			Employee myEmp = session.get(Employee.class, id);
 			Users myUser = session.get(Users.class, id);
-			List<ApplyForLeave> list = session
-					.createQuery("From ApplyForLeave where EmployeeID=:employee and confirmTime is null", ApplyForLeave.class)
-					.setParameter("employee", myEmp.getEmpID()).list();
+			List<ApplyForLeave> alist = session
+					.createQuery("From ApplyForLeave where EmployeeID=:employeeid and confirmTime is null", ApplyForLeave.class)
+					.setParameter("employeeid", myEmp.getEmpID()).list();
+			List<feeAppMember> flist = session
+					.createQuery("From feeAppMember where EmployeeID=:employeeid and signerTime is null", feeAppMember.class)
+					.setParameter("employeeid", myEmp.getEmpID()).list();
+			
 			myUser.setDepartment(Department);
 			myUser.setTitle(Title);
 
@@ -132,13 +136,22 @@ public class EmployeeDao implements IEmployeeDao {
 			if (EmpDept != null) {
 				myEmp.setEmpDept(EmpDept);
 			}
-			for (ApplyForLeave aLeav : list) {
+			for (ApplyForLeave aLeav : alist) {
 				if (Manager != null) {
 					aLeav.setSignerId(Manager);
 					session.update(aLeav);
 				} else {
 					aLeav.setSignerId(null);
 					session.update(aLeav);
+				}
+			}
+			for (feeAppMember fee : flist) {
+				if (Manager != null) {
+					fee.setSignerID(Manager);
+					session.update(fee);
+				} else {
+					fee.setSignerID(null);
+					session.update(fee);
 				}
 			}
 			session.update(myUser);

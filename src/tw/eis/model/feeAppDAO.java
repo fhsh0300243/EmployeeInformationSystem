@@ -420,11 +420,11 @@ public class feeAppDAO implements IfeeAppDAO {
 			// return deptDataList;
 		}
 		// deptCostPercent.clear();
-		if (month == 2) {
-			if (year % 4 == 0 || year % 400 == 0) {
+		if (month == 12) {
+			int nextyear = year + 1;
 				Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000");
+						.setParameter("end",Integer.toString(nextyear) + "-01-01 00:00:00.000");
 				try {
 					thisMonthTotalCost = Double.parseDouble(total.list().get(0).toString());
 				} catch (Exception e) {
@@ -432,7 +432,7 @@ public class feeAppDAO implements IfeeAppDAO {
 				}
 				Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000")
+						.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000")
 						.setParameter("dept", "HR");
 				try {
 					thisMonthHRCost = Double.parseDouble(HR.list().get(0).toString());
@@ -441,7 +441,7 @@ public class feeAppDAO implements IfeeAppDAO {
 				}
 				Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000")
+						.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000")
 						.setParameter("dept", "RD");
 				try {
 					thisMonthRDCost = Double.parseDouble(RD.list().get(0).toString());
@@ -450,7 +450,7 @@ public class feeAppDAO implements IfeeAppDAO {
 				}
 				Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000")
+						.setParameter("end",Integer.toString(nextyear) + "-01-01 00:00:00.000")
 						.setParameter("dept", "QA");
 				try {
 					thisMonthQACost = Double.parseDouble(QA.list().get(0).toString());
@@ -459,17 +459,16 @@ public class feeAppDAO implements IfeeAppDAO {
 				}
 				Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000")
+						.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000")
 						.setParameter("dept", "Sales");
 				try {
 					thisMonthSalesCost = Double.parseDouble(Sales.list().get(0).toString());
 				} catch (Exception e) {
 					thisMonthSalesCost = 0;
 				}
-
 				Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000")
+						.setParameter("end", Integer.toString(nextyear) + "-01-01 00:00:00.000")
 						.setParameter("dept", "PM");
 				try {
 					thisMonthPMCost = Double.parseDouble(PM.list().get(0).toString());
@@ -483,74 +482,12 @@ public class feeAppDAO implements IfeeAppDAO {
 				deptCostPercent.put("mPM", nf.format(thisMonthPMCost / thisMonthTotalCost));
 				deptDataList.add(deptCostPercent);
 				return deptDataList;
-			} else {
-				Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000");
-				try {
-					thisMonthTotalCost = Double.parseDouble(total.list().get(0).toString());
-				} catch (Exception e) {
-					thisMonthTotalCost = 1;
-				}
-				Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000")
-						.setParameter("dept", "HR");
-				try {
-					thisMonthHRCost = Double.parseDouble(HR.list().get(0).toString());
-				} catch (Exception e) {
-					thisMonthHRCost = 0;
-				}
-				Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000")
-						.setParameter("dept", "RD");
-				try {
-					thisMonthRDCost = Double.parseDouble(RD.list().get(0).toString());
-				} catch (Exception e) {
-					thisMonthRDCost = 0;
-				}
-				Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000")
-						.setParameter("dept", "QA");
-				try {
-					thisMonthQACost = Double.parseDouble(QA.list().get(0).toString());
-				} catch (Exception e) {
-					thisMonthQACost = 0;
-				}
-				Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000")
-						.setParameter("dept", "Sales");
-				try {
-					thisMonthSalesCost = Double.parseDouble(Sales.list().get(0).toString());
-				} catch (Exception e) {
-					thisMonthSalesCost = 0;
-				}
 
-				Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000")
-						.setParameter("dept", "PM");
-				try {
-					thisMonthPMCost = Double.parseDouble(PM.list().get(0).toString());
-				} catch (Exception e) {
-					thisMonthPMCost = 0;
-				}
-				deptCostPercent.put("mHR", nf.format(thisMonthHRCost / thisMonthTotalCost));
-				deptCostPercent.put("mRD", nf.format(thisMonthRDCost / thisMonthTotalCost));
-				deptCostPercent.put("mQA", nf.format(thisMonthQACost / thisMonthTotalCost));
-				deptCostPercent.put("mSales", nf.format(thisMonthSalesCost / thisMonthTotalCost));
-				deptCostPercent.put("mPM", nf.format(thisMonthPMCost / thisMonthTotalCost));
-				deptDataList.add(deptCostPercent);
-				return deptDataList;
-			}
-		}
-		if (month == 4 || month == 6 || month == 9 || month == 11) {
+		}else {
+			int nextmonth = month + 1;
 			Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000");
+					.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000");
 			try {
 				thisMonthTotalCost = Double.parseDouble(total.list().get(0).toString());
 			} catch (Exception e) {
@@ -558,7 +495,7 @@ public class feeAppDAO implements IfeeAppDAO {
 			}
 			Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+					.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000")
 					.setParameter("dept", "HR");
 			try {
 				thisMonthHRCost = Double.parseDouble(HR.list().get(0).toString());
@@ -567,7 +504,7 @@ public class feeAppDAO implements IfeeAppDAO {
 			}
 			Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+					.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000")
 					.setParameter("dept", "RD");
 			try {
 				thisMonthRDCost = Double.parseDouble(RD.list().get(0).toString());
@@ -576,7 +513,7 @@ public class feeAppDAO implements IfeeAppDAO {
 			}
 			Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+					.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000")
 					.setParameter("dept", "QA");
 			try {
 				thisMonthQACost = Double.parseDouble(QA.list().get(0).toString());
@@ -585,7 +522,7 @@ public class feeAppDAO implements IfeeAppDAO {
 			}
 			Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+					.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000")
 					.setParameter("dept", "Sales");
 			try {
 				thisMonthSalesCost = Double.parseDouble(Sales.list().get(0).toString());
@@ -595,7 +532,7 @@ public class feeAppDAO implements IfeeAppDAO {
 
 			Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
 					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+					.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000")
 					.setParameter("dept", "PM");
 			try {
 				thisMonthPMCost = Double.parseDouble(PM.list().get(0).toString());
@@ -610,70 +547,6 @@ public class feeAppDAO implements IfeeAppDAO {
 			deptDataList.add(deptCostPercent);
 			return deptDataList;
 		}
-		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-			Query<Long> total = sessionFacotry.getCurrentSession().createQuery(totalhql, Long.class)
-					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000");
-			try {
-				thisMonthTotalCost = Double.parseDouble(total.list().get(0).toString());
-			} catch (Exception e) {
-				thisMonthTotalCost = 1;
-			}
-			Query<Long> HR = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
-					.setParameter("dept", "HR");
-			try {
-				thisMonthHRCost = Double.parseDouble(HR.list().get(0).toString());
-			} catch (Exception e) {
-				thisMonthHRCost = 0;
-			}
-			Query<Long> RD = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
-					.setParameter("dept", "RD");
-			try {
-				thisMonthRDCost = Double.parseDouble(RD.list().get(0).toString());
-			} catch (Exception e) {
-				thisMonthRDCost = 0;
-			}
-			Query<Long> QA = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
-					.setParameter("dept", "QA");
-			try {
-				thisMonthQACost = Double.parseDouble(QA.list().get(0).toString());
-			} catch (Exception e) {
-				thisMonthQACost = 0;
-			}
-			Query<Long> Sales = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
-					.setParameter("dept", "Sales");
-			try {
-				thisMonthSalesCost = Double.parseDouble(Sales.list().get(0).toString());
-			} catch (Exception e) {
-				thisMonthSalesCost = 0;
-			}
-
-			Query<Long> PM = sessionFacotry.getCurrentSession().createQuery(depthql, Long.class)
-					.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-					.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
-					.setParameter("dept", "PM");
-			try {
-				thisMonthPMCost = Double.parseDouble(PM.list().get(0).toString());
-			} catch (Exception e) {
-				thisMonthPMCost = 0;
-			}
-			deptCostPercent.put("mHR", nf.format(thisMonthHRCost / thisMonthTotalCost));
-			deptCostPercent.put("mRD", nf.format(thisMonthRDCost / thisMonthTotalCost));
-			deptCostPercent.put("mQA", nf.format(thisMonthQACost / thisMonthTotalCost));
-			deptCostPercent.put("mSales", nf.format(thisMonthSalesCost / thisMonthTotalCost));
-			deptCostPercent.put("mPM", nf.format(thisMonthPMCost / thisMonthTotalCost));
-			deptDataList.add(deptCostPercent);
-			return deptDataList;
-		}
-		return deptDataList;
 	}
 
 	public List<feeAppMember> deptFeeApplyCostDetail(String sORm, String dept) {
@@ -715,38 +588,21 @@ public class feeAppDAO implements IfeeAppDAO {
 			}
 		}
 		if (sORm.equals("m")) {
-			if (month == 2) {
-				if (year % 4 == 0 || year % 400 == 0) {
-					Query<feeAppMember> query = sessionFacotry.getCurrentSession()
-							.createQuery(depthql, feeAppMember.class)
-							.setParameter("start",
-									today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-							.setParameter("end",
-									today.substring(0, 4) + "-" + today.substring(5, 7) + "-29 00:00:00.000")
-							.setParameter("dept", dept);
-					detail = query.list();
-				} else {
-					Query<feeAppMember> query = sessionFacotry.getCurrentSession()
-							.createQuery(depthql, feeAppMember.class)
-							.setParameter("start",
-									today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-							.setParameter("end",
-									today.substring(0, 4) + "-" + today.substring(5, 7) + "-28 00:00:00.000")
-							.setParameter("dept", dept);
-					detail = query.list();
-				}
-			}
-			if (month == 4 || month == 6 || month == 9 || month == 11) {
-				Query<feeAppMember> query = sessionFacotry.getCurrentSession().createQuery(depthql, feeAppMember.class)
-						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-30 00:00:00.000")
+			if (month == 12) {
+				int nextyear = year + 1;
+				Query<feeAppMember> query = sessionFacotry.getCurrentSession()
+						.createQuery(depthql, feeAppMember.class)
+						.setParameter("start",
+								today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
+						.setParameter("end",
+								Integer.toString(nextyear) + "-01-01 00:00:00.000")
 						.setParameter("dept", dept);
 				detail = query.list();
-			}
-			if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+			}else {
+				int nextmonth = month + 1;
 				Query<feeAppMember> query = sessionFacotry.getCurrentSession().createQuery(depthql, feeAppMember.class)
 						.setParameter("start", today.substring(0, 4) + "-" + today.substring(5, 7) + "-01 00:00:00.000")
-						.setParameter("end", today.substring(0, 4) + "-" + today.substring(5, 7) + "-31 00:00:00.000")
+						.setParameter("end", today.substring(0, 4) + "-" + Integer.toString(nextmonth) + "-01 00:00:00.000")
 						.setParameter("dept", dept);
 				detail = query.list();
 			}
