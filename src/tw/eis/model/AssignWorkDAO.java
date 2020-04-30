@@ -39,7 +39,7 @@ public class AssignWorkDAO {
 
 	public JSONArray engworklist(int empid) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "From AssignWork Where empID =:empid";
+		String hqlstr = "From AssignWork Where empID=:empid and WorkStatus =0";
 		Query<AssignWork> query = session.createQuery(hqlstr, AssignWork.class);
 		query.setParameter("empid", empid);
 		List<AssignWork> awlist = query.getResultList();
@@ -49,6 +49,54 @@ public class AssignWorkDAO {
 			jb.put("awID", aw.getAwID());
 			jb.put("EmpID", aw.getEmpID());
 			jb.put("wID", aw.getwID());
+			jb.put("Work", aw.getWork());
+			jay.put(jb);
+		}
+		j = jay;
+		return j;
+	}
+	public JSONArray wkstatus1(int empid) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "From AssignWork Where empID ="+empid+"and WorkStatus=:status";
+		Query<AssignWork> query = session.createQuery(hqlstr,AssignWork.class);
+		List<AssignWork>awlist =  query.setParameter("status", 1).getResultList();
+		JSONArray jay = new JSONArray();
+		for(AssignWork aw:awlist) {
+			JSONObject jb = new JSONObject();
+			jb.put("empid", aw.getEmpID());
+			jb.put("awid", aw.getAwID());
+			jb.put("Work", aw.getWork());
+			jay.put(jb);
+		}
+		j = jay;
+		return j;
+	}
+	public JSONArray wkstatus2(int empid) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "From AssignWork Where empID ="+empid+"and WorkStatus=:status";
+		Query<AssignWork> query = session.createQuery(hqlstr,AssignWork.class);
+		List<AssignWork>awlist =  query.setParameter("status", 2).getResultList();
+		JSONArray jay = new JSONArray();
+		for(AssignWork aw:awlist) {
+			JSONObject jb = new JSONObject();
+			jb.put("empid", aw.getEmpID());
+			jb.put("awid", aw.getAwID());
+			jb.put("Work", aw.getWork());
+			jay.put(jb);
+		}
+		j = jay;
+		return j;
+	}
+	public JSONArray wkstatus3(int empid) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "From AssignWork Where empID ="+empid+"and WorkStatus=:status";
+		Query<AssignWork> query = session.createQuery(hqlstr,AssignWork.class);
+		List<AssignWork>awlist =  query.setParameter("status", 3).getResultList();
+		JSONArray jay = new JSONArray();
+		for(AssignWork aw:awlist) {
+			JSONObject jb = new JSONObject();
+			jb.put("empid", aw.getEmpID());
+			jb.put("awid", aw.getAwID());
 			jb.put("Work", aw.getWork());
 			jay.put(jb);
 		}

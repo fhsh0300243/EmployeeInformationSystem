@@ -29,4 +29,13 @@ public void setworkstatus2(Model m,int awid) {
 public void setworkstatus3(Model m,int awid) {
 	awDao.setworkstatus3(m, awid);
 }
+public JSONArray wkstatus1(int empid) {
+	return awDao.wkstatus1(empid);
+}
+public JSONArray wkstatus2(int empid) {
+	return awDao.wkstatus2(empid);
+}
+public JSONArray wkstatus3(int empid) {
+	return awDao.wkstatus3(empid);
+}
 }

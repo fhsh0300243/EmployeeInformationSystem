@@ -50,4 +50,28 @@ public String workstatus(Model m,@RequestParam(value="awid")int awid,@RequestPar
 	}
 	return null;
 }
+@ResponseBody
+@RequestMapping(path = "/wkstatus1",method = RequestMethod.GET)
+public String Wkstatus1(Model m,@ModelAttribute(name="LoginOK") Users u) {
+	int empid = u.getEmployeeID();
+	JSONArray jay = awService.wkstatus1(empid);
+	String jaystr = jay.toString();
+	return jaystr;
+}
+@ResponseBody
+@RequestMapping(path = "/wkstatus2",method = RequestMethod.GET)
+public String Wkstatus2(Model m,@ModelAttribute(name="LoginOK") Users u) {
+	int empid = u.getEmployeeID();
+	JSONArray jay = awService.wkstatus2(empid);
+	String jaystr = jay.toString();
+	return jaystr;
+}
+@ResponseBody
+@RequestMapping(path = "/wkstatus3",method = RequestMethod.GET)
+public String Wkstatus3(Model m,@ModelAttribute(name="LoginOK") Users u) {
+	int empid = u.getEmployeeID();
+	JSONArray jay = awService.wkstatus3(empid);
+	String jaystr = jay.toString();
+	return jaystr;
+}
 }

@@ -148,18 +148,22 @@ b {
 						function(member) {
 							var txt = "";
 							txt += "<table border=\"1\" id=\"t\">";
-							txt += "<tr><th>" + member[0].pqt;
+							txt += "<tr><th>" + member[0][0].pqt;
 							for (let i = 0; i < member.length; i++) {
-								txt += "<tr><td>" + member[i].Work;
+								txt += "<tr><td>" + member[i][0].Work;
 							}
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div class = \"work\" wid = "+member[j].wid+" work = "+member[j].Work+"><ul class = \"wkul\" border=\"1\" id="+member[j].Work+">";
-								txt += "<li id = "+member[j].Work+" class = \"wkli\">"
-										+ member[j].Work;
-								txt += "</ul></div>"
-							}
+								txt += "<div class = \"work\" wid = "+member[j][0].wid+" work = "+member[j][0].Work+"><ul class = \"wkul\" border=\"1\" id="+member[j][0].Work+">";
+								txt += "<li id = "+member[j][0].Work+" class = \"wkli\">"
+										+ member[j][0].Work;
+								txt += "</ul>";
+									for(let k=0;k<member[j].length;k++){
+										txt += "<li class=\"chemul\" draggable=\"true\" wid="+member[j][0].wid+" empid="+member[j][k].empid+">"+member[j][k].empname+"</li>";
+									}
+									txt += "</div>";
+							} 	
 							$("#main").html(txt);
 
 						});

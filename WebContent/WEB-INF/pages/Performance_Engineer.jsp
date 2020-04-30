@@ -49,8 +49,13 @@
 </style>
 </head>
 <body>
-	<div id="worklist"></div>
-	<div id="workstatus"></div>
+	<div id="worklist">
+	</div>
+	<div id="workstatus">
+	<div class = "work" wkstatus =1 id="wkstatus1"></div>
+	<div class = "work" wkstatus =2 id="wkstatus2"></div>
+	<div class = "work" wkstatus =3 id="wkstatus3"></div>
+	</div>
 	<script>
 		jQuery.event.props.push('dataTransfer');
 		$
@@ -63,15 +68,33 @@
 								txt += "<li class=\"wli\" id="+member[i].awID+" awid ="+member[i].awID+" draggable=\"true\">"
 										+ member[i].Work;
 							}
-							txt += "</ui>"
+							txt += "</ui>";
 							$("#worklist").html(txt);
-							var em = "";
-							em += "<div class =\"work\" wkstatus =\"1\"><ul class=\"statusul\" border=\"1\">To do</div>"
-							em += "<div class =\"work\" wkstatus =\"2\"><ul class=\"statusul\" border=\"1\">Doing</div>"
-							em += "<div class =\"work\" wkstatus =\"3\"><ul class=\"statusul\" border=\"1\">Done</div>"
-							$("#workstatus").html(em);
-
-						})
+							});
+				$.getJSON("wkstatus1",function(member){
+						var txt ="";
+						txt += "<ul class=\"statusul\" border=\"1\">To do</ul>";
+						for(let i=0;i<member.length;i++){
+							txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+"draggable=\"true\">"+member[i].Work;
+							}
+						$("#wkstatus1").html(txt);
+					});
+				$.getJSON("wkstatus2",function(member){
+					var txt ="";
+					txt += "<ul class=\"statusul\" border=\"2\">Doing</ul>";
+					for(let i=0;i<member.length;i++){
+						txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+"draggable=\"true\">"+member[i].Work;
+						}
+					$("#wkstatus2").html(txt);
+				});
+				$.getJSON("wkstatus3",function(member){
+					var txt ="";
+					txt += "<ul class=\"statusul\" border=\"1\">Done</ul>";
+					for(let i=0;i<member.length;i++){
+						txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+"draggable=\"true\">"+member[i].Work;
+						}
+					$("#wkstatus3").html(txt);
+				});
 		$(document).on("dragstart", ".wli", function(event) {
 			event.dataTransfer.effectAllowed = "copyMove";
 			event.dataTransfer.setData("text/plain", event.target.id);

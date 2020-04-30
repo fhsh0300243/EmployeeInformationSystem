@@ -30,19 +30,67 @@ public class WorkProjectDAO {
 	public WorkProjectDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+//	public JSONArray getassignwork(Model m, int pid) {
+//		Session session = sessionFactory.getCurrentSession();
+//		String hqlstr = "From WorkProject Where pID =:pid";
+//		Query<WorkProject> query = session.createQuery(hqlstr,WorkProject.class);
+//		query.setParameter("pid", pid);
+//		List<WorkProject> wlist = query.list();
+//		JSONArray ja = new JSONArray();
+//		for(WorkProject w:wlist) {
+//			JSONObject jb = new JSONObject();
+//			jb.put("pqt",w.getPersonalQuarterlyTarget());
+//			jb.put("Work",w.getWork());
+//			jb.put("wid",w.getwID());
+//			ja.put(jb);
+//		}
+//		j = ja;
+//		return j;
+//	}
+	
+	
+//	public JSONArray getemployee(Model m, int wid) {
+//		Session session = sessionFactory.getCurrentSession();
+//		String hqlstr = "From AssignWork Where wID =: wid";
+//		String hqlemp = "From Employee Where empID =: epmid";
+//		Query<AssignWork> query = session.createQuery(hqlstr,AssignWork.class);
+//		Query<Employee> equery = session.createQuery(hqlemp,Employee.class);
+//		query.setParameter("wid", wid);
+//		List<AssignWork> awlist = query.getResultList();
+//		JSONArray jay = new JSONArray();
+//		for(AssignWork aw:awlist) {
+//			JSONObject jb = new JSONObject();
+//			jb.put(key, value);
+//		}
+//		
+//	}
+	
+	
 	public JSONArray getassignwork(Model m, int pid) {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "From WorkProject Where pID =:pid";
+		String hqlawork = "From AssignWork Where wID =: wid";
+		String hqlemp = "From Employee Where empID =: empid";
 		Query<WorkProject> query = session.createQuery(hqlstr,WorkProject.class);
+		Query<AssignWork> awquery = session.createQuery(hqlawork,AssignWork.class);
+		Query<Employee> empquery = session.createQuery(hqlemp,Employee.class);
 		query.setParameter("pid", pid);
 		List<WorkProject> wlist = query.list();
 		JSONArray ja = new JSONArray();
-		for(WorkProject w:wlist) {
-			JSONObject jb = new JSONObject();
-			jb.put("pqt",w.getPersonalQuarterlyTarget());
-			jb.put("Work",w.getWork());
-			jb.put("wid",w.getwID());
-			ja.put(jb);
+		for(int i=0;i<wlist.size();i++) {
+			List<AssignWork> awlist = awquery.setParameter("wid", wlist.get(i).getwID()).list();
+			JSONArray jay = new JSONArray();
+			for(AssignWork aw:awlist) {
+				Employee e = empquery.setParameter("empid", aw.getEmpID()).uniqueResult();
+				JSONObject jb = new JSONObject();
+				jb.put("pqt", wlist.get(i).getPersonalQuarterlyTarget());
+				jb.put("Work", wlist.get(i).getWork());
+				jb.put("wid", wlist.get(i).getwID());
+				jb.put("empid", aw.getEmpID());
+				jb.put("empname",e.getName());
+				jay.put(jb);
+			}
+			ja.put(jay);
 		}
 		j = ja;
 		return j;
