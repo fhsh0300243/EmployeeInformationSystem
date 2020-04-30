@@ -74,8 +74,8 @@ public class feeAppService implements IfeeAppService{
 
 	@Override
 	public boolean DelectItem(int feeAppID) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return feeAppDAO.DelectItem(feeAppID);
 	}
 
 	

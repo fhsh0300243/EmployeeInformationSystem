@@ -32,11 +32,41 @@ public class MainPageController {
 	//轉頁差旅費查詢頁面
 	@RequestMapping(path = "/FeeAllPage.action",method =RequestMethod.GET)
 	public String MinPage() {
+		
 		return "FeeAllPage";
 	}
 	//轉頁差旅費申請頁面
 	@RequestMapping(path = "/AddFeeApp.action",method =RequestMethod.GET)
-	public String feeAppPage() {
+	public String feeAppPage(@ModelAttribute("LoginOK") Users userBean, Model model) {
+		String SingerTotal=Integer.toString(feeAppService.query(userBean.getEmployeeID()));
+		if(SingerTotal.equals("0")) {
+			SingerTotal="";
+		}else {
+			SingerTotal="("+SingerTotal+")";
+		}
+		model.addAttribute("SingerTotal", SingerTotal);
+		
+		int userID = userBean.getEmployeeID();
+		Employee employeeIDB = eService.empData(userID);
+		
+		String signerStatus="退件";
+		List<feeAppMember> qfeeAppByID= feeAppService.qfeeAppByID(employeeIDB,signerStatus);
+				
+		int qReturnTotal = 0;
+		for (feeAppMember feeAppMember : qfeeAppByID) {
+			qReturnTotal+= 1;
+
+		}
+		String qReturnTota = "";
+		if(qReturnTotal==0) {
+			qReturnTota = Integer.toString(qReturnTotal);
+			qReturnTota="";
+		}else {
+			qReturnTota = "("+Integer.toString(qReturnTotal)+")";
+		}
+		
+		model.addAttribute("qReturnTota", qReturnTota);
+		
 		return "feeApplicationForm";
 	}
 	//轉頁差旅費退件頁面
@@ -46,7 +76,6 @@ public class MainPageController {
 			int userID = LoginOK.getEmployeeID();
 			Employee employeeIDB = eService.empData(userID);
 			
-			//int EmployeeID2 = LoginOK.getEmployeeID();
 			String signerStatus="退件";
 			List<feeAppMember> qfeeAppByID= feeAppService.qfeeAppByID(employeeIDB,signerStatus);
 			model.addAttribute("qfeeAppByID", qfeeAppByID);

@@ -151,8 +151,8 @@ b{
 							<hr />
 
 							<div>
-								<input type="submit" name="bot" value="送出" > 
-								<input type="button" name="bot" value="刪除此筆申請">
+								<input type="submit" name="bot" value="送出" class="btn btn-info"> 
+								<input type="submit" name="bot" value="刪除此筆申請" class="btn btn-info">
 							</div>
 						</form>
 
