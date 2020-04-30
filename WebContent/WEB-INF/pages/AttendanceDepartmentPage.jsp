@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="tw.eis.model.Employee,java.util.*"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>番茄科技 打卡系統</title>
@@ -28,6 +29,12 @@
 	text-align: center;
 }
 
+.f1 {
+	position: relative;
+	width: 70%;
+	left: 30%;
+}
+
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
@@ -36,6 +43,11 @@ p {
 b {
 	font-size: 20px;
 }
+/*.tb {
+	position: relative;
+	width: 70%;
+	left: 28.5%;
+}*/
 </style>
 </head>
 <body>
@@ -67,37 +79,42 @@ b {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						${errormsg}
-						<form action="<c:url value='/InquiryAttendanceDepartment'/>"
-							method="post">
-							<div class="col-md-7">
-								<input type="text" id="datepicker"
-									class="datepicker form-control" name="month" value="${month}"
-									placeholder="選擇查詢月份" autocomplete="off"> <input
-									type="submit" value="查詢" class="btn btn-info" />
-							</div>
-						</form>
-						<table id="idtable1">
-							<tr>
-								<th>員工ID</th>
-								<th>姓名</th>
-								<th>部門</th>
-								<th>職稱</th>
-								<th>異常次數</th>
-								<th>詳細資料</th>
-							</tr>
-							<c:forEach var='element' items='${countMap}' varStatus='vs'>
-								<tr class='classtr1'>
-									<td>${element.getKey().getEmpID()}</td>
-									<td>${element.getKey().getName()}</td>
-									<td>${element.getKey().getDepartment()}</td>
-									<td>${element.getKey().getTitle()}</td>
-									<td>${element.getValue()}</td>
-									<td><input type="button"
-										onclick="detail(${element.getKey().getEmpID()})" value="詳細資料"
-										class="btn btn-info"></td>
+						<div class="f1">
+							<form action="<c:url value='/InquiryAttendanceDepartment'/>"
+								method="post">
+								<div class="col-md-7">
+									<input type="text" id="datepicker"
+										class="datepicker form-control" name="month" value="${month}"
+										placeholder="選擇查詢月份" autocomplete="off"><br> <input
+										type="submit" value="查詢" class="btn btn-info" />
+								</div>
+							</form>
+						</div>
+						<br> <br> <br> <br>
+						<div class="tb">
+							<table id="idtable1">
+								<tr>
+									<th>員工ID</th>
+									<th>姓名</th>
+									<th>部門</th>
+									<th>職稱</th>
+									<th>異常次數</th>
+									<th>詳細資料</th>
 								</tr>
-							</c:forEach>
-						</table>
+								<c:forEach var='element' items='${countMap}' varStatus='vs'>
+									<tr class='classtr1'>
+										<td>${element.getKey().getEmpID()}</td>
+										<td>${element.getKey().getName()}</td>
+										<td>${element.getKey().getDepartment()}</td>
+										<td>${element.getKey().getTitle()}</td>
+										<td>${element.getValue()}</td>
+										<td><input type="button"
+											onclick="detail(${element.getKey().getEmpID()})" value="詳細資料"
+											class="btn btn-info"></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -113,8 +130,7 @@ b {
 
 	<script>
 	function detail(EmpID){
-		const Element = document.getElementById("datepicker");
-		const month = Element.value;
+		const month = document.getElementById("datepicker").value;
 		window.location.href = "InquiryAttendanceByBoss?EmpId="+EmpID+"&month="+month;
 	}
 		$(function() {
@@ -152,5 +168,5 @@ b {
 							});
 		});
 	</script>
-</html>
 </body>
+</html>

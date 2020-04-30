@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="tw.eis.model.HolidayCalendar, java.util.*"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>番茄科技 打卡系統</title>
@@ -29,15 +30,15 @@ p {
 	text-align: center;
 }
 
-.tb {
-	position: relative;
-	width: 70%;
-	left: 28.5%;
-}
-
 b {
 	font-size: 20px;
 }
+
+/*.tb {
+	position: relative;
+	width: 70%;
+	left: 28.5%;
+}*/
 </style>
 </head>
 <body>
@@ -55,7 +56,7 @@ b {
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
-				<%@ include file="SubFeatureForAttendance.jsp"%>
+				<%@ include file="SubFeatureForEmpManage.jsp"%>
 
 			</div>
 
