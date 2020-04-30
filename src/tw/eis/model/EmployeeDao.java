@@ -86,7 +86,9 @@ public class EmployeeDao implements IEmployeeDao {
 			Session session = sessionFactory.getCurrentSession();
 			Employee myEmp = session.get(Employee.class, id);
 			Users myUser = session.get(Users.class, id);
-
+			List<ApplyForLeave> list = session
+					.createQuery("From ApplyForLeave where EmployeeID=:employee and confirmTime is null", ApplyForLeave.class)
+					.setParameter("employee", myEmp.getEmpID()).list();
 			myUser.setDepartment(Department);
 			myUser.setTitle(Title);
 
@@ -130,7 +132,15 @@ public class EmployeeDao implements IEmployeeDao {
 			if (EmpDept != null) {
 				myEmp.setEmpDept(EmpDept);
 			}
-
+			for (ApplyForLeave aLeav : list) {
+				if (Manager != null) {
+					aLeav.setSignerId(Manager);
+					session.update(aLeav);
+				} else {
+					aLeav.setSignerId(null);
+					session.update(aLeav);
+				}
+			}
 			session.update(myUser);
 			session.update(myEmp);
 			return true;
