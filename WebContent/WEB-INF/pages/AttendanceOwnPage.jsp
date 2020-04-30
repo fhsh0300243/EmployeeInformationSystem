@@ -24,7 +24,7 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<style>
+<style type="text/css">
 .ui-datepicker-calendar {
 	display: none;
 }
@@ -44,15 +44,14 @@ p {
 	left: 30%;
 }
 
-.tb {
-	position: relative;
-	width: 70%;
-	left: 28.5%;
-}
-
 b {
 	font-size: 20px;
 }
+/*.tb {
+	position: relative;
+	width: 70%;
+	left: 28.5%;
+}*/
 </style>
 </head>
 <body>
@@ -87,7 +86,7 @@ b {
 								<div class="col-md-7">
 									<input type="text" id="datepicker"
 										class="datepicker form-control" name="month" value="${month}"
-										placeholder="選擇查詢月份" autocomplete="off"> <input
+										placeholder="選擇查詢月份" autocomplete="off"><br> <input
 										type="submit" value="查詢" class="btn btn-info" />
 								</div>
 							</form>
@@ -161,7 +160,5 @@ b {
 							});
 		});
 	</script>
-
-
 </body>
 </html>

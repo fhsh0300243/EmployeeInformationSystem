@@ -29,9 +29,6 @@
 			<div>
 				<a href="<c:url value="/gotoAttendanceOwnPage"/>">個人出勤查詢</a>
 			</div>
-			<div>
-				<a href="<c:url value="/InqueryCalendar"/>">設定行事曆</a>
-			</div>
 			<br>
 			<div id="manager" name="${empLevel}" style="display: none;">
 				<div class="title">主管專區</div>
@@ -53,13 +50,13 @@
 		</div>
 		<div class="panel-footer"></div>
 	</div>
+	<script>
+		$(function() {
+			var level = $("#manager").attr("name");
+			if (level != 1) {
+				$("#manager").show()
+			}
+		});
+	</script>
 </body>
 </html>
-<script>
-	$(function() {
-		var level = $("#manager").attr("name");
-		if (level != 1) {
-			$("#manager").show()
-		}
-	});
-</script>

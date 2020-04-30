@@ -44,15 +44,15 @@ p {
 	left: 30%;
 }
 
-.tb {
-	position: relative;
-	width: 70%;
-	left: 28.5%;
-}
-
 b {
 	font-size: 20px;
 }
+
+/*.tb {
+	position: relative;
+	width: 70%;
+	left: 28.5%;
+}*/
 </style>
 </head>
 <body>
@@ -83,6 +83,8 @@ b {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<div class="tb">
+							<input type="button" value="返回" class="btn btn-info"
+								onclick="goback()" />
 							<table id="idtable1">
 								<tr>
 									<th>日期</th>
@@ -114,5 +116,10 @@ b {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
+	<script>
+		function goback() {
+			window.location.href = "gotoAttendanceDepartmentPage";
+		}
+	</script>
 </body>
 </html>
