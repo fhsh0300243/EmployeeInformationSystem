@@ -194,11 +194,11 @@ p {
 											<div class="depAuthority">
 												<p>傳送至 :</p>
 
-												<input type="checkbox" value="HR" name="dep"> HR <input
-													type="checkbox" value="RD" name="dep">RD <input
-													type="checkbox" value="Test" name="dep"> Test <input
-													type="checkbox" value="Sales" name="dep"> Sales <input
-													type="checkbox" value="PM" name="dep"> PM
+												<input type="checkbox" id="HR" value="HR" name="dep"> HR <input
+													type="checkbox" id="RD" value="RD" name="dep">RD <input
+													type="checkbox" id="Test" value="Test" name="dep"> Test <input
+													type="checkbox" id="Sales" value="Sales" name="dep"> Sales <input
+													type="checkbox" id="PM" value="PM" name="dep"> PM
 
 											</div>
 											<section class="my-2">
@@ -212,6 +212,8 @@ p {
 													class="my-2 btn btn-secondary">送出</button>
 												<button type="button" id="tttttt"
 													class="my-2 btn btn-secondary">測試</button>
+												<button type="reset" id="clear"
+													class="my-2 btn btn-secondary">清除</button>
 											</section>
 										</form>
 									</div>
@@ -247,9 +249,9 @@ p {
 		src='<c:url value="/js/BulletinBoard/index.js"></c:url>'></script>
 	<script type="text/javascript"
 		src='<c:url value="/js/BulletinBoard/wysibb/jquery.wysibb.js"></c:url>'></script>
-	<script type="text/javascript"
+	<!-- <script type="text/javascript"
 		src='<c:url value="/js/BulletinBoard/renew.js"></c:url>'></script>
-
+ -->
 	<script>
 		$(document)
 				.ready(

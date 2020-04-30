@@ -6,6 +6,8 @@ $(document)
 					var num1;
 					var num2;
 					var num3;
+					var num4;
+					var num5;
 				
 					
 					checkDate();
@@ -33,16 +35,16 @@ $(document)
 												query();
 												querybullboard();
 												querysucess(oldDate,newDate);
+												querysucessApplyForLeave(oldDate,newDate);
+												queryNewApply();
 												
 												console.log("num1:"+num1);
 												console.log("num2:"+num2);
 												console.log("num3:"+num3);
+												console.log("num4:"+num4);
+												console.log("num5:"+num5);
 												
-												console.log("num3:"+num3)
-												if((num1==null || num1==0)
-												 &&(num2==null || num2==0)
-												 &&(num3==null || num3==0)
-												){
+												if((num1+num2+num3+num4+num5)==0){
 													$("#maintext").html("沒有新消息!");
 												}
 												
@@ -107,6 +109,63 @@ $(document)
 									}
 								})
 					}
+//					請假申請簽核
+					function queryNewApply(){
+						$.ajax({
+							url : "http://localhost:8080/EmployeeInformationSystem/queryNewApply",
+							type : "get",
+							cache : false,
+							async : false,
+							dataType : "text",
+							success : function(rs) {
+								console.log("sucess");
+								var Num = parseInt(rs);
+								if (Num != 0) {
+									$("#queryNewApply").html("有"+ Num+ "個下屬的請假申請尚未被簽核!");		}
+								num3=Num;
+								
+							},
+							error : function(rs) {
+								alert("error");
+							}
+						})
+					}
+//					請假簽核完成
+					function querysucessApplyForLeave(oldDate,newDate){
+						$.ajax({
+							url : "http://localhost:8080/EmployeeInformationSystem/querysucessApplyForLeave",
+							type : "get",
+							cache : false,
+							async : false,
+							dataType : "text",
+							data : {
+								"oldDate":oldDate,
+								"newDate":newDate
+							},
+							success : function(rs) {
+								console.log("sucess");
+								var Num = parseInt(rs);
+								if (Num != 0) {
+									$("#querysucessApplyForLeave")
+											.html(
+													"你提出的"+Num+ "個請假申請已被簽核完成!");		
+								}
+								num4=Num;
+								
+							},
+							error : function(rs) {
+								alert("error");
+							}
+						})
+					}
+					
+					
+					
+					
+					
+					
+					
+					
 					
 
 					function querybullboard() {
@@ -124,7 +183,7 @@ $(document)
 													"有" + Num + "個新的布告欄通知!");
 										}
 										console.log("Num3"+Num)
-										num3=Num;
+										num5=Num;
 										console.log("num3"+num3)
 										
 									},

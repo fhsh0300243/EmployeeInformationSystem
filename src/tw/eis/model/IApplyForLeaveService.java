@@ -30,4 +30,9 @@ public interface IApplyForLeaveService {
 
 	public BigDecimal countHoursSTtoET(String startD, String endD, String startH, String endH, String startM,
 			String endM) throws ParseException;
+	
+//	add By GK
+	public int queryNewApply(int ID);
+	public int querysucessApplyForLeave(int ID,String oldDate,String newDate);
+//	END
 }

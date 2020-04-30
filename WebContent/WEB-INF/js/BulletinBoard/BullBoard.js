@@ -32,6 +32,12 @@ $(document).ready(
 						$(".content").val($("#editor").htmlcode())
 					})
 					
+					$("#clear").click(function(){
+						$("#BulletinBoardid").val("");
+						$("#editor").htmlcode("");
+						
+					})
+					
 
 					
 					result();
@@ -170,8 +176,30 @@ $(document).ready(
 											$("#uptime").val($(".card-body .cardupTime").eq(ind).html());
 											$("#downtime").val($(".card-body .carddownTime").eq(ind).html());
 
-											$("#contact-tab").tab('show');												
-											console.log($(".card-body .cardAuthority").eq(ind).html());
+											$("#contact-tab").tab('show');
+											
+											var Authority = $(".btn-link .cardAuthority").eq(ind).html();
+											Authorities = Authority.split("\,");
+											for(var i=0;i<Authorities.length;i++){
+												Authority = Authorities[i];
+												if(Authority=="HR"){
+													$("#HR").prop("checked", true)
+												}
+												if(Authority=="RD"){
+													$("#RD").prop("checked", true)
+												}
+												if(Authority=="Test"){
+													$("#Test").prop("checked", true)
+												}
+												if(Authority=="Sales"){
+													$("#Sales").prop("checked", true)
+												}
+												if(Authority=="PM"){
+													$("#PM").prop("checked", true)
+												}
+												
+												
+											}
 											
 											
 									

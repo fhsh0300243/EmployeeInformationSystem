@@ -83,9 +83,20 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 		
 		return BulletinBoard.getAttachedFiles();
 	}
-
-
-
+	
+	
+	
+//	public int reflash(String department,String oldDate,String newDate){
+//		Session session = SessionFactory.getCurrentSession();
+//
+//		Query Query = session.createQuery("from BulletinBoard where Authority like :department and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0))");
+//		Query Query = session.createQuery("from feeAppMember where employeeID=:employeeID and signerStatus<>'簽核中' and (signerTime>:oldDate and signerTime<:newDate)");
+//		Query.setString("department", "%"+department+"%");
+//		Query.setString("oldDate", oldDate);
+//		Query.setString("newDate", newDate);
+//		return Query.list().size();
+//		
+//	}
 	
 	
 
