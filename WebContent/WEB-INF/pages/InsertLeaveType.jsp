@@ -67,7 +67,7 @@ b {
 							<tr>
 								<td></td>
 								<td class="tdErr" colspan="3"><img id="empIdImg"> <span
-									id="empIdCheck"></span></td>
+									id="empIdCheck">${ErrorMap.empError}</span></td>
 							</tr>
 							<tr>
 								<td class="tdtag"><span class="span1">*</span>假別：</td>
@@ -76,7 +76,7 @@ b {
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3">${ErrorMap.sError}</td>
+								<td id="conErr" class="tdErr" colspan="3">${ErrorMap.sError}</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -85,13 +85,13 @@ b {
 								<td id=hTYear class="tdtag" style="display: none;"><span
 									class="span1">*</span>年份：<br /></td>
 								<td id="hYear" style="display: none;"><input type=number
-									id="idYear" name="year" step="1" min="2020" max="2100"
+									id="idYear" name="year" step="1" min="2019" max="2100"
 									onblur="checkYear();"><span class="span2">&emsp;事假、病假、特休，請輸入年份。</span>
 								</td>
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3">${ErrorMap.bError}</td>
+								<td id="conErr" class="tdErr" colspan="3">${ErrorMap.bError}</td>
 								<td id="hTdYear" style="display: none;"></td>
 								<td id="hEYear" class="tdErr" style="display: none;"><img
 									id="yearImg"> <span id="yearCheck"></span></td>
@@ -103,7 +103,7 @@ b {
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr" colspan="3">${ErrorMap.tError}</td>
+								<td id="conErr" class="tdErr" colspan="3">${ErrorMap.tError}</td>
 							</tr>
 							<tr>
 								<td></td>
@@ -168,7 +168,7 @@ b {
 	<script>
 		$('input[type="checkbox"]').click(function() {
 			$("#leaveTypeImg").attr("src", "");
-			$("#leaveTypeCheck").empty();
+			$("#leaveTypeCheck,#conErr").empty();
 			if ($("#idCS,#idCB,#idCT").is(":checked")) {
 				$("#hTYear,#hTdYear,#hYear,#hEYear").show();
 			} else {
@@ -189,7 +189,8 @@ b {
 		function cls() {
 			$("#empIdImg,#leaveTypeImg,#yearImg,#hoursImg,#whoImg").attr("src",
 					"");
-			$("#empIdCheck,#leaveTypeCheck,#yearCheck,#hoursCheck,#whoCheck")
+			$(
+					"#empIdCheck,#leaveTypeCheck,#yearCheck,#hoursCheck,#whoCheck,#conErr")
 					.empty();
 			$(
 					"#hTYear,#hTdYear,#hYear,#hEYear,#hTHours,#hTdHours,#hHours,#hEHours,#hTWho,#hTdWho,#hWho,#hEWho")
@@ -197,6 +198,7 @@ b {
 		}
 
 		function checkEmpId() {
+			$("#conErr").empty();
 			var inputEmpId = $("#idIEmpId").val();
 
 			if (inputEmpId == "" || inputEmpId.length == 0) {

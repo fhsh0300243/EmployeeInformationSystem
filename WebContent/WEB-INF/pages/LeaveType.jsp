@@ -25,8 +25,9 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -38,8 +39,9 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -63,6 +65,7 @@ b{
 							<th>申請時數</th>
 							<th>剩餘時數</th>
 							<th>有效期限</th>
+							<th>給假原則</th>
 						</tr>
 						<c:forEach var='leaveDetail' items='${LeaveList}' varStatus='vs'>
 							<tr class='classtr1'>
@@ -72,10 +75,7 @@ b{
 								<td>${leaveDetail.applyHours}</td>
 								<td>${leaveDetail.surplusHours}</td>
 								<td>${leaveDetail.startDate}~${leaveDetail.endDate}</td>
-								<!-- <td>
-					<button class="classD" name="${leaveDetail.eldId}">詳細資訊</button>
-				</td>
-				 -->
+								<td>${leaveDetail.remarks}</td>
 							</tr>
 						</c:forEach>
 					</table>

@@ -435,7 +435,6 @@ public class AFLController {
 			@RequestParam("leaveType") String[] listLT, @RequestParam("year") String year,
 			@RequestParam("hours") String hours, @RequestParam("selWho") String who, Model model)
 			throws ParseException {
-		Integer empIDINT = Integer.valueOf(empID);
 		int userID = userBean.getEmployeeID();
 		int empLevel = eService.empData(userID).getLevel();
 		model.addAttribute("empLevel", empLevel);
@@ -448,23 +447,36 @@ public class AFLController {
 			ErrorMap.put("hrError", hrError);
 			model.addAttribute("ErrorMap", ErrorMap);
 			return "InsertLeaveType";
-		} else {
-			for (String leaveType : listLT) {
-				if (leaveType.equalsIgnoreCase("s")) {
-					List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "事假", year);
-					if (eldList != null) {
-						String sError = "員工編號：" + empIDINT + "，" + year + "年事假重複建立";
-						ErrorMap.put("sError", sError);
-					}
+		}
+		Integer empIDINT = Integer.valueOf(empID);
+		if (eService.empData(empIDINT) == null) {
+			String empError = "無員工編號：" + empIDINT + "的員工資訊，請再次確認。";
+			ErrorMap.put("empError", empError);
+			model.addAttribute("ErrorMap", ErrorMap);
+			return "InsertLeaveType";
+		}
+
+		for (String leaveType : listLT) {
+			if (leaveType.equalsIgnoreCase("s")) {
+				List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "事假", year);
+				if (eldList != null) {
+					String sError = "員工編號：" + empIDINT + "，" + year + "年事假重複建立";
+					ErrorMap.put("sError", sError);
 				}
-				if (leaveType.equalsIgnoreCase("b")) {
-					List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "病假", year);
-					if (eldList != null) {
-						String bError = "員工編號：" + empIDINT + "，" + year + "年病假重複建立";
-						ErrorMap.put("bError", bError);
-					}
+			}
+			if (leaveType.equalsIgnoreCase("b")) {
+				List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "病假", year);
+				if (eldList != null) {
+					String bError = "員工編號：" + empIDINT + "，" + year + "年病假重複建立";
+					ErrorMap.put("bError", bError);
 				}
-				if (leaveType.equalsIgnoreCase("t")) {
+			}
+			if (leaveType.equalsIgnoreCase("t")) {
+				java.sql.Date hireDay = eService.empData(empIDINT).getHireDay();
+				if (hireDay == null) {
+					String tError = "員工編號：" + empIDINT + "，查無到職日，請先設定到職日。";
+					ErrorMap.put("tError", tError);
+				} else {
 					List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "特休", year);
 					if (eldList != null) {
 						String tError = "員工編號：" + empIDINT + "，" + year + "年特休重複建立";
@@ -472,291 +484,278 @@ public class AFLController {
 					}
 				}
 			}
-			if (ErrorMap.size() > 0) {
-				model.addAttribute("ErrorMap", ErrorMap);
-				return "InsertLeaveType";
-			} else {
-				for (String leaveType : listLT) {
-					System.out.println(leaveType);
-					if (leaveType.equalsIgnoreCase("s")) {
+		}
+		if (ErrorMap.size() > 0) {
+			model.addAttribute("ErrorMap", ErrorMap);
+			return "InsertLeaveType";
+		} else {
+			for (String leaveType : listLT) {
+				if (leaveType.equalsIgnoreCase("s")) {
 
-						EmployeeLeaveDetail sBean = new EmployeeLeaveDetail();
+					EmployeeLeaveDetail sBean = new EmployeeLeaveDetail();
 
-						Date cTime = new Date();
-						String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
-						sBean.setCreateTime(createTime);
+					Date cTime = new Date();
+					String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+					sBean.setCreateTime(createTime);
 
-						Employee ueBean = eService.empData(userID);
-						sBean.setCreatorId(ueBean);
+					Employee ueBean = eService.empData(userID);
+					sBean.setCreatorId(ueBean);
 
-						Employee eeBean = eService.empData(empIDINT);
-						sBean.setEmployeeId(eeBean);
+					Employee eeBean = eService.empData(empIDINT);
+					sBean.setEmployeeId(eeBean);
 
-						sBean.setUsedHours(new BigDecimal(0.0));
-						sBean.setApplyHours(new BigDecimal(0.0));
+					sBean.setUsedHours(new BigDecimal(0.0));
+					sBean.setApplyHours(new BigDecimal(0.0));
 
-						sBean.setLeaveType("事假");
-						sBean.setMaxHours(new BigDecimal(112.0));
-						sBean.setSurplusHours(new BigDecimal(112.0));
+					sBean.setLeaveType("事假");
+					sBean.setMaxHours(new BigDecimal(112.0));
+					sBean.setSurplusHours(new BigDecimal(112.0));
 
-						long sDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-1-1").getTime();
-						sBean.setStartDate(new java.sql.Date(sDate));
-						long eDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-12-31").getTime();
-						sBean.setEndDate(new java.sql.Date(eDate));
+					long sDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-1-1").getTime();
+					sBean.setStartDate(new java.sql.Date(sDate));
+					long eDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-12-31").getTime();
+					sBean.setEndDate(new java.sql.Date(eDate));
 
-						sBean.setRemarks("1年內合計不得超過14日。");
-						eldService.addDetail(sBean);
-					}
+					sBean.setRemarks("1年內合計不得超過14日。");
+					eldService.addDetail(sBean);
+				}
 
-					if (leaveType.equalsIgnoreCase("b")) {
+				if (leaveType.equalsIgnoreCase("b")) {
 
-						EmployeeLeaveDetail bBean = new EmployeeLeaveDetail();
+					EmployeeLeaveDetail bBean = new EmployeeLeaveDetail();
 
-						Date cTime = new Date();
-						String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
-						bBean.setCreateTime(createTime);
+					Date cTime = new Date();
+					String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+					bBean.setCreateTime(createTime);
 
-						Employee ueBean = eService.empData(userID);
-						bBean.setCreatorId(ueBean);
+					Employee ueBean = eService.empData(userID);
+					bBean.setCreatorId(ueBean);
 
-						Employee eeBean = eService.empData(empIDINT);
-						bBean.setEmployeeId(eeBean);
+					Employee eeBean = eService.empData(empIDINT);
+					bBean.setEmployeeId(eeBean);
 
-						bBean.setUsedHours(new BigDecimal(0.0));
-						bBean.setApplyHours(new BigDecimal(0.0));
+					bBean.setUsedHours(new BigDecimal(0.0));
+					bBean.setApplyHours(new BigDecimal(0.0));
 
-						bBean.setLeaveType("病假");
-						bBean.setMaxHours(new BigDecimal(240.0));
-						bBean.setSurplusHours(new BigDecimal(240.0));
+					bBean.setLeaveType("病假");
+					bBean.setMaxHours(new BigDecimal(240.0));
+					bBean.setSurplusHours(new BigDecimal(240.0));
 
-						long sDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-1-1").getTime();
-						bBean.setStartDate(new java.sql.Date(sDate));
-						long eDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-12-31").getTime();
-						bBean.setEndDate(new java.sql.Date(eDate));
+					long sDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-1-1").getTime();
+					bBean.setStartDate(new java.sql.Date(sDate));
+					long eDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-12-31").getTime();
+					bBean.setEndDate(new java.sql.Date(eDate));
 
-						bBean.setRemarks("1年內合計不得超過30日。");
-						eldService.addDetail(bBean);
-					}
+					bBean.setRemarks("1年內合計不得超過30日。");
+					eldService.addDetail(bBean);
+				}
 
-					if (leaveType.equalsIgnoreCase("t")) {
-						System.out.println("RUN T1");
-						EmployeeLeaveDetail tBean = new EmployeeLeaveDetail();
+				if (leaveType.equalsIgnoreCase("t")) {
+					EmployeeLeaveDetail tBean = new EmployeeLeaveDetail();
 
-						Date cTime = new Date();
-						String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
-						tBean.setCreateTime(createTime);
+					Date cTime = new Date();
+					String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+					tBean.setCreateTime(createTime);
 
-						Employee ueBean = eService.empData(userID);
-						tBean.setCreatorId(ueBean);
+					Employee ueBean = eService.empData(userID);
+					tBean.setCreatorId(ueBean);
 
-						Employee eeBean = eService.empData(empIDINT);
-						tBean.setEmployeeId(eeBean);
+					Employee eeBean = eService.empData(empIDINT);
+					tBean.setEmployeeId(eeBean);
 
-						tBean.setUsedHours(new BigDecimal(0.0));
-						tBean.setApplyHours(new BigDecimal(0.0));
+					tBean.setUsedHours(new BigDecimal(0.0));
+					tBean.setApplyHours(new BigDecimal(0.0));
 
-						tBean.setLeaveType("特休");
+					tBean.setLeaveType("特休");
 
-						System.out.println("RUN T2");
-						java.sql.Date hireDay = eService.empData(empIDINT).getHireDay();
-						Calendar calT = Calendar.getInstance();
-						calT.setTime(hireDay);
-						int hYear = calT.get(Calendar.YEAR);
-						int hMonth = calT.get(Calendar.MONTH) + 1;
-						int hDay = calT.get(Calendar.DATE);
+					java.sql.Date hireDay = eService.empData(empIDINT).getHireDay();
+					Calendar calT = Calendar.getInstance();
+					calT.setTime(hireDay);
+					int hYear = calT.get(Calendar.YEAR);
+					int hMonth = calT.get(Calendar.MONTH) + 1;
+					int hDay = calT.get(Calendar.DATE);
 
-						System.out.println("RUN T3");
-						Integer yearINT = Integer.valueOf(year);
-						int workingYears = yearINT - hYear;
+					Integer yearINT = Integer.valueOf(year);
+					int workingYears = yearINT - hYear;
 
-						System.out.println("RUN T3 workingYears=" + workingYears);
-						if (workingYears == 0) {
-							System.out.println("RUN T3 workingYears=0");
+					if (workingYears == 0) {
+						calT.add(Calendar.MONTH, 6);
+						if (calT.get(Calendar.YEAR) == yearINT) {
+							tBean.setMaxHours(new BigDecimal(24.0));
+							tBean.setSurplusHours(new BigDecimal(24.0));
 
-							calT.add(Calendar.MONTH, 6);
-							if (calT.get(Calendar.YEAR) == yearINT) {
-								tBean.setMaxHours(new BigDecimal(24.0));
-								tBean.setSurplusHours(new BigDecimal(24.0));
-
-								long sDate = calT.getTime().getTime();
-								tBean.setStartDate(new java.sql.Date(sDate));
-
-								calT.add(Calendar.MONTH, 6);
-								calT.add(Calendar.DATE, -1);
-								long eDate = calT.getTime().getTime();
-								tBean.setEndDate(new java.sql.Date(eDate));
-
-								tBean.setRemarks("6個月至未滿1年：3日。");
-								eldService.addDetail(tBean);
-							}
-						}
-						if (workingYears == 1) {
-							System.out.println("RUN T3 workingYears=1");
-							calT.add(Calendar.MONTH, 6);
-							if (calT.get(Calendar.YEAR) == yearINT) {
-								EmployeeLeaveDetail t1Bean = new EmployeeLeaveDetail();
-								t1Bean.setCreateTime(createTime);
-								t1Bean.setCreatorId(ueBean);
-								t1Bean.setEmployeeId(eeBean);
-								t1Bean.setUsedHours(new BigDecimal(0.0));
-								t1Bean.setApplyHours(new BigDecimal(0.0));
-								t1Bean.setLeaveType("特休");
-								t1Bean.setMaxHours(new BigDecimal(24.0));
-								t1Bean.setSurplusHours(new BigDecimal(24.0));
-
-								long sDate = calT.getTime().getTime();
-								t1Bean.setStartDate(new java.sql.Date(sDate));
-
-								calT.add(Calendar.MONTH, 6);
-								calT.add(Calendar.DATE, -1);
-								long eDate = calT.getTime().getTime();
-								t1Bean.setEndDate(new java.sql.Date(eDate));
-
-								t1Bean.setRemarks("6個月至未滿1年：3日。");
-								eldService.addDetail(t1Bean);
-							}
-
-							tBean.setMaxHours(new BigDecimal(56.0));
-							tBean.setSurplusHours(new BigDecimal(56.0));
-
-							Date utilsDate = new SimpleDateFormat("yyyy-MM-dd")
-									.parse(yearINT + "-" + hMonth + "-" + hDay);
-							long sDate = utilsDate.getTime();
+							long sDate = calT.getTime().getTime();
 							tBean.setStartDate(new java.sql.Date(sDate));
 
-							calT.setTime(utilsDate);
-							calT.add(Calendar.MONTH, 12);
+							calT.add(Calendar.MONTH, 6);
 							calT.add(Calendar.DATE, -1);
 							long eDate = calT.getTime().getTime();
 							tBean.setEndDate(new java.sql.Date(eDate));
 
-							tBean.setRemarks("工作滿第1年：7日。");
+							tBean.setRemarks("6個月至未滿1年：3日。");
 							eldService.addDetail(tBean);
 						}
-						if (workingYears >= 2) {
-							System.out.println("RUN T3 workingYears>=2");
-							int tHours = 0;
-							if (workingYears == 2) {
-								tHours = 80;
-								tBean.setRemarks("工作滿第2年：10日。");
-							} else if (workingYears == 3 || workingYears == 4) {
-								tHours = 112;
-								tBean.setRemarks("工作滿第3~4年：14日。");
-							} else if (workingYears >= 5 && workingYears <= 9) {
-								tHours = 120;
-								tBean.setRemarks("工作滿第5~9年：15日。");
-							} else if (workingYears >= 10 && workingYears <= 23) {
-								int i = workingYears - 10;
-								tHours = (16 + i) * 8;
-								tBean.setRemarks("工作滿第" + workingYears + "年：" + (16 + i) + "日。");
-							} else if (workingYears >= 24) {
-								tHours = 240;
-								tBean.setRemarks("工作滿第24年含以上：30日。");
-							}
-							tBean.setMaxHours(new BigDecimal(tHours));
-							tBean.setSurplusHours(new BigDecimal(tHours));
+					}
+					if (workingYears == 1) {
+						calT.add(Calendar.MONTH, 6);
+						if (calT.get(Calendar.YEAR) == yearINT) {
+							EmployeeLeaveDetail t1Bean = new EmployeeLeaveDetail();
+							t1Bean.setCreateTime(createTime);
+							t1Bean.setCreatorId(ueBean);
+							t1Bean.setEmployeeId(eeBean);
+							t1Bean.setUsedHours(new BigDecimal(0.0));
+							t1Bean.setApplyHours(new BigDecimal(0.0));
+							t1Bean.setLeaveType("特休");
+							t1Bean.setMaxHours(new BigDecimal(24.0));
+							t1Bean.setSurplusHours(new BigDecimal(24.0));
 
-							Date utilsDate = new SimpleDateFormat("yyyy-MM-dd")
-									.parse(yearINT + "-" + hMonth + "-" + hDay);
-							long sDate = utilsDate.getTime();
-							tBean.setStartDate(new java.sql.Date(sDate));
+							long sDate = calT.getTime().getTime();
+							t1Bean.setStartDate(new java.sql.Date(sDate));
 
-							calT.setTime(utilsDate);
-							calT.add(Calendar.MONTH, 12);
+							calT.add(Calendar.MONTH, 6);
 							calT.add(Calendar.DATE, -1);
 							long eDate = calT.getTime().getTime();
-							tBean.setEndDate(new java.sql.Date(eDate));
-							eldService.addDetail(tBean);
-							System.out.println("RUN T4");
+							t1Bean.setEndDate(new java.sql.Date(eDate));
+
+							t1Bean.setRemarks("6個月至未滿1年：3日。");
+							eldService.addDetail(t1Bean);
 						}
-						System.out.println("RUN T");
+
+						tBean.setMaxHours(new BigDecimal(56.0));
+						tBean.setSurplusHours(new BigDecimal(56.0));
+
+						Date utilsDate = new SimpleDateFormat("yyyy-MM-dd").parse(yearINT + "-" + hMonth + "-" + hDay);
+						long sDate = utilsDate.getTime();
+						tBean.setStartDate(new java.sql.Date(sDate));
+
+						calT.setTime(utilsDate);
+						calT.add(Calendar.MONTH, 12);
+						calT.add(Calendar.DATE, -1);
+						long eDate = calT.getTime().getTime();
+						tBean.setEndDate(new java.sql.Date(eDate));
+
+						tBean.setRemarks("工作滿第1年：7日。");
+						eldService.addDetail(tBean);
 					}
-
-					if (leaveType.equalsIgnoreCase("g")) {
-						Date cTime = new Date();
-						String nowYear = new SimpleDateFormat("yyyy").format(cTime);
-						List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "公假", nowYear);
-						if (eldList != null) {
-							EmployeeLeaveDetail eldBeanOLD = eldList.get(0);
-							BigDecimal maxHNEW = eldBeanOLD.getMaxHours().add(new BigDecimal(hours));
-							eldBeanOLD.setMaxHours(maxHNEW);
-							BigDecimal surplusHNEW = eldBeanOLD.getSurplusHours().add(new BigDecimal(hours));
-							eldBeanOLD.setSurplusHours(surplusHNEW);
-							eldService.updateHours(eldBeanOLD.getEldId(), eldBeanOLD);
-						} else {
-							EmployeeLeaveDetail gBean = new EmployeeLeaveDetail();
-
-							String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
-							gBean.setCreateTime(createTime);
-
-							Employee ueBean = eService.empData(userID);
-							gBean.setCreatorId(ueBean);
-
-							Employee eeBean = eService.empData(empIDINT);
-							gBean.setEmployeeId(eeBean);
-							gBean.setUsedHours(new BigDecimal(0.0));
-							gBean.setApplyHours(new BigDecimal(0.0));
-							gBean.setLeaveType("公假");
-							gBean.setMaxHours(new BigDecimal(hours));
-							gBean.setSurplusHours(new BigDecimal(hours));
-
-							long sDate = new SimpleDateFormat("yyyy-MM-dd").parse(nowYear + "-1-1").getTime();
-							gBean.setStartDate(new java.sql.Date(sDate));
-							long eDate = new SimpleDateFormat("yyyy-MM-dd").parse(nowYear + "-12-31").getTime();
-							gBean.setEndDate(new java.sql.Date(eDate));
-
-							gBean.setRemarks("依法令規定應給予公假者，其時數視實際需要定之。");
-							eldService.addDetail(gBean);
+					if (workingYears >= 2) {
+						int tHours = 0;
+						if (workingYears == 2) {
+							tHours = 80;
+							tBean.setRemarks("工作滿第2年：10日。");
+						} else if (workingYears == 3 || workingYears == 4) {
+							tHours = 112;
+							tBean.setRemarks("工作滿第3~4年：14日。");
+						} else if (workingYears >= 5 && workingYears <= 9) {
+							tHours = 120;
+							tBean.setRemarks("工作滿第5~9年：15日。");
+						} else if (workingYears >= 10 && workingYears <= 23) {
+							int i = workingYears - 10;
+							tHours = (16 + i) * 8;
+							tBean.setRemarks("工作滿第" + workingYears + "年：" + (16 + i) + "日。");
+						} else if (workingYears >= 24) {
+							tHours = 240;
+							tBean.setRemarks("工作滿第24年含以上：30日。");
 						}
-					}
+						tBean.setMaxHours(new BigDecimal(tHours));
+						tBean.setSurplusHours(new BigDecimal(tHours));
 
-					if (leaveType.equalsIgnoreCase("sa")) {
-						Integer whoINT = Integer.valueOf(who);
+						Date utilsDate = new SimpleDateFormat("yyyy-MM-dd").parse(yearINT + "-" + hMonth + "-" + hDay);
+						long sDate = utilsDate.getTime();
+						tBean.setStartDate(new java.sql.Date(sDate));
 
-						EmployeeLeaveDetail saBean = new EmployeeLeaveDetail();
-						Date cTime = new Date();
-						String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
-						saBean.setCreateTime(createTime);
-
-						Employee ueBean = eService.empData(userID);
-						saBean.setCreatorId(ueBean);
-
-						Employee eeBean = eService.empData(empIDINT);
-						saBean.setEmployeeId(eeBean);
-						saBean.setUsedHours(new BigDecimal(0.0));
-						saBean.setApplyHours(new BigDecimal(0.0));
-
-						int saHours = 0;
-						if (whoINT == 1) {
-							saHours = 64;
-							saBean.setRemarks("父母、養父母、繼父母、配偶喪亡者，喪假8日。");
-						} else if (whoINT == 2) {
-							saHours = 48;
-							saBean.setRemarks("祖父母、子女、配偶之父母、配偶之養父母或繼父母喪亡者，喪假6日。");
-						} else if (whoINT == 3) {
-							saHours = 24;
-							saBean.setRemarks("曾祖父母、兄弟姊妹、配偶之祖父母喪亡者，喪假3日。");
-						}
-
-						saBean.setLeaveType("喪假");
-						saBean.setMaxHours(new BigDecimal(saHours));
-						saBean.setSurplusHours(new BigDecimal(saHours));
-
-						long sqlcTime = cTime.getTime();
-						saBean.setStartDate(new java.sql.Date(sqlcTime));
-
-						Calendar calSa = Calendar.getInstance();
-						calSa.setTime(cTime);
-						calSa.add(Calendar.MONTH, 6);
-						calSa.add(Calendar.DATE, -1);
-						long eDate = calSa.getTime().getTime();
-						saBean.setEndDate(new java.sql.Date(eDate));
-
-						eldService.addDetail(saBean);
+						calT.setTime(utilsDate);
+						calT.add(Calendar.MONTH, 12);
+						calT.add(Calendar.DATE, -1);
+						long eDate = calT.getTime().getTime();
+						tBean.setEndDate(new java.sql.Date(eDate));
+						eldService.addDetail(tBean);
 					}
 				}
+
+				if (leaveType.equalsIgnoreCase("g")) {
+					Date cTime = new Date();
+					String nowYear = new SimpleDateFormat("yyyy").format(cTime);
+					List<EmployeeLeaveDetail> eldList = eldService.queryLTByEIDLTYear(empIDINT, "公假", nowYear);
+					if (eldList != null) {
+						EmployeeLeaveDetail eldBeanOLD = eldList.get(0);
+						BigDecimal maxHNEW = eldBeanOLD.getMaxHours().add(new BigDecimal(hours));
+						eldBeanOLD.setMaxHours(maxHNEW);
+						BigDecimal surplusHNEW = eldBeanOLD.getSurplusHours().add(new BigDecimal(hours));
+						eldBeanOLD.setSurplusHours(surplusHNEW);
+						eldService.updateHours(eldBeanOLD.getEldId(), eldBeanOLD);
+					} else {
+						EmployeeLeaveDetail gBean = new EmployeeLeaveDetail();
+
+						String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+						gBean.setCreateTime(createTime);
+
+						Employee ueBean = eService.empData(userID);
+						gBean.setCreatorId(ueBean);
+
+						Employee eeBean = eService.empData(empIDINT);
+						gBean.setEmployeeId(eeBean);
+						gBean.setUsedHours(new BigDecimal(0.0));
+						gBean.setApplyHours(new BigDecimal(0.0));
+						gBean.setLeaveType("公假");
+						gBean.setMaxHours(new BigDecimal(hours));
+						gBean.setSurplusHours(new BigDecimal(hours));
+
+						long sDate = new SimpleDateFormat("yyyy-MM-dd").parse(nowYear + "-1-1").getTime();
+						gBean.setStartDate(new java.sql.Date(sDate));
+						long eDate = new SimpleDateFormat("yyyy-MM-dd").parse(nowYear + "-12-31").getTime();
+						gBean.setEndDate(new java.sql.Date(eDate));
+
+						gBean.setRemarks("依法令規定應給予公假者，其時數視實際需要定之。");
+						eldService.addDetail(gBean);
+					}
+				}
+
+				if (leaveType.equalsIgnoreCase("sa")) {
+					Integer whoINT = Integer.valueOf(who);
+
+					EmployeeLeaveDetail saBean = new EmployeeLeaveDetail();
+					Date cTime = new Date();
+					String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
+					saBean.setCreateTime(createTime);
+
+					Employee ueBean = eService.empData(userID);
+					saBean.setCreatorId(ueBean);
+
+					Employee eeBean = eService.empData(empIDINT);
+					saBean.setEmployeeId(eeBean);
+					saBean.setUsedHours(new BigDecimal(0.0));
+					saBean.setApplyHours(new BigDecimal(0.0));
+
+					int saHours = 0;
+					if (whoINT == 1) {
+						saHours = 64;
+						saBean.setRemarks("父母、養父母、繼父母、配偶喪亡者，喪假8日。");
+					} else if (whoINT == 2) {
+						saHours = 48;
+						saBean.setRemarks("祖父母、子女、配偶之父母、配偶之養父母或繼父母喪亡者，喪假6日。");
+					} else if (whoINT == 3) {
+						saHours = 24;
+						saBean.setRemarks("曾祖父母、兄弟姊妹、配偶之祖父母喪亡者，喪假3日。");
+					}
+
+					saBean.setLeaveType("喪假");
+					saBean.setMaxHours(new BigDecimal(saHours));
+					saBean.setSurplusHours(new BigDecimal(saHours));
+
+					long sqlcTime = cTime.getTime();
+					saBean.setStartDate(new java.sql.Date(sqlcTime));
+
+					Calendar calSa = Calendar.getInstance();
+					calSa.setTime(cTime);
+					calSa.add(Calendar.MONTH, 6);
+					calSa.add(Calendar.DATE, -1);
+					long eDate = calSa.getTime().getTime();
+					saBean.setEndDate(new java.sql.Date(eDate));
+
+					eldService.addDetail(saBean);
+				}
 			}
-			return "InsertSuccess";
 		}
+		return "InsertSuccess";
 	}
 }
