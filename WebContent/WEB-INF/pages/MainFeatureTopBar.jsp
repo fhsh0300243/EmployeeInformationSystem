@@ -39,7 +39,7 @@
 		<a href="<c:url value="/EducationPage.do"/>"><img class="imgButton"
 			src="images/left4.png" border="0"></a> 
 			
-		<a href="<c:url value="/FeeAllPage.action"/>"><img class="imgButton"
+		<a href="<c:url value="/AddFeeApp.action"/>"><img class="imgButton"
 			src="images/left5.png" border="0"></a> 
 			
 		<a href="<c:url value="/EmployeePage.do"/>"><img

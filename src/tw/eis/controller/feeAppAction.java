@@ -55,10 +55,14 @@ public class feeAppAction {
 		Map<String, String> feemsgmap = new HashMap<String, String>();
 		model.addAttribute("feemsgmap", feemsgmap);
 //		System.out.println("System Time:"+"1"+appItem+"1");
-//		if (appItem == "123") {
-//			feemsgmap.put("appItem", "未輸入申請項目");
-//			return "feeApplicationForm";
-//		}
+		if (appItem.equals("====請選擇項目====")) {
+			feemsgmap.put("appItem", "未輸入申請項目");
+			return "feeApplicationForm";
+		}
+		if (invoiceTime.equals("")) {
+			feemsgmap.put("invoiceTime", "未選擇發票日期");
+			return "feeApplicationForm";
+		}
 		if (appMoney == null || appMoney.length() == 0) {
 			feemsgmap.put("appMoney", "未輸入金額");
 			return "feeApplicationForm";
@@ -72,13 +76,10 @@ public class feeAppAction {
 			int userID = userBean.getEmployeeID();
 			Employee employeeID = eService.empData(userID);
 			// Date invoiceTimeD = Date.valueOf(invoiceTime);
-
+			try {
 			int appMoneyint = Integer.parseInt(appMoney);
+			
 			Employee signerID = eService.empData(userID).getManager();
-//		Timestamp tsmp=new Timestamp(System.currentTimeMillis());
-//		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-//		Date appTime = Date.valueOf(sdFormat.format(tsmp));	
-//		System.out.println("System Time:"+appTime.toString());
 
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 			Date date = new Date();
@@ -87,6 +88,10 @@ public class feeAppAction {
 			feeAppService.addFeeApp(department, employeeID, appItem, appTime.toString(), invoiceTime, invoiceNb, editor,
 					remark, appMoneyint, signerTime, signerStatus, signerID);
 			feemsgmap.put("Success", "已送簽核");
+			}catch (Exception e) {
+				feemsgmap.put("appMoney", "請輸入申請金額");
+				return "feeApplicationForm";
+			}
 			return "feeApplicationForm";
 		}
 	}
@@ -96,13 +101,38 @@ public class feeAppAction {
 	public String qfeeApp(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam(name = "searchA", required = false) String searchA,
 			@RequestParam(name = "searchB", required = false) String searchB, Model model) {
+		
+		Map<String, String> feemsgmap = new HashMap<String, String>();
+		Map<String, String> appinputmsg = new HashMap<String, String>();
+		model.addAttribute("feemsgmap", feemsgmap);
+		model.addAttribute("appinputmsg", appinputmsg);
+		
+		if (searchA.equals("") || searchB.equals("")) {
+			feemsgmap.put("searchday", "未選擇搜尋範圍");
+			return "FeeAllPage";
+		}
+		appinputmsg.put("searchA", searchA);
+		appinputmsg.put("searchB", searchB);
 		// int employeeIDint = userBean.getEmployeeID();
 		int userID = userBean.getEmployeeID();
 		Employee EmployeeID1 = eService.empData(userID);
-		// System.out.println("EmployeeID1:"+EmployeeID1);
+				
+		searchA=searchA+" 00:01";
+		searchB=searchB+" 23:59";
+
 		List<feeAppMember> dList = feeAppService.qFeeApp(EmployeeID1, searchA, searchB);
 		model.addAttribute("dList", dList);
+		
+		int AppTotalMoney = 0;
+		for (feeAppMember feeAppMember : dList) {
+			AppTotalMoney+= feeAppMember.getAppMoney();
+		}
+		String TotalMoney = "申請金額:"+Integer.toString(AppTotalMoney)+"元";
+		
+		model.addAttribute("TotalMoney", TotalMoney);
 
+		
+		
 		return "FeeAllPage";
 	}
 
@@ -111,37 +141,14 @@ public class feeAppAction {
 		List<feeAppMember> appIDList = feeAppService.qapplyId(feeAppID);
 
 		int S_feeAppID = 0;
-//		String S_department="";
-//		String S_appItem="";
-//		String S_appTime="";
-//		String S_invoiceTime="";
-//		String S_invoiceNb="";
-//		String S_editor="";
-//		String S_remark="";
-//		int S_appMoney=0;
+
 
 		for (feeAppMember feeAppMember : appIDList) {
 			S_feeAppID = feeAppMember.getFeeAppID();
-//			S_department = feeAppMember.getDepartment();
-//			S_appItem = feeAppMember.getAppItem();
-//			S_appTime = feeAppMember.getAppTime();
-//			S_invoiceTime = feeAppMember.getInvoiceTime();
-//			S_invoiceNb = feeAppMember.getInvoiceNb();
-//			S_editor = feeAppMember.getEditor();
-//			S_remark = feeAppMember.getRemark();
-//			S_appMoney = feeAppMember.getAppMoney();
+
 		}
 		model.addAttribute("appIDList", appIDList);
 		model.addAttribute("S_feeAppID", S_feeAppID);
-//		model.addAttribute("S_department", S_department);
-//		model.addAttribute("S_appItem", S_appItem);
-//		model.addAttribute("S_appTime", S_appTime);
-//		model.addAttribute("S_feeAppID", S_feeAppID);
-//		model.addAttribute("S_invoiceTime", S_invoiceTime);
-//		model.addAttribute("S_invoiceNb", S_invoiceNb);
-//		model.addAttribute("S_editor", S_editor);
-//		model.addAttribute("S_remark", S_remark);
-//		model.addAttribute("S_appMoney", S_appMoney);
 
 		return "FeeSingerDetails";
 	}
@@ -166,57 +173,37 @@ public class feeAppAction {
 		List<feeAppMember> appfeeIDList = feeAppService.qapplyId(feeAppID);
 
 		int S_feeAppID = 0;
-//		String S_department="";
-//		String S_feeAppName="";
-//		String S_appItem="";
-//		String S_appTime="";
-//		String S_invoiceTime="";
-//		String S_invoiceNb="";
-//		String S_editor="";
-//		String S_remark="";
-//		int S_appMoney=0;
+
 
 		for (feeAppMember feeAppMember : appfeeIDList) {
 			S_feeAppID = feeAppMember.getFeeAppID();
-//			S_feeAppName=feeAppMember.getEmployeeID().getName();
-//			S_department = feeAppMember.getDepartment();
-//			S_appItem = feeAppMember.getAppItem();
-//			S_appTime = feeAppMember.getAppTime();
-//			S_invoiceTime = feeAppMember.getInvoiceTime();
-//			S_invoiceNb = feeAppMember.getInvoiceNb();
-//			S_editor = feeAppMember.getEditor();
-//			S_remark = feeAppMember.getRemark();
-//			S_appMoney = feeAppMember.getAppMoney();
+
 		}
 		model.addAttribute("appfeeIDList", appfeeIDList);
 		model.addAttribute("S_feeAppID", S_feeAppID);
-//		model.addAttribute("S_department", S_department);
-//		model.addAttribute("S_appItem", S_appItem);
-//		model.addAttribute("S_appTime", S_appTime);
-//		model.addAttribute("S_feeAppID", S_feeAppID);
-//		model.addAttribute("S_invoiceTime", S_invoiceTime);
-//		model.addAttribute("S_invoiceNb", S_invoiceNb);
-//		model.addAttribute("S_editor", S_editor);
-//		model.addAttribute("S_remark", S_remark);
-//		model.addAttribute("S_appMoney", S_appMoney);
+
 
 		return "FeeReturnModify";
 	}
 
 	@RequestMapping(path = "/FeeReturnEditPage", method = RequestMethod.POST)
 	public String FeeReturnEditPage(@ModelAttribute("LoginOK") Users LoginOK,
-
+			@RequestParam("bot") String bot,
 			@RequestParam("feeAppID") int feeAppID, @RequestParam("invoiceTime") String invoiceTime,
 			@RequestParam("invoiceNb") String invoiceNb, @RequestParam("editor") String editor,
 			@RequestParam("appMoney") int appMoney, @RequestParam("remark") String remark, Model model) {
-
+		if(bot.equals("送出")) {
 		SimpleDateFormat appTimeFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		Date date = new Date();
 		String appTime = appTimeFormat.format(date);
 		String signerStatus = "簽核中";
 
 		feeAppService.ReturnEditFee(feeAppID, appTime, invoiceTime, invoiceNb, editor, appMoney, remark, signerStatus);
-
+		}
+		if(bot.equals("刪除此筆申請")) {
+			feeAppService.DelectItem(feeAppID);
+		}
+		
 		return "FeeSingerDecide";
 	}
 

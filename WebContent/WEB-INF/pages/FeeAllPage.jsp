@@ -94,14 +94,15 @@ p {
 						<form action="FeeAllPage.action" method="post">
 						
 							<div class="st1">
-								<label class="ca1 " for="">查詢區間:</label> <label><input
-									type="date" name="searchA"></label> <label class="ca1 " for="">-</label>
-								<label><input type="date" name="searchB"></label> <input
-									type="submit" name="New" value="搜尋" /><span class="mark2">${feemsgmap.searchday}</span>
+								<label class="ca1 " for="">查詢區間:</label> <label>
+								<input	type="date" name="searchA" value="${appinputmsg.searchA}"></label> <label class="ca1 " for="">-</label>
+								<label>
+								<input type="date" name="searchB" value="${appinputmsg.searchB}"></label> 
+								<input	type="submit" name="New" value="搜尋" class="btn btn-info"/><span class="mark2">${feemsgmap.searchday}</span>
 
 							</div>
 							
-						<h4>申請金額 : <span class="mark1">${AppTotalMoney}</span>元</h4>
+						<h4><span class="mark1">${TotalMoney}</span></h4>
 						</form>
 						
 						<table id="idtable1">
