@@ -87,11 +87,12 @@ public class EmployeeLeaveDetailDao implements IEmployeeLeaveDetailDao {
 	@Override
 	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, String year) {
 		Query<EmployeeLeaveDetail> query = getSession().createQuery(
-				"From EmployeeLeaveDetail Where EmployeeID=?0 and LeaveType=?1 and StartDate=?2",
+				"From EmployeeLeaveDetail Where EmployeeID=?0 and LeaveType=?1 and StartDate Between ?2 and ?3",
 				EmployeeLeaveDetail.class);
 		query.setParameter(0, employeeId);
 		query.setParameter(1, leaveType);
-		query.setParameter(2, year);
+		query.setParameter(2, year + "-1-1");
+		query.setParameter(3, year + "-12-31");
 		List<EmployeeLeaveDetail> list = query.list();
 		if (list.size() != 0) {
 			return list;

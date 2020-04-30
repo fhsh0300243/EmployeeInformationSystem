@@ -137,7 +137,7 @@ b{
 						
 							<th><input type="checkbox" id="checkbox1" name="decide" value="通過" onclick = 'check(this)'>通過</th>
 							<th><input type="checkbox" id="checkbox2" name="decide" value="退件" onclick = 'check(this)'>退件</th>
-							<th><input type="submit" name="button" id="button" value="送出"></th>
+							<th><input type="submit" name="button" id="button" value="送出" class="btn btn-info"></th>
 						
  						
 						</table>

@@ -36,7 +36,7 @@ public class feeAppDAO implements IfeeAppDAO {
 		Session session = sessionFacotry.getCurrentSession();
 		feeAppMember feeapp = new feeAppMember(department, employeeID, appItem, appTime, invoiceTime, invoiceNb, editor,
 				remark, appMoney, signerTime, signerStatus, signerID);
-
+		
 		session.save(feeapp);
 		return true;
 
@@ -757,7 +757,10 @@ public class feeAppDAO implements IfeeAppDAO {
 
 	@Override
 	public boolean DelectItem(int feeAppID) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFacotry.getCurrentSession();
+		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
+		
+		session.delete(feeAppMember);
+		return true;
 	}
 }

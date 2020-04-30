@@ -11,7 +11,9 @@
 .well, .panel {
 	text-align: center;
 }
-
+.mark2 {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -26,10 +28,10 @@
 				<a href="<c:url value="/FeeAllPage.action"/>">差旅費查詢</a>
 			</div>
 			<div>
-				<a href="<c:url value="/FeeReturnPage.action"/>">差旅費退件</a>
+				<a href="<c:url value="/FeeReturnPage.action"/>">差旅費退件</a><span class="mark2">${qReturnTota}</span>
 			</div>
 			<div>
-				<a href="<c:url value="/FeeSingerPage.action"/>">差旅費簽核</a>
+				<a href="<c:url value="/FeeSingerPage.action"/>">差旅費簽核</a><span class="mark2">${SingerTotal}</span>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

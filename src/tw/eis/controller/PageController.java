@@ -50,6 +50,8 @@ public class PageController {
 
 		int empLevel = eService.empData(employeeID).getLevel();
 		model.addAttribute("empLevel", empLevel);
+		String empDept = eService.empData(employeeID).getDepartment();
+		model.addAttribute("empDept", empDept);
 		return "ApplyPage";
 	}
 
@@ -61,6 +63,8 @@ public class PageController {
 
 		int empLevel = eService.empData(employeeID).getLevel();
 		model.addAttribute("empLevel", empLevel);
+		String empDept = eService.empData(employeeID).getDepartment();
+		model.addAttribute("empDept", empDept);
 		return "ApplyRecord";
 	}
 
@@ -72,6 +76,8 @@ public class PageController {
 
 		int empLevel = eService.empData(employeeID).getLevel();
 		model.addAttribute("empLevel", empLevel);
+		String empDept = eService.empData(employeeID).getDepartment();
+		model.addAttribute("empDept", empDept);
 		return "LeaveType";
 	}
 
@@ -83,6 +89,8 @@ public class PageController {
 
 		int empLevel = eService.empData(employeeID).getLevel();
 		model.addAttribute("empLevel", empLevel);
+		String empDept = eService.empData(employeeID).getDepartment();
+		model.addAttribute("empDept", empDept);
 		return "UnsignedPage";
 	}
 
@@ -98,6 +106,8 @@ public class PageController {
 			model.addAttribute("ApplyList", ApplyList);
 			int empLevel = eService.empData(employeeID).getLevel();
 			model.addAttribute("empLevel", empLevel);
+			String empDept = eService.empData(employeeID).getDepartment();
+			model.addAttribute("empDept", empDept);
 			return "SigningPage";
 		} else {
 			status.setComplete();
@@ -115,6 +125,8 @@ public class PageController {
 
 		int empLevel = eService.empData(employeeID).getLevel();
 		model.addAttribute("empLevel", empLevel);
+		String empDept = eService.empData(employeeID).getDepartment();
+		model.addAttribute("empDept", empDept);
 		return "SignedPage";
 	}
 
@@ -127,15 +139,27 @@ public class PageController {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
 		int empLevel = eService.empData(employeeID).getLevel();
 		model.addAttribute("empLevel", empLevel);
+		String empDept = eService.empData(employeeID).getDepartment();
+		model.addAttribute("empDept", empDept);
 		return "LeaveDetail";
 	}
 
 	@RequestMapping(path = "/preinsertleavetype", method = RequestMethod.GET)
 	public String enterInsertLeaveType(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap,
-			Model model) {
+			@ModelAttribute("errorMsgMap") Map<String, String> errorMsgMap, Model model, SessionStatus status) {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
-		int empLevel = eService.empData(employeeID).getLevel();
-		model.addAttribute("empLevel", empLevel);
-		return "InsertLeaveType";
+
+		if (eService.empData(employeeID).getDepartment().equalsIgnoreCase("HR")) {
+			int empLevel = eService.empData(employeeID).getLevel();
+			model.addAttribute("empLevel", empLevel);
+			String empDept = eService.empData(employeeID).getDepartment();
+			model.addAttribute("empDept", empDept);
+			return "InsertLeaveType";
+		} else {
+			status.setComplete();
+			errorMsgMap.put("LoginError", "無人資權限，請重新登入。");
+			model.addAttribute("errorMsgMap", errorMsgMap);
+			return "UserLogin";
+		}
 	}
 }

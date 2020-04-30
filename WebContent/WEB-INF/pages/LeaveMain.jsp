@@ -44,7 +44,7 @@
 					<a href="presignedpage">人員請假-已簽核</a>
 				</div>
 			</div>
-			<div id="hr">
+			<div id="hr" name="${empDept}" style="display: none;">
 				<br>
 				<div class="title">人資專區</div>
 
@@ -61,7 +61,12 @@
 		$(function() {
 			var level = $("#manager").attr("name");
 			if (level != 1) {
-				$("#manager").show()
+				$("#manager").show();
+			}
+
+			var dept = $("#hr").attr("name");
+			if (dept == "HR") {
+				$("#hr").show();
 			}
 		});
 	</script>
