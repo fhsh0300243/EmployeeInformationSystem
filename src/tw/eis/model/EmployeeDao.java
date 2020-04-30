@@ -211,6 +211,14 @@ public class EmployeeDao implements IEmployeeDao {
 				.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
 	}
+	
+	@Override
+	public List<?> empDataByLevel(int level) {
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
+		List<?> list = mainQuery.add(Property.forName("level").eq(level))
+				.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+		return list;
+	}
 
 	public void test() {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);

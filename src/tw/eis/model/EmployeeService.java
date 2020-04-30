@@ -78,6 +78,11 @@ public class EmployeeService implements IEmployeeService {
 		return employeeDao.empDataByTitleId(titleId);
 	}
 	
+	@Override
+	public List<?> empDataByLevel(int level){
+		return employeeDao.empDataByLevel(level);
+	}
+	
 	public void test() {
 		employeeDao.test();
 	}

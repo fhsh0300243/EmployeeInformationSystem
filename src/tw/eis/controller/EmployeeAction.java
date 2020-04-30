@@ -370,7 +370,7 @@ public class EmployeeAction {
 		try {
 			manager = eService.empData(Integer.parseInt(Managerid));
 		} catch (Exception e) {
-			manager = null;
+			manager = (Employee)eService.empDataByLevel(4).get(0);
 		}
 
 		Date birthday;
@@ -550,7 +550,7 @@ public class EmployeeAction {
 		try {
 			manager = eService.empData(Integer.parseInt(Managerid));
 		} catch (Exception e) {
-			manager = null;
+			manager = (Employee)eService.empDataByLevel(4).get(0);
 		}
 		try {
 			department = dService.deptData(Integer.parseInt(Departmentid));
@@ -944,11 +944,10 @@ public class EmployeeAction {
 
 	@RequestMapping(path = "/test.do", method = RequestMethod.GET)
 	public void testpage() {
-		List<AssignWork> list = pqtService.personGoalAchievementstatus(1);
-		for (AssignWork a : list) {
-			System.out.println("name:" + eService.empData(a.getEmpID()).getName());
-			System.out.println("status:" + a.getWorkStatus());
-		}
+		List<?> list = eService.empDataByLevel(4);
+		Employee myemp = (Employee)list.get(0);
+		System.out.println(myemp.getEmpID());
+		System.out.println(myemp.getName());
 	}
 
 }
