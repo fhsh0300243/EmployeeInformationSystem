@@ -155,13 +155,16 @@ b {
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div class = \"work\" wid = "+member[j][0].wid+" work = "+member[j][0].Work+"><ul class = \"wkul\" border=\"1\" id="+member[j][0].Work+">";
+								txt += "<div class = \"work\" wid = "+member[j][0].wid+" work = "+member[j][0].Work+"><ul class = \"wkul\" border=\"1\" id="+member[j].Work+">";
 								txt += "<li id = "+member[j][0].Work+" class = \"wkli\">"
 										+ member[j][0].Work;
 								txt += "</ul>";
 									for(let k=0;k<member[j].length;k++){
+										console.log(member[j][k].empid);
+										if(member[j][k].empid!=undefined){
 										txt += "<li class=\"chemul\" draggable=\"true\" wid="+member[j][0].wid+" empid="+member[j][k].empid+">"+member[j][k].empname+"</li>";
-									}
+										}
+										}
 									txt += "</div>";
 							} 	
 							$("#main").html(txt);
