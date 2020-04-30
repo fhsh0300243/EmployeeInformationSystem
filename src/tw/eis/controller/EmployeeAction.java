@@ -717,7 +717,7 @@ public class EmployeeAction {
 			JSONArray jsonarray = new JSONArray();
 			for (DepartmentalAnnualGoals dag : dagService.thisYearAllDeptGoals()) {
 				JSONObject jsonobject = new JSONObject();
-				jsonobject.put("deptID", dag.getDepartment().getDeptID());
+				//jsonobject.put("deptID", dag.getDepartment().getDeptID());
 				jsonobject.put("deptname", dag.getDeptName());
 				jsonobject.put("goal", dag.getDepartmentAnnualGoal());
 				jsonobject.put("setupdate", GlobalService.formatToyyyyMMdd(dag.getDate()));
