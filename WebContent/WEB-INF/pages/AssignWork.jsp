@@ -187,6 +187,11 @@ b {
 			event.dataTransfer.setData("text/plain", event.target.id);
 			console.log(this.innerHTML);
 		});
+		$(document).on("dragstart", ".chemul", function(event) {
+			event.dataTransfer.effectAllowed = "Move";
+			event.dataTransfer.setData("text/plain", event.target.id);
+			console.log(this.innerHTML);
+		});
 		$(document).on("dragover", ".work", function(event) {
 			event.stopPropagation();
 			event.preventDefault();
@@ -201,6 +206,7 @@ b {
 		$(document).on("drop", ".work", function(event) {
 			var data = event.dataTransfer.getData("text");
 			var nodeCopy = document.getElementById(data);
+
 			var wid = nodeCopy.getAttribute("wid");
 			var cwid = $(event.target).attr("wid");
 			var work = $(event.target).attr("work");
@@ -258,11 +264,7 @@ b {
 			$(document).on("dragover", ".chemul", function(event) {
 				event.dataTransfer.dropEffect = "none"
 			})
-			$(document).on("dragstart", ".chemul", function(event) {
-				event.dataTransfer.effectAllowed = "Move";
-				event.dataTransfer.setData("text/plain", event.target.id);
-				console.log(this.innerHTML);
-			});
+		
 		});
 	</script>
 </body>

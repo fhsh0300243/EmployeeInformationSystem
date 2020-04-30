@@ -75,7 +75,7 @@
 						var txt ="";
 						txt += "<ul class=\"statusul\" border=\"1\">To do</ul>";
 						for(let i=0;i<member.length;i++){
-							txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+"draggable=\"true\">"+member[i].Work;
+							txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+" draggable=\"true\">"+member[i].Work;
 							}
 						$("#wkstatus1").html(txt);
 					});
@@ -83,7 +83,7 @@
 					var txt ="";
 					txt += "<ul class=\"statusul\" border=\"2\">Doing</ul>";
 					for(let i=0;i<member.length;i++){
-						txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+"draggable=\"true\">"+member[i].Work;
+						txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+" draggable=\"true\">"+member[i].Work;
 						}
 					$("#wkstatus2").html(txt);
 				});
@@ -91,15 +91,20 @@
 					var txt ="";
 					txt += "<ul class=\"statusul\" border=\"1\">Done</ul>";
 					for(let i=0;i<member.length;i++){
-						txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+"draggable=\"true\">"+member[i].Work;
+						txt += "<li class =\"chwli\" id="+member[i].awid+" awid="+member[i].awid+" draggable=\"true\">"+member[i].Work;
 						}
 					$("#wkstatus3").html(txt);
 				});
 		$(document).on("dragstart", ".wli", function(event) {
 			event.dataTransfer.effectAllowed = "copyMove";
 			event.dataTransfer.setData("text/plain", event.target.id);
-			console.log(this.innerHTML);
+			console.log("id"+event.target.id);
 		})
+			$(document).on("dragstart", ".chwli", function(event) {
+				event.dataTransfer.effectAllowed = "Move";
+				event.dataTransfer.setData("text/plain", event.target.id);
+				console.log("id:"+this.innerHTML);
+			});
 		$(document).on("dragover", ".work", function(event) {
 			event.stopPropagation();
 			event.preventDefault();
@@ -115,12 +120,13 @@
 			var data = event.dataTransfer.getData("text");
 			var nodeCopy = document.getElementById(data);
 			var wkstatus = $(event.target).attr("wkstatus")
-			console.log(data);
-			console.log(wkstatus);
+			console.log("data:"+data);
+			console.log("wkstatus:"+wkstatus);
+			var awid = nodeCopy.getAttribute("awid");
 			event.stopPropagation();
 			event.preventDefault();
 			
-			var awid = nodeCopy.getAttribute("awid");
+		
 			if((nodeCopy.getAttribute("class")) == "wli"){
 				//nodeCopy = nodeCopy.cloneNode(true);
 				nodeCopy.setAttribute("class", "chwli");
@@ -138,11 +144,7 @@
 			$(document).on("dragover", ".chwli", function(event) {
 				event.dataTransfer.dropEffect = "none"
 			})
-			$(document).on("dragstart", ".chwli", function(event) {
-				event.dataTransfer.effectAllowed = "Move";
-				event.dataTransfer.setData("text/plain", event.target.id);
-				console.log(this.innerHTML);
-			});
+		
 		});
 	</script>
 </body>
