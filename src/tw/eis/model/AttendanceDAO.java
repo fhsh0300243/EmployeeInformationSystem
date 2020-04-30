@@ -81,6 +81,15 @@ public class AttendanceDAO {
 		query.setParameter("Employee", Emp);
 		query.executeUpdate();
 	}
+	
+	public void UpdateStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
+		String hqlstr = "Update Attendance SET StartTime=:Time where Date=:Date and EmpId=:Employee";
+		Query<?> query = getSession().createQuery(hqlstr);
+		query.setParameter("Time", Time);
+		query.setParameter("Date", Date);
+		query.setParameter("Employee", Emp);
+		query.executeUpdate();
+	}
 
 	public void UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
 		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";

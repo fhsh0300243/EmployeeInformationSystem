@@ -27,6 +27,8 @@ import tw.eis.model.Attendance;
 import tw.eis.model.AttendanceService;
 import tw.eis.model.Employee;
 import tw.eis.model.EmployeeService;
+import tw.eis.model.HolidayCalendar;
+import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.Users;
 
 @Controller
@@ -35,27 +37,30 @@ public class AttendanceController {
 
 	private AttendanceService AttService;
 	private EmployeeService EmService;
+	private HolidayCalendarService HCService;
 
 	@Autowired
-	public AttendanceController(AttendanceService AttService, EmployeeService EmService) {
+	public AttendanceController(AttendanceService AttService, EmployeeService EmService,
+			HolidayCalendarService HCService) {
 		this.AttService = AttService;
 		this.EmService = EmService;
+		this.HCService = HCService;
 	}
 
-	//轉至個人查詢頁面
-	@RequestMapping(path = "/gotoAttendanceOwnPage", method = RequestMethod.GET)	
+	// 轉至個人查詢頁面
+	@RequestMapping(path = "/gotoAttendanceOwnPage", method = RequestMethod.GET)
 	public String gotoAttendanceOwnPage() {
 		return "AttendanceOwnPage";
 	}
 
-	//轉至部門查詢頁面
-	@RequestMapping(path = "/gotoAttendanceDepartmentPage", method = RequestMethod.GET)	
+	// 轉至部門查詢頁面
+	@RequestMapping(path = "/gotoAttendanceDepartmentPage", method = RequestMethod.GET)
 	public String goToInquiryDepartmentPage() {
 		return "AttendanceDepartmentPage";
 	}
 
-	//執行個人出勤查詢(月份)
-	@RequestMapping(path = "/InquiryAttendance", method = RequestMethod.POST)	
+	// 執行個人出勤查詢(月份)
+	@RequestMapping(path = "/InquiryAttendance", method = RequestMethod.POST)
 	public String InquiryAttendance(@ModelAttribute("LoginOK") Users userBean, @RequestParam("month") String month,
 			HttpServletRequest request) throws Exception {
 		List<Attendance> attlist = AttService.InquiryAttendance(userBean.getEmployeeID(), month);
@@ -64,7 +69,7 @@ public class AttendanceController {
 		return "AttendanceOwnPage";
 	}
 
-	//主管執行員工出勤查詢(月份)
+	// 主管執行員工出勤查詢(月份)
 	@RequestMapping(path = "/InquiryAttendanceByBoss", method = RequestMethod.GET)
 	public String InquiryAttendanceByBoss(@RequestParam("EmpId") String EmpId, @RequestParam("month") String month,
 			HttpServletRequest request) throws Exception {
@@ -72,10 +77,10 @@ public class AttendanceController {
 		List<Attendance> attlist = AttService.InquiryAttendance(id, month);
 		request.setAttribute("attlist", attlist);
 		request.setAttribute("month", month);
-		return "AttendanceOwnPage";
+		return "AttendanceStaffPage";
 	}
 
-	//主管執行部門出勤查詢
+	// 主管執行部門出勤查詢
 	@RequestMapping(path = "/InquiryAttendanceDepartment", method = RequestMethod.POST)
 	public String InquiryAttendanceDepartment(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
@@ -106,7 +111,7 @@ public class AttendanceController {
 		}
 	}
 
-	//執行個人當日出勤查詢
+	// 執行個人當日出勤查詢
 	@RequestMapping(path = "/InquiryToday", method = RequestMethod.GET)
 	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request) throws Exception {
 		List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
@@ -114,7 +119,7 @@ public class AttendanceController {
 		return "AttendancePunchPage";
 	}
 
-	//執行打卡動作
+	// 執行打卡動作
 	@RequestMapping(path = "/PunchAction", method = RequestMethod.POST)
 	public String PunchAction(@ModelAttribute("LoginOK") Users userBean) throws Exception {
 		try {
@@ -142,22 +147,48 @@ public class AttendanceController {
 				cal.set(Calendar.SECOND, 0);
 				Date Time1700 = cal.getTime();
 				Date now = new Date();
+				String DayType = null;
 				List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
-
-				if (now.before(Time1700)) {
-					if (myPunch == null || myPunch.size() == 0) {
-						AttService.InsertStartTime(Emp, Date, Time);
+				List<HolidayCalendar> TodayCalendar = HCService.InqueryCalendarToday(datestr);
+				if (TodayCalendar == null || TodayCalendar.size() < 1) {
+					if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+							|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+						DayType = "休假";
+					} else {
+						DayType = "上班日";
+					}
+				} else {
+					if (TodayCalendar.get(0).getDateType().equals("補班")) {
+						DayType = "上班日";
+					} else {
+						DayType = "休假";
+					}
+				}
+				if (DayType.equals("上班日")) {
+					if (now.before(Time1700)) {
+						if (myPunch.get(0).getStartTime() == null) {
+							AttService.UpdateStartTime(Emp, Date, Time);
+						} else {
+							AttService.UpdateEndTime(Emp, Date, Time);
+						}
 					} else {
 						AttService.UpdateEndTime(Emp, Date, Time);
 					}
 				} else {
-					if (myPunch == null || myPunch.size() == 0) {
-						AttService.InsertEndTime(Emp, Date, Time);
+					if (now.before(Time1700)) {
+						if (myPunch == null || myPunch.size() == 0) {
+							AttService.InsertStartTime(Emp, Date, Time);
+						} else {
+							AttService.UpdateEndTime(Emp, Date, Time);
+						}
 					} else {
-						AttService.UpdateEndTime(Emp, Date, Time);
+						if (myPunch == null || myPunch.size() == 0) {
+							AttService.InsertEndTime(Emp, Date, Time);
+						} else {
+							AttService.UpdateEndTime(Emp, Date, Time);
+						}
 					}
 				}
-
 				System.out.println("IP正確");
 			} else {
 				System.out.println("IP錯誤");

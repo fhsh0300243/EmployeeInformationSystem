@@ -92,8 +92,8 @@ b {
 									<td>${element.getKey().getDepartment()}</td>
 									<td>${element.getKey().getTitle()}</td>
 									<td>${element.getValue()}</td>
-									<td><input type="submit" name="IDinformation"
-										id="${element.getKey().getEmpID()}" value="詳細資料"
+									<td><input type="button"
+										onclick="detail(${element.getKey().getEmpID()})" value="詳細資料"
 										class="btn btn-info"></td>
 								</tr>
 							</c:forEach>
@@ -112,6 +112,11 @@ b {
 	</div>
 
 	<script>
+	function detail(EmpID){
+		const Element = document.getElementById("datepicker");
+		const month = Element.value;
+		window.location.href = "InquiryAttendanceByBoss?EmpId="+EmpID+"&month="+month;
+	}
 		$(function() {
 			$('#datepicker')
 					.datepicker(

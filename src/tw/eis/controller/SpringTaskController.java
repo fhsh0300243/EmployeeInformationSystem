@@ -39,7 +39,7 @@ public class SpringTaskController {
 		this.LeaveService = LeaveService;
 	}
 
-	//新建當天出勤資料表
+	// 新建當天出勤資料表
 	@RequestMapping(path = "/CreateTable0300", method = RequestMethod.GET)
 	public String CreateTable0300() {
 		try {
@@ -75,10 +75,10 @@ public class SpringTaskController {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return "AttendancePunchPage";
+		return "redirect:/InquiryToday";
 	}
 
-	//判斷上班刷卡有無異常
+	// 判斷上班刷卡有無異常
 	@RequestMapping(path = "/CheckStatus0830", method = RequestMethod.GET)
 	public String CheckStatus0830() {
 		try {
@@ -129,10 +129,10 @@ public class SpringTaskController {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return "AttendancePunchPage";
+		return "redirect:/InquiryToday";
 	}
 
-	//判斷全天刷卡有無異常
+	// 判斷全天刷卡有無異常
 	@RequestMapping(path = "/CheckStatus2330", method = RequestMethod.GET)
 	public String CheckStatus2330() {
 		try {
@@ -186,7 +186,7 @@ public class SpringTaskController {
 		} catch (Exception e) {
 			System.out.println("e:" + e);
 		}
-		return "AttendancePunchPage";
+		return "redirect:/InquiryToday";
 	}
 
 }
