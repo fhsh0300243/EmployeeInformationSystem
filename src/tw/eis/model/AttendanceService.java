@@ -41,6 +41,10 @@ public class AttendanceService {
 		attendanceDao.UpdateEndTime(Emp,Date,Time);
 	}
 	
+	public void UpdateStartTime(Employee Emp,java.sql.Date Date,java.sql.Time Time) {
+		attendanceDao.UpdateStartTime(Emp,Date,Time);
+	}
+	
 	public void UpdateAttendanceStatus(java.sql.Date Date,int Id,String Status ,String LeaveType) {
 		attendanceDao.UpdateAttendanceStatus(Date,Id,Status,LeaveType);
 	}
