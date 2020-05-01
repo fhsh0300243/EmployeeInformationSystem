@@ -58,7 +58,8 @@ p {
     border-radius: 4px;
     height: 24px;
     line-height:24px;
-    margin:3px;    
+    margin:3px;   
+    width: 250px; 
 } 
 .datepicker:focus{
     outline:0 none;
@@ -67,6 +68,26 @@ p {
 }
 b{
 	font-size:20px;
+}
+.inputtd {
+	text-align: left;
+}
+.idtable2 {
+	position: relative;
+	margin: 50px auto;
+	border-collapse: collapse;
+	right: 50px;
+}
+.idtable2 tr {
+	text-align: right;
+}
+
+.idtable2 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 2px;
+}
+.span1 {
+	margin-right: 15px;
 }
 </style>
 </head>
@@ -99,16 +120,24 @@ b{
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30" class="datepicker"><br /> <label
-							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30" class="datepicker"><br /> <select
-							name="searchdept" id="searchdept" class="datepicker"></select><input type="checkbox"
-							id="resigned" name="resigned" value="resigned"> <label
-							for="" class="t1">離職員工</label> <input type="button" id="search"
-							name="search" value="搜尋" class="btn btn-info">
-						<p>${msg[0]}</p>
-						<br>
+					<table class="idtable2">
+						<tr>
+							<td>員工Id：</td>
+							<td class="inputtd"><input type="text" id="searchid" name="searchid" class="datepicker"></td>
+						</tr>
+						<tr>
+							<td>員工姓名：</td>
+							<td class="inputtd"><input type="text" id="searchname" name="searchname" class="datepicker"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="inputtd"><select name="searchdept" id="searchdept" class="datepicker"></select></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="inputtd"><input type="checkbox" id="resigned" name="resigned" value="resigned"><span class="span1">離職員工</span><input type="button" id="search" name="search" value="搜尋" class="btn btn-info"></td>
+						</tr>
+					</table>
 						<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>

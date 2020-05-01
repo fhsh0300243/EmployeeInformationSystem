@@ -56,7 +56,8 @@ p {
     border-radius: 4px;
     height: 24px;
     line-height:24px;
-    margin:3px;    
+    margin:3px;  
+    width: 250px;  
 } 
 .datepicker:focus{
     outline:0 none;
@@ -65,7 +66,28 @@ p {
 }
 b{
 	font-size:20px;
-}</style>
+}
+.inputtd {
+	text-align: left;
+}
+.idtable2 {
+	position: relative;
+	margin: 50px auto;
+	border-collapse: collapse;
+	right: 50px;
+}
+.idtable2 tr {
+	text-align: right;
+}
+
+.idtable2 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 2px;
+}
+.span1 {
+	margin-left: 9px;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -96,16 +118,25 @@ b{
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30" class="datepicker"><br /> <label
-							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30" class="datepicker"><br /> <select
-							name="searchdept" id="searchdept" class="datepicker"></select><br /> <label for="" class="t1">起訖日:</label><input
-							type="date" name="startdate" id="startdate" class="datepicker">~<input
-							type="date" name="enddate" id="enddate" class="datepicker"><br /> <input
-							type="button" id="search" name="search" value="搜尋" class="btn btn-info">
-						<p>${msgmap.noinputmsg}</p>
-						<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
+					<table class="idtable2">
+					<tr>
+						<td>員工Id：</td>
+						<td class="inputtd"><input type="text" id="searchid" name="searchid" size="30" class="datepicker"></td>
+					</tr>
+					<tr>
+						<td>員工姓名：</td>
+						<td class="inputtd"><input type="text" id="searchname" name="searchname" size="30" class="datepicker"><span class="span1"><select name="searchdept" id="searchdept" class="datepicker"></select></span></td>
+					</tr>
+					<tr>
+						<td>起訖日:</td>
+						<td class="inputtd"><input type="date" name="startdate" id="startdate" class="datepicker">~<input type="date" name="enddate" id="enddate" class="datepicker"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="inputtd"><input type="button" id="search" name="search" value="搜尋" class="btn btn-info"></td>
+					</tr>
+					</table>
+					<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
