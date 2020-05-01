@@ -782,14 +782,21 @@ public class EmployeeAction {
 			List<AssignWork> list = pqtService.personGoalAchievementstatus(Integer.parseInt(pidstr));
 			for (AssignWork a : list) {
 				JSONObject jsonobject = new JSONObject();
-				jsonobject.put("name", eService.empData(a.getEmpID()).getName());
-				jsonobject.put("work", a.getWork());
-				if (a.getWorkStatus() == 3) {
-					jsonobject.put("status", "已完成");
-				} else {
-					jsonobject.put("status", "未完成");
+				if(a!=null) {				
+					jsonobject.put("name", eService.empData(a.getEmpID()).getName());
+					jsonobject.put("work", a.getWork());
+					if (a.getWorkStatus() == 3) {
+						jsonobject.put("status", "已完成");
+					} else {
+						jsonobject.put("status", "未完成");
+					}
+					jsonarray.put(jsonobject);
+				}else {
+					jsonobject.put("name", "--");
+					jsonobject.put("work", "未分配");
+					jsonobject.put("status", "--");
+					jsonarray.put(jsonobject);
 				}
-				jsonarray.put(jsonobject);
 			}
 			return jsonarray.toString();
 		} catch (Exception e) {
