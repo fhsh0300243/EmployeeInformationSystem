@@ -78,11 +78,11 @@ public class ApplyForLeaveService implements IApplyForLeaveService {
 			String endM) throws ParseException {
 		return aDAO.countHoursSTtoET(startD, endD, startH, endH, startM, endM);
 	}
-	
+
 	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
 		return aDAO.getTodayLeaveforTask(Time);
 	}
-	
+
 //		主管登入查看有無新申請請需要簽核 by GK
 	@Override
 	public int queryNewApply(int ID) {
@@ -91,11 +91,9 @@ public class ApplyForLeaveService implements IApplyForLeaveService {
 
 //	員工查詢是否主管以簽核或退件
 	@Override
-	public int querysucessApplyForLeave(int ID,String oldDate,String newDate) {
+	public int querysucessApplyForLeave(int ID, String oldDate, String newDate) {
 		return aDAO.querysucessApplyForLeave(ID, oldDate, newDate);
 	}
 //  End	
-	
-	
-	
+
 }

@@ -41,7 +41,7 @@ b {
 				<div class="well">
 					<p>
 						<b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName}您好~
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 

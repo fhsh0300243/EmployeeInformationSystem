@@ -13,7 +13,9 @@ public interface IEmployeeLeaveDetailService {
 
 	public List<EmployeeLeaveDetail> queryValidLTByEID(int employeeId);
 
-	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType);
+//	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType);
+
+	public EmployeeLeaveDetail queryValidLTByELDID(int ELDID);
 
 	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, String year);
 

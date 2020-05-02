@@ -60,8 +60,8 @@ public class AFLController {
 		this.hcService = hcService;
 	}
 
-	@RequestMapping(path = "applyforleave", method = RequestMethod.POST)
-	public String processApplyAction(@ModelAttribute("LoginOK") Users userBean, @RequestParam("selLT") String leaveType,
+	@RequestMapping(path = "/applyforleave", method = RequestMethod.POST)
+	public String processApplyAction(@ModelAttribute("LoginOK") Users userBean, @RequestParam("selLT") String eldID,
 			@RequestParam("startdate") String startD, @RequestParam("selSH") String startH,
 			@RequestParam("selSM") String startM, @RequestParam("enddate") String endD,
 			@RequestParam("selEH") String endH, @RequestParam("selEM") String endM, @RequestParam("cause") String cause,
@@ -147,7 +147,10 @@ public class AFLController {
 			aBean.setEmployeeId(eBean);
 
 			// 設定請假類別
-			aBean.setLeaveType(leaveType);
+			EmployeeLeaveDetail eldBean = eldService.queryValidLTByELDID(Integer.valueOf(eldID));
+			String eldBeanLT = eldBean.getLeaveType();
+			String applyLT = eldBeanLT + "-" + eldID;
+			aBean.setLeaveType(applyLT);
 
 			// 設定開始時間、結束時間
 			aBean.setStartTime(startTime);
@@ -170,7 +173,6 @@ public class AFLController {
 			aBean.setSigningProgress("未簽核");
 
 			// 申請完成同時修改EmployeeLeaveDetail的申請時數與剩餘時數
-			EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(userID, leaveType);
 			// 取得原本的時數
 			BigDecimal oldAH = eldBean.getApplyHours();
 			BigDecimal oldSH = eldBean.getSurplusHours();
@@ -219,7 +221,7 @@ public class AFLController {
 		return "ApplyPage";
 	}
 
-	@RequestMapping(path = "signforleave", method = RequestMethod.POST)
+	@RequestMapping(path = "/signforleave", method = RequestMethod.POST)
 	public String processSignAction(@ModelAttribute("LoginOK") Users userBean, @RequestParam("applyId") String applyId,
 			@RequestParam("sign") String sign, @RequestParam("comment") String comment, Model model) {
 
@@ -235,9 +237,13 @@ public class AFLController {
 		if (aBean.getSignerId().getEmpID() == userID && aBean.getSigningProgress().equalsIgnoreCase("未簽核")) {
 
 			ApplyForLeave confirmBean = new ApplyForLeave();
-			int EID = aBean.getEmployeeId().getEmpID();
+//			int EID = aBean.getEmployeeId().getEmpID();
+
 			String leaveType = aBean.getLeaveType();
-			EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(EID, leaveType);
+			String[] data = leaveType.split("-");
+			Integer eldID = Integer.valueOf(data[1]);
+			EmployeeLeaveDetail eldBean = eldService.queryValidLTByELDID(eldID);
+
 			BigDecimal confirmUH = aBean.getSumHours();
 
 			if (sign.equalsIgnoreCase("yes")) {
@@ -293,10 +299,9 @@ public class AFLController {
 
 	@ResponseBody
 	@RequestMapping(path = "/changeLT", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String changeLeaveType(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap,
-			@RequestParam("leaveType") String leaveType) {
-		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
-		EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(employeeID, leaveType);
+	public String changeLeaveType(@RequestParam("eldID") String eldID) {
+//		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
+		EmployeeLeaveDetail eldBean = eldService.queryValidLTByELDID(Integer.valueOf(eldID));
 
 		BigDecimal SH = eldBean.getSurplusHours();
 		String strSH = SH.toString();
@@ -308,27 +313,29 @@ public class AFLController {
 		Date sD = eldBean.getStartDate();
 		Date eD = eldBean.getEndDate();
 
+		String leaveType = eldBean.getLeaveType();
 		String str = leaveType + "剩餘：" + hours + "時" + mins + "分，有效期限：" + sD + "~" + eD + "。";
 		return str;
 	}
 
 	@ResponseBody
 	@RequestMapping(path = "/changeDHM", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String changeDateHourMin(@ModelAttribute("LoginOK") Users userBean,
-			@RequestParam("leaveType") String leaveType, @RequestParam("startdate") String startD,
+	public String changeDateHourMin(@RequestParam("eldID") String eldID, @RequestParam("startdate") String startD,
 			@RequestParam("selSH") String startH, @RequestParam("selSM") String startM,
 			@RequestParam("enddate") String endD, @RequestParam("selEH") String endH,
 			@RequestParam("selEM") String endM) throws ParseException {
 
 		JSONArray json = new JSONArray();
 		JSONObject object = new JSONObject();
-		int userID = userBean.getEmployeeID();
 		BigDecimal sumH = countReallySumHours(startD, startH, startM, endD, endH, endM);
 
 		// 取得剩餘假別的資料
-		EmployeeLeaveDetail eldBean = eldService.queryValidLTByEIDandLT(userID, leaveType);
+		EmployeeLeaveDetail eldBean = eldService.queryValidLTByELDID(Integer.valueOf(eldID));
+		String leaveType = eldBean.getLeaveType();
+
 		BigDecimal surplusHours = eldBean.getSurplusHours();
 		if (sumH.compareTo(surplusHours) == 1) {
+
 			String sumHoursError = "申請時數大於" + leaveType + "剩餘時數。";
 			object.put("sumHoursError", sumHoursError);
 		}

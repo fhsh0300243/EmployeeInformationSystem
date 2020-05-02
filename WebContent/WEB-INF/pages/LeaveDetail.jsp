@@ -75,7 +75,7 @@ b{
 						</tr>
 						<tr>
 							<td class="tdtag">請假類別：</td>
-							<td>${ApplyList.leaveType}</td>
+							<td class="sLT">${ApplyList.leaveType}</td>
 						</tr>
 						<tr>
 							<td class="tdtag">開始時間：</td>
@@ -140,6 +140,10 @@ b{
 	<script>
 		$(function() {
 			$("td:empty").text("-");
+			
+			var leaveType = $(".sLT").text();
+			var data = leaveType.split("-");
+			$(".sLT").text(data[0]);
 		});
 
 		$("#attImg").on("error", function() {

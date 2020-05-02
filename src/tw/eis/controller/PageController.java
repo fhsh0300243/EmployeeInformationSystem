@@ -35,11 +35,6 @@ public class PageController {
 		this.eldService = eldService;
 	}
 
-	@RequestMapping(path = "/preLoginLeave", method = RequestMethod.GET)
-	public String preLeaveMainPage() {
-		return "LeaveMain";
-	}
-
 	@RequestMapping(path = "/preapplypage", method = RequestMethod.GET)
 	public String enterApplyPage(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap, Model model) {
 		model.addAttribute("selSH", aService.getStartHoursTag());

@@ -25,8 +25,9 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -38,7 +39,8 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
 					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
@@ -74,7 +76,7 @@ b{
 						</tr>
 						<tr>
 							<td class="tdtag">請假類別：</td>
-							<td>${ApplyList.leaveType}</td>
+							<td class="sLT">${ApplyList.leaveType}</td>
 						</tr>
 						<tr>
 							<td class="tdtag">開始時間：</td>
@@ -134,8 +136,9 @@ b{
 						<hr />
 
 						<div class="btn1">
-							<input type="reset" value="清除" onclick="cls();" class="btn btn-info"/> <input
-								type="submit" value="送出" onclick="return checkSubmit();" class="btn btn-info"/>
+							<input type="reset" value="清除" onclick="cls();"
+								class="btn btn-info" /> <input type="submit" value="送出"
+								onclick="return checkSubmit();" class="btn btn-info" />
 						</div>
 					</form>
 					<div class="list_footer">
@@ -153,11 +156,6 @@ b{
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
-		//$("#attImg").click(function() {
-		//	var applyId = $(this).attr("name");
-		//	location.href = "getFullImg?applyId=" + applyId;
-		//});
-
 		$("#attImg")
 				.click(
 						function() {
@@ -173,6 +171,10 @@ b{
 
 		$(function() {
 			$("#idtable2 td:empty").text("-");
+
+			var leaveType = $(".sLT").text();
+			var data = leaveType.split("-");
+			$(".sLT").text(data[0]);
 		});
 
 		$("#attImg").on("error", function() {

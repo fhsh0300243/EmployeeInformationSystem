@@ -278,42 +278,29 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		session.close();
 		return list;
 	}
-	
-	
-	
-	
-	
+
 //	主管登入查看有無新申請請需要簽核 by GK
 	@Override
 	public int queryNewApply(int ID) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("id:"+ID);
+		System.out.println("id:" + ID);
 		Query Query = session.createQuery("from ApplyForLeave where signerID=:signerID and SigningProgress='未簽核'");
 		Query.setInteger("signerID", ID);
 		return Query.list().size();
 	}
-	
+
 //	員工查詢是否主管以簽核或退件
 	@Override
-	public int querysucessApplyForLeave(int ID,String oldDate,String newDate) {
+	public int querysucessApplyForLeave(int ID, String oldDate, String newDate) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("id:"+ID);
-		Query Query = session.createQuery("from ApplyForLeave where employeeID=:employeeID and SigningProgress<>'未簽核' and (ConfirmTime>:oldDate and ConfirmTime<:newDate)");
+		System.out.println("id:" + ID);
+		Query Query = session.createQuery(
+				"from ApplyForLeave where employeeID=:employeeID and SigningProgress<>'未簽核' and (ConfirmTime>:oldDate and ConfirmTime<:newDate)");
 		Query.setInteger("employeeID", ID);
 		Query.setString("oldDate", oldDate);
 		Query.setString("newDate", newDate);
 		return Query.list().size();
 	}
 //  End		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

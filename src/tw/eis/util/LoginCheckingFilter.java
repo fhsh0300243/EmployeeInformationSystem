@@ -117,7 +117,16 @@ import tw.eis.model.Users;
 				@WebInitParam(name = "mustLogin93", value = "/CreateTable0300"),
 				@WebInitParam(name = "mustLogin94", value = "/CheckStatus0830"),
 				@WebInitParam(name = "mustLogin95", value = "/CheckStatus2330"),
-				@WebInitParam(name = "mustLogin96", value = "/QueryPerformance.do")			
+				@WebInitParam(name = "mustLogin96", value = "/QueryPerformance.do"),
+				@WebInitParam(name = "mustLogin97", value = "/insertLT"),
+				@WebInitParam(name = "mustLogin98", value = "/preapplypage"),
+				@WebInitParam(name = "mustLogin99", value = "/preapplyrecord"),
+				@WebInitParam(name = "mustLogin100", value = "/preleavetype"),
+				@WebInitParam(name = "mustLogin101", value = "/preunsignedpage"),
+				@WebInitParam(name = "mustLogin102", value = "/presigningpage"),
+				@WebInitParam(name = "mustLogin103", value = "/presignedpage"),
+				@WebInitParam(name = "mustLogin104", value = "/preleavedetail"),
+				@WebInitParam(name = "mustLogin105", value = "/preinsertleavetype")
 
 		})
 public class LoginCheckingFilter implements Filter {

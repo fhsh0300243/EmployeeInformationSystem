@@ -26,8 +26,9 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-b{
-	font-size:20px;
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -39,7 +40,8 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
 					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
@@ -157,10 +159,9 @@ b{
 				.change(
 						function() {
 							$("#dateImg").attr("src", "");
-							$("#dateCheck").empty();
-							$(".sumHours").empty();
+							$("#dateCheck,.sumHours").empty();
 
-							var leaveT = $("#idLT").val();
+							var eldID = $("#idLT").val();
 							var startD = $("#idStartDate").val();
 							var startH = $("#idSH").val();
 							var startM = $("#idSM").val();
@@ -188,8 +189,7 @@ b{
 									$("#dateCheck").append("17:30為休息時間。");
 								}
 							} else {
-								if (leaveT != null && leaveT.length != 0
-										&& startD != null && startD.length != 0
+								if (startD != null && startD.length != 0
 										&& startH != null && startH.length != 0
 										&& startM != null && startM.length != 0
 										&& endD != null && endD.length != 0
@@ -202,32 +202,38 @@ b{
 									endM = parseInt(endM);
 									if (startD < endD
 											|| (startD == endD && (startH < endH || (startH == endH && startM < endM)))) {
-										$
-												.ajax({
-													url : "changeDHM",
-													data : {
-														leaveType : leaveT,
-														startdate : startD,
-														selSH : startH,
-														selSM : startM,
-														enddate : endD,
-														selEH : endH,
-														selEM : endM
-													},
-													type : "POST",
-													dataType : "json",
-													success : function(data) {
-														$(".sumHours")
-																.text(
-																		data[0]["sumHours"]);
-														$("#dateCheck")
-																.append(
-																		data[0]["sumHoursError"]);
-														$("#dateCheck")
-																.append(
-																		data[0]["dateError"]);
-													}
-												})
+										if (eldID != null && eldID.length != 0) {
+											$
+													.ajax({
+														url : "changeDHM",
+														data : {
+															eldID : eldID,
+															startdate : startD,
+															selSH : startH,
+															selSM : startM,
+															enddate : endD,
+															selEH : endH,
+															selEM : endM
+														},
+														type : "POST",
+														dataType : "json",
+														success : function(data) {
+															$(".sumHours")
+																	.text(
+																			data[0]["sumHours"]);
+															$("#dateCheck")
+																	.append(
+																			data[0]["sumHoursError"]);
+															$("#dateCheck")
+																	.append(
+																			data[0]["dateError"]);
+														}
+													})
+										} else {
+											$("#leaveTypeImg").attr("src",
+													"images/X_icon.png");
+											$("#leaveTypeCheck").html("請選擇假別");
+										}
 									} else {
 										$("#dateImg").attr("src",
 												"images/X_icon.png");
@@ -238,36 +244,31 @@ b{
 						});
 
 		$("#idLT").change(function() {
-
 			$("#leaveTypeImg").attr("src", "");
-			$("#leaveTypeCheck").empty();
+			$("#leaveTypeCheck,.surplusHours").empty();
 
 			if ($("#idLT").val() != null && $("#idLT").val().length != 0) {
 				$.ajax({
 					url : "changeLT",
 					data : {
-						leaveType : $("#idLT").val()
+						eldID : $("#idLT").val(),
 					},
 					type : "POST",
 					success : function(data) {
 						$(".surplusHours").text(data);
 					}
 				})
+			} else {
+				$("#leaveTypeImg").attr("src", "images/X_icon.png");
+				$("#leaveTypeCheck").html("請選擇假別");
 			}
-			$(".surplusHours").empty();
 		});
 
 		function cls() {
-			$("#leaveTypeImg").attr("src", "");
-			$("#leaveTypeCheck").empty();
-			$(".surplusHours").empty();
-			$(".sumHours").empty();
-			$("#dateImg").attr("src", "");
-			$("#dateCheck").empty();
-			$("#causeImg").attr("src", "");
-			$("#causeCheck").empty();
-			$("#attImg").attr("src", "");
-			$("#attCheck").empty();
+			$("#leaveTypeImg,#dateImg,#causeImg,#attImg").attr("src", "");
+			$(
+					"#leaveTypeCheck,.surplusHours,.sumHours,#dateCheck,#causeCheck,#attCheck")
+					.empty();
 		}
 
 		function checkCause() {
@@ -282,21 +283,27 @@ b{
 			}
 		}
 
-		$("#idAtt").change(function() {
-			var inputAtt = $("#idAtt").val();
+		$("#idAtt").change(
+				function() {
+					var inputAtt = $("#idAtt").val();
+					$("#attImg").attr("src", "");
+					$("#attCheck").empty();
 
-			if (inputAtt == null || inputAtt.length == 0) {
-				$("#attImg").attr("src", "");
-				$("#attCheck").empty();
-			} else {
-				var array = new Array(".jpg", ".png", ".gif");
-				inputAtt = inputAtt.substring(inputAtt.lastIndexOf("."));
-				if (array.indexOf(inputAtt) < 0) {
-					$("#attImg").attr("src", "images/X_icon.png");
-					$("#attCheck").html("只接受圖片檔（.jpg、.png、.gif，三種檔案格式)");
-				}
-			}
-		});
+					if (inputAtt == null || inputAtt.length == 0) {
+						$("#attImg").attr("src", "");
+						$("#attCheck").empty();
+					} else {
+						var array = new Array(".jpg", ".png", ".gif", ".JPG",
+								".PNG", ".GIF");
+						inputAtt = inputAtt
+								.substring(inputAtt.lastIndexOf("."));
+						if (array.indexOf(inputAtt) < 0) {
+							$("#attImg").attr("src", "images/X_icon.png");
+							$("#attCheck")
+									.html("只接受圖片檔（.jpg、.png、.gif，三種檔案格式)");
+						}
+					}
+				});
 
 		function checkSubmit() {
 			var inputLT = $("#idLT").val();

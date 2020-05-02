@@ -41,9 +41,14 @@ public class EmployeeLeaveDetailService implements IEmployeeLeaveDetailService {
 		return eldDAO.queryValidLTByEID(employeeId);
 	}
 
+//	@Override
+//	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType) {
+//		return eldDAO.queryValidLTByEIDandLT(employeeId, leaveType);
+//	}
+
 	@Override
-	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType) {
-		return eldDAO.queryValidLTByEIDandLT(employeeId, leaveType);
+	public EmployeeLeaveDetail queryValidLTByELDID(int ELDID) {
+		return eldDAO.queryValidLTByELDID(ELDID);
 	}
 
 	@Override
