@@ -9,5 +9,6 @@ public interface ICourseDAO {
 	public List<Course> queryCourseRecords(int CourseId);
 	public List<Course> queryCourse(String CourseType);
 	public List<Course> queryCourseByAllow(int EmployeeID, String name);
+	public byte[] queryAttachmentFiles(int CourseId);
 
 }

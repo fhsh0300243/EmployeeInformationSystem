@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html class="no-js">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>番茄科技 教育訓練</title>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
-	rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
 	rel="stylesheet">
@@ -19,39 +13,23 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
 
-<link rel="icon" type="images/png" href="images/CompanyLogo.png">
-<link rel="stylesheet" type="text/css" href="css/amazeui.min.css">
-<link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
-
-
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-<script src="js/jquery.min.js"></script>
-<script src="js/handlebars.min.js"></script>
-<script src="js/amazeui.widgets.helper.min.js"></script>
-
+<link rel="stylesheet" type="text/css" href="css/SearchPage.css">
+<link rel="stylesheet" type="text/css" href="css/Menu.css">
+<link rel="icon" href="images/favicon.ico">
 <style>
-.well, .panel {
+.col-sm-4, .functionTitle {
 	text-align: center;
-}
-
-body {
-	font-family: 微軟正黑體;
 }
 
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-
-table {
-	margin: 20px;
-	border-collapse: collapse;
-}
 </style>
 </head>
 <body>
+
 	<br>
 	<div class="container-fluid">
 		<div class="row">
@@ -69,66 +47,70 @@ table {
 
 			<!--右邊欄位-->
 			<div class="col-sm-8">
+
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
 					<div class="panel-heading">
 					
-					<%@ include file="MainFeatureTopBar.jsp"%>
-					
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
+
+					<h6>${SignError}</h6>
+					<h4>教育訓練課程</h4>
+					<table id="idtable1">
+						<tr>
+							<th>申請時間</th>
+							<th>所屬部門</th>
+							<th>職位</th>
+							<th>申請人員</th>
+							<th>課程類別</th>
+							<th>開始時間</th>
+							<th>結束時間</th>
+							<th>簽核狀態</th>
+							<th>備註</th>
+						</tr>
+						<c:forEach var='signDetail' items='${SignList}' varStatus='vs'>
+							<tr class='classtr1'>
+								<td>${signDetail.createTime}</td>
+								<td>${signDetail.employeeId.empDept.deptAbb}</td>
+								<td>${signDetail.employeeId.empTitle.titleChName}</td>
+								<td>${signDetail.employeeId.name}</td>
+								<td>${signDetail.courseType}</td>
+								<td>${signDetail.startTime}</td>
+								<td>${signDetail.endTime}</td>
+								<td>${signDetail.signingProgress}</td>
+								<td>
+									<button class="btn btn-info" name="${signDetail.applyId}">進入簽核</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+
+					<div class="list_footer">
+						<div id="tag"></div>
+						<div id="page"></div>
 					</div>
-					<div class="panel-body">
+				</div>
+			</div>
+		</div>
+	</div>
 
-						<div class="am-text-lg am-text-center"></div>
-
-
-						<div class="introduce_wrap mt60">
-
-							<!-- header -->
-							<div class="mark am-text-lg am-text-center">
-								<span class="am-icon-chevron-left am-fl left-btn"></span> 目前培訓名稱
-
-							</div>
-
-							<div class="gotoTrain_wrap">
-								<!-- banner -->
-								<div class="am-container">
-									<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-										class="am-img-responsive" width=100% alt="培訓圖片" />
-								</div>
-
-								<div class="am-container btn_list">
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">基本訊息</button>
-									<button type="button"
-										class="am-btn am-btn-success am-radius am-btn-block">日期安排</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓通知</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓內容</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓評價</button>
-								</div>
-
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
+	<div class="CanNotRightDownDiv">
+		<img class="CanNotRightDown" src="images/CompanyLogo.png">
+	</div>
 
 
-							<!-- 
-<script src="/js/amazeui.min.js"></script>
- -->
-
-							<div class="CanNotRightDownDiv">
-								<img class="CanNotRightDown" src="images/CompanyLogo.png">
-							</div>
-
-
-
-			<script>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script>
+		$(function() {
+			$("td:empty").text("-");
+		})
+		$(".btn-info").click(function() {
+			var applyId = $(this).attr("name");
+			location.href = "presigningpage?applyId=" + applyId;
+		})
+	</script>
+	
+	<script>
 				var depts;
 				$('#searchdept').empty();
 				$.ajax({
@@ -232,5 +214,6 @@ table {
 							});
 						});
 			</script>
+	
 </body>
 </html>

@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>番茄科技 教育訓練</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>番茄科技 教育訓練</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
 <link
@@ -71,11 +72,9 @@ table {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
+					
 					<div class="panel-heading">
-					
-					<%@ include file="MainFeatureTopBar.jsp"%>
-					
-					</div>
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -83,51 +82,62 @@ table {
 
 						<div class="introduce_wrap mt60">
 
-							<!-- header -->
-							<div class="mark am-text-lg am-text-center">
-								<span class="am-icon-chevron-left am-fl left-btn"></span> 目前培訓名稱
+  <!-- header -->
+  <div class="mark am-text-lg am-text-center">
+    <span class="am-icon-chevron-left am-fl left-btn"></span>
+    培訓動態
+    
+  </div>
 
-							</div>
+  <div class="basicInfo_wrap">
 
-							<div class="gotoTrain_wrap">
-								<!-- banner -->
-								<div class="am-container">
-									<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-										class="am-img-responsive" width=100% alt="培訓圖片" />
-								</div>
+    <!-- title -->
+    <div class="am-cf">
+      <h6 class='am-text-center am-margin-top-sm am-margin-bottom-xs'>動態通知標題</h6>
+      <div class="am-text-sm am-text-center">發佈時間：2020/07/01</div>
+    </div>
+    <hr/>
+    <!-- 培訓訊息 -->
+    <div class="am-container">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-bd col9">
+          <div class="am-container">
+            <p class='am-text-sm'>
+              這裡是內容 this is a test
+              <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" width='100%' alt=""/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+            </p>
 
-								<div class="am-container btn_list">
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">基本訊息</button>
-									<button type="button"
-										class="am-btn am-btn-success am-radius am-btn-block">日期安排</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓通知</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓內容</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓評價</button>
-								</div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+						
+<script src="js/amazeui.min.js"></script>
 
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-
-
-							<!-- 
-<script src="/js/amazeui.min.js"></script>
- -->
-
-							<div class="CanNotRightDownDiv">
-								<img class="CanNotRightDown" src="images/CompanyLogo.png">
-							</div>
-
-
-
+            <div class="CanNotRightDownDiv">
+				<img class="CanNotRightDown" src="images/CompanyLogo.png">
+			</div>
+  
 			<script>
 				var depts;
 				$('#searchdept').empty();
@@ -232,5 +242,6 @@ table {
 							});
 						});
 			</script>
+
 </body>
 </html>

@@ -28,9 +28,9 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -85,7 +85,7 @@ table {
   <!-- header -->
   <div class="mark am-text-lg am-text-center">
     <span class="am-icon-chevron-left am-fl left-btn"></span>
-    目前培訓名稱
+    目前培訓課程
     
   </div>
 
@@ -123,9 +123,9 @@ table {
 
     		   <div class="am-panel am-panel-default">
     		    <div class="am-panel-bd">
-    		     <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/07/01-2020/07/01</span></div>
+    		     <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/07/02-2020/07/02</span></div>
                 <hr/>
-                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/07/01 PM13:45</span></div>
+                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/07/02 PM13:45</span></div>
               <hr/>
                   <div class='am-text-sm'>上課時間：<span  class='col6'>PM14:00-17:00</span></div>
               <hr/>
@@ -141,9 +141,9 @@ table {
 
     		   <div class="am-panel am-panel-default">
             <div class="am-panel-bd">
-               <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/07/01-2020/07/01</span></div>
+               <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/08/01-2020/08/01</span></div>
                 <hr/>
-                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/07/01 PM13:45</span></div>
+                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/08/01 PM13:45</span></div>
               <hr/>
                   <div class='am-text-sm'>上課時間：<span  class='col6'>PM14:00-17:00</span></div>
               <hr/>
@@ -163,12 +163,12 @@ table {
 					    </div>
 					</div>
 				</div>
-    
+    </div>
 
   </div>
   
 </body>
-<script src="/js/amazeui.min.js"></script>
+<script src="js/amazeui.min.js"></script>
 
 <div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">

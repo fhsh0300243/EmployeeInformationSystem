@@ -9,5 +9,6 @@ public interface ICourseTypeService {
 	public List<CourseType> queryCourseTypeRecords(int CourseId);
 	public List<CourseType> queryCourseType(String CourseType);
 	public List<CourseType> queryCourseTypeByAllow(int EmployeeID, String name);
+	public byte[] queryAttachmentFiles(int CourseTypeId);
 
 }

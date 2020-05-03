@@ -5,11 +5,11 @@
 <html class="no-js">
 <head>
   <meta charset="UTF-8">
-  <meta content="yes" name="apple-mobile-web-app-capable">
   <meta http-equiv="X-UA-Compatible" content="">
   <meta name="description" content="">
   <meta name="keywords" content="">
-  <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
   <title>番茄科技 教育訓練</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
@@ -31,15 +31,8 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
-<script src="js/select2.full.min.js"></script>
 
-
-<style> 
-  input{
-    padding:0 !important;
-  }
-  
-  
+<style>
 .well, .panel {
 	text-align: center;
 }
@@ -56,10 +49,10 @@ p {
 table {
 	margin: 20px;
 	border-collapse: collapse;
-}  
-
+}
 </style>
 </head>
+
 <body>
 <br>
 	<div class="container-fluid">
@@ -80,95 +73,100 @@ table {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
 
 
 						<div class="introduce_wrap mt60">
-						</div>
 
 
 
   <!-- header -->
   <div class="mark am-text-lg am-text-center">
-    培訓課程
+    教育訓練培訓頁面
   </div>
 
-  
-
-  <div class="userBinding_wrap mt60">
-    
-    <!-- nav -->
-      <div data-am-widget="tabs"
-       class="am-tabs am-tabs-d2"
-        >
-          <ul class="am-tabs-nav am-cf">
-              <li class="am-active"><a href="[data-tab-panel-0]">教育訓練</a></li>
-              <li class=""><a href="[data-tab-panel-1]">分類test</a></li>
-              <li class=""><a href="[data-tab-panel-2]">分類test</a></li>
-              <li class=""><a href="[data-tab-panel-3]">分類test</a></li>
-          </ul>
-          <div class="am-tabs-bd">
-              <div data-tab-panel-0 class="am-tab-panel am-active">
-
-                <div class="am-panel am-panel-default list">
-                  <div class="am-panel-bd am-form">
-                      <div class='am-text-md formItem am-margin-top-sm'>培訓課程
-                      <select name="" id="sel02"></select>
-                      </div>
-                      <div class='am-text-md formItem am-margin-top-sm'>部門名稱<input type="text" class="am-form-field am-radius am-input-sm" placeholder="請輸入" /></div>
-                      <div class='am-text-md formItem am-margin-top-sm'>使用者姓名<input type="text" class="am-form-field am-radius am-input-sm" placeholder="請輸入" /></div>
-                      <div class='am-text-md formItem am-margin-top-sm'>使用者性別
-                        <div class="am-form-group">
-                          <select class='am-input-sm am-radius'  id="doc-select-1">
-                            <option value="option1">男</option>
-                            <option value="option2">女</option>
-                          </select>
-                          <span class="am-form-caret"></span>
-                        </div>
-                      </div>
-                      
-                     
-                        <div class="am-form-group">
-                          <select class='am-input-sm am-radius ' id="doc-select-1">
-                            <option value="option1">正式培訓</option>
-                            <option value="option2">非正式培訓</option>
-                          </select>
-                          <span class="am-form-caret"></span>
-                        </div>
-                      </div>
-                      <!--  
-                      <div class='am-text-md formItem am-margin-top-sm'>培訓分類<input type="text" class="am-form-field am-radius am-input-sm" placeholder="請輸入" /></div>
-                      -->
-                  </div>
-
-                </div>
-
-                <button class="am-btn am-btn-primary am-btn-block am-margin-top-lg am-margin-bottom-lg">確認以上訊息正確</button>
-
-              </div>
-  
-              <div data-tab-panel-1 class="am-tab-panel ">
-              </div>
-
-              <div data-tab-panel-2 class="am-tab-panel ">
-              </div>
-
-              <div data-tab-panel-3 class="am-tab-panel ">
-              </div>
-          </div>
+  <div class="index_wrap">
+    <!-- banner -->
+    <div class="am-container index-banner">
+      <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
+        <ul class="am-slides">
+          <li><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" /></li>
+          <li><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" /></li>
+        </ul>
       </div>
+    </div>
+    <!-- nav -->
+    <div class="am-container index-nav">
+      <ul class="am-avg-sm-4">
+        <li class='am-text-center'>
+          <img class="am-circle" src="images/nav (1).png" width="100%"/>
+        </li>
+        <li  class='am-text-center'>
+          <img class="am-circle" src="images/nav (2).png" width="100%"/>
+        </li>
+        <li  class='am-text-center'>
+          <img class="am-circle" src="images/nav (4).png" width="100%"/>
+        </li>
+        <li  class='am-text-center'>
+          <img class="am-circle" src="images/nav (3).png" width="100%"/>
+        </li>
+      </ul>
+    </div>
 
-  <!-- 拿掉原本的footer    
+    <!-- list -->
+    <div class="index-list am-cf">
+      <div class="am-fl titleIcon">
+        <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="60px"/>
+      </div>
+      <div class="am-fl content">
+        <div class='am-text-sm'>培訓名稱</div>
+        <div class='am-text-sm'>培訓類型<br/><span class='am-text-xs'>培訓類型</span></div>
+        <div class='am-text-sm'>培訓日期<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+      </div>
+      <div class="am-fr statusIcon">
+        <img class="am-circle" src="images/baoming.png" width="50px"/>
+      </div>
+    </div>
+    <div class="index-list am-cf">
+      <div class="am-fl titleIcon">
+        <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="60px"/>
+      </div>
+      <div class="am-fl content">
+        <div class='am-text-sm'>培訓名稱</div>
+        <div class='am-text-sm'>培訓類型<br/><span class='am-text-xs'>培訓類型</span></div>
+        <div class='am-text-sm'>培訓日期<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+      </div>
+      <div class="am-fr statusIcon">
+        <img class="am-circle" src="images/baoming.png" width="50px"/>
+      </div>
+    </div>
+    <div class="index-list am-cf">
+      <div class="am-fl titleIcon">
+        <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="60px"/>
+      </div>
+      <div class="am-fl content">
+        <div class='am-text-sm'>培訓名稱</div>
+        <div class='am-text-sm'>培訓類型<br/><span class='am-text-xs'>培訓類型</span></div>
+        <div class='am-text-sm'>培訓日期<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+      </div>
+      <div class="am-fr statusIcon">
+        <img class="am-circle" src="images/baoming.png" width="50px"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
   <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default ">
     <ul class="am-navbar-nav am-cf am-avg-sm-4">
         <li >
           <a href="#" class="">
                 <span><img src="images/mainNav (2).png" alt=""></span>
-              <span class="am-navbar-label">教育訓練主頁</span>
+              <span class="am-navbar-label">主頁</span>
           </a>
         </li>
         <li>
@@ -191,48 +189,18 @@ table {
         </li>
     </ul>
   </div>
-  -->
-  
-
-						    </div>
-					      </div>
-					    </div>
+  </div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-  
 
   
 </body>
-
 <script src="js/amazeui.min.js"></script>
-<script>
-   $("#sel02").select2({
-      placeholder: 'Select an option',
-      width:200,
-      ajax: {
-        url: "data.json",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-          return {
-            q: params.term,
-          };
-        },
-        processResults: function (data) {
-          return {
-            results: data
-          };
-        },
-        cache: true
-      },
-      escapeMarkup: function (markup) { return markup; }, 
-      minimumInputLength: 1,
-  });
-</script>
 
-<!-- 班代的整合樣式 -->
-
-			<div class="CanNotRightDownDiv">
+            <div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>
 
@@ -343,4 +311,5 @@ table {
 						});
 			</script>
 </body>
+
 </html>

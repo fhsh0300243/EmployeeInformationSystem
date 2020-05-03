@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>番茄科技 教育訓練</title>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>番茄科技 教育訓練</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
@@ -52,7 +53,7 @@ table {
 </style>
 </head>
 <body>
-	<br>
+<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -71,11 +72,9 @@ table {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
+					
 					<div class="panel-heading">
-					
-					<%@ include file="MainFeatureTopBar.jsp"%>
-					
-					</div>
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -83,48 +82,63 @@ table {
 
 						<div class="introduce_wrap mt60">
 
-							<!-- header -->
-							<div class="mark am-text-lg am-text-center">
-								<span class="am-icon-chevron-left am-fl left-btn"></span> 目前培訓名稱
 
-							</div>
+  <!-- header -->
+  <div class="mark am-text-lg am-text-center">
+    <span class="am-icon-chevron-left am-fl left-btn"></span>
+    成績查詢
+    
+  </div>
 
-							<div class="gotoTrain_wrap">
-								<!-- banner -->
-								<div class="am-container">
-									<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-										class="am-img-responsive" width=100% alt="培訓圖片" />
-								</div>
+  <div class="textbook_wrap">
 
-								<div class="am-container btn_list">
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">基本訊息</button>
-									<button type="button"
-										class="am-btn am-btn-success am-radius am-btn-block">日期安排</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓通知</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓內容</button>
-									<button type="button"
-										class="am-btn am-btn-default am-radius am-btn-block">培訓評價</button>
-								</div>
+    <!-- 培訓訊息 -->
+    <div class="am-container">
+      <div>
+        <form class="am-form am-form-horizontal am-margin-top-lg">
+          <div class="am-form-group">
+            <label for="doc-ipt-3" class="am-u-sm-12 am-form-label"  style='text-align:left'>使用者信箱</label>
+            <div class="am-u-sm-12 am-margin-top-sm">
+              <input type="email" id="doc-ipt-3" placeholder="輸入您的信箱">
+            </div>
+          </div>
 
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
-							</div>
+          <div class="am-form-group">
+            <label for="doc-ipt-pwd-2" class="am-u-sm-12 am-form-label" style='text-align:left'>員工編號</label>
+            <div class="am-u-sm-12 am-margin-top-sm">
+              <input type="password" id="doc-ipt-pwd-2" placeholder="輸入您的員工編號">
+            </div>
+          </div>
 
+          <div class="am-form-group am-margin-top-lg">
+            <div class="am-u-sm-12">
+              <button type="submit" class="am-btn am-btn-primary am-btn-block">查詢</button>
+            </div>
+          </div>
+        </form>
 
-							<!-- 
+      </div>
+      
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>  
+    </div>
+    
+    
+    
+
+  </div>
+  
+</body>
 <script src="/js/amazeui.min.js"></script>
- -->
 
-							<div class="CanNotRightDownDiv">
-								<img class="CanNotRightDown" src="images/CompanyLogo.png">
-							</div>
+
+<div class="CanNotRightDownDiv">
+				<img class="CanNotRightDown" src="images/CompanyLogo.png">
+			</div>
 
 
 
@@ -232,5 +246,7 @@ table {
 							});
 						});
 			</script>
+
+
 </body>
 </html>

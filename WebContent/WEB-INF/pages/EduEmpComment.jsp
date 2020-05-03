@@ -27,9 +27,9 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -71,8 +71,8 @@ table {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -105,8 +105,11 @@ table {
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
 													課程名稱：<span>人資相關課程</span>
+													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
+													</a>
+												
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
@@ -122,9 +125,11 @@ table {
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>課程</span>
+													課程名稱：<span>研發相關課程</span>
+													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
+													</a>
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
@@ -140,9 +145,72 @@ table {
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>xxx課程</span>
+													課程名稱：<span>品質保證相關課程</span>
+													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
+													</a>
+												</div>
+												<div class='am-text-sm am-margin-top-sm'>
+													<span
+														class='am-icon-star am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：60%</i></span> <span
+														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：30%</i></span> <span
+														class='am-icon-star-o am-text-danger'><i
+														class='am-text-danger'>不滿意：10%</i></span>
+												</div>
+											</div>
+										</div>
+										
+										<div class="am-panel am-panel-default">
+											<div class="am-panel-bd">
+												<div class='am-text-sm am-cf'>
+													課程名稱：<span>測試相關課程</span>
+													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
+													<button
+														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
+													</a>
+												</div>
+												<div class='am-text-sm am-margin-top-sm'>
+													<span
+														class='am-icon-star am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：60%</i></span> <span
+														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：30%</i></span> <span
+														class='am-icon-star-o am-text-danger'><i
+														class='am-text-danger'>不滿意：10%</i></span>
+												</div>
+											</div>
+										</div>
+										<div class="am-panel am-panel-default">
+											<div class="am-panel-bd">
+												<div class='am-text-sm am-cf'>
+													課程名稱：<span>業務相關課程</span>
+													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
+													<button
+														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
+													</a>
+												</div>
+												<div class='am-text-sm am-margin-top-sm'>
+													<span
+														class='am-icon-star am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：60%</i></span> <span
+														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：30%</i></span> <span
+														class='am-icon-star-o am-text-danger'><i
+														class='am-text-danger'>不滿意：10%</i></span>
+												</div>
+											</div>
+										</div>
+										<div class="am-panel am-panel-default">
+											<div class="am-panel-bd">
+												<div class='am-text-sm am-cf'>
+													課程名稱：<span>專案管理相關課程</span>
+													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
+													<button
+														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
+													</a>
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
@@ -168,14 +236,121 @@ table {
 			</div>
 			</div>
 			</div>
+			</div>
 
 
 
 						
-</body>
-<script src="/js/amazeui.min.js"></script>
-<div class="CanNotRightDownDiv">
+
+<script src="js/amazeui.min.js"></script>
+            <div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>
+			
+			
+<script>
+				var depts;
+				$('#searchdept').empty();
+				$.ajax({
+					url : "DeptList",
+					type : "GET",
+					success : function(Str) {
+						depts = JSON.parse(Str);
+						$('#searchdept').append(
+								"<option value=''>選擇部門</option>");
+						for (let i = 0; i < depts.length; i++) {
+							$('#searchdept').append(
+									"<option value='"+depts[i].deptabb+"'>"
+											+ depts[i].deptabb + "</option>")
+						}
+					}
+				});
 
+				var emps;
+				const perpage = 10;
+				let nowpage = 1;
+				showemps();
+				//從資料庫取得資料
+				function showemps() {
+					$.ajax({
+						url : "EmpList",
+						type : "GET",
+						success : function(Str) {
+							emps = JSON.parse(Str);
+							pagination(emps, nowpage);
+						}
+					});
+				}
+				//產生顯示的資料
+				function pagination(emps, nowpage) {
+					$("#emplist").html("");
+					const datatotal = emps.length;
+					const pagesTotal = Math.ceil(datatotal / perpage);
+					let currentPage = nowpage;
+					var minData = (currentPage * perpage) - perpage + 1;
+					var maxData = (currentPage * perpage);
+					//產生<a>標籤
+					atag = "<a href=# name='1' onclick='f(this)'>" + 1
+							+ "</a> ";
+					for (let i = 2; i <= pagesTotal; i++) {
+						atag += "<a href=# name='" + i + "' onclick='f(this)'>"
+								+ i + "</a> ";
+					}
+					document.getElementById("tag").innerHTML = atag;
+					$("#page").html("第" + nowpage + "頁");
+					var txt = "<tr><th>EmpID<th>帳號<th>姓名<th>部門<th>職稱<th>主管<th>";
+
+					if (maxData > datatotal) {
+						maxData = datatotal;
+					}
+					for (let i = minData - 1; i < maxData; i++) {
+						txt += "<tr><td>" + emps[i].empID;
+						txt += "<td>" + emps[i].username;
+						txt += "<td>" + emps[i].name;
+						txt += "<td>" + emps[i].department;
+						txt += "<td>" + emps[i].title;
+						txt += "<td>" + emps[i].manager;
+						txt += "<td><a href='<c:url value='/EditEmployee.do?id="
+								+ emps[i].empID
+								+ "'/>' name='"
+								+ emps[i].empID
+								+ "'>Edit</a>";
+
+					}
+
+					$("#emplist").html(txt);
+				}
+
+				//換頁		
+				function f(obj) {
+					nowpage = obj.name;
+					$("#page").html("第" + nowpage + "頁");
+					showemps();
+				}
+				/*
+				 $("#search").keydown(function(e) {
+				 code = (e.keyCode ? e.keyCode : e.which);
+				 if (code == 13) {
+				 //startSearch();
+				 }
+				 });
+				 */
+				$("#search").click(
+						function() {
+							nowpage = 1;
+							$.ajax({
+								url : "QueryEmp.action?searchid="
+										+ $("#searchid").val() + "&searchname="
+										+ $("#searchname").val()
+										+ "&searchdept="
+										+ $("#searchdept").val(),
+								type : "GET",
+								success : function(Str) {
+									emps = JSON.parse(Str);
+									pagination(emps, nowpage);
+								}
+							});
+						});
+			</script>
+</body>
 </html>

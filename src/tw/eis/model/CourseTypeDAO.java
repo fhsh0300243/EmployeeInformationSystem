@@ -86,6 +86,14 @@ public class CourseTypeDAO implements ICourseTypeDAO{
 		List<CourseType> CourseType = query.list();
 		return CourseType;
 	}
+	
+	@Override
+	public byte[] queryAttachmentFiles(int CourseTypeId) {
+		Session Session = sessionFactory.getCurrentSession();
+		CourseType CourseType = Session.get(CourseType.class, CourseTypeId);
+		
+		return CourseType.getAttachmentFiles();
+	}
 
 
 }

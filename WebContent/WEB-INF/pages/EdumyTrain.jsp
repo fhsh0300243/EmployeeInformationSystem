@@ -28,9 +28,9 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -72,8 +72,8 @@ table {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-heading">
+				<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -85,8 +85,8 @@ table {
 
   <!-- header -->
   <div class="mark am-text-lg am-text-center">
-    <span class="am-icon-chevron-left am-fl left-btn"></span>
-    我的培訓
+    <span class=""></span>
+    培訓課程
     
   </div>
 
@@ -95,50 +95,54 @@ table {
     <!-- list -->
     <div class="myTrain-list am-cf">
       <div class="am-fl titleIcon">
-        <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="60px"/>
+        <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCWNRtSCuC4u_wA8qJzHVNbWuyazKuO_J13i4oOwYo5dr7X6wo&usqp=CAU" width="85px"/>
       </div>
       <div class="am-fl content">
-        <div class='am-text-sm'>培訓名稱</div>
-        <div class='am-text-sm'>培訓類型<br/><span class='am-text-xs'>培訓類型</span></div>
-        <div class='am-text-sm'>培訓時間<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+        <div class='am-text-sm'>課程名稱：新進人員職務說明與分析</div>
+        <div class='am-text-sm'>課程類別：員工訓練<br/><span class='am-text-xs'>人資類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <img class="am-circle" src="/images/baoming.png" width="50px"/>
+        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <div class="myTrain-list am-cf">
       <div class="am-fl titleIcon">
-        <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="60px"/>
+        <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCTQEEeGi_OKa3jlEOA7tZNRIcvgwcCiZG6TMEam09GvY4SyOx&usqp=CAU" width="80px"/>
       </div>
       <div class="am-fl content">
-        <div class='am-text-sm'>培訓名稱</div>
-        <div class='am-text-sm'>培訓類型<br/><span class='am-text-xs'>培訓類型</span></div>
-        <div class='am-text-sm'>培訓時間<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+        <div class='am-text-sm'>課程名稱：勞動契約過程之勞動條件</div>
+        <div class='am-text-sm'>課程類別：勞動法規<br/><span class='am-text-xs'>人資類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/07/02-2020/07/02</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <img class="am-circle" src="/images/baoming.png" width="50px"/>
+        <img class="am-circle" src="images/baoming.png" width="50px"/>
       </div>
     </div>
     <div class="myTrain-list am-cf">
       <div class="am-fl titleIcon">
-        <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="60px"/>
+        <img class="am-radius" src="https://ya-webdesign.com/transparent250_/training-vector-12.png" width="80px"/>
       </div>
       <div class="am-fl content">
-        <div class='am-text-sm'>培訓名稱</div>
-        <div class='am-text-sm'>培訓類型<br/><span class='am-text-xs'>培訓類型</span></div>
-        <div class='am-text-sm'>培訓時間<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+        <div class='am-text-sm'>課程名稱：業務目標設定與管理辦法</div>
+        <div class='am-text-sm'>課程類別：業務目標<br/><span class='am-text-xs'>業務類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/08/01-2020/08/01</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <img class="am-circle" src="/images/baoming.png" width="50px"/>
+       <img class="am-circle" src="images/baoming.png" width="50px"/>
       </div>
+    </div>
+  </div>
+     </div>
+    </div>
+  </div>
+     </div>
     </div>
   </div>
   
 
-<script src="/js/amazeui.min.js"></script>
+<script src="js/amazeui.min.js"></script>
 
-
-</div>
 			<div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>

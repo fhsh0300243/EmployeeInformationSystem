@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -28,13 +31,16 @@ public class CourseType implements Serializable {
 	private String deptTEST;
 	private String deptSales;
 	private String deptPM;
+	private byte[] AttachmentFiles;
+	private Employee SignerID;
+	private String SigningProgress;
 
 	public CourseType() {
 
 	}
 
 	public CourseType(String TypeName, String TypeGroup, String deptHR, String deptRD, String deptQA, String deptTEST,
-			String deptSales, String deptPM) {
+			String deptSales, String deptPM, byte[] AttachmentFiles, Employee SignerID, String SigningProgress) {
 		this.TypeName = TypeName;
 		this.TypeGroup = TypeGroup;
 		this.deptHR = deptHR;
@@ -43,6 +49,9 @@ public class CourseType implements Serializable {
 		this.deptTEST = deptTEST;
 		this.deptSales = deptSales;
 		this.deptPM = deptPM;
+		this.AttachmentFiles = AttachmentFiles;
+		this.SignerID = SignerID;
+		this.SigningProgress = SigningProgress;
 	}
 
 	@Id
@@ -129,5 +138,34 @@ public class CourseType implements Serializable {
 	public void setDeptPM(String deptPM) {
 		this.deptPM = deptPM;
 	}
+	
+	@Column(name = "ATTACHMENTFILES")
+	public byte[] getAttachmentFiles() {
+		return AttachmentFiles;
+	}
+
+	public void setAttachmentFiles(byte[] attachmentFiles) {
+		AttachmentFiles = attachmentFiles;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SIGNERID", referencedColumnName = "EMPID")
+	public Employee getSignerID() {
+		return SignerID;
+	}
+
+	public void setSignerID(Employee signerID) {
+		SignerID = signerID;
+	}
+
+	@Column(name = "SIGNINGPROGESS")
+	public String getSigningProgress() {
+		return SigningProgress;
+	}
+
+	public void setSigningProgress(String signingProgress) {
+		SigningProgress = signingProgress;
+	}
+	
 
 }

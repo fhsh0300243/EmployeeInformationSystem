@@ -20,9 +20,9 @@ public class EduMainPageController {
 		return "EduBasicInfo";
 	}
 	
-	@RequestMapping(path = "/EduGotoTrain.do", method = RequestMethod.GET)
-	public String EduGotoTrain() {
-		return "EduGotoTrain";
+	@RequestMapping(path = "/EdugotoTrain.do", method = RequestMethod.GET)
+	public String EdugotoTrain() {
+		return "EdugotoTrain";
 	}
 	
 	@RequestMapping(path = "/EdumyTrain.do", method = RequestMethod.GET)
@@ -30,11 +30,6 @@ public class EduMainPageController {
 		return "EdumyTrain";
 	}
 	
-
-	@RequestMapping(path = "/Topic.do", method = RequestMethod.GET)
-	public String Topic() {
-		return "Topic";
-	}
 	
 	@RequestMapping(path = "/EduNotice.do", method = RequestMethod.GET)
 	public String EduNotice() {
@@ -67,15 +62,54 @@ public class EduMainPageController {
 		return "EduserBinding";
 	}
 	
+	@RequestMapping(path = "/EduQueryResult.do", method = RequestMethod.GET)
+	public String EduQueryResult() {
+		return "EduQueryResult";
+	}
+	
+	@RequestMapping(path = "/EduScoreQuery.do", method = RequestMethod.GET)
+	public String EduScoreQuery() { 
+		return "EduScoreQuery";
+	}
+	
+	@RequestMapping(path = "/EdudynamicDetail.do", method = RequestMethod.GET)
+	public String EdudynamicDetail() {
+		return "EdudynamicDetail";
+	}
+	
+	
+	@RequestMapping(path = "/EduAddCoursePage.do", method = RequestMethod.GET)
+	public String EduAddCoursePage() {
+		return "EduAddCoursePage";
+	}
+	
+	@RequestMapping(path = "/EduDeleteCoursePage.do", method = RequestMethod.GET)
+	public String EduDeleteCoursePage() {
+		return "EduDeleteCoursePage";
+	}
+	
+	
+	@RequestMapping(path = "/EduUnsigned.do", method = RequestMethod.GET)
+	public String EduUnsigned() {
+		return "EduUnsigned";
+	}
+	
+	@RequestMapping(path = "/EduSigned.do", method = RequestMethod.GET)
+	public String EduSigned() {
+		return "EduSigned";
+	}
+	
 
 	@RequestMapping(path = "/EducationIndex.do", method = RequestMethod.GET)
 	public String EducationIndex() {
 		return "EducationIndex";
 	}
 	
+	
 	@RequestMapping(path = "/LoginSuccess", method = RequestMethod.GET)
 	public String LoginSuccess() {
 		return "LoginSuccess";
 	}
+
 
 }

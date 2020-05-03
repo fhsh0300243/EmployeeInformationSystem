@@ -25,9 +25,9 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -48,18 +48,17 @@ table {
 	border-collapse: collapse;
 }
 
-/* 新增 */
+ /* 新增style */
 
 .col-sm-4, .functionTitle {
 	text-align: center;
 }
 
-p {
-	font-family: 'Noto Sans TC', sans-serif;
-	font-size: 18px;
+
+.tb{
+	position: relative;
+	left: 30%;
 }
-
-
 </style>
 </head>
 <body>
@@ -82,8 +81,8 @@ p {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -93,43 +92,49 @@ p {
 
 							<!-- header -->
 							<div class="mark am-text-lg am-text-center">
-								<span class="am-icon-chevron-left am-fl left-btn"></span>
-								目前培訓課程名稱
+								<span class=""></span>
+								課程滿意度調查
 							</div>
 
 							<div class="commentKecheng_wrap mt60">
 								<!-- banner -->
 								<div class="am-container">
-									<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-										class="am-img-responsive" width=100% alt="培訓圖片" />
+									<img src="https://www.ideasaur.in/wp-content/uploads/2018/04/customeradvocate.jpg"
+										class="" align="middle" width=20% alt="培訓圖片" />
 								</div>
 								<!-- address -->
+								 
 								<div class="am-cf my_address">
-									<div class=" am-fl col6">xxx培訓</div>
+									<div class=" am-fl col6"></div>
 								</div>
+								
 
 
 								<!-- 培訓訊息 -->
 								<div class="am-container">
 									<div>
-										<h6 class='am-margin-bottom-xs am-text-sm'>課程：</h6>
+										<h6 class='am-margin-bottom-xs am-text-sm'>課程評點：</h6>
 										<!-- 課程 -->
-										<div class=' am-form'>
+										<form>
+										<div class='am-form'>
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 													<div class='am-text-sm am-cf'>
 														<span>1.</span>您對本課程的滿意程度
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='01' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='01' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='01' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
+															
 													</div>
 												</div>
 											</div>
@@ -139,15 +144,17 @@ p {
 														<span>2.</span>課程具體內容
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='02' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='02' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='02' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
@@ -157,15 +164,17 @@ p {
 														<span>3.</span>授課時間的安排
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='03' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='03' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='03' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
@@ -175,15 +184,17 @@ p {
 														<span>4.</span>專業知識的補充
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='04' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='04' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='04' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
@@ -194,15 +205,17 @@ p {
 														<span>5.</span>對於工作能力的提升
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='05' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='05' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='05' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
@@ -211,22 +224,25 @@ p {
 										<hr />
 										<!-- 講師 -->
 										<h6 class='am-margin-bottom-xs am-text-sm'>授課講師：</h6>
-										<div class=' am-form'>
+										<div class='am-form'>
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 													<div class='am-text-sm am-cf'>
 														<span>1.</span>專業程度
 													</div>
+													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='06' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='06' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='06' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
@@ -236,18 +252,21 @@ p {
 														<span>2.</span>授課內容
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='07' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='07' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='07' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
+										
 
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
@@ -255,15 +274,17 @@ p {
 														<span>3.</span>教學方式
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
-														<span class='am-margin-right'><input type="radio"
-															name='01' id='011'><label for='011'
-															class='am-text-success'>滿意</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='012'><label for='012'
-															class='am-text-warning'>普通</label></span> <span
-															class='am-margin-right'><input type="radio"
-															name='01' id='013'><label for='013'
-															class='am-text-danger'>不滿意</label></span>
+														<span class='am-margin-right'>
+														<input type="radio" name='08' id='011' value="滿意">
+														<label for='011' class='am-text-success'>滿意</label></span> 
+															
+														<span class='am-margin-right'>
+														<input type="radio" name='08' id='012' value="普通">
+														<label for='012' class='am-text-warning'>普通</label></span>
+														
+														<span class='am-margin-right'>
+														<input type="radio" name='08' id='013' value="不滿意">
+														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
 											</div>
@@ -274,28 +295,52 @@ p {
 													<div class='am-text-sm am-cf'>
 														<span>4.</span>您對本課程還有其他建議嗎？
 													</div>
-													<div class='am-text-sm am-margin-top-sm'>
-														<div class="am-form-group">
-															<textarea class="" rows="3"></textarea>
-														</div>
+													
+														
+													</div>		
 													</div>
 												<!-- 按鈕 -->
-								<tr>
+							<div class='am-text-sm am-margin-top-sm'>
+							<div class="am-form-group">
+								
+							<table id="idtable">
+
+							<tr>
+								<td class="tdtag"><label for="cause"></label></td>
+								<td><textarea cols="145" rows="3" id="idCause" name="cause"
+										onblur="checkCause();"></textarea></td>
+
+							</tr>
+							<tr>
 								<td></td>
-								<td class=tdNotes>字數限制：100字</td>
-							    </tr>
-							    <tr>
+								<td class=tdNotes>字數限制：100字。</td>
+							</tr>
+							<tr>
 								<td></td>
 								<td class="tdErr"><img id="causeImg"> <span
 									id="causeCheck"></span></td>
-							    </tr>
-							    
-							    <hr>
-						        <div class="btn2">
-							    <input type="reset" value="清除" onclick="cls();"
+							</tr>
+							<tr>
+								<td></td>
+								<td class="tdErr"><img id="attImg"> <span
+									id="attCheck"></span></td>
+							</tr>
+							
+
+						</table>
+						
+						</div>
+						<hr>
+						<div class="btn2">
+							<input type="reset" value="清除" onclick="cls();"
 								class="btn btn-info" /> <input type="submit" value="送出"
 								onclick="return checkSubmit();" class="btn btn-info" />
-						        </div>
+						</div>
+					</form>
+
+					<div id="tag"></div>
+					<div id="page"></div>
+				</div>
 												</div>
 												
 											</div>
@@ -305,10 +350,8 @@ p {
 							</div>
 							  </div>
 					      </div>
-					    </div>
-					</div>
-				</div>
-							<script src="/js/amazeui.min.js"></script>
+				
+	<script src="js/amazeui.min.js"></script>
 
     <div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
@@ -420,6 +463,35 @@ p {
 							});
 						});
 			</script>
+			
+			<script>
+
+		function cls() {
+			$("#leaveTypeImg").attr("src", "");
+			$("#leaveTypeCheck").empty();
+			$(".surplusHours").empty();
+			$(".sumHours").empty();
+			$("#dateImg").attr("src", "");
+			$("#dateCheck").empty();
+			$("#causeImg").attr("src", "");
+			$("#causeCheck").empty();
+			$("#attImg").attr("src", "");
+			$("#attCheck").empty();
+		}
+
+		function checkCause() {
+			var inputCause = $("#idCause").val();
+
+			if (inputCause.length > 50) {
+				$("#causeImg").attr("src", "images/X_icon.png");
+				$("#causeCheck").html("不可超過100字");
+			} else {
+				$("#causeImg").attr("src", "");
+				$("#causeCheck").empty();
+			}
+		}
+
+	</script>
 </body>
 
 </html>

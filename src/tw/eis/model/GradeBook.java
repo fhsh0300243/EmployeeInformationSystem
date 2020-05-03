@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "GRADEBOOK")
 @Component
-public class GradeBook implements Serializable{
+public class GradeBook implements Serializable {
 	/**
 	 * 
 	 */
@@ -25,7 +28,8 @@ public class GradeBook implements Serializable{
 	public GradeBook() {
 
 	}
-
+	
+	
 	@Id
 	@Column(name="COURSEID")
 	public int getCourseId() {
@@ -63,6 +67,5 @@ public class GradeBook implements Serializable{
 	public void setGrade(int grade) {
 		Grade = grade;
 	}
-
 
 }

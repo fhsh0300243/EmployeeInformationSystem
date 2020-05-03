@@ -45,5 +45,10 @@ private CourseTypeDAO CourseTypeDAO;
 	public List<CourseType> queryCourseTypeByAllow(int EmployeeID, String name) {
 		return CourseTypeDAO.queryCourseTypeByAllow(EmployeeID, name);
 	}
+	
+	@Override
+	public byte[] queryAttachmentFiles(int CourseTypeId) {
+		return CourseTypeDAO.queryAttachmentFiles(CourseTypeId);
+	}
 
 }
