@@ -76,7 +76,7 @@ b {
 						</tr>
 						<tr>
 							<td class="tdtag">請假類別：</td>
-							<td class="sLT">${ApplyList.leaveType}</td>
+							<td>${ApplyList.leaveType}</td>
 						</tr>
 						<tr>
 							<td class="tdtag">開始時間：</td>
@@ -171,10 +171,6 @@ b {
 
 		$(function() {
 			$("#idtable2 td:empty").text("-");
-
-			var leaveType = $(".sLT").text();
-			var data = leaveType.split("-");
-			$(".sLT").text(data[0]);
 		});
 
 		$("#attImg").on("error", function() {
@@ -220,10 +216,8 @@ b {
 		}
 
 		function cls() {
-			$("#signImg").attr("src", "");
-			$("#signCheck").html("");
-			$("#commentImg").attr("src", "");
-			$("#commentCheck").html("");
+			$("#signImg,#commentImg").attr("src", "");
+			$("#signCheck,#commentCheck").empty();
 		}
 	</script>
 

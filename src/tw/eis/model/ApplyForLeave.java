@@ -28,7 +28,7 @@ public class ApplyForLeave {
 //	@Column(name = "EMPLOYEEID")
 	private Employee employeeId;
 
-	@Column(name = "LEAVETYPE")
+	@Column(name = "LEAVETYPE", updatable = false)
 	private String leaveType;
 
 	@Column(name = "STARTTIME")

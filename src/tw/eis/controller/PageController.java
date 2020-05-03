@@ -53,7 +53,14 @@ public class PageController {
 	@RequestMapping(path = "/preapplyrecord", method = RequestMethod.GET)
 	public String enterApplyRecord(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap, Model model) {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
+
 		List<ApplyForLeave> ApplyList = aService.queryApplyByEID(employeeID);
+		if (ApplyList != null && ApplyList.size() != 0) {
+			for (int i = 0; i < ApplyList.size(); i++) {
+				ApplyForLeave newABean = ApplyList.get(i);
+				newABean.setLeaveType(newABean.getLeaveType().substring(0, 2));
+			}
+		}
 		model.addAttribute("ApplyList", ApplyList);
 
 		int empLevel = eService.empData(employeeID).getLevel();
@@ -79,7 +86,14 @@ public class PageController {
 	@RequestMapping(path = "/preunsignedpage", method = RequestMethod.GET)
 	public String enterUnsignedPage(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap, Model model) {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
+
 		List<ApplyForLeave> SignList = aService.queryUnsignedApplyBySID(employeeID);
+		if (SignList != null && SignList.size() != 0) {
+			for (int i = 0; i < SignList.size(); i++) {
+				ApplyForLeave newABean = SignList.get(i);
+				newABean.setLeaveType(newABean.getLeaveType().substring(0, 2));
+			}
+		}
 		model.addAttribute("SignList", SignList);
 
 		int empLevel = eService.empData(employeeID).getLevel();
@@ -94,9 +108,13 @@ public class PageController {
 			@ModelAttribute("errorMsgMap") Map<String, String> errorMsgMap, @RequestParam("applyId") int applyID,
 			Model model, SessionStatus status) {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
-		ApplyForLeave ApplyList = aService.queryApplyByAID(applyID);
-		int signerID = ApplyList.getSignerId().getEmpID();
 
+		ApplyForLeave ApplyList = aService.queryApplyByAID(applyID);
+		if (ApplyList != null) {
+			ApplyList.setLeaveType(ApplyList.getLeaveType().substring(0, 2));
+		}
+
+		int signerID = ApplyList.getSignerId().getEmpID();
 		if (employeeID == signerID) {
 			model.addAttribute("ApplyList", ApplyList);
 			int empLevel = eService.empData(employeeID).getLevel();
@@ -115,7 +133,14 @@ public class PageController {
 	@RequestMapping(path = "/presignedpage", method = RequestMethod.GET)
 	public String enterSignedPage(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap, Model model) {
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
+
 		List<ApplyForLeave> SignList = aService.querySignedApplyBySID(employeeID);
+		if (SignList != null && SignList.size() != 0) {
+			for (int i = 0; i < SignList.size(); i++) {
+				ApplyForLeave newABean = SignList.get(i);
+				newABean.setLeaveType(newABean.getLeaveType().substring(0, 2));
+			}
+		}
 		model.addAttribute("SignList", SignList);
 
 		int empLevel = eService.empData(employeeID).getLevel();
@@ -129,6 +154,9 @@ public class PageController {
 	public String enterLeaveDetail(@ModelAttribute("usersResultMap") Map<String, String> usersResultMap,
 			@RequestParam("applyId") int applyID, Model model) {
 		ApplyForLeave ApplyList = aService.queryApplyByAID(applyID);
+		if (ApplyList != null) {
+			ApplyList.setLeaveType(ApplyList.getLeaveType().substring(0, 2));
+		}
 		model.addAttribute("ApplyList", ApplyList);
 
 		Integer employeeID = Integer.valueOf(usersResultMap.get("EmployeeID"));
