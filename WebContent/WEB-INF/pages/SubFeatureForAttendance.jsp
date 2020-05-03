@@ -39,13 +39,22 @@
 			<br>
 			<div class="title">Demo</div>
 			<div>
-				<a href="<c:url value="/CreateTable0300"/>">建立出勤表</a>
+				<a href="<c:url value="/CreateTable0300"/>">建立今日出勤表</a>
 			</div>
 			<div>
-				<a href="<c:url value="/CheckStatus0830"/>">8:30判斷</a>
+				<a href="<c:url value="/DeleteTodayAttendance"/>">清除今日出勤表</a>
 			</div>
 			<div>
-				<a href="<c:url value="/CheckStatus2330"/>">23:30判斷</a>
+				<a href="<c:url value="/CheckStatusALL"/>">判斷出勤異常</a>
+			</div>
+			<div>
+				<a href="<c:url value="/UpdateOKAttemdance"/>">更新為正常上下班</a>
+			</div>
+			<div>
+				<a href="<c:url value="/UpdateStartNGAttemdance"/>">更新為遲到</a>
+			</div>
+			<div>
+				<a href="<c:url value="/UpdateEndNGAttemdance"/>">更新為早退</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

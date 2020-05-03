@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -81,27 +82,32 @@ public class AttendanceController {
 	}
 
 	// 主管執行部門出勤查詢
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(path = "/InquiryAttendanceDepartment", method = RequestMethod.POST)
 	public String InquiryAttendanceDepartment(@ModelAttribute("LoginOK") Users userBean,
 			@RequestParam("month") String month, HttpServletRequest request) throws Exception {
-		Map<Employee, Integer> countMap = new HashMap<Employee, Integer>();
+		Map<Employee, Integer> map = new HashMap<Employee, Integer>();
 		int level = userBean.getEmployee().getLevel();
 		String Department = userBean.getEmployee().getDepartment();
 		if (level == 2 || level == 3 || level == 4) {
 			List<Employee> AllEmp = EmService.allEmpIdforTask();
+
 			for (Employee element : AllEmp) {
 				if (element.getLevel() <= level && element.getDepartment().equals(Department)) {
 					int countError = AttService.CountError(element, month);
 					System.out.println(countError);
-					countMap.put(element, countError);
+					map.put(element, countError);
 				}
 			}
-			List<Map.Entry<Employee, Integer>> list = new ArrayList<Map.Entry<Employee, Integer>>(countMap.entrySet());
-			Collections.sort(list, new Comparator<Map.Entry<Employee, Integer>>() {
-				public int compare(Entry<Employee, Integer> o1, Entry<Employee, Integer> o2) {
-					return o1.getValue().compareTo(o2.getValue());
-				}
-			});
+			List<Map.Entry> entryList = new ArrayList<>(map.entrySet());
+			Comparator<Map.Entry> sortByValue = (e1, e2) -> {
+				return ((Integer) e2.getValue()).compareTo((Integer) e1.getValue());
+			};
+			Collections.sort(entryList, sortByValue);
+			Map<Employee, Integer> countMap = new LinkedHashMap<>();
+			for (Map.Entry e : entryList) {
+				countMap.put((Employee) e.getKey(), (Integer) e.getValue()); // 依value排序的Map
+			}
 			request.setAttribute("month", month);
 			request.setAttribute("countMap", countMap);
 			return "AttendanceDepartmentPage";
@@ -199,4 +205,55 @@ public class AttendanceController {
 		return "redirect:/InquiryToday";
 	}
 
+	// 清除今日出勤表
+	@RequestMapping(path = "/DeleteTodayAttendance", method = RequestMethod.GET)
+	public String deleteTodayAttendance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
+			throws Exception {
+		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		String datestr = nowdate.format(new Date());
+		Date utilDate = nowdate.parse(datestr);
+		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
+		AttService.DeleteTodayAttendance(Date);
+		return "redirect:/InquiryToday";
+	}
+
+	// 更新為正常上下班
+	@RequestMapping(path = "/UpdateOKAttemdance", method = RequestMethod.GET)
+	public String UpdateOKAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
+			throws Exception {
+		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		String datestr = nowdate.format(new Date());
+		Date utilDate = nowdate.parse(datestr);
+		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
+		AttService.UpdateOKAttemdance(userBean.getEmployee(), Date);
+		return "redirect:/InquiryToday";
+	}
+
+	// 更新為異常上班
+	@RequestMapping(path = "/UpdateStartNGAttemdance", method = RequestMethod.GET)
+	public String UpdateStartNGAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
+			throws Exception {
+		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		String datestr = nowdate.format(new Date());
+		Date utilDate = nowdate.parse(datestr);
+		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
+		AttService.UpdateStartNGAttemdance(userBean.getEmployee(), Date);
+		return "redirect:/InquiryToday";
+	}
+	
+	// 更新為異常下班
+	@RequestMapping(path = "/UpdateEndNGAttemdance", method = RequestMethod.GET)
+	public String UpdateEndNGAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
+			throws Exception {
+		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		String datestr = nowdate.format(new Date());
+		Date utilDate = nowdate.parse(datestr);
+		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
+		AttService.UpdateEndNGAttemdance(userBean.getEmployee(), Date);
+		return "redirect:/InquiryToday";
+	}
 }
