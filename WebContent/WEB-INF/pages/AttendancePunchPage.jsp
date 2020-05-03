@@ -17,6 +17,7 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="stylesheet" type="text/css" href="css/SearchPage.css">
 <link rel="icon" href="images/favicon.ico">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
@@ -31,17 +32,21 @@ p {
 }
 
 #clock {
-	color: white;
+	color: black;
 	font: 3em sans-serif;
-	background: black;
+	font-family: Microsoft JhengHei;
+	background: #E0E0E0;
 	margin: 5px;
 	padding: 5px;
-	border: solid gray 2px;
 	border-radius: 10px;
 	width: 480px;
 	text-align: center;
 	position: relative;
-	left: 28.5%;
+	left: 33.3%;
+}
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -53,7 +58,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -73,49 +80,37 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<div id="clock"></div>
-						<br>
-						<form action="<c:url value="/PunchAction" />" method="post">
-							<input type="submit" class="btn btn-primary btn-lg" value="打卡" />
-						</form>
-						<p />
-						<br>
-						<table width="800" border="1" align="center">
-							<tr>
-								<td><b>日期</b></td>
-								<td><b>上班時間</b></td>
-								<td><b>下班時間</b></td>
-								<td><b>狀態</b></td>
-								<td><b>假別</b></td>
-							</tr>
-							<%
-								List<Attendance> myPunch = (List<Attendance>) request.getAttribute("myPunch");
-								if (myPunch == null || myPunch.size() < 1) {
-							%>
-							<tr id="test">
-								<td align="center" colspan="5">沒有資料!</td>
-							</tr>
-							<%
-								} else {
-									for (Attendance mypunch : myPunch) {
-							%>
+						<div style="align: center">
+							<div id="clock"></div>
+							<br>
+							<form action="<c:url value="/PunchAction" />" method="post">
+								<input type="submit" class="btn btn-primary btn-lg" value="打卡" />
+							</form>
+							<p />
+							<br>
+							<table id="idtable1">
+								<tr>
+									<th>日期</th>
+									<th>上班時間</th>
+									<th>下班時間</th>
+									<th>狀態</th>
+									<th>假別</th>
+								</tr>
+								<c:forEach var='mypunch' items='${myPunch}' varStatus='vs'>
+									<tr class='classtr1'>
+										<td>${mypunch.getDate()}</td>
+										<td>${mypunch.getStartTime()}</td>
+										<td>${mypunch.getEndTime()}</td>
+										<td>${mypunch.getStatus()}</td>
+										<td>${mypunch.getLeaveType()}</td>
+									</tr>
+								</c:forEach>
+							</table>
 
-							<tr align="center">
-								<td><%=mypunch.getDate()%></td>
-								<td><%=mypunch.getStartTime()%></td>
-								<td><%=mypunch.getEndTime()%></td>
-								<td><%=mypunch.getStatus()%></td>
-								<td><%=mypunch.getLeaveType()%></td>
-							</tr>
-							<%
-								}
-								}
-							%>
-						</table>
-
-						<div class="list_footer">
-							<div id="tag"></div>
-							<div id="page"></div>
+							<div class="list_footer">
+								<div id="tag"></div>
+								<div id="page"></div>
+							</div>
 						</div>
 					</div>
 				</div>

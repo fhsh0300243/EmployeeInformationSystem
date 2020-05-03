@@ -32,30 +32,94 @@ body {
 	color: red;
 }
 
-.msgmap {
-	color: red;
-}
-
 .div1 {
-	width: 30%;
-	margin: 0 auto;
-	margin-left: 37%;
-}
-
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
+	width: 100%;
+	/*margin: 0 auto;
+	margin-left: 37%;*/
 }
 
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-.tb{
+
+.tb {
+	position: absolute;
+	bottom: 30px;
+	right: 50%;
+}
+
+.idtable1 {
 	position: relative;
-	left: 30%;
+	margin: 50px auto;
+	border-collapse: collapse;
+	float: left;
+	left: 100px;
+}
+
+.idtable1 tr {
+	text-align: right;
+}
+
+.idtable1 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 10px;
+}
+
+.msgmap {
+	/*border-bottom: 1px solid #ddd;*/
+	color: red;
+	padding: 0px;
+}
+
+.idtable2 {
+	position: absolute;
+	margin: 50px auto;
+	border-collapse: collapse;
+	right: 200px;
+}
+
+.idtable2 tr {
+	text-align: right;
+}
+
+.idtable2 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 10px;
+}
+
+.inputtd {
+	text-align: left;
+}
+
+.datepicker {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	height: 24px;
+	line-height: 24px;
+	margin: 3px;
+	width: 250px;
+}
+
+.datepicker:focus {
+	outline: 0 none;
+	border: 1px solid #1abc9c;
+}
+
+b {
+	font-size: 20px;
+}
+
+.userImg img {
+	width: 80px;
+	height: 80px;
+}
+
+.userImg {
+	position: absolute;
+	float: left;
+	left: 150px;
+	top:80px;
 }
 </style>
 </head>
@@ -68,7 +132,10 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -89,99 +156,123 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						<div class="div1">
+						<!--  
 							<div>
-								<a href="<c:url value="/EmployeePage.do"/>">回HR部門公告</a> 
-								<img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />
+								<a href="<c:url value="/EmployeePage.do"/>">回HR部門公告</a>
+								<img alt="..." src="<c:url value="/empimgurl"/>" class="img-thumbnail" />
 							</div>
+						-->
 							<br>
+							<div class="userImg">
+								<img alt="" src="<c:url value="/empimgurl"/>" />
+							</div>
 							<form action="<c:url value="/EditAddEmployee.action"/>"
 								method="POST" enctype="multipart/form-data">
-								<table>
+								<table class="idtable1">
 									<tr>
 										<td><span class="span1">*</span>帳號：</td>
-										<td><input type="text" id="account1" name="userName"
-											value='${user.userName}' size="30" readonly></td>
+										<td class="inputtd"><input type="text" id="account1"
+											name="userName" value='${user.userName}' readonly
+											class="datepicker"></td>
 										<td class="msgmap">${msgmap.username}</td>
 									</tr>
 									<tr>
+										<td><span class="span1">*</span>密碼：</td>
+										<td class="inputtd"><input type="password"
+											οncοpy="return false" id="pwd1" name="userPassword"
+											value='${user.userPassword}' autocomplete="off"
+											class="datepicker" readonly></td>
+										<td class="msgmap">${msgmap.userpwd}</td>
+									</tr>
+
+									<tr>
 										<td><span class="span1">*</span>姓名：</td>
-										<td><input type="text" id="name1" name="name"
-											value='${emp.name}' placeholder="請輸入姓名" autocomplete="off"
-											size="30"></td>
+										<td class="inputtd"><input type="text" id="name1"
+											name="name" value='${emp.name}' placeholder="請輸入姓名"
+											autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.name}</td>
 									</tr>
 									<tr>
 										<td>性別：</td>
-										<td><input type="radio" id="m1" name="gender"
-											value="male">男 <input type="radio" id="m2"
-											name="gender" value="female">女</td>
+										<td class="inputtd"><input type="radio" id="m1"
+											name="gender" value="male">男 <input type="radio"
+											id="m2" name="gender" value="female">女</td>
 									</tr>
 									<tr>
 										<td>生日：</td>
-										<td><input type="date" name="birth"
-											value='${emp.birthDay}'></td>
-									</tr>
-									<tr>
-										<td>地址：</td>
-										<td><input type="text" name="address"
-											value='${emp.address}' size="30" autocomplete="off"></td>
+										<td class="inputtd"><input type="date" name="birth"
+											value='${emp.birthDay}' class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>部門：</td>
-										<td><select name="dept" id="dept"></select></td>
+										<td class="inputtd"><select name="dept" id="dept"
+											class="datepicker"></select></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>職稱：</td>
-										<td><select name="title" id="title"></select></td>
+										<td class="inputtd"><select name="title" id="title"
+											class="datepicker"></select></td>
 										<td class="msgmap">${msgmap.title}</td>
 									</tr>
 									<tr>
 										<td>主管：</td>
-										<td><select name="manager" id="manager"></select></td>
+										<td class="inputtd"><select name="manager" id="manager"
+											class="datepicker"></select></td>
 									</tr>
+								</table>
+								<table class="idtable2">
 									<tr>
 										<td><span class="span1">*</span>薪水：</td>
-										<td><input type="text" name="salary"
-											value='${emp.salary}' maxlength="10" size="30"
-											autocomplete="off"></td>
+										<td class="inputtd"><input type="text" name="salary"
+											value='${emp.salary}' maxlength="10" autocomplete="off"
+											class="datepicker"></td>
 										<td class="msgmap">${msgmap.salary}</td>
 									</tr>
 									<tr>
 										<td>分機號碼：</td>
-										<td><input type="text" name="exnum" maxlength="10"
-											value='${emp.extensionNum}' size="30" autocomplete="off"></td>
+										<td class="inputtd"><input type="text" name="exnum"
+											maxlength="10" value='${emp.extensionNum}' autocomplete="off"
+											class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>電話：</td>
-										<td><input type="text" name="phonenum" maxlength="10"
-											value='${emp.phoneNum}' size="30" autocomplete="off"></td>
+										<td class="inputtd"><input type="text" name="phonenum"
+											maxlength="10" value='${emp.phoneNum}' autocomplete="off"
+											class="datepicker"></td>
+									</tr>
+									<tr>
+										<td>地址：</td>
+										<td class="inputtd"><input type="text" name="address"
+											value='${emp.address}' autocomplete="off" class="datepicker"></td>
 									</tr>
 									<tr>
 										<td><span class="span1">*</span>Email：</td>
-										<td><input type="email" name="email" value='${emp.email}'
-											size="30" autocomplete="off"></td>
+										<td class="inputtd"><input type="email" name="email"
+											value='${emp.email}' autocomplete="off" class="datepicker"></td>
 										<td class="msgmap">${msgmap.email}</td>
 									</tr>
 									<tr>
 										<td>照片：</td>
-										<td><input type="file" name="file"></td>
+										<td class="inputtd"><input type="file" name="file"
+											class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>到職日：</td>
-										<td><input type="date" name="hireDay"
-											value='${emp.hireDay}'></td>
+										<td class="inputtd"><input type="date" name="hireDay"
+											value='${emp.hireDay}' class="datepicker"></td>
 									</tr>
 									<tr>
 										<td>離職日：</td>
-										<td><input type="date" name="lastWorkDay"
-											value='${emp.lastWorkDay}'></td>
+										<td class="inputtd"><input type="date" name="lastWorkDay"
+											value='${emp.lastWorkDay}' class="datepicker"></td>
 									</tr>
 								</table>
 								<br>
 								<table class="tb">
 									<tr>
-										<td><input type="submit" value="送出" class="btn btn-info"> <input
-											type="reset" value="清除" onclick="reset()" class="btn btn-info"></td>
+										<td><input type="submit" value="送出" class="btn btn-info">
+											<input type="reset" value="清除" onclick="reset()"
+											class="btn btn-info"></td>
 										<td class="msgmap">${msgmap.status}</td>
 									</tr>
 								</table>

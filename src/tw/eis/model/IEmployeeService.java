@@ -29,6 +29,8 @@ public interface IEmployeeService {
 	public List<?> empDataByDeptId(int deptId);
 
 	public List<?> empDataByTitleId(int titleId);
+	
+	public List<?> empDataByLevel(int level);
 
 	public void test();
 }

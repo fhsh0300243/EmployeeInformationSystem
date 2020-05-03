@@ -33,15 +33,61 @@ p {
 	font-size: 18px;
 }
 
-table {
-	margin: 20px;
+
+.idtable1 {
+	margin: 30px auto;
 	border-collapse: collapse;
 }
-.userImg {
-	width: 20%;
-	height: 20%;
-	border: 2px solid tan;
-	border-radius: 15px;
+
+.idtable1 tr {
+	text-align: center;
+}
+
+.idtable1 th {
+	text-align: center;
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+.idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
+.datepicker{
+    border:1px  solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    line-height:24px;
+    margin:3px;   
+    width: 250px; 
+} 
+.datepicker:focus{
+    outline:0 none;
+    border:1px solid #1abc9c;
+        
+}
+b{
+	font-size:20px;
+}
+.inputtd {
+	text-align: left;
+}
+.idtable2 {
+	position: relative;
+	margin: 50px auto;
+	border-collapse: collapse;
+	right: 50px;
+}
+.idtable2 tr {
+	text-align: right;
+}
+
+.idtable2 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 2px;
+}
+.span1 {
+	margin-right: 15px;
 }
 </style>
 </head>
@@ -53,7 +99,8 @@ table {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -73,18 +120,25 @@ table {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30"><br /> <label
-							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><input type="checkbox"
-							id="resigned" name="resigned" value="resigned"> <label
-							for="" class="t1">離職員工</label> <input type="button" id="search"
-							name="search" value="搜尋" class="btn btn-info">
-						<p>${msg[0]}</p>
-						<!--  <img alt="" src="<c:url value="/empimgurl"/>" class="userImg" />-->
-						<br>
-						<table border="1" id="emplist" style="margin: 0 auto"></table>
+					<table class="idtable2">
+						<tr>
+							<td>員工Id：</td>
+							<td class="inputtd"><input type="text" id="searchid" name="searchid" class="datepicker"></td>
+						</tr>
+						<tr>
+							<td>員工姓名：</td>
+							<td class="inputtd"><input type="text" id="searchname" name="searchname" class="datepicker"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="inputtd"><select name="searchdept" id="searchdept" class="datepicker"></select></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="inputtd"><input type="checkbox" id="resigned" name="resigned" value="resigned"><span class="span1">離職員工</span><input type="button" id="search" name="search" value="搜尋" class="btn btn-info"></td>
+						</tr>
+					</table>
+						<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -149,13 +203,14 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
+			var txt = "<tr><th>EmpID<th>帳號<th>部門<th>職稱<th>姓名<th>主管<th>分機<th>Email<th>";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
 			}
 			for (let i = minData - 1; i < maxData; i++) {
 				txt += "<tr><td>" + emps[i].empID;
+				txt += "<td>" + emps[i].account;
 				txt += "<td>" + emps[i].department;
 				txt += "<td>" + emps[i].title;
 				txt += "<td>" + emps[i].name;

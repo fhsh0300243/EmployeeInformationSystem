@@ -32,6 +32,12 @@ $(document).ready(
 						$(".content").val($("#editor").htmlcode())
 					})
 					
+					$("#clear").click(function(){
+						$("#BulletinBoardid").val("");
+						$("#editor").htmlcode("");
+						
+					})
+					
 
 					
 					result();
@@ -91,6 +97,9 @@ $(document).ready(
 						function checkData() {
 						$("#checkData").html("");
 						var str = "";
+						var checkDatanow="";
+						var checkDatawilluping="";
+						
 						
 						$.ajax({
 									url : "http://localhost:8080/EmployeeInformationSystem/checkdata",
@@ -103,7 +112,15 @@ $(document).ready(
 										console.log("rs2.length:" + rs2.length);
 										
 										for (var i = 0; i < rs2.length; i++) {
-											console.log("id:"+rs2[i].BulletinBoardID);
+											var upTime = new Date(rs2[i].upTime);
+											var nowtime = new Date(); 
+											var dataparent="";
+											if((parseInt(nowtime - upTime))>0){
+												dataparent ="checkDatanow";
+											}else{
+												dataparent ="checkDatawilluping";
+											}
+		
 											str += '<div class="card">'
 												+'<div class="card-header" id="heading'+i+'">'
 												+'<h2 class="mb-0">'
@@ -111,7 +128,7 @@ $(document).ready(
 												+'<span class="cardtitle mx-4">'+rs2[i].Title+'</span>'
 												+'<span class="mx-1">分發至:</span><span class="cardAuthority">' + rs2[i].Authority + '</span>'
 												+'</button></h2></div>'
-												+' <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#checkData">'													
+												+' <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#'+dataparent+'">'													
 												+'<div class="card-body idName" id="'+rs2[i].BulletinBoardID+'">'
 												+'<p>內容:</p>'
 												+'<div class="cardContext border w70 center">' + rs2[i].Context + '</div>'
@@ -131,9 +148,21 @@ $(document).ready(
 											str +='<a class="btn btn-primary change " id="ch'  + i + '">更改</a>'
 												+'<input type="button" class="btn btn-primary del mx-1" id="de' + i + '" value="刪除">'
 												+'</div></div></div>'
+												
+												
+												
+												if((parseInt(nowtime - upTime))>0){
+													checkDatanow+=str;
+													str="";
+												}else{
+													checkDatawilluping+=str;
+													str="";
+												}
+												
 										
 										}
-										$("#checkData").html(str);	
+										$("#checkDatanow").html(checkDatanow);	
+										$("#checkDatawilluping").html(checkDatawilluping);	
 
 										$(document).on("click",".card-body a.change",function() {
 											var ind = $(".card-body a.change").index(this)
@@ -147,8 +176,30 @@ $(document).ready(
 											$("#uptime").val($(".card-body .cardupTime").eq(ind).html());
 											$("#downtime").val($(".card-body .carddownTime").eq(ind).html());
 
-											$("#contact-tab").tab('show');												
-											console.log($(".card-body .cardAuthority").eq(ind).html());
+											$("#contact-tab").tab('show');
+											
+											var Authority = $(".btn-link .cardAuthority").eq(ind).html();
+											Authorities = Authority.split("\,");
+											for(var i=0;i<Authorities.length;i++){
+												Authority = Authorities[i];
+												if(Authority=="HR"){
+													$("#HR").prop("checked", true)
+												}
+												if(Authority=="RD"){
+													$("#RD").prop("checked", true)
+												}
+												if(Authority=="Test"){
+													$("#Test").prop("checked", true)
+												}
+												if(Authority=="Sales"){
+													$("#Sales").prop("checked", true)
+												}
+												if(Authority=="PM"){
+													$("#PM").prop("checked", true)
+												}
+												
+												
+											}
 											
 											
 									
@@ -157,8 +208,28 @@ $(document).ready(
 										$(document).on("click",".card-body input.del",function() {
 											var ind = $(".card-body input.del").index(this)
 											var idd = $(this).attr("id")
+											var idName = $(".idName").eq(ind).attr("id");
 											console.log("ind.del:"+ind);
 											console.log("idd.del:"+idd);
+											console.log("idName:"+idName);
+											
+											if(confirm("確定要刪除?")){
+											$.ajax({
+												url : "http://localhost:8080/EmployeeInformationSystem/delete",
+												type : "get",
+												cache : false,
+												async : false,
+												data:{"BulletinBoardid":idName},
+												success: function(rs){
+													checkData();
+													setTimeout(alert("刪除成功"),10000);
+												},
+												error:function(rs){
+													console.log("error")
+												}
+											})
+											}
+											
 										})
 					
 									},
@@ -168,6 +239,13 @@ $(document).ready(
 
 								})
 						}
-
+						
+						
+						
+						
+						
+						
+						
+						
 					
 				})

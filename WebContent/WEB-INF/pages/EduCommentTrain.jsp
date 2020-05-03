@@ -54,6 +54,16 @@ table {
 	text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
+}
+b{
+	font-size:20px;
+}
+>>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
 
 .tb{
 	position: relative;
@@ -69,7 +79,8 @@ table {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -350,8 +361,16 @@ table {
 							</div>
 							  </div>
 					      </div>
+<<<<<<< HEAD
 				
 	<script src="js/amazeui.min.js"></script>
+=======
+					    </div>
+					    </div>
+					</div>
+				</div>
+							<script src="/js/amazeui.min.js"></script>
+>>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
 
     <div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">

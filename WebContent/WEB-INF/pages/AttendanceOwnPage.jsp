@@ -19,11 +19,12 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="stylesheet" type="text/css" href="css/SearchPage.css">
 <link rel="icon" href="images/favicon.ico">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<style>
+<style type="text/css">
 .ui-datepicker-calendar {
 	display: none;
 }
@@ -42,11 +43,15 @@ p {
 	width: 70%;
 	left: 30%;
 }
-.tb{
+
+b {
+	font-size: 20px;
+}
+/*.tb {
 	position: relative;
 	width: 70%;
 	left: 28.5%;
-}
+}*/
 </style>
 </head>
 <body>
@@ -57,7 +62,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -78,48 +85,31 @@ p {
 							<form action="<c:url value='/InquiryAttendance'/>" method="post">
 								<div class="col-md-7">
 									<input type="text" id="datepicker"
-										class="datepicker form-control" name="month" value=""
-										placeholder="選擇查詢月份" autocomplete="off"> <input
-										type="submit" value="查詢" class="btn btn-info"/>
+										class="datepicker form-control" name="month" value="${month}"
+										placeholder="選擇查詢月份" autocomplete="off"><br> <input
+										type="submit" value="查詢" class="btn btn-info" />
 								</div>
 							</form>
 						</div>
-						<br>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br> <br>
 						<div class="tb">
-							<table width="500" border="1">
+							<table id="idtable1">
 								<tr>
-									<td><b>日期</b></td>
-									<td><b>上班時間</b></td>
-									<td><b>下班時間</b></td>
-									<td><b>狀態</b></td>
-									<td><b>假別</b></td>
+									<th>日期</th>
+									<th>上班時間</th>
+									<th>下班時間</th>
+									<th>狀態</th>
+									<th>假別</th>
 								</tr>
-								<%
-									List<Attendance> attlist = (List<Attendance>) request.getAttribute("attlist");
-									if (attlist == null || attlist.size() < 1) {
-								%>
-								<tr id="test">
-									<td align="center" colspan="5">沒有資料!</td>
-								</tr>
-								<%
-									} else {
-										for (Attendance att : attlist) {
-								%>
-
-								<tr align="center">
-									<td><%=att.getDate()%></td>
-									<td><%=att.getStartTime()%></td>
-									<td><%=att.getEndTime()%></td>
-									<td><%=att.getStatus()%></td>
-									<td><%=att.getLeaveType()%></td>
-								</tr>
-								<%
-									}
-									}
-								%>
+								<c:forEach var='att' items='${attlist}' varStatus='vs'>
+									<tr class='classtr1'>
+										<td>${att.getDate()}</td>
+										<td>${att.getStartTime()}</td>
+										<td>${att.getEndTime()}</td>
+										<td>${att.getStatus()}</td>
+										<td>${att.getLeaveType()}</td>
+									</tr>
+								</c:forEach>
 							</table>
 						</div>
 						<div class="list_footer">
@@ -170,7 +160,5 @@ p {
 							});
 		});
 	</script>
-
-
 </body>
 </html>

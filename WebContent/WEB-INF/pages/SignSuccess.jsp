@@ -14,7 +14,6 @@
 	rel="stylesheet"></link>
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
-<link rel="stylesheet" type="text/css" href="css/Menu.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
@@ -24,6 +23,9 @@
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
+}
+b{
+	font-size:20px;
 }
 </style>
 </head>
@@ -52,7 +54,7 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 
 					<div id="success">
-						<h4>請假申請已簽核。</h4>
+						<h2>請假申請已簽核。</h2>
 					</div>
 
 					<div class="list_footer">

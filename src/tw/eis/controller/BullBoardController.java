@@ -59,13 +59,9 @@ public class BullBoardController {
 			Model model) throws IOException, SQLException {
 		System.out.println("dep:"+dep);
 		System.out.println("id:"+id);
-		
 		Map<String, String> Msg = new HashMap<String, String>();
 		model.addAttribute("Msg", Msg);
-
 		Timestamp tim = new Timestamp(Calendar.getInstance().getTime().getTime());
-		
-		
 		if(dep==null) {
 			dep = LoginOK.getDepartment();
 		}
@@ -125,7 +121,6 @@ public class BullBoardController {
 	}
 	
 	@RequestMapping(path = "/checkdata",method = RequestMethod.GET,produces = "html/text;charset=utf-8")
-	
 	public @ResponseBody String checkdata(@ModelAttribute(name = "LoginOK") Users loginOK) throws IOException {
 		System.out.println("getEmployeeID"+loginOK.getEmployeeID());
 		List<BulletinBoard> BulletinBoards = BulletinBoardService.queryBulletinByOwnCreate(loginOK.getEmployeeID());
@@ -160,7 +155,6 @@ public class BullBoardController {
 			job.put("BulletinBoardID", BulletinBoard.getBulletinBoardID());
 			job.put("Title", BulletinBoard.getTitle());
 			job.put("Context",BulletinBoard.getContent());
-//			job.put("AttachedFiles", BulletinBoard.getAttachedFiles());
 			job.put("AttachedFilesName", BulletinBoard.getAttachedFilesName());
 			job.put("Authority", BulletinBoard.getAuthority());
 			job.put("upTime", BulletinBoard.getUpTime());
@@ -180,9 +174,8 @@ public class BullBoardController {
 		return Integer.toString(BulletinBoards.size());
 	}
 
-	@RequestMapping(path="/delete",method = RequestMethod.POST,produces = "html/text;charset=utf-8")
+	@RequestMapping(path="/delete",method = RequestMethod.GET,produces = "html/text;charset=utf-8")
 	public @ResponseBody String delete(@RequestParam(value="BulletinBoardid")int id) {
-		
 		BulletinBoardService.deleteBulletin(id);
 		return "true";
 	}
@@ -191,8 +184,6 @@ public class BullBoardController {
 	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value = "BulletinBoardID") String BulletinBoardID,@RequestParam(value="fileName") String fileName) {
 		byte[] fileCon = BulletinBoardService.queryFile(Integer.parseInt(BulletinBoardID));
 		String path = request.getServletContext().getRealPath("/file/");
-
-//		File file = new File(path + File.separator + fileName);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentDispositionFormData("attachment", fileName);
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);

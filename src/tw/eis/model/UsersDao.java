@@ -1,6 +1,7 @@
 package tw.eis.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import tw.eis.model.Department;
-import tw.eis.model.Employee;
-import tw.eis.model.Title;
-import tw.eis.model.Users;
 import tw.eis.util.GlobalService;
 
 @Repository("usersDao")
@@ -129,5 +126,25 @@ public class UsersDao implements IUsersDao {
 		List<Users> list = query.list();
 		return list;
 	}
+
+//	登入時間查詢 by gk
+	public Timestamp queryLoginTime(int empyleeID) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select loginTime from Users where EmployeeID = :userID");
+		query.setInteger("userID", empyleeID);
+		if (query.list() == null || query.list().size() == 0) {
+			System.out.println("queryLoginTime sucess");
+			return null;
+		} else {
+			return (Timestamp) query.list().get(0);
+		}
+	}
+	public void updateLoginTime(Users Users) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(Users);
+
+	}
+
+//	End
 
 }

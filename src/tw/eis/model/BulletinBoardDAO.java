@@ -40,7 +40,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	public List<BulletinBoard> queryBulletinRecord(int EmployeeID) {
 
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and (GETDATE()-downTime)>=0",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and (GETDATE()-downTime)>=0 ORDER BY Date desc",BulletinBoard.class);
 		query.setInteger("EmployeeID", EmployeeID);
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;
@@ -49,7 +49,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	@Override
 	public List<BulletinBoard> queryBulletinForLook(String department) {
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where Authority like :department and ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0)",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where Authority like :department and ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0) ORDER BY Date desc",BulletinBoard.class);
 		query.setString("department", "%"+department+"%");
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;
@@ -59,7 +59,7 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 	@Override
 	public List<BulletinBoard> queryBulletinByOwnCreate(int EmployeeID) {
 		Session Session = SessionFactory.getCurrentSession();
-		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0))",BulletinBoard.class);
+		Query query = Session.createQuery("from BulletinBoard where EmployeeID = :EmployeeID and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0)) ORDER BY Date desc",BulletinBoard.class);
 		query.setInteger("EmployeeID", EmployeeID);
 		List<BulletinBoard> BulletinBoards = query.list();
 		return BulletinBoards;
@@ -83,9 +83,20 @@ public class BulletinBoardDAO implements IBulletinBoardDAO {
 		
 		return BulletinBoard.getAttachedFiles();
 	}
-
-
-
+	
+	
+	
+//	public int reflash(String department,String oldDate,String newDate){
+//		Session session = SessionFactory.getCurrentSession();
+//
+//		Query Query = session.createQuery("from BulletinBoard where Authority like :department and ((GETDATE()-upTime)<=0 or ((GETDATE()-upTime)>=0 and (GETDATE()-downTime)<=0))");
+//		Query Query = session.createQuery("from feeAppMember where employeeID=:employeeID and signerStatus<>'簽核中' and (signerTime>:oldDate and signerTime<:newDate)");
+//		Query.setString("department", "%"+department+"%");
+//		Query.setString("oldDate", oldDate);
+//		Query.setString("newDate", newDate);
+//		return Query.list().size();
+//		
+//	}
 	
 	
 

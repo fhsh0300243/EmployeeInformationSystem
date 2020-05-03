@@ -24,6 +24,7 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
+
 #idtable1 {
 	margin: 30px auto;
 	border-collapse: collapse;
@@ -41,6 +42,9 @@ p {
 #idtable1 td {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
+}
+b{
+	font-size:20px;
 }
 </style>
 <script>
@@ -61,7 +65,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -78,58 +83,80 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-					<form class="for1"
-						action="<c:url value="/FeeReturnEditPage?feeAppID=${S_feeAppID}"/>"
-						method="post">
-						<table align="center">
-						<tr>
-						<td>申請編號:</td>
-						<td>${S_feeAppID}</td>
-						</tr>
-						<tr>
-						<td>員工編號:</td>
-						<td>${S_feeAppID}</td>
-						</tr>
-						<tr>
-						<td>部門:</td>
-						<td>${S_department}</td>
-						</tr>
-						<tr>
-						<td>申請項目:</td>
-						<td>${S_appItem}</td>
-						</tr>
-						<tr>
-						<td>申請時間:</td>
-						<td>${S_appTime}</td>
-						</tr>
-						<tr>
-						<td>發票時間:</td>
-						<td><input type="date" name="invoiceTime" value="${S_invoiceTime}"></td>
-						</tr>
-						<tr>
-						<td>發票號碼:</td>
-						<td><input	type="tel" name="invoiceNb" value="${S_invoiceNb}"></td>
-						</tr>
-						<tr>
-						<td>統編:</td>
-						<td><input	type="tel" name="editor" value="${S_editor}"></td>
-						</tr>
-						
-						<tr>
-						<td>申請金額:</td>
-						<td><input	type="tel" name="appMoney" value="${S_appMoney}"></td>
-						</tr>
-						<tr>
-						<td>備註:</td>
-						<td><textarea cols="30" rows="3" id="comment1" name="remark" ></textarea></td>
-						</tr>
-						</table>
-						<hr/>
-		          
- 		               	<div>
-						<input type="submit" value="修改">
-						</div>
+						<form class="for1"
+							action="<c:url value="/FeeReturnEditPage?feeAppID=${S_feeAppID}"/>"
+							method="post">
+
+							<table id="idtable1">
+
+								<c:forEach var='appfeeID' items='${appfeeIDList}' varStatus='vs'>
+									<tr>
+										<td>申請編號:</td>
+										<td>${appfeeID.feeAppID}</td>
+
+									</tr>
+									<tr>
+										<td>員工姓名:</td>
+										<td>${appfeeID.employeeID.name}</td>
+									</tr>
+									<tr>
+										<td>員工部門:</td>
+										<td>${appfeeID.department}</td>
+									</tr>
+									<tr>
+										<td>申請項目:</td>
+										<td><select name="appItem">
+												<option value="${appfeeID.appItem}">${appfeeID.appItem}</option>
+												<option value="交通">交通</option>
+												<option value="住宿">住宿</option>
+												<option value="餐費">餐費</option>
+												<option value="加班費">加班費</option>
+												<option value="其他">其他</option>
+
+										</select></td>
+									</tr>
+									<tr>
+										<td>申請時間:</td>
+										<td>${appfeeID.appTime.substring(0,16)}</td>
+									</tr>
+									<tr>
+										<td>發票日期:</td>
+										<td><input type="date" name="invoiceTime"
+											value="${appfeeID.invoiceTime}"></td>
+									</tr>
+									<tr>
+										<td>發票號碼:</td>
+										<td><input type="tel" name="invoiceNb"
+											value="${appfeeID.invoiceNb}"></td>
+									</tr>
+									<tr>
+										<td>統編:</td>
+										<td><input type="tel" name="editor"
+											value="${appfeeID.editor}"></td>
+									</tr>
+									<tr>
+										<td>申請金額:</td>
+										<td><input type="tel" name="appMoney"
+											value="${appfeeID.appMoney}"></td>
+									</tr>
+									<tr>
+										<td>備註:</td>
+										<td><textarea cols="30" rows="3" id="comment1"
+												name="remark"></textarea></td>
+									</tr>
+
+
+								</c:forEach>
+							</table>
+							<hr />
+
+							<div>
+								<input type="submit" name="bot" value="送出" class="btn btn-info"> 
+								<input type="submit" name="bot" value="刪除此筆申請" class="btn btn-info">
+							</div>
 						</form>
+
+
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -142,8 +169,8 @@ p {
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>
-
 	
+
 
 </body>
 </html>

@@ -30,22 +30,80 @@ public class WorkProjectDAO {
 	public WorkProjectDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+		
+//	public JSONArray getassignwork(Model m, int pid) {
+//		Session session = sessionFactory.getCurrentSession();
+//		String hqlstr = "From WorkProject Where pID =:pid";
+//		String hqlawork = "From AssignWork Where wID =: wid";
+//		String hqlemp = "From Employee Where empID =: empid";
+//		Query<WorkProject> query = session.createQuery(hqlstr,WorkProject.class);
+//		Query<AssignWork> awquery = session.createQuery(hqlawork,AssignWork.class);
+//		Query<Employee> empquery = session.createQuery(hqlemp,Employee.class);
+//		query.setParameter("pid", pid);
+//		List<WorkProject> wlist = query.list();
+//		JSONArray ja = new JSONArray();
+//		for(int i=0;i<wlist.size();i++) {
+//			List<AssignWork> awlist = awquery.setParameter("wid", wlist.get(i).getwID()).list();
+//			JSONArray jay = new JSONArray();
+//			for(AssignWork aw:awlist) {
+//				Employee e = empquery.setParameter("empid", aw.getEmpID()).uniqueResult();
+//				JSONObject jb = new JSONObject();
+//				jb.put("pqt", wlist.get(i).getPersonalQuarterlyTarget());
+//				jb.put("Work", wlist.get(i).getWork());
+//				jb.put("wid", wlist.get(i).getwID());
+//				jb.put("empid", aw.getEmpID());
+//				jb.put("empname",e.getName());
+//				jay.put(jb);
+//			}
+//			ja.put(jay);
+//		}
+//		j = ja;
+//		return j;
+//	}
 	public JSONArray getassignwork(Model m, int pid) {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "From WorkProject Where pID =:pid";
+		String hqlawork = "From AssignWork Where wID =: wid";
+		String hqlemp = "From Employee Where empID =: empid";
 		Query<WorkProject> query = session.createQuery(hqlstr,WorkProject.class);
+		Query<AssignWork> awquery = session.createQuery(hqlawork,AssignWork.class);
+		Query<Employee> empquery = session.createQuery(hqlemp,Employee.class);
 		query.setParameter("pid", pid);
 		List<WorkProject> wlist = query.list();
 		JSONArray ja = new JSONArray();
-		for(WorkProject w:wlist) {
+		for(int i=0;i<wlist.size();i++) {
 			JSONObject jb = new JSONObject();
-			jb.put("pqt",w.getPersonalQuarterlyTarget());
-			jb.put("Work",w.getWork());
-			ja.put(jb);
+			jb.put("pqt", wlist.get(i).getPersonalQuarterlyTarget());
+			jb.put("Work", wlist.get(i).getWork());
+			jb.put("wid", wlist.get(i).getwID());
+			JSONArray jay = new JSONArray();
+			List<AssignWork> awlist = awquery.setParameter("wid", wlist.get(i).getwID()).list();
+			//System.out.print("awlst長度:"+awlist.size());
+			if(awlist.size()==0) {
+				jay.put(jb);
+			}
+			for(AssignWork aw:awlist) {
+				JSONObject jb2 = new JSONObject();
+				jb2.put("pqt", wlist.get(i).getPersonalQuarterlyTarget());
+				jb2.put("Work", wlist.get(i).getWork());
+				jb2.put("wid", wlist.get(i).getwID());
+				Employee e = empquery.setParameter("empid", aw.getEmpID()).uniqueResult();
+				//System.out.println("empid:"+aw.getEmpID());
+				jb2.put("empid", e.getEmpID());
+				//System.out.println("empname:"+e.getName());
+				jb2.put("empname",e.getName());
+				jay.put(jb2);
+	
+			}
+			//System.out.print("=========================="+jay);
+			ja.put(jay);
+			
 		}
+		//System.out.print("-------------------------"+ja);
 		j = ja;
 		return j;
 	}
+	
 	public JSONArray getworkdata1(int deptID, Model m) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -89,7 +147,7 @@ public class WorkProjectDAO {
 			e.printStackTrace();
 		}
 	}
-	//��pid�q�����W���ѼƧ��?
+	//嚙踝蕭pid嚙緬嚙踝蕭嚙踝蕭嚙磕嚙踝蕭嚙諸數改蕭嚙�?
 	public PersonalQuarterlyTarget getpqt(int pid,Model m ) {
 		Session session = sessionFactory.getCurrentSession();
 		String sqlstr = "From PersonalQuarterlyTarget Where pID =: pid";
@@ -152,6 +210,7 @@ public class WorkProjectDAO {
 		for(Employee e:elist) {
 			JSONObject jb = new JSONObject();
 			jb.put("name", e.getName());
+			jb.put("empid", e.getEmpID());
 			ja.put(jb);
 		}
 		j = ja;

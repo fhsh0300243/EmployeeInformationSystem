@@ -15,7 +15,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/SearchPage.css">
-<link rel="stylesheet" type="text/css" href="css/Menu.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
@@ -25,6 +24,10 @@
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
+}
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -37,7 +40,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -53,32 +58,32 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 
-						<table id="idtable1">
-							<tr>
-								<th>申請時間</th>
-								<th>請假類別</th>
-								<th>開始時間</th>
-								<th>結束時間</th>
-								<th>總計時數</th>
-								<th>簽核狀態</th>
-								<th>詳細資訊</th>
-							</tr>
+					<table id="idtable1">
+						<tr>
+							<th>申請時間</th>
+							<th>請假類別</th>
+							<th>開始時間</th>
+							<th>結束時間</th>
+							<th>總計時數</th>
+							<th>簽核狀態</th>
+							<th>詳細資訊</th>
+						</tr>
 
-							<c:forEach var='applyDetail' items='${ApplyList}' varStatus='vs'>
-								<tr class='classtr1'>
-									<td>${applyDetail.createTime}</td>
-									<td>${applyDetail.leaveType}</td>
-									<td>${applyDetail.startTime}</td>
-									<td>${applyDetail.endTime}</td>
-									<td>${applyDetail.sumHours}</td>
-									<td>${applyDetail.signingProgress}</td>
-									<td>
-										<button class="btn-info" name="${applyDetail.applyId}">詳細資訊</button>
-									</td>
-								</tr>
-							</c:forEach>
-						</table>
-					
+						<c:forEach var='applyDetail' items='${ApplyList}' varStatus='vs'>
+							<tr class='classtr1'>
+								<td>${applyDetail.createTime}</td>
+								<td>${applyDetail.leaveType}</td>
+								<td>${applyDetail.startTime}</td>
+								<td>${applyDetail.endTime}</td>
+								<td>${applyDetail.sumHours}</td>
+								<td>${applyDetail.signingProgress}</td>
+								<td>
+									<button class="btn btn-info" name="${applyDetail.applyId}">詳細資訊</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+
 					<div class="list_footer">
 						<div id="tag"></div>
 						<div id="page"></div>
@@ -87,7 +92,7 @@ p {
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
 	</div>

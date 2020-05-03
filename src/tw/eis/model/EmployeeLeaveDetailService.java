@@ -17,8 +17,7 @@ public class EmployeeLeaveDetailService implements IEmployeeLeaveDetailService {
 
 	@Override
 	public void addDetail(EmployeeLeaveDetail employeeLeaveDetail) {
-		// TODO Auto-generated method stub
-
+		eldDAO.addDetail(employeeLeaveDetail);
 	}
 
 	@Override
@@ -42,9 +41,19 @@ public class EmployeeLeaveDetailService implements IEmployeeLeaveDetailService {
 		return eldDAO.queryValidLTByEID(employeeId);
 	}
 
+//	@Override
+//	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType) {
+//		return eldDAO.queryValidLTByEIDandLT(employeeId, leaveType);
+//	}
+
 	@Override
-	public EmployeeLeaveDetail queryValidLTByEIDandLT(int employeeId, String leaveType) {
-		return eldDAO.queryValidLTByEIDandLT(employeeId, leaveType);
+	public EmployeeLeaveDetail queryValidLTByELDID(int ELDID) {
+		return eldDAO.queryValidLTByELDID(ELDID);
+	}
+
+	@Override
+	public List<EmployeeLeaveDetail> queryLTByEIDLTYear(int employeeId, String leaveType, String year) {
+		return eldDAO.queryLTByEIDLTYear(employeeId, leaveType, year);
 	}
 
 	@Override

@@ -3,20 +3,23 @@ package tw.eis.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "feeApply") //<--modify by 揚明
+@Table(name = "feeApply")
 @Component
 public class feeAppMember {
 	private int feeAppID;
 	private String department;
-	private int employeeID;
+	private Employee employeeID;
 	private String appItem;
 	private String appTime;
 	private String invoiceTime;
@@ -26,13 +29,13 @@ public class feeAppMember {
 	private int appMoney;
 	private String signerTime;
 	private String signerStatus;
-	private int signerID;
+	private Employee signerID;
 	
 	public feeAppMember() {
 	}
 	
-	public feeAppMember(String department,int employeeID,String appItem,String appTime,
-			String invoiceTime,String invoiceNb,String editor,String remark,int appMoney,String signerTime,String signerStatus,int signerID) {
+	public feeAppMember(String department,Employee employeeID,String appItem,String appTime,
+			String invoiceTime,String invoiceNb,String editor,String remark,int appMoney,String signerTime,String signerStatus,Employee signerID) {
 		this.department=department;
 		this.employeeID=employeeID;
 		this.appItem=appItem;
@@ -64,11 +67,13 @@ public class feeAppMember {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	@Column(name = "EMPLOYEEID")
-	public int getEmployeeID() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "EMPLOYEEID", referencedColumnName = "EMPID")
+	//@Column(name = "EMPLOYEEID")
+	public Employee getEmployeeID() {
 		return employeeID;
 	}
-	public void setEmployeeID(int employeeID) {
+	public void setEmployeeID(Employee employeeID) {
 		this.employeeID = employeeID;
 	}
 	@Column(name = "APPITEM")
@@ -140,14 +145,15 @@ public class feeAppMember {
 	public void setSignerStatus(String signerStatus) {
 		this.signerStatus = signerStatus;
 	}
-
-	@Column(name = "SIGNERID")
-	public int getSignerID() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SIGNERID", referencedColumnName = "EMPID")
+	//@Column(name = "SIGNERID")
+	public Employee getSignerID() {
 		return signerID;
 	}
 
 
-	public void setSignerID(int signerID) {
+	public void setSignerID(Employee signerID) {
 		this.signerID = signerID;
 	}
 	

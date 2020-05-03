@@ -53,6 +53,12 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
+.mark1 {
+	color: blue;
+}
+.mark2 {
+	color: red;
+}
 </style>
 
 </head>
@@ -64,7 +70,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -81,18 +88,21 @@ p {
 					
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
-							
+								
 					<div class="panel-body">
+				
 						<form action="FeeAllPage.action" method="post">
+						
 							<div class="st1">
-								<label class="ca1 " for="">查詢區間:</label> <label><input
-									type="date" name="searchA"></label> <label class="ca1 " for="">-</label>
-								<label><input type="date" name="searchB"></label> <input
-									type="submit" name="New" value="搜尋" />
+								<label class="ca1 " for="">查詢區間:</label> <label>
+								<input	type="date" name="searchA" value="${appinputmsg.searchA}"></label> <label class="ca1 " for="">-</label>
+								<label>
+								<input type="date" name="searchB" value="${appinputmsg.searchB}"></label> 
+								<input	type="submit" name="New" value="搜尋" class="btn btn-info"/><span class="mark2">${feemsgmap.searchday}</span>
 
 							</div>
 							
-
+						<h4><span class="mark1">${TotalMoney}</span></h4>
 						</form>
 						
 						<table id="idtable1">
@@ -103,6 +113,7 @@ p {
 									<th>發票日期</th>
 									<th>發票號碼</th>
 									<th>申請金額</th>
+									<th>簽核主管</th>
 									<th>簽核狀態</th>
 									
 								</tr>
@@ -114,15 +125,16 @@ p {
 										<td>${applyDetail.appItem}</td>
 										<td>${applyDetail.invoiceTime}</td>
 										<td>${applyDetail.invoiceNb}</td>
+										
 										<td>${applyDetail.appMoney}</td>
+										<td>${applyDetail.employeeID.name}</td>
 										<td>${applyDetail.signerStatus}</td>
 										
 									</tr>
 								</c:forEach>
+								
 							</table>
-											
-							
-						
+														
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>

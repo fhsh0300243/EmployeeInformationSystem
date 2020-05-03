@@ -32,12 +32,61 @@ p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
 }
-
-table {
-	margin: 20px;
+.idtable1 {
+	margin: 30px auto;
 	border-collapse: collapse;
 }
 
+.idtable1 tr {
+	text-align: center;
+}
+
+.idtable1 th {
+	text-align: center;
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+.idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
+.datepicker{
+    border:1px  solid #ccc;
+    border-radius: 4px;
+    height: 24px;
+    line-height:24px;
+    margin:3px;  
+    width: 250px;  
+} 
+.datepicker:focus{
+    outline:0 none;
+    border:1px solid #1abc9c;
+        
+}
+b{
+	font-size:20px;
+}
+.inputtd {
+	text-align: left;
+}
+.idtable2 {
+	position: relative;
+	margin: 50px auto;
+	border-collapse: collapse;
+	right: 50px;
+}
+.idtable2 tr {
+	text-align: right;
+}
+
+.idtable2 td {
+	/*border-bottom: 1px solid #ddd;*/
+	padding: 2px;
+}
+.span1 {
+	margin-left: 9px;
+}
 </style>
 </head>
 <body>
@@ -47,7 +96,9 @@ table {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -67,16 +118,25 @@ table {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<label for="" class="t1">員工Id：</label><input type="text"
-							id="searchid" name="searchid" size="30"><br /> <label
-							for="" class="t1">員工姓名：</label><input type="text" id="searchname"
-							name="searchname" size="30"><br /> <select
-							name="searchdept" id="searchdept"></select><br /> <span>起訖日</span><input
-							type="date" name="startdate" id="startdate">~<input
-							type="date" name="enddate" id="enddate"><br /> <input
-							type="button" id="search" name="search" value="搜尋">
-						<p>${msgmap.noinputmsg}</p>
-						<table border="1" id="emplist"></table>
+					<table class="idtable2">
+					<tr>
+						<td>員工Id：</td>
+						<td class="inputtd"><input type="text" id="searchid" name="searchid" size="30" class="datepicker"></td>
+					</tr>
+					<tr>
+						<td>員工姓名：</td>
+						<td class="inputtd"><input type="text" id="searchname" name="searchname" size="30" class="datepicker"><span class="span1"><select name="searchdept" id="searchdept" class="datepicker"></select></span></td>
+					</tr>
+					<tr>
+						<td>起訖日:</td>
+						<td class="inputtd"><input type="date" name="startdate" id="startdate" class="datepicker">~<input type="date" name="enddate" id="enddate" class="datepicker"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="inputtd"><input type="button" id="search" name="search" value="搜尋" class="btn btn-info"></td>
+					</tr>
+					</table>
+					<table id="emplist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -130,7 +190,7 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>EmpID<th>姓名<th>部門<th>日期<th>上班<th>下班<th>status<th>";
+			var txt = "<tr><th>EmpID<th>姓名<th>部門<th>日期<th>上班<th>下班<th>status";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;

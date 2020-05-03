@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import tw.eis.model.Employee;
+import tw.eis.model.EmployeeService;
 import tw.eis.model.Users;
 import tw.eis.model.feeAppMember;
 import tw.eis.model.feeAppService;
@@ -20,27 +22,62 @@ import tw.eis.model.feeAppService;
 public class MainPageController {
 	
 	private feeAppService feeAppService;
+	private EmployeeService eService;
 
 	@Autowired
-	public MainPageController(feeAppService feeAppService) {
+	public MainPageController(feeAppService feeAppService,EmployeeService eService) {
 		this.feeAppService=feeAppService;
+		this.eService = eService;
 	}
 	//轉頁差旅費查詢頁面
 	@RequestMapping(path = "/FeeAllPage.action",method =RequestMethod.GET)
 	public String MinPage() {
+		
 		return "FeeAllPage";
 	}
 	//轉頁差旅費申請頁面
 	@RequestMapping(path = "/AddFeeApp.action",method =RequestMethod.GET)
-	public String feeAppPage() {
+	public String feeAppPage(@ModelAttribute("LoginOK") Users userBean, Model model) {
+		String SingerTotal=Integer.toString(feeAppService.query(userBean.getEmployeeID()));
+		if(SingerTotal.equals("0")) {
+			SingerTotal="";
+		}else {
+			SingerTotal="("+SingerTotal+")";
+		}
+		model.addAttribute("SingerTotal", SingerTotal);
+		
+		int userID = userBean.getEmployeeID();
+		Employee employeeIDB = eService.empData(userID);
+		
+		String signerStatus="退件";
+		List<feeAppMember> qfeeAppByID= feeAppService.qfeeAppByID(employeeIDB,signerStatus);
+				
+		int qReturnTotal = 0;
+		for (feeAppMember feeAppMember : qfeeAppByID) {
+			qReturnTotal+= 1;
+
+		}
+		String qReturnTota = "";
+		if(qReturnTotal==0) {
+			qReturnTota = Integer.toString(qReturnTotal);
+			qReturnTota="";
+		}else {
+			qReturnTota = "("+Integer.toString(qReturnTotal)+")";
+		}
+		
+		model.addAttribute("qReturnTota", qReturnTota);
+		
 		return "feeApplicationForm";
 	}
 	//轉頁差旅費退件頁面
 		@RequestMapping(path = "/FeeReturnPage.action",method =RequestMethod.GET)
 		public String qfeeAppByID(@ModelAttribute("LoginOK") Users LoginOK, Model model) {
-			int EmployeeID = LoginOK.getEmployeeID();
+			
+			int userID = LoginOK.getEmployeeID();
+			Employee employeeIDB = eService.empData(userID);
+			
 			String signerStatus="退件";
-			List<feeAppMember> qfeeAppByID= feeAppService.qfeeAppByID(EmployeeID,signerStatus);
+			List<feeAppMember> qfeeAppByID= feeAppService.qfeeAppByID(employeeIDB,signerStatus);
 			model.addAttribute("qfeeAppByID", qfeeAppByID);
 			return "FeeReturnPage";
 		}
@@ -62,8 +99,10 @@ public class MainPageController {
 		String department = LoginOK.getDepartment();
 		String signerStatus="簽核中";
 		int Level = LoginOK.getEmployee().getLevel();
-		System.out.println("Level:"+Level);
-		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level);
+		int userID = LoginOK.getEmployeeID();
+		Employee employeeIDB2 = eService.empData(userID);
+		//System.out.println("Level:"+Level);
+		List<feeAppMember> dSList = feeAppService.qfeeSingerApp(department,signerStatus,Level,employeeIDB2);
 		model.addAttribute("dSList", dSList);
 		
 		 return "FeeSingerPage";

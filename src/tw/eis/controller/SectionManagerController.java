@@ -46,6 +46,8 @@ public class SectionManagerController {
 				return "Performance_Manager";
 			}else if(level == 2) {
 				return "Performance_SectionManager";
+			}else if(level == 1) {
+				return "Performance_Engineer";
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -126,4 +128,5 @@ public class SectionManagerController {
 	public String Insertintowork(Model m,@RequestParam(value="pid")int pid,@RequestParam(value="pqt")String pqt) {
 		return "InsertWork";
 	}
+	
 }

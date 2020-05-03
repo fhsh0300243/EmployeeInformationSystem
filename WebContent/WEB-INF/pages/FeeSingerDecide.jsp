@@ -42,6 +42,9 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
+b{
+	font-size:20px;
+}
 </style>
 
 </head>
@@ -53,7 +56,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -71,7 +75,7 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 						
-						<h2>差旅費已簽核</h2>
+						<h2>完成</h2>
 						
 						<div class="list_footer">
 							<div id="tag"></div>

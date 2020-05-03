@@ -41,7 +41,7 @@ public class EmployeeDao implements IEmployeeDao {
 
 	@Override
 	public List<Employee> allEmpIdforTask() {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Query<Employee> query = session.createQuery("From Employee", Employee.class);
 		List<Employee> list = query.list();
@@ -86,7 +86,13 @@ public class EmployeeDao implements IEmployeeDao {
 			Session session = sessionFactory.getCurrentSession();
 			Employee myEmp = session.get(Employee.class, id);
 			Users myUser = session.get(Users.class, id);
-
+			List<ApplyForLeave> alist = session
+					.createQuery("From ApplyForLeave where EmployeeID=:employeeid and confirmTime is null", ApplyForLeave.class)
+					.setParameter("employeeid", myEmp.getEmpID()).list();
+			List<feeAppMember> flist = session
+					.createQuery("From feeAppMember where EmployeeID=:employeeid and signerTime is null", feeAppMember.class)
+					.setParameter("employeeid", myEmp.getEmpID()).list();
+			
 			myUser.setDepartment(Department);
 			myUser.setTitle(Title);
 
@@ -130,7 +136,24 @@ public class EmployeeDao implements IEmployeeDao {
 			if (EmpDept != null) {
 				myEmp.setEmpDept(EmpDept);
 			}
-
+			for (ApplyForLeave aLeav : alist) {
+				if (Manager != null) {
+					aLeav.setSignerId(Manager);
+					session.update(aLeav);
+				} else {
+					aLeav.setSignerId(null);
+					session.update(aLeav);
+				}
+			}
+			for (feeAppMember fee : flist) {
+				if (Manager != null) {
+					fee.setSignerID(Manager);
+					session.update(fee);
+				} else {
+					fee.setSignerID(null);
+					session.update(fee);
+				}
+			}
 			session.update(myUser);
 			session.update(myEmp);
 			return true;
@@ -188,6 +211,14 @@ public class EmployeeDao implements IEmployeeDao {
 				.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 		return list;
 	}
+	
+	@Override
+	public List<?> empDataByLevel(int level) {
+		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
+		List<?> list = mainQuery.add(Property.forName("level").eq(level))
+				.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+		return list;
+	}
 
 	public void test() {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Users.class);
@@ -203,5 +234,5 @@ public class EmployeeDao implements IEmployeeDao {
 			}
 		}
 	}
-	
+
 }

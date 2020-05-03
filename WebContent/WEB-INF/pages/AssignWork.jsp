@@ -24,8 +24,7 @@ table {
 	margin-right: 15px;
 }
 
-
-#work {
+.work {
 	weight: 10px;
 	height: 500px;
 	border: 2px solid #CCC;
@@ -48,7 +47,7 @@ table {
 	float: right;
 }
 
-li.emul {
+li.emul, li.chemul {
 	list-style-type: none;
 	margin: 10px;
 	border: 1px solid #ccc;
@@ -57,7 +56,7 @@ li.emul {
 	cursor: move;
 }
 
-li.wkul {
+li.wkli {
 	list-style-type: none;
 	margin: 10px;
 	border: 1px solid #ccc;
@@ -65,6 +64,10 @@ li.wkul {
 }
 
 li.emul:hover {
+	background-color: #ccc;
+}
+
+li.chemul:hover {
 	background-color: #ccc;
 }
 
@@ -82,6 +85,10 @@ p {
 	left: 20%;
 	width: 82%;
 }
+
+b {
+	font-size: 20px;
+}
 </style>
 </head>
 
@@ -95,7 +102,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -113,10 +122,9 @@ p {
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
-						<div id="main">
-						</div>
+						<div id="main"></div>
 						<div id="employee"></div>
-						
+
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -131,65 +139,136 @@ p {
 	</div>
 
 	<script type="text/javascript">
-	jQuery.event.props.push('dataTransfer');
-	//var dragel = null;
+		jQuery.event.props.push('dataTransfer');
+		//var dragel = null;
 
 		$
 				.getJSON(
 						"assignwork",
 						function(member) {
-var txt="";
+							var txt = "";
 							txt += "<table border=\"1\" id=\"t\">";
-							txt += "<tr><th>" + member[0].pqt;
+							txt += "<tr><th>" + member[0][0].pqt;
 							for (let i = 0; i < member.length; i++) {
-								txt += "<tr><td>" + member[i].Work;
+								txt += "<tr><td>" + member[i][0].Work;
 							}
 							txt += "</table>"
 
 							for (let j = 0; j < member.length; j++) {
-								txt += "<div id = \"work\" ><ul border=\"1\" id=\"s"+j+"\">";
-								txt += "<li  class = \"wkul\">" + member[j].Work;
-								txt += "</ul></div>"
-							}
+								txt += "<div class = \"work\" wid = "+member[j][0].wid+" work = "+member[j][0].Work+"><ul class = \"wkul\" border=\"1\" id="+member[j].Work+">";
+								txt += "<li id = "+member[j][0].Work+" class = \"wkli\">"
+										+ member[j][0].Work;
+								txt += "</ul>";
+									for(let k=0;k<member[j].length;k++){
+										console.log(member[j][k].empid);
+										if(member[j][k].empid!=undefined){
+										txt += "<li class=\"chemul\" draggable=\"true\" wid="+member[j][0].wid+" empid="+member[j][k].empid+">"+member[j][k].empname+"</li>";
+										}
+										}
+									txt += "</div>";
+							} 	
 							$("#main").html(txt);
+
 						});
 		$
 				.getJSON(
 						"employeelist",
 						function(employee) {
-	var em="";
+							var em = "";
 							em += "員工名單"
 							em += "<ul id=\"e\" class=\"taul\">";
 							for (let k = 0; k < employee.length; k++) {
-								em += "<li id = "+ employee[k].name +" class=\"emul\" draggable=\"true\">"
+								em += "<li id = "+ employee[k].empid +" class=\"emul\" draggable=\"true\" wid=\"\" empid="+employee[k].empid+">"
 										+ employee[k].name + "</li>";
 							}
 							em += "<p><li class = \"emul\">xxxx</li>"
 							em += "</ul>"
 							$("#employee").html(em);
 						});
-		$(document).on("dragstart",".emul",function(event){
+		$(document).on("dragstart", ".emul", function(event) {
 			event.dataTransfer.effectAllowed = "copyMove";
-			event.dataTransfer.setData("text/plain",this.innerHTML);
-		console.log(this.innerHTML);
+			event.dataTransfer.setData("text/plain", event.target.id);
+			console.log(this.innerHTML);
+		});
+		$(document).on("dragstart", ".chemul", function(event) {
+			event.dataTransfer.effectAllowed = "Move";
+			event.dataTransfer.setData("text/plain", event.target.id);
+			console.log(this.innerHTML);
+		});
+		$(document).on("dragover", ".work", function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			event.dataTransfer.dropEffect = "Move";
+		});
+		$(document).on("dragover", ".emul", function(event) {
+			event.dataTransfer.dropEffect = "none"
 		})
-		$(document).on("dragover","#work",function(event){
-			 event.stopPropagation();
-	            event.preventDefault();
-	            event.dataTransfer.dropEffect = "Move";
+		$(document).on("dragover", ".wkul", function(event) {
+			event.dataTransfer.dropEffect = "none"
+		})
+		$(document).on("drop", ".work", function(event) {
+			var data = event.dataTransfer.getData("text");
+			var nodeCopy = document.getElementById(data);
+
+			var wid = nodeCopy.getAttribute("wid");
+			var cwid = $(event.target).attr("wid");
+			var work = $(event.target).attr("work");
+			console.log("wid:" + wid);
+			console.log("data:" + data);
+			console.log("work:" + work);
+			console.log("targetid:"+event.target.children.id);
+			event.stopPropagation();//停止冒泡事件、事件往父容器觸發
+			event.preventDefault();
+			//↑上述兩行for firefox，避免瀏覽器直接Redirect
+			//event.target.appendChild(document.getElementById(data));
+		
+			var empid = nodeCopy.getAttribute("empid")
+			var wchildren = event.target.children;
+			for(i=0;i<wchildren.length;i++){
+				if(wchildren[i].getAttribute("empid") == empid){
+					event.dataTransfer.dropEffect = "none";
+					return false;
+					}
+				};
+			if ((nodeCopy.getAttribute("class")) == "emul") {
+				nodeCopy = nodeCopy.cloneNode(true);
+				nodeCopy.setAttribute("wid", cwid);
+				nodeCopy.setAttribute("class", "chemul");
+				nodeCopy.setAttribute("id", data + "ch");
+				//nodeCopy.id = "newId";
+				event.target.appendChild(nodeCopy)
+			} else if ((nodeCopy.getAttribute("class")) == "chemul") {
+				nodeCopy.setAttribute("id", data + "ch")
+				
+				event.target.appendChild(nodeCopy);
+				$.post("changeaw", {
+					empid : empid,
+					wid : wid,
+					cwid:cwid,
+					work : work
+				}, function(member, status) {
+					if (status == "success")
+						console.log("change success");
+				});
+				nodeCopy.setAttribute("wid", cwid);
+				;
+				return false;
+			}
+			;
+			//event.target.textContent = data;
+			$.post("insertaw", {
+				empid : empid,
+				wid : cwid,
+				work : work
+			}, function(member, status) {
+				if (status == "success")
+					console.log("insert success");
+			});
+			$(document).on("dragover", ".chemul", function(event) {
+				event.dataTransfer.dropEffect = "none"
 			})
-		$(document).on("drop","#work",function(event){
-			 var data = event.dataTransfer.getData("text");
-			 console.log("data:"+data);
-		       event.stopPropagation();//停止冒泡事件、事件往父容器觸發
-	            event.preventDefault();
-	            //↑上述兩行for firefox，避免瀏覽器直接Redirect
-			 //event.target.appendChild(document.getElementById(data));
-			var nodeCopy = document.getElementById(data).cloneNode(true);
-			nodeCopy.id = "newId";
-			event.target.appendChild(nodeCopy);	 
-			 
-		})
+		
+		});
 	</script>
 </body>
 </html>

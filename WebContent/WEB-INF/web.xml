@@ -83,4 +83,18 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>LoginCheckingFilter</filter-name>
+		<filter-class>tw.eis.util.LoginCheckingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginCheckingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<session-config> 
+    	<session-timeout>30</session-timeout> 
+	</session-config> 
+
+
 </web-app>

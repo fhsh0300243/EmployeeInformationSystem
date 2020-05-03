@@ -42,6 +42,9 @@ p {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 20px;
 }
+b{
+	font-size:20px;
+}
 </style>
 <script>
 	function check(obj) {
@@ -61,7 +64,8 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -97,10 +101,11 @@ p {
 									<tr>
 										<td>${appfee.feeAppID}</td>
 										<td>${appfee.department}</td>
-										<td>${appfee.feeAppID}</td>
+										<td>${appfee.employeeID.name}</td>
 										<td>${appfee.appItem}</td>
 										<td>${appfee.appTime.substring(0,16)}</td>
 										<td>${appfee.appMoney}</td>
+										
 										
 										
 										

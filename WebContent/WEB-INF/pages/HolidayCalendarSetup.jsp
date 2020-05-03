@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="tw.eis.model.HolidayCalendar, java.util.*"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>番茄科技 打卡系統</title>
@@ -12,6 +13,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet"></link>
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
+<link rel="stylesheet" type="text/css" href="css/SearchPage.css">
 <link rel="icon" href="images/favicon.ico">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -27,11 +29,27 @@ p {
 .well, .panel {
 	text-align: center;
 }
-.tb{
+
+b {
+	font-size: 20px;
+}
+
+.text {
+	border: 1px solid #c5c5c5;
+	background: #f6f6f6;
+	width: 140px;
+	height: 32px;
+	border-radius: 3px;
+	font-size: 1em;
+	padding: .4em 1em;
+	margin-right: .1em;
+	vertical-align: middle;
+}
+/*.tb {
 	position: relative;
 	width: 70%;
 	left: 28.5%;
-}
+}*/
 </style>
 </head>
 <body>
@@ -43,11 +61,13 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName}您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
-				<%@ include file="SubFeatureForAttendance.jsp"%>
+				<%@ include file="SubFeatureForEmpManage.jsp"%>
 
 			</div>
 
@@ -60,51 +80,48 @@ p {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<form action="<c:url value='/HolidayAction'/>" method="post">
-							設定行事曆 : <SELECT NAME="action">
+						<form name="InqueryOtherCalendar"
+							action="<c:url value='/InqueryOtherCalendar'/>" method="post">
+							<input type="text" name="Year" class='text' placeholder="輸入西元年" />
+							<input type="button" value="查詢" onClick="checkYear()"
+								class="btn btn-info" />
+						</form>
+						<br>
+						<form name="HolidayAction"
+							action="<c:url value='/HolidayAction'/>" method="post">
+							<SELECT NAME="action" class='text'>
 								<OPTION VALUE="1">新增
 								<OPTION VALUE="2">修改
 							</SELECT> <input type="text" id="pickHoliday" name="date"
-								autocomplete="off"> <SELECT NAME="dateType">
+								autocomplete="off" class='text' placeholder="選擇日期"> <SELECT
+								NAME="dateType" class='text'>
 								<OPTION VALUE="國定假日">國定假日
 								<OPTION VALUE="補班">補班
-							</SELECT> <input type="text" name="remark" /> <input type="submit"
-								value="送出" class="btn btn-info" />
+							</SELECT> <input type="text" name="remark" class='text' placeholder="輸入備註" />
+							<input type="button" value="送出" onClick="checkAction()"
+								class="btn btn-info" />
 						</form>
 						<hr />
-						<form class="tb" action="<c:url value='/DeleteCalendar'/>" method="post">
-							<table width="500" border="1">
+						<form class="tb" action="<c:url value='/DeleteCalendar'/>"
+							method="post">
+							<table id="idtable1">
 								<tr>
-									<td><b>日期</b></td>
-									<td><b>種類</b></td>
-									<td><b>備註</b></td>
-									<td><b>新增人員ID</b></td>
-									<td><b><input type="submit" value="移除" class="btn btn-info"></b></td>
+									<th>日期</th>
+									<th>種類</th>
+									<th>備註</th>
+									<th>新增人員ID</th>
+									<th><input type="submit" value="移除" class="btn btn-info"></th>
 								</tr>
-								<%
-									List<HolidayCalendar> calenderlist = (List<HolidayCalendar>) request.getAttribute("calenderlist");
-									if (calenderlist == null || calenderlist.size() < 1) {
-								%>
-								<tr id="test">
-									<td align="center" colspan="5">沒有資料!</td>
-								</tr>
-								<%
-									} else {
-										for (HolidayCalendar cal : calenderlist) {
-								%>
-
-								<tr align="center">
-									<td><%=cal.getDate()%></td>
-									<td><%=cal.getDateType()%></td>
-									<td><%=cal.getRemark()%></td>
-									<td><%=cal.getEmployee().getEmpID()%></td>
-									<td><input type="checkbox" name="Date"
-										value="<%=cal.getDate()%>"></td>
-								</tr>
-								<%
-									}
-									}
-								%>
+								<c:forEach var='cal' items='${calenderlist}' varStatus='vs'>
+									<tr class='classtr1'>
+										<td>${cal.getDate()}</td>
+										<td>${cal.getDateType()}</td>
+										<td>${cal.getRemark()}</td>
+										<td>${cal.getEmployee().getEmpID()}</td>
+										<td><input type="checkbox" name="Date"
+											value="${cal.getDate()}"></td>
+									</tr>
+								</c:forEach>
 							</table>
 						</form>
 
@@ -124,6 +141,24 @@ p {
 		$(document).ready(function() {
 			$("#pickHoliday").datepicker();
 		})
+		function checkYear() {
+			var frm = document.forms["InqueryOtherCalendar"];
+			if (frm.Year.value == "") {
+				alert("請輸入西元年");
+			} else {
+				frm.submit();
+			}
+		}
+		function checkAction() {
+			var frm = document.forms["HolidayAction"];
+			if (frm.date.value == "") {
+				alert("請選擇日期");
+			} else if (frm.remark.value == "") {
+				alert("請輸入備註");
+			} else {
+				frm.submit();
+			}
+		}
 	</script>
-</html>
 </body>
+</html>

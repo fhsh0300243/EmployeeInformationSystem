@@ -15,7 +15,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="stylesheet" type="text/css" href="css/DetailPage.css">
-<link rel="stylesheet" type="text/css" href="css/Menu.css">
 <link rel="icon" href="images/favicon.ico">
 <style>
 .col-sm-4, .functionTitle {
@@ -25,6 +24,10 @@
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
+}
+
+b {
+	font-size: 20px;
 }
 </style>
 </head>
@@ -36,7 +39,9 @@ p {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p>
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -131,8 +136,9 @@ p {
 						<hr />
 
 						<div class="btn1">
-							<input type="reset" value="清除" onclick="cls();" class="btn btn-info"/> <input
-								type="submit" value="送出" onclick="return checkSubmit();" class="btn btn-info"/>
+							<input type="reset" value="清除" onclick="cls();"
+								class="btn btn-info" /> <input type="submit" value="送出"
+								onclick="return checkSubmit();" class="btn btn-info" />
 						</div>
 					</form>
 					<div class="list_footer">
@@ -150,11 +156,6 @@ p {
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script>
-		//$("#attImg").click(function() {
-		//	var applyId = $(this).attr("name");
-		//	location.href = "getFullImg?applyId=" + applyId;
-		//});
-
 		$("#attImg")
 				.click(
 						function() {
@@ -215,10 +216,8 @@ p {
 		}
 
 		function cls() {
-			$("#signImg").attr("src", "");
-			$("#signCheck").html("");
-			$("#commentImg").attr("src", "");
-			$("#commentCheck").html("");
+			$("#signImg,#commentImg").attr("src", "");
+			$("#signCheck,#commentCheck").empty();
 		}
 	</script>
 

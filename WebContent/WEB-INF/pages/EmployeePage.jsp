@@ -33,9 +33,27 @@ p {
 	font-size: 18px;
 }
 
-table {
-	margin: 20px;
+.idtable1 {
+	margin: 30px auto;
 	border-collapse: collapse;
+}
+
+.idtable1 tr {
+	text-align: center;
+}
+
+.idtable1 th {
+	text-align: center;
+	background-color: #E0E0E0;
+	padding: 10px 20px;
+}
+
+.idtable1 td {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 20px;
+}
+b{
+	font-size:20px;
 }
 </style>
 </head>
@@ -47,7 +65,8 @@ table {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
+					<p><b>Hi~</b> ${usersResultMap.Title},
+					<p>${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -67,7 +86,7 @@ table {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<table border="1" id="boardlist" style="margin: 0 auto"></table>
+						<table id="boardlist" class="idtable1" style="margin: 0 auto"></table>
 						<div class="list_footer">
 							<div id="tag"></div>
 							<div id="page"></div>
@@ -116,7 +135,7 @@ table {
 			}
 			document.getElementById("tag").innerHTML = atag;
 			$("#page").html("第" + nowpage + "頁");
-			var txt = "<tr><th>發布人<th>主題<th>內容<th>發布時間<th>";
+			var txt = "<tr><th>發布人<th>主題<th>內容<th>發布時間";
 
 			if (maxData > datatotal) {
 				maxData = datatotal;
