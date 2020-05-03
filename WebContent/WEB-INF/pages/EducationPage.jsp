@@ -66,7 +66,6 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
-<<<<<<< HEAD
 
 /* iframe */
 #parent {
@@ -103,11 +102,10 @@ iframe {
 }
 
 
-=======
 b{
 	font-size:20px;
 }
->>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
+
 </style>
 </head>
 <body>
@@ -587,7 +585,7 @@ b{
 						</div>
 					</div>
 				</div>
-<<<<<<< HEAD
+
 				</div>
 				</div>
 				</div>
@@ -596,13 +594,6 @@ b{
 				</div>
 				</div>
 
-		
-			
-=======
-			</div>
-			</div>
-			</div>
->>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
 			<div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>
