@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,7 @@ import tw.eis.model.HolidayCalendarService;
 import tw.eis.model.Users;
 
 @Controller
-@SessionAttributes(names = { "LoginOK", "usersResultMap", "errorMsgMap" })
+@SessionAttributes(names = { "LoginOK", "usersResultMap", "errorMsgMap", "CalendarYear" })
 public class HolidayCalendarController {
 
 	private HolidayCalendarService HCService;
@@ -30,23 +31,33 @@ public class HolidayCalendarController {
 		this.HCService = HCService;
 	}
 
-	//查詢當年國定假日行事曆
+	// 查詢當年國定假日行事曆
 	@RequestMapping(path = "/InqueryCalendar", method = RequestMethod.GET)
-	public String InqueryCalendar(@ModelAttribute("LoginOK") Users userBean,
-			HttpServletRequest request) {
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(year);
-			request.setAttribute("calenderlist", calenderlist);
-			return "HolidayCalendarSetup";
+	public String InqueryCalendar(HttpServletRequest request, Model model) {
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(year);
+		model.addAttribute("CalendarYear", year);
+		request.setAttribute("calenderlist", calenderlist);
+		return "HolidayCalendarSetup";
 	}
 
-	//新增、修改國定假日行事曆
+	// 查詢其他年國定假日行事曆
+	@RequestMapping(path = "/InqueryOtherCalendar", method = RequestMethod.POST)
+	public String InqueryOtherCalendar(@RequestParam("Year") String Year, HttpServletRequest request, Model model) {
+		int year = Integer.parseInt(Year);
+		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(year);
+		model.addAttribute("CalendarYear", year);
+		request.setAttribute("calenderlist", calenderlist);
+		return "HolidayCalendarSetup";
+	}
+
+	// 新增、修改國定假日行事曆
 	@RequestMapping(path = "/HolidayAction", method = RequestMethod.POST)
 	public String HolidayAction(@ModelAttribute("LoginOK") Users userBean,
-			@RequestParam("action") int action, @RequestParam("date") String date,
-			@RequestParam("dateType") String dateType, @RequestParam("remark") String remark,
-			HttpServletRequest request) throws Exception {
+			@ModelAttribute("CalendarYear") int CalendarYear, @RequestParam("action") int action,
+			@RequestParam("date") String date, @RequestParam("dateType") String dateType,
+			@RequestParam("remark") String remark, HttpServletRequest request) throws Exception {
 		Employee Emp = userBean.getEmployee();
 		SimpleDateFormat nowdate = new SimpleDateFormat("MM/dd/yyyy");
 		java.util.Date utildate = nowdate.parse(date);
@@ -56,14 +67,19 @@ public class HolidayCalendarController {
 		} else {
 			HCService.UpdateCalendar(Emp, Date, dateType, remark);
 		}
-		return "redirect:/InqueryCalendar";
+		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(CalendarYear);
+		request.setAttribute("calenderlist", calenderlist);
+		return "HolidayCalendarSetup";
 	}
 
-	//刪除國定假日行事曆
+	// 刪除國定假日行事曆
 	@RequestMapping(path = "/DeleteCalendar", method = RequestMethod.POST)
-	public String DeleteCalendar(@RequestParam("Date") List<String> date) {
+	public String DeleteCalendar(@ModelAttribute("CalendarYear") int CalendarYear,
+			@RequestParam("Date") List<String> date, HttpServletRequest request, Model model) {
 		HCService.DeleteCalendar(date);
-		return "redirect:/InqueryCalendar";
+		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(CalendarYear);
+		request.setAttribute("calenderlist", calenderlist);
+		return "HolidayCalendarSetup";
 	}
 
 }

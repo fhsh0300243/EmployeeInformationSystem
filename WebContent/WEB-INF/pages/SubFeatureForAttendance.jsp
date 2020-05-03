@@ -30,7 +30,8 @@
 				<a href="<c:url value="/gotoAttendanceOwnPage"/>">個人出勤查詢</a>
 			</div>
 			<br>
-			<div id="manager" name="${empLevel}" style="display: none;">
+			<div id="manager" name="${LoginOK.getEmployee().getLevel()}"
+				style="display: none;">
 				<div class="title">主管專區</div>
 				<div>
 					<a href="<c:url value="/gotoAttendanceDepartmentPage"/>">部門出勤查詢</a>
@@ -63,7 +64,7 @@
 		$(function() {
 			var level = $("#manager").attr("name");
 			if (level != 1) {
-				$("#manager").show()
+				$("#manager").show();
 			}
 		});
 	</script>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -119,7 +120,8 @@ public class AttendanceController {
 
 	// 執行個人當日出勤查詢
 	@RequestMapping(path = "/InquiryToday", method = RequestMethod.GET)
-	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request) throws Exception {
+	public String InquiryToday(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request, Model model)
+			throws Exception {
 		List<Attendance> myPunch = AttService.InquiryToday(userBean.getEmployeeID());
 		request.setAttribute("myPunch", myPunch);
 		return "AttendancePunchPage";
@@ -243,7 +245,7 @@ public class AttendanceController {
 		AttService.UpdateStartNGAttemdance(userBean.getEmployee(), Date);
 		return "redirect:/InquiryToday";
 	}
-	
+
 	// 更新為異常下班
 	@RequestMapping(path = "/UpdateEndNGAttemdance", method = RequestMethod.GET)
 	public String UpdateEndNGAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
