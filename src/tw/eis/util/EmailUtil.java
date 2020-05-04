@@ -15,10 +15,10 @@ import tw.eis.model.Users;
 
 public class EmailUtil {
 	
-	private final String FROM = "lilisbg.lee@gmail.com";
+	private final String FROM = "tomatotechcom@gmail.com";
 	private final String host = "smtp.gmail.com";
 	private final int port = 587;
-	private final String password = "qogrjraijqorhpyr";//your password
+	private final String password = "crovrxjcycezyisu";//your password
 	
     public void sendResetPasswordEmail(Users uBean, String email) {
     	GenerateLinkUtil glu=new GenerateLinkUtil();
