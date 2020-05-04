@@ -74,11 +74,11 @@ public class LoginController {
 		}
 		
 //      Windows AES加密		
-//		String encryptPwd=aes.parseByte2HexStr(aes.encrypt(userPassword)); 
+		String encryptPwd=aes.parseByte2HexStr(aes.encrypt(userPassword)); 
 
 
 //		Linux AES加密
-		String encryptPwd=password.encrypt("1234567890123456", userPassword);
+//		String encryptPwd=password.encrypt("1234567890123456", userPassword);
 //		System.out.println("cleartext:" + encryptPwd);
 		
 		List<Users> loginResult=uService.findUsers(userName, encryptPwd);
