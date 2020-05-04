@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import tw.eis.util.GlobalService;
+
 
 @Repository("usersDao")
 public class UsersDao implements IUsersDao {

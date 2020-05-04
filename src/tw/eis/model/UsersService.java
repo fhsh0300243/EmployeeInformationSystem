@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class UsersService implements IUsersService {
 	public UsersService() {
 		
 	}
+	
 	
 	@Autowired
 	public UsersService(UsersDao usersDao) {
