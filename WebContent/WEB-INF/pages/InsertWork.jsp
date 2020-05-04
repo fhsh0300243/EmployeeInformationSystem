@@ -7,16 +7,24 @@
 <title>Insert Work</title>
 <style>
 #p{
-visibility: hidden;
+display:none;
 }
 </style>
 </head>
 <body>
-<form action="insertwork" method="post">
-<input type="text" name="pid" id="p" value= ${param["pid"]}><br/>
-<input type="text" name="pqt" id="p" value= ${param["pqt"]}><br/>
+工作內容<form action="insertwork" method="post">
+<div id="p">
+<input type="text" name="pid" value= ${param["pid"]}><br/>
+<input type="text" name="pqt" value= ${param["pqt"]}><br/>
+</div>
 <input type="text" name="work"><br/>
-<input type="submit" value="確認"><input type="reset" value="清除">
+<input type="submit" onclick="pp()" value="確認"><input type="reset" value="清除">
 </form>
+<script>
+function pp(){
+	window.opener.location.reload();  
+    window.close(); 
+} 
+</script>
 </body>
 </html>

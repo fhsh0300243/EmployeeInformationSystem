@@ -27,6 +27,12 @@ table {
 	float: left;
 	margin-right: 15px;
 }
+.th{
+width:200px;
+}
+.td{
+width:180px;
+}
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
@@ -36,7 +42,6 @@ p {
 }
 .main{
 	position: relative; 
-	left: 33%;
 	width:82%;
 
 }
@@ -100,28 +105,43 @@ var txt = "";
 								txt += "<table border=\"1\" id=\"t\">";
 								txt += "<tr><th><a href = \"toAssignWork?pid="
 										+ member[i][0].pID
-										+ "\"><input type = \"button\" value=\""+member[i][0].PersonalQuarterlyTarget+"\"></a>";
+										+ "\"><input type = \"button\" class=\"th\" value=\""+member[i][0].PersonalQuarterlyTarget+"\"></a>";
 								for (let j = 0; j < member[i].length; j++) {
-									txt += "<tr><td><a href=\"ChangeWork?wid="
-											+ member[i][j].wid
-											+ "&work="
-											+ member[i][j].Work
-											+ "&worksetter="
-											+ member[i][j].worksetter
-											+ "&time="
-											+ member[i][j].time
-											+ "\"><input type=\"button\" value=\""+member[i][j].Work+"\">";
+									txt += "<tr><td><input class=\"td\" url=ChangeWork?wid="
+										+ member[i][j].wid
+										+ "&work="
+										+ member[i][j].Work
+										+ "&worksetter="
+										+ member[i][j].worksetter
+										+ "&time="
+										+ member[i][j].time
+										+ "\" type=\"button\" value=\""+member[i][j].Work+"\">";
 								}
-								txt += "<tr><th><a href =\"InsertWork?pid="
-										+ member[i][0].pID
-										+ "&pqt="
-										+ member[i][0].PersonalQuarterlyTarget
-										+ "\"><input type=\"button\" value=\"+\">";
+								txt += "<tr><th><input type=\"button\" id=\"plus\" plus=InsertWork?pid="
+									+ member[i][0].pID
+									+ "&pqt="
+									+ member[i][0].PersonalQuarterlyTarget
+									+ " value=\"+\">";
 								txt += "<\/table>"
 
 								$("#main").html(txt);
 							}
 						})
+		$(document).on("click",".td",function(event){
+		var url =  $(event.target).attr("url");
+		window.open(url,"_blank","toolbar=yes, location=yes, directories=no,status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400")
+			if(url.close == True){
+				 self.location.reload();
+			 }
+			
+		});
+		$(document).on("click","#plus",function(event){
+			var url =  $(event.target).attr("plus");
+			window.open(url,"_blank","toolbar=yes, location=yes, directories=no,status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400")
+			 if(url.close == True){
+				 self.location.reload();
+		}
+		});
 	</script>
 
 </body>

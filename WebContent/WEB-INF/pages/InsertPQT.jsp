@@ -7,15 +7,23 @@
 <title>Insert PQT</title>
 <style>
 #p{
-visibility: hidden;
+display:none
 }
 </style>
 </head>
 <body>
 <form action="insertpqt" method="post">
-<input type="text" name="dag" id="p" value= ${ dag}><br/>
-<input type="text" name="pqt"><br/>
-<input type="submit" value="確認"><input type="reset" value="清除">
+<div id="p">
+<input type="text" name="dag"  value= ${ dag}><br/>
+</div>
+目標內容<input type="text" name="pqt"><br/>
+<input type="submit" onclick="pp()" value="確認"><input type="reset" value="清除">
 </form>
+<script>
+function pp(){
+	window.opener.location.reload();  
+    window.close(); 
+} 
+</script>
 </body>
 </html>
