@@ -28,9 +28,9 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -110,22 +110,41 @@ b{
         <div>
           <div class="am-panel am-panel-default">
             <div class="am-panel-bd">
-              <div class='am-text-sm'>教材名稱：<span class='col6'>人資相關教材</span></div>
+              <div class='am-text-sm'>教材名稱：<span class='col6'>人資類相關教材</span></div>
                 <div class='am-text-sm'>教材下載：<span><a href="#">點擊下載</a></span></div>
             </div>
           </div>
           <div class="am-panel am-panel-default">
             <div class="am-panel-bd">
-              <div class='am-text-sm'>教材名稱：<span class='col6'>業務相關教材</span></div>
+              <div class='am-text-sm'>教材名稱：<span class='col6'>研發類相關教材</span></div>
                 <div class='am-text-sm'>教材下載：<span><a href="#">點擊下載</a></span></div>
             </div>
           </div>
           <div class="am-panel am-panel-default">
             <div class="am-panel-bd">
-              <div class='am-text-sm'>教材名稱：<span class='col6'>專案相關教材</span></div>
+              <div class='am-text-sm'>教材名稱：<span class='col6'>品質保證類相關教材</span></div>
                 <div class='am-text-sm'>教材下載：<span><a href="#">點擊下載</a></span></div>
             </div>
           </div>
+          <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+              <div class='am-text-sm'>教材名稱：<span class='col6'>測試類相關教材</span></div>
+                <div class='am-text-sm'>教材下載：<span><a href="#">點擊下載</a></span></div>
+            </div>
+          </div>
+          <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+              <div class='am-text-sm'>教材名稱：<span class='col6'>業務類相關教材</span></div>
+                <div class='am-text-sm'>教材下載：<span><a href="#">點擊下載</a></span></div>
+            </div>
+          </div>
+          <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+              <div class='am-text-sm'>教材名稱：<span class='col6'>專案類相關教材</span></div>
+                <div class='am-text-sm'>教材下載：<span><a href="#">點擊下載</a></span></div>
+            </div>
+          </div>
+          
 
 
         </div>
@@ -136,19 +155,27 @@ b{
     
     
 		    </div>
+<<<<<<< HEAD
+			</div>
+		    </div>
+		    </div>
+		    </div>
+		    </div>
+=======
 					      </div>
 					    </div>
 					</div>
 				</div>
 				</div>
+>>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
   </div>
   
 
-<script src="/js/amazeui.min.js"></script>
+<script src="js/amazeui.min.js"></script>
 
 
 
-<div class="CanNotRightDownDiv">
+           <div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>
 
@@ -259,6 +286,4 @@ b{
 						});
 			</script>
 </body>
-
-
 </html>

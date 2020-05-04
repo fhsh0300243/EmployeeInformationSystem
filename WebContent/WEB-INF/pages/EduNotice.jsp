@@ -27,9 +27,9 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
 
 <style>
 .well, .panel {
@@ -150,12 +150,14 @@ b{
 
       
     </div>
-    
-
+    </div>
   </div>
-  
-
-<script src="/js/amazeui.min.js"></script>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+<script src="js/amazeui.min.js"></script>
 
 
 <div class="CanNotRightDownDiv">

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -44,6 +45,9 @@ public class Course implements Serializable{
 	private int Uplimit; // 人數上限
 	private String Introduction;
 	private String Note; // 備註
+	private byte[] AttachmentFiles;
+	private Employee SignerID;
+	private String SigningProgress;
 
 	private Users Users;
 	private Set<Users> member = new HashSet<Users>();
@@ -54,7 +58,7 @@ public class Course implements Serializable{
 
 	public Course(Users Users,String Topic, String TopicType, String TeacherId, String Teacher, String Place,
 			Date DateFrom, Date DateTo, Timestamp TimeFrom, Timestamp TimeTo, Integer Credit, String ClassType, String CourseType,
-			Integer Uplimit, String Introduction, String Note) {
+			Integer Uplimit, String Introduction, String Note, byte[] AttachmentFiles, Employee SignerID, String SigningProgress) {
 		this.Users = Users;
 		this.Topic = Topic;
 		this.TopicType = TopicType;
@@ -71,6 +75,9 @@ public class Course implements Serializable{
 		this.Uplimit = Uplimit;
 		this.Introduction = Introduction;
 		this.Note = Note;
+		this.AttachmentFiles = AttachmentFiles;
+		this.SignerID = SignerID;
+		this.SigningProgress = SigningProgress;
 
 	}
 
@@ -230,6 +237,35 @@ public class Course implements Serializable{
 //		Users = users;
 //	}
 
+	@Column(name = "ATTACHMENTFILES")
+	public byte[] getAttachmentFiles() {
+		return AttachmentFiles;
+	}
+
+	public void setAttachmentFiles(byte[] attachmentFiles) {
+		AttachmentFiles = attachmentFiles;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SIGNERID", referencedColumnName = "EMPID")
+	public Employee getSignerID() {
+		return SignerID;
+	}
+
+	public void setSignerID(Employee signerID) {
+		SignerID = signerID;
+	}
+
+	@Column(name = "SIGNINGPROGESS")
+	public String getSigningProgress() {
+		return SigningProgress;
+	}
+
+	public void setSigningProgress(String signingProgress) {
+		SigningProgress = signingProgress;
+	}
+	
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USERCOURSE", joinColumns = { @JoinColumn(name = "COURSEID") }, 
 	inverseJoinColumns = {@JoinColumn(name = "EMPLOYEEID") })
@@ -240,10 +276,5 @@ public class Course implements Serializable{
 	public void setMember(Set<Users> member) {
 		this.member = member;
 	}
-
-	
-
-	
-	
 
 }

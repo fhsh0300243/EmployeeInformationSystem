@@ -10,7 +10,7 @@
   <meta name="keywords" content="">
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
-<title>番茄科技 教育訓練</title>
+  <title>番茄科技 教育訓練</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
 	rel="stylesheet">
 <link
@@ -50,21 +50,17 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
-b{
-	font-size:20px;
-}
 </style>
 </head>
 <body>
-<br>
+	<br>
 	<div class="container-fluid">
 		<div class="row">
 
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>Hi, ${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -76,8 +72,9 @@ b{
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -85,101 +82,62 @@ b{
 
 						<div class="introduce_wrap mt60">
 
-
   <!-- header -->
   <div class="mark am-text-lg am-text-center">
     <span class="am-icon-chevron-left am-fl left-btn"></span>
-    目前培訓課程
+    培訓動態
     
   </div>
 
   <div class="basicInfo_wrap">
-    <!-- banner -->
-    <div class="am-container">
-      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" class="am-img-responsive" width=100% alt="培訓圖片"/>
+
+    <!-- title -->
+    <div class="am-cf">
+      <h6 class='am-text-center am-margin-top-sm am-margin-bottom-xs'>動態通知標題</h6>
+      <div class="am-text-sm am-text-center">發佈時間：2020/07/01</div>
     </div>
-    <!-- address -->
-    <div class="am-cf my_address">
-      <div class="am-text-sm am-fl col6">地點：本公司會議室A203</div>
-      <button class="am-btn am-round am-btn-xs am-btn-primary am-fr">地圖查看</button>
-    </div>
+    <hr/>
     <!-- 培訓訊息 -->
     <div class="am-container">
+      <div class="am-panel am-panel-default">
+        <div class="am-panel-bd col9">
+          <div class="am-container">
+            <p class='am-text-sm'>
+              這裡是內容 this is a test
+              <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" width='100%' alt=""/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+              這裡是內容 this is a test<br/>
+            </p>
 
-          <div class="am-panel am-panel-default">
-    		    <div class="am-panel-bd">
-
-    	          <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/07/01-2020/07/01</span></div>
-                <hr/>
-                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/07/01 PM13:45</span></div>
-              <hr/>
-                  <div class='am-text-sm'>上課時間：<span  class='col6'>PM14:00-17:00</span></div>
-              <hr/>
-    	          <div class='am-text-sm'>人數上限：<span  class='col6'>40人</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>培訓課程類別：<span  class='col6'>人資相關</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>培訓分類：<span  class='col6'>新進人員訓練</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>課程講師：<span  class='col6'>林老師</span></div>
-    		    </div>
-    		   </div>
-
-    		   <div class="am-panel am-panel-default">
-    		    <div class="am-panel-bd">
-    		     <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/07/02-2020/07/02</span></div>
-                <hr/>
-                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/07/02 PM13:45</span></div>
-              <hr/>
-                  <div class='am-text-sm'>上課時間：<span  class='col6'>PM14:00-17:00</span></div>
-              <hr/>
-    	          <div class='am-text-sm'>人數上限：<span  class='col6'>40人</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>培訓課程類別：<span  class='col6'>業務相關</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>培訓分類：<span  class='col6'>業務銷售技巧</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>課程講師：<span  class='col6'>王老師</span></div>
-    		    </div>
-    		   </div>
-
-    		   <div class="am-panel am-panel-default">
-            <div class="am-panel-bd">
-               <div class='am-text-sm'>培訓課程日期：<span class='col6'>2020/08/01-2020/08/01</span></div>
-                <hr/>
-                  <div class='am-text-sm'>報到時間：<span  class='col6'>2020/08/01 PM13:45</span></div>
-              <hr/>
-                  <div class='am-text-sm'>上課時間：<span  class='col6'>PM14:00-17:00</span></div>
-              <hr/>
-    	          <div class='am-text-sm'>人數上限：<span  class='col6'>40人</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>培訓課程類別：<span  class='col6'>專案相關</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>培訓分類：<span  class='col6'>專案時程管理</span></div>
-                <hr/>
-    	          <div class='am-text-sm'>課程講師：<span  class='col6'>張老師</span></div>
-            </div>
-           </div>
+          </div>
+        </div>
+        
+      </div>
       
     </div>
-    		    </div>
-					      </div>
-					    </div>
-					</div>
-				</div>
     </div>
-
-  </div>
-  
-</body>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+						
 <script src="js/amazeui.min.js"></script>
 
-<div class="CanNotRightDownDiv">
+            <div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>
-
-
-
+  
 			<script>
 				var depts;
 				$('#searchdept').empty();
@@ -284,6 +242,6 @@ b{
 							});
 						});
 			</script>
-</body>
 
+</body>
 </html>

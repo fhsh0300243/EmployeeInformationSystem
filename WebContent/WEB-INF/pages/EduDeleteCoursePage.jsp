@@ -50,9 +50,6 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
-b{
-	font-size:20px;
-}
 </style>
 </head>
 <body>
@@ -63,8 +60,7 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
+					<p>Hi, ${usersResultMap.UserName} 您好~
 					<p>歡迎登入番茄科技員工資訊系統
 				</div>
 
@@ -76,8 +72,8 @@ b{
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>

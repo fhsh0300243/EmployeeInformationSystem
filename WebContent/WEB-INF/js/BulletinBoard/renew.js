@@ -5,12 +5,12 @@ $(document).ready(function() {
 	var TestNum = 0;
 	
 	reflash();
-	setInterval(function () {reflash();}, 10000);
+	setInterval(function () {reflash();}, 5000);
 	
 	
 	function reflash() {
 		$.ajax({
-			url : "http://localhost:8080/EIS/reflash",
+			url : "http://localhost:8080/EmployeeInformationSystem/reflash",
 			type : "get",
 			dataType : "text",
 			cache : false,
@@ -23,11 +23,11 @@ $(document).ready(function() {
 					TestNum++;
 				}
 				if(oldNum<NewNum){
-					alert("有"+(NewNum-oldNum)+"個新訊息，請至布告欄查看");
+					alert("有"+(NewNum-oldNum)+"個新通告，請至布告欄查看");
 					oldNum=NewNum;
 				}
-				console.log("oldNum:" + oldNum);
-				console.log("NewNum:" + NewNum);
+//				console.log("oldNum:" + oldNum);
+//				console.log("NewNum:" + NewNum);
 				
 				
 			},

@@ -34,6 +34,17 @@ b {
 	font-size: 20px;
 }
 
+.text {
+	border: 1px solid #c5c5c5;
+	background: #f6f6f6;
+	width: 140px;
+	height: 32px;
+	border-radius: 3px;
+	font-size: 1em;
+	padding: .4em 1em;
+	margin-right: .1em;
+	vertical-align: middle;
+}
 /*.tb {
 	position: relative;
 	width: 70%;
@@ -69,16 +80,26 @@ b {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<form action="<c:url value='/HolidayAction'/>" method="post">
-							設定行事曆 : <SELECT NAME="action">
+						<form name="InqueryOtherCalendar"
+							action="<c:url value='/InqueryOtherCalendar'/>" method="post">
+							<input type="text" name="Year" class='text' placeholder="輸入西元年" />
+							<input type="button" value="查詢" onClick="checkYear()"
+								class="btn btn-info" />
+						</form>
+						<br>
+						<form name="HolidayAction"
+							action="<c:url value='/HolidayAction'/>" method="post">
+							<SELECT NAME="action" class='text'>
 								<OPTION VALUE="1">新增
 								<OPTION VALUE="2">修改
 							</SELECT> <input type="text" id="pickHoliday" name="date"
-								autocomplete="off"> <SELECT NAME="dateType">
+								autocomplete="off" class='text' placeholder="選擇日期"> <SELECT
+								NAME="dateType" class='text'>
 								<OPTION VALUE="國定假日">國定假日
 								<OPTION VALUE="補班">補班
-							</SELECT> <input type="text" name="remark" /> <input type="submit"
-								value="送出" class="btn btn-info" />
+							</SELECT> <input type="text" name="remark" class='text' placeholder="輸入備註" />
+							<input type="button" value="送出" onClick="checkAction()"
+								class="btn btn-info" />
 						</form>
 						<hr />
 						<form class="tb" action="<c:url value='/DeleteCalendar'/>"
@@ -120,6 +141,24 @@ b {
 		$(document).ready(function() {
 			$("#pickHoliday").datepicker();
 		})
+		function checkYear() {
+			var frm = document.forms["InqueryOtherCalendar"];
+			if (frm.Year.value == "") {
+				alert("請輸入西元年");
+			} else {
+				frm.submit();
+			}
+		}
+		function checkAction() {
+			var frm = document.forms["HolidayAction"];
+			if (frm.date.value == "") {
+				alert("請選擇日期");
+			} else if (frm.remark.value == "") {
+				alert("請輸入備註");
+			} else {
+				frm.submit();
+			}
+		}
 	</script>
-</html>
 </body>
+</html>

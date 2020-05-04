@@ -26,7 +26,7 @@ $(document).ready(function() {
 						+' <div id="dataForLook'+i+'" class="collapse" aria-labelledby="ForLook'+i+'" data-parent="#result">'													
 						+'<div class="card-body">'
 						+'<p>內容:</p>'
-						+'<div class="cardContext border w70 center">' + rs2[i].Context + '</div>'
+						+'<div class="border w70 center">' + rs2[i].Context + '</div>'
 						
 						if(rs2[i].AttachedFilesName == undefined){
 							str	+='<span>附件:</span><p>無</p>'												

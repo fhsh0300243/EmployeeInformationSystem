@@ -40,7 +40,7 @@ public class AttendanceDAO {
 		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		String today = nowdate.format(new Date());
-		String hqlstr = "from Attendance where EmpId=:EmployeeID and Date =:Date";
+		String hqlstr = "from Attendance where EmpId=:EmployeeID and Date =:Date order by Date";
 		Query<Attendance> query = getSession().createQuery(hqlstr, Attendance.class);
 		query.setParameter("EmployeeID", EmpId);
 		query.setParameter("Date", today);
@@ -49,7 +49,7 @@ public class AttendanceDAO {
 	}
 
 	public List<Attendance> InquiryAttendance(int EmpId, String month) {
-		String hqlstr = "from Attendance where EmpId=:id and Date like :Month";
+		String hqlstr = "from Attendance where EmpId=:id and Date like :Month order by Date";
 		Query<Attendance> query = getSession().createQuery(hqlstr, Attendance.class);
 		query.setParameter("id", EmpId);
 		query.setParameter("Month", month + "%");
@@ -81,7 +81,7 @@ public class AttendanceDAO {
 		query.setParameter("Employee", Emp);
 		query.executeUpdate();
 	}
-	
+
 	public void UpdateStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
 		String hqlstr = "Update Attendance SET StartTime=:Time where Date=:Date and EmpId=:Employee";
 		Query<?> query = getSession().createQuery(hqlstr);
@@ -103,7 +103,7 @@ public class AttendanceDAO {
 	public List<Attendance> InquiryAllToday(String todaystr) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		String hqlstr = "from Attendance where Date like:today";
+		String hqlstr = "from Attendance where Date like:today order by Date";
 		Query<Attendance> query = getSession().createQuery(hqlstr, Attendance.class);
 		query.setParameter("today", todaystr);
 		List<Attendance> AllToday = query.list();
@@ -181,5 +181,36 @@ public class AttendanceDAO {
 		getSession().getTransaction().commit();
 		getSession().close();
 		return countError;
+	}
+
+	public void DeleteTodayAttendance(java.sql.Date Date) {
+		String hqlstr = "Delete from Attendance where Date=:Date";
+		Query<?> query = getSession().createQuery(hqlstr);
+		query.setParameter("Date", Date);
+		query.executeUpdate();
+	}
+
+	public void UpdateOKAttemdance(Employee Emp, java.sql.Date Date) {
+		String hqlstr = "Update Attendance SET StartTime='08:00:00' ,EndTime='17:00:00' where Date=:Date and EmpId=:EmployeeID";
+		Query<?> query = getSession().createQuery(hqlstr);
+		query.setParameter("Date", Date);
+		query.setParameter("EmployeeID", Emp.getEmpID());
+		query.executeUpdate();
+	}
+
+	public void UpdateStartNGAttemdance(Employee Emp, java.sql.Date Date) {
+		String hqlstr = "Update Attendance SET StartTime='08:00:01' ,EndTime='17:00:00' where Date=:Date and EmpId=:EmployeeID";
+		Query<?> query = getSession().createQuery(hqlstr);
+		query.setParameter("Date", Date);
+		query.setParameter("EmployeeID", Emp.getEmpID());
+		query.executeUpdate();
+	}
+
+	public void UpdateEndNGAttemdance(Employee Emp, java.sql.Date Date) {
+		String hqlstr = "Update Attendance SET StartTime='08:00:00' ,EndTime='16:59:59' where Date=:Date and EmpId=:EmployeeID";
+		Query<?> query = getSession().createQuery(hqlstr);
+		query.setParameter("Date", Date);
+		query.setParameter("EmployeeID", Emp.getEmpID());
+		query.executeUpdate();
 	}
 }

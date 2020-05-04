@@ -28,10 +28,10 @@
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/handlebars.min.js"></script>
-<script src="/js/amazeui.widgets.helper.min.js"></script>
-<script src="/js/select2.full.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/amazeui.widgets.helper.min.js"></script>
+<script src="js/select2.full.min.js"></script>
 
 
 <style> 
@@ -155,52 +155,47 @@ b{
               </div>
   
               <div data-tab-panel-1 class="am-tab-panel ">
-                
-
               </div>
 
               <div data-tab-panel-2 class="am-tab-panel ">
-                
-
               </div>
 
               <div data-tab-panel-3 class="am-tab-panel ">
-                
-
               </div>
           </div>
       </div>
 
-  <!-- 拿掉原本的footer   
+  <!-- 拿掉原本的footer    
   <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default ">
     <ul class="am-navbar-nav am-cf am-avg-sm-4">
         <li >
           <a href="#" class="">
-                <span><img src="/images/mainNav (2).png" alt=""></span>
+                <span><img src="images/mainNav (2).png" alt=""></span>
               <span class="am-navbar-label">教育訓練主頁</span>
           </a>
         </li>
         <li>
           <a href="#" class="">
-                <span><img src="/images/mainNav (1).png" alt=""></span>
+                <span><img src="images/mainNav (1).png" alt=""></span>
               <span class="am-navbar-label">培訓</span>
           </a>
         </li>
         <li>
           <a href="#" class="">
-                <span><img src="/images/mainNav (4).png"  alt=""></span>
+                <span><img src="images/mainNav (4).png"  alt=""></span>
               <span class="am-navbar-label">資料</span>
           </a>
         </li>
         <li >
           <a href="#" class="">
-                <span><img src="/images/mainNav (3).png" alt=""></span>
+                <span><img src="images/mainNav (3).png" alt=""></span>
               <span class="am-navbar-label">我的</span>
           </a>
         </li>
     </ul>
   </div>
-   -->
+  -->
+  
 
 						    </div>
 					      </div>
@@ -212,7 +207,7 @@ b{
   
 </body>
 
-<script src="/js/amazeui.min.js"></script>
+<script src="js/amazeui.min.js"></script>
 <script>
    $("#sel02").select2({
       placeholder: 'Select an option',
@@ -351,7 +346,4 @@ b{
 						});
 			</script>
 </body>
-
-
-
 </html>

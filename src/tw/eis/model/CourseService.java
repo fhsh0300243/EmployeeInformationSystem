@@ -45,5 +45,10 @@ public class CourseService implements ICourseService {
 	public List<Course> queryCourseByAllow(int EmployeeID, String name) {
 		return courseDAO.queryCourseByAllow(EmployeeID, name);
 	}
+	
+	@Override
+	public byte[] queryAttachmentFiles(int CourseId) {
+		return courseDAO.queryAttachmentFiles(CourseId);
+	}
 
 }
