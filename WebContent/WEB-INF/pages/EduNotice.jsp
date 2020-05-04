@@ -31,6 +31,22 @@
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
 
+<script type="text/javascript" src="/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+    $("iframe").slideToggle();
+  });
+});
+
+</script>
+
+<script type="text/javascript">
+$("iframe").hide();
+
+</script>
+
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -39,6 +55,7 @@
 body {
 	font-family: 微軟正黑體;
 }
+
 
 p {
 	font-family: 'Noto Sans TC', sans-serif;
@@ -49,9 +66,44 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
+
 b{
 	font-size:20px;
 }
+
+/* iframe */
+#parent {
+  width: 200px;
+  height: 200px;
+  border:solid 1px #87ceeb;
+}
+
+iframe {
+  width:75%;
+  height:100%;
+  border:0px;
+  position:relative;
+  float:inherit;
+  display:none;
+}
+
+#parent {
+  opacity: 0.3;
+  position:relative;
+  float: right;
+  right:10px;
+  bottom:35px;
+  transition: 0.5s;
+}
+
+#parent {
+  opacity: 1;
+}  
+
+#demo{
+  display:;
+}
+
 </style>
 </head>
 <body>
@@ -91,51 +143,58 @@ b{
 
 <!-- header -->
   <div class="mark am-text-lg am-text-center">
-    <span class="am-icon-chevron-left am-fl left-btn"></span>
-    目前培訓名稱
+    <span class=""></span>
+    課程訊息通知
     
   </div>
 
   <div class="notice_wrap">
     <!-- banner -->
     <div class="am-container">
-      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" class="am-img-responsive" width=100% alt="培訓圖片"/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" class="am-img-responsive" width=100% alt=""/>
     </div>
     <!-- address -->
     <div class="am-cf my_address">
-      <div class="am-text-sm am-fl col6">地點：本公司會議室A203</div>
-      <button class="am-btn am-round am-btn-xs am-btn-primary am-fr">地圖查看</button>
-    </div>
+	<div class="am-text-sm am-fl col6">地點：中區訓練中心 會議室A203</div>
+							     
+	<div id="demo" style="visibility:;"> 
+	<iframe id="demo" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d394.6255503842566!2d120.65072081200775!3d24.15056066749464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d964fff6dc5%3A0x5d526ce61b5b9ca6!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A5YWs55uK6Lev5LqM5q61NTHomZ8!5e0!3m2!1szh-TW!2stw!4v1588560237251!5m2!1szh-TW!2stw" aria-hidden="flase" tabindex="0"></iframe>
+	</div>
+								
+	<div>
+	<button id="btn1" type="button" class="am-btn am-round am-btn-xs am-btn-primary am-fr col3">地圖查看</button>
+	</div>
+	</div>
     <!-- 培訓訊息 -->
     <div class="am-container">
 
            <div class="notice-list am-g">
               <div class="am-fl  am-u-sm-3">
-                <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="100%"/>
+                <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCWNRtSCuC4u_wA8qJzHVNbWuyazKuO_J13i4oOwYo5dr7X6wo&usqp=CAU" width="50%"/>
               </div>
               <div class="am-fl  am-u-sm-9">
                 <h6 class='am-text-sm'>培訓通知</h6>
-                <div class='am-text-sm col9'>這裡是通知訊息 this is a test</div>
+                <div class='am-text-sm col9'>新進人員職務說明與分析</div>
               </div>
             </div>
 
             <div class="notice-list am-g">
               <div class="am-fl  am-u-sm-3">
-                <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="100%"/>
+                <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCTQEEeGi_OKa3jlEOA7tZNRIcvgwcCiZG6TMEam09GvY4SyOx&usqp=CAU" width="50%"/>
               </div>
               <div class="am-fl  am-u-sm-9">
                 <h6 class='am-text-sm'>培訓通知</h6>
-                <div class='am-text-sm col9'>這裡是通知訊息 this is a test</div>
+                <div class='am-text-sm col9'>勞動契約過程之勞動條件</div>
               </div>
             </div>
 
             <div class="notice-list am-g">
               <div class="am-fl  am-u-sm-3">
-                <img class="am-radius" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/1000/h/1000/q/80" width="100%"/>
+                <img class="am-radius" src="https://cdn1.iconfinder.com/data/icons/engineering-vol-2/100/Engineering-02-512.png" width="50%"/>
               </div>
               <div class="am-fl  am-u-sm-9">
                 <h6 class='am-text-sm'>培訓通知</h6>
-                <div class='am-text-sm col9'>這裡是通知訊息 this is a test</div>
+                <div class='am-text-sm col9'>產品開發的效率化</div>
               </div>
             </div>
             </div>

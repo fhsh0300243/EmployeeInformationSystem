@@ -104,52 +104,92 @@ b{
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：新進人員職務說明與分析</div>
         <div class='am-text-sm'>課程類別：員工訓練<br/><span class='am-text-xs'>人資類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/07/01-2020/07/01</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/01-2020/06/01</span></div>
       </div>
       <div class="am-fr statusIcon">
         <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
+    <!-- list -->
     <div class="myTrain-list am-cf">
       <div class="am-fl titleIcon">
         <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCTQEEeGi_OKa3jlEOA7tZNRIcvgwcCiZG6TMEam09GvY4SyOx&usqp=CAU" width="80px"/>
       </div>
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：勞動契約過程之勞動條件</div>
-        <div class='am-text-sm'>課程類別：勞動法規<br/><span class='am-text-xs'>人資類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/07/02-2020/07/02</span></div>
+        <div class='am-text-sm'>課程類別：勞動法規與勞資爭議<br/><span class='am-text-xs'>人資類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/03-2020/06/03</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <img class="am-circle" src="images/baoming.png" width="50px"/>
+        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
+    <!-- list -->
+    <div class="myTrain-list am-cf">
+      <div class="am-fl titleIcon">
+        <img class="am-radius" src="https://cdn1.iconfinder.com/data/icons/engineering-vol-2/100/Engineering-02-512.png" width="85px"/>
+      </div>
+      <div class="am-fl content">
+        <div class='am-text-sm'>課程名稱：產品開發的效率化</div>
+        <div class='am-text-sm'>課程類別：產品研發相關<br/><span class='am-text-xs'>研發類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
+      </div>
+      <div class="am-fr statusIcon">
+        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      </div>
+    </div>
+    <!-- list -->
+    <div class="myTrain-list am-cf">
+      <div class="am-fl titleIcon">
+        <img class="am-radius" src="https://www.kindpng.com/picc/m/11-110595_qa-icon-software-quality-assurance-icon-hd-png.png" width="85px"/>
+      </div>
+      <div class="am-fl content">
+        <div class='am-text-sm'>課程名稱：軟體測試管理實務</div>
+        <div class='am-text-sm'>課程類別：軟體測試相關<br/><span class='am-text-xs'>測試類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
+      </div>
+      <div class="am-fr statusIcon">
+        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      </div>
+    </div>
+    <!-- list -->
     <div class="myTrain-list am-cf">
       <div class="am-fl titleIcon">
         <img class="am-radius" src="https://ya-webdesign.com/transparent250_/training-vector-12.png" width="80px"/>
       </div>
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：業務目標設定與管理辦法</div>
-        <div class='am-text-sm'>課程類別：業務目標<br/><span class='am-text-xs'>業務類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/08/01-2020/08/01</span></div>
+        <div class='am-text-sm'>課程類別：業務目標管理<br/><span class='am-text-xs'>業務類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/21-2020/06/21</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <img class="am-circle" src="images/baoming.png" width="50px"/>
+       <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      </div>
+    </div>
+    <!-- list -->
+    <div class="myTrain-list am-cf">
+      <div class="am-fl titleIcon">
+        <img class="am-radius" src="https://static.wixstatic.com/media/a3954d_84d3c899ff3e4e4e8fc18703ff758e02~mv2.png/v1/fill/w_200,h_200,al_c,q_85,usm_0.66_1.00_0.01/PM%20Icon.webp" width="80px"/>
+      </div>
+      <div class="am-fl content">
+        <div class='am-text-sm'>課程名稱：專案管理PMP企業內訓</div>
+        <div class='am-text-sm'>課程類別：專案管理<br/><span class='am-text-xs'>專案類</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/30-2020/06/30</span></div>
+      </div>
+      <div class="am-fr statusIcon">
+       <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
   </div>
-<<<<<<< HEAD
+
      </div>
     </div>
   </div>
      </div>
     </div>
-=======
+
   </div>
-  </div>
-  </div>
-  </div>
->>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
-  </div>
+ 
   
 
 <script src="js/amazeui.min.js"></script>

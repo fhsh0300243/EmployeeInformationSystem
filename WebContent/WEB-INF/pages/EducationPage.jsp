@@ -148,10 +148,10 @@ b{
 							</div>
 							<!-- address -->
 							<div class="am-cf my_address">
-								<div class="am-text-sm am-fl col6">地點：本公司會議室A203</div>
+								<div class="am-text-sm am-fl col6">地點：中區訓練中心 會議室A203</div>
 							     
 								<div id="demo" style="visibility:;"> 
-								<iframe id="demo" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d814.1923408317872!2d121.54316593617708!3d25.03396013748355!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abd379a5ec97%3A0xec12a62666a81e3d!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5b6p6IiI5Y2X6Lev5LiA5q61Mzkw6Jmf!5e0!3m2!1szh-TW!2stw!4v1588126267665!5m2!1szh-TW!2stw" aria-hidden="flase" tabindex="0"></iframe>
+								<iframe id="demo" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d394.6255503842566!2d120.65072081200775!3d24.15056066749464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d964fff6dc5%3A0x5d526ce61b5b9ca6!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A5YWs55uK6Lev5LqM5q61NTHomZ8!5e0!3m2!1szh-TW!2stw!4v1588560237251!5m2!1szh-TW!2stw" aria-hidden="flase" tabindex="0"></iframe>
 								</div>
 								
 								<div>
@@ -217,8 +217,19 @@ b{
 														    style="position:relative;float:left"
 															width='10%' alt="" /> 
 														新進人員可在最短時間了解公司經營理念與企業文化，縮短進入新環境之適應期，並加速工作無經驗者之學習曲線。
+														<br/>
+														<hr/>
+														1.新進人員職前訓練：新人入職三個月內安排新人教育訓練課程，訓練內容包含公司文化及組織介紹、作業系統說明、
+														品質政策及品質管理系統介紹。同時由用人單位主管安排完整的新人職前教育訓練計劃，以協助新進人員迅速瞭解企業文化、適應環境熟悉未來工作職掌。
+														<br/>
+														<hr/>
+														2.專業訓練：
+														經由主管或資深員工依自身經驗傳承、講授專業知識、技能之訓練，藉以強化員工專業知能、提升現有工作生產力與效率。
+														<br/>2-1.外部訓練：提供資源，開放有進修需求之員工至專業訓練機構受訓，藉以深化專業知識與技能。
+														<br/>同時，番茄科技鼓勵員工積極進行在職進修，以持續學習新知、提升自我競爭力。
+														<br/>2-2.證照派訓：依據法規要求，由職務專責人員參加專業證照訓練課程。
 														
-													</p>
+													<p>
 
 												</div>
 											</div>
@@ -277,7 +288,7 @@ b{
 														培訓課程類別：<span>人資相關(HR)</span>
 													</div>
 													<div class='am-text-sm'>
-														培訓分類：<span>勞動法規</span>
+														培訓分類：<span>勞動法規與勞資爭議</span>
 													</div>
 													<div class='am-text-sm'>
 														課程講師：<span>陳老師</span>

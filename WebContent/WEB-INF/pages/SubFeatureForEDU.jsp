@@ -27,10 +27,7 @@
 		<div class="title">個人專區</div>
 		
 			<div>
-				<a href="<c:url value="/EdumyTrain.do"/>">我的培訓課程</a>
-			</div>
-			<div>
-				<a href="<c:url value="/EduAddCoursePage.do"/>">新增課程</a>
+				<a href="<c:url value="/EdumyTrain.do"/>">參加培訓課程</a>
 			</div>
 			<div>
 				<a href="<c:url value="/EduBasicInfo.do"/>">查詢課程</a>
@@ -48,6 +45,10 @@
 		
 		<div id="man" style="display: none;">
 		        <div class="title">主管專區</div>
+		        
+		        <div>
+				<a href="<c:url value="/EduAddCoursePage.do"/>">新增課程</a>
+			    </div>
 
 				<div>
 					<a href="<c:url value="/EduUnsigned.do"/>">未簽核課程</a>

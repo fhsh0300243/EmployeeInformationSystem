@@ -87,20 +87,20 @@ b{
 
 							<!-- header -->
 							<div class="mark am-text-lg am-text-center"> 
-							<span class="am-icon-chevron-left am-fl left-btn"></span> 目前培訓課程名稱 
+							<span class=""></span> 課程滿意度評價 
 						</div>
 
 						<div class="commentPeixun_wrap mt60">
 							<!-- banner -->
 							<div class="am-container">
 								<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-									class="am-img-responsive" width=100% alt="培訓圖片" />
+									class="am-img-responsive" width=100% alt="" />
 							</div>
 							<!-- address -->
-							<div class="am-cf my_address">
+							<!-- <div class="am-cf my_address">
 								<div class="am-text-sm am-fl col6">地址：本公司會議室A203</div>
 								<button class="am-btn am-round am-btn-xs am-btn-primary am-fr">地圖查看</button>
-							</div>
+							</div> -->
 							<!-- 培訓訊息 -->
 							<div class="am-container">
 								<div>
@@ -117,12 +117,12 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class='am-icon-star am-text-success am-margin-right-sm'><i
-														class='am-text-success'>滿意：60%</i></span> <span
-														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
-														class='am-text-warning'>普通：30%</i></span> <span
-														class='am-icon-star-o am-text-danger'><i
-														class='am-text-danger'>不滿意：10%</i></span>
+														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：70%</i></span> <span
+														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：25%</i></span> <span
+														class=' am-text-danger'><i
+														class='am-text-danger'>不滿意：5%</i></span>
 												</div>
 											</div>
 										</div>
@@ -137,11 +137,11 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class='am-icon-star am-text-success am-margin-right-sm'><i
-														class='am-text-success'>滿意：60%</i></span> <span
-														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
-														class='am-text-warning'>普通：30%</i></span> <span
-														class='am-icon-star-o am-text-danger'><i
+														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：65%</i></span> <span
+														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：25%</i></span> <span
+														class=' am-text-danger'><i
 														class='am-text-danger'>不滿意：10%</i></span>
 												</div>
 											</div>
@@ -157,12 +157,12 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class='am-icon-star am-text-success am-margin-right-sm'><i
-														class='am-text-success'>滿意：60%</i></span> <span
-														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
-														class='am-text-warning'>普通：30%</i></span> <span
-														class='am-icon-star-o am-text-danger'><i
-														class='am-text-danger'>不滿意：10%</i></span>
+														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：75%</i></span> <span
+														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：20%</i></span> <span
+														class=' am-text-danger'><i
+														class='am-text-danger'>不滿意：5%</i></span>
 												</div>
 											</div>
 										</div>
@@ -178,11 +178,11 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class='am-icon-star am-text-success am-margin-right-sm'><i
-														class='am-text-success'>滿意：60%</i></span> <span
-														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
-														class='am-text-warning'>普通：30%</i></span> <span
-														class='am-icon-star-o am-text-danger'><i
+														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：68%</i></span> <span
+														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：22%</i></span> <span
+														class=' am-text-danger'><i
 														class='am-text-danger'>不滿意：10%</i></span>
 												</div>
 											</div>
@@ -198,12 +198,12 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class='am-icon-star am-text-success am-margin-right-sm'><i
-														class='am-text-success'>滿意：60%</i></span> <span
-														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
-														class='am-text-warning'>普通：30%</i></span> <span
-														class='am-icon-star-o am-text-danger'><i
-														class='am-text-danger'>不滿意：10%</i></span>
+														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：77%</i></span> <span
+														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：16%</i></span> <span
+														class=' am-text-danger'><i
+														class='am-text-danger'>不滿意：7%</i></span>
 												</div>
 											</div>
 										</div>
@@ -218,12 +218,12 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class='am-icon-star am-text-success am-margin-right-sm'><i
-														class='am-text-success'>滿意：60%</i></span> <span
-														class='am-icon-star-half-o am-text-warning am-margin-right-sm'><i
-														class='am-text-warning'>普通：30%</i></span> <span
-														class='am-icon-star-o am-text-danger'><i
-														class='am-text-danger'>不滿意：10%</i></span>
+														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success'>滿意：80%</i></span> <span
+														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning'>普通：15%</i></span> <span
+														class=' am-text-danger'><i
+														class='am-text-danger'>不滿意：5%</i></span>
 												</div>
 											</div>
 										</div>

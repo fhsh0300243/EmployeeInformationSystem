@@ -32,6 +32,23 @@
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
 
+<script type="text/javascript" src="/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+    $("iframe").slideToggle();
+  });
+});
+
+</script>
+
+<script type="text/javascript">
+$("iframe").hide();
+
+</script>
+
+
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -50,9 +67,45 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
+
 b{
 	font-size:20px;
 }
+
+/* iframe */
+#parent {
+  width: 200px;
+  height: 200px;
+  border:solid 1px #87ceeb;
+}
+
+iframe {
+  width:75%;
+  height:100%;
+  border:0px;
+  position:relative;
+  float:inherit;
+  display:none;
+}
+
+#parent {
+  opacity: 0.3;
+  position:relative;
+  float: right;
+  right:10px;
+  bottom:35px;
+  transition: 0.5s;
+}
+
+#parent {
+  opacity: 1;
+}  
+
+#demo{
+  display:;
+}
+
+
 </style>
 </head>
 <body>
@@ -88,7 +141,7 @@ b{
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class="am-icon-chevron-left am-fl left-btn"></span> 目前培訓課程名稱
+		<span class=""></span> 查詢課程
 
 	</div>
 
@@ -96,12 +149,19 @@ b{
 		<!-- banner -->
 		<div class="am-container">
 			<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-				class="am-img-responsive" width=100% alt="培訓圖片" />
+				class="am-img-responsive" width=100% alt="" />
 		</div>
 		<!-- address -->
 		<div class="am-cf my_address">
-			<div class="am-text-sm am-fl col6">地址：本公司會議室A203</div>
-			<button class="am-btn am-round am-btn-xs am-btn-primary am-fr">地圖查看</button>
+		<div class="am-text-sm am-fl col6">地點：中區訓練中心 會議室A203</div>
+							     
+		<div id="demo" style="visibility:;"> 
+	    <iframe id="demo" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d394.6255503842566!2d120.65072081200775!3d24.15056066749464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d964fff6dc5%3A0x5d526ce61b5b9ca6!2zNDA45Y-w5Lit5biC5Y2X5bGv5Y2A5YWs55uK6Lev5LqM5q61NTHomZ8!5e0!3m2!1szh-TW!2stw!4v1588560237251!5m2!1szh-TW!2stw" aria-hidden="flase" tabindex="0"></iframe>
+		</div>
+								
+		<div>
+		<button id="btn1" type="button" class="am-btn am-round am-btn-xs am-btn-primary am-fr col3">地圖查看</button>
+		</div>
 		</div>
 		<!-- 培訓訊息 -->
 		<div class="am-container">
@@ -109,7 +169,7 @@ b{
 				<div class="am-panel-hd">培訓訊息</div>
 				<div class="am-panel-bd col9">
 					<div class='am-text-sm'>
-						培訓課程日期：<span>2020/07/01-2020/07/01</span>
+						培訓課程日期：<span>2020/06/01-2020/06/01</span>
 					</div>
 					<div class='am-text-sm'>
 						報到時間：<span>PM13:45</span>
@@ -133,9 +193,9 @@ b{
 				<hr />
 				<div class="am-container">
 					<p class='am-text-sm'>
-						這裡是內容 this is a test <img
+						目前現有培訓課程 <img
 							src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-							width='100%' alt="" /> 這裡是內容 this is a test
+							width='100%' alt="" /> 
 					</p>
 
 				</div>
