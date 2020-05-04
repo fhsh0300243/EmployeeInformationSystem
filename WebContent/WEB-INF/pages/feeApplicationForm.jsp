@@ -146,12 +146,14 @@ b{
 										
 
 								</div>
+								<!-- 
 								<div class="st1">
 									<label class="ca1 " for="">統編:</label> <label><input
 										type="tel" name="editor" maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'') " >
 										<span class="mark1">${feemsgmap.invoiceNb}</span></label>
 
 								</div>
+								-->
 								<!--
 			<div class="st1">
 				<label for="" class="ca1">照片:</label> <input type="file" name="file1">
