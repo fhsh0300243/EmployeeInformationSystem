@@ -109,7 +109,11 @@ public class EduMainPageController {
 	@RequestMapping(path = "/LoginSuccess", method = RequestMethod.GET)
 	public String LoginSuccess() {
 		return "LoginSuccess";
+		
 	}
+	
+	
+	
 
 
 }

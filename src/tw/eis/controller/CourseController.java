@@ -91,7 +91,7 @@ public class CourseController {
 		inputmsg.put("Note", Note);
 		
 		
-		return "EduAddCoursePage";
+		return "EduAddCoursePage.do";
 	}
 
 	@RequestMapping(path = "/queryCourseRecords", method = RequestMethod.GET, produces = "html/text;charset=UTF-8")
@@ -196,19 +196,29 @@ public class CourseController {
 		return "true";
 	}
 
-	@RequestMapping(path = "/edudownload", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> EduDownload(HttpServletRequest request,
-			@RequestParam(value = "CourseId") String CourseId,
-			@RequestParam(value = "AttachmentFiles") String AttachmentFiles) {
-		byte[] file = CourseService.queryAttachmentFiles(Integer.parseInt(CourseId));
-		String path = request.getServletContext().getRealPath("/file/");
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDispositionFormData("AttachmentFiles", AttachmentFiles);
-		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-
-		return new ResponseEntity<byte[]>(file, headers, HttpStatus.OK);
-
-	}
+//	@RequestMapping(path = "/edudownload", method = RequestMethod.GET)
+//	public ResponseEntity<byte[]> EduDownload(HttpServletRequest request,
+//			@RequestParam(value = "CourseId") String CourseId,
+//			@RequestParam(value = "AttachmentFiles") String AttachmentFiles) {
+//		byte[] file = CourseService.queryAttachmentFiles(Integer.parseInt(CourseId));
+//		String path = request.getServletContext().getRealPath("/file/");
+//
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentDispositionFormData("AttachmentFiles", AttachmentFiles);
+//		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//
+//		return new ResponseEntity<byte[]>(file, headers, H ttpStatus.OK);
+//
+//	}
+	
+	@RequestMapping(path = "/signupCourse", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody 
+	public String signupCourse(@ModelAttribute(name = "LoginOK") Users loginOK,
+			@RequestParam(value = "EmployeeId") int employeeID,
+			@RequestParam(value = "CourseId") int CourseId) {
+	  
+	  
+	  return "true";
+	 }
 
 }

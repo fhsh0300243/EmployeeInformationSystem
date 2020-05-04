@@ -25,6 +25,7 @@
 	<mvc:resources location="/WEB-INF/images/"
 		mapping="/images/**" />
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
+	<mvc:resources location="/WEB-INF/files/" mapping="/files/**" />
 
 	<!-- 新增by GK Start存放本機端jq及bootstraps -->
 	<mvc:resources location="/WEB-INF/lib/" mapping="/lib/**" />

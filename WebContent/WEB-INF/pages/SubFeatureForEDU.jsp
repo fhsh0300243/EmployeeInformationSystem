@@ -35,9 +35,9 @@
 			<%-- <div>
 				<a href="<c:url value="/EduDeleteCoursePage.do"/>">刪除課程</a>
 			</div> --%>
-			<div>
+			<%-- <div>
 				<a href="<c:url value="/EduNotice.do"/>">課程訊息通知</a>
-			</div>
+			</div> --%>
 			<div>
 				<a href="<c:url value="/EduEmpComment.do"/>">課程滿意度評價</a>
 			</div>

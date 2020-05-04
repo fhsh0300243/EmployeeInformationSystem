@@ -160,12 +160,16 @@ b{
 							</div>
 							
 							<!-- 報名按鈕 -->
+							<div>
 							<div class="am-container am-margin-bottom-sm">
-								<button type="button"
-									class="am-btn am-btn-primary am-btn-block baoming">點我報名</button>
+								<!-- <button type="button"
+									class="am-btn am-btn-primary am-btn-block baoming">點我報名</button> -->
+									<button type="button"
+									class="am-btn am-btn-primary am-btn-block baoming" onclick="location.href='http://localhost:8080/EmployeeInformationSystem/EdumyTrain.do'" style="color:white;">點我報名</button>
 								<button type="button"
 									class="am-btn am-btn-warning am-btn-block baoming am-margin-top-0"
 									style='display: none'>取消報名</button>
+							</div>
 							</div>
 							<!-- tabs -->
 							<div data-am-widget="tabs"
@@ -187,13 +191,13 @@ b{
 												<div class="am-panel-hd">培訓訊息</div>
 												<div class="am-panel-bd col9">
 													<div class='am-text-sm'>
-														報到時間：<span>2020/06/01 PM13:45</span>
+														報到時間：<span>2020/05/11 07:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>08:00-17:00</span>
 													</div>
 													<div class='am-text-sm'>
-														培訓課程日期：<span>2020/06/01-2020/06/01</span>
+														培訓課程日期：<span>2020/05/11-2020/05/12</span>
 													</div>
 													<div class='am-text-sm'>
 														人數上限：<span>40人</span>
@@ -244,13 +248,13 @@ b{
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 													<div class='am-text-sm'>
-														培訓課程日期：<span>2020/06/01-2020/06/01</span>
+														培訓課程日期：<span>2020/05/11-2020/05/12</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM13:45</span>
+														報到時間：<span>07:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>08:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -275,10 +279,10 @@ b{
 														培訓課程日期：<span>2020/06/03-2020/06/03</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM13:45</span>
+														報到時間：<span>13:45</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>14:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -304,10 +308,10 @@ b{
 														培訓課程日期：<span>2020/06/10-2020/06/10</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>AM08:45</span>
+														報到時間：<span>08:45</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>AM09:00-12:00</span>
+														上課時間：<span>09:00-12:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -333,10 +337,10 @@ b{
 														培訓課程日期：<span>2020/06/15-2020/06/16</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM14:50</span>
+														報到時間：<span>14:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM15:00-17:00</span>
+														上課時間：<span>15:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -361,10 +365,10 @@ b{
 														培訓課程日期：<span>2020/06/21-2020/06/21</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM13:50</span>
+														報到時間：<span>13:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>14:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -388,10 +392,10 @@ b{
 														培訓課程日期：<span>2020/06/30-2020/06/30</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>AM09:50</span>
+														報到時間：<span>09:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>AM10:00-12:00</span>
+														上課時間：<span>10:00-12:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -426,7 +430,7 @@ b{
 														課程名稱：<span>新進人員職務說明與分析</span>
 													</div>
 													<div class='am-text-sm'>
-														教材大綱電子檔下載：<span><a href="#">下載</a></span>
+														教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/newEmployeeInfo.pdf">下載</a></span>
 													</div>
 												</div>
 											</div>
@@ -441,7 +445,7 @@ b{
 															課程名稱：<span>勞動契約過程之勞動條件</span>
 														</div>
 														<div class='am-text-sm'>
-															教材大綱電子檔下載：<span><a href="#">下載</a></span>
+															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/newfile_law.pdf">下載</a></span>
 														</div>
 													</div>
 												</div>
@@ -455,7 +459,7 @@ b{
 															課程名稱：<span>產品開發的效率化和日常管理</span>
 														</div>
 														<div class='am-text-sm'>
-															教材大綱電子檔下載：<span><a href="#">下載</a></span>
+															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/develop_product.pdf">下載</a></span>
 														</div>
 													</div>
 												</div>
@@ -468,7 +472,7 @@ b{
 															課程名稱：<span>業務開發能力與邏輯銷售流程</span>
 														</div>
 														<div class='am-text-sm'>
-															教材大綱電子檔下載：<span><a href="#">下載</a></span>
+															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/sales.pdf">下載</a></span>
 														</div>
 													</div>
 												</div>
@@ -480,7 +484,7 @@ b{
 																課程名稱：<span>專案管理PMP企業內訓</span>
 															</div>
 															<div class='am-text-sm'>
-																教材大綱電子檔下載：<span><a href="#">下載</a></span>
+																教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/productManagement.pdf">下載</a></span>
 															</div>
 														</div>
 													</div>

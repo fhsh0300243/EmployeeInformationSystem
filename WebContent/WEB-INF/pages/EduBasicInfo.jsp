@@ -129,8 +129,8 @@ iframe {
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div class="am-text-lg am-text-center"></div>
@@ -166,16 +166,16 @@ iframe {
 		<!-- 培訓訊息 -->
 		<div class="am-container">
 			<div class="am-panel am-panel-primary">
-				<div class="am-panel-hd">培訓訊息</div>
+				<div class="am-panel-hd">培訓課程</div>
 				<div class="am-panel-bd col9">
 					<div class='am-text-sm'>
-						培訓課程日期：<span>2020/06/01-2020/06/01</span>
+						培訓課程日期：<span>2020/05/11-2020/05/12</span>
 					</div>
 					<div class='am-text-sm'>
-						報到時間：<span>PM13:45</span>
+						報到時間：<span>07:50</span>
 					</div>
 					<div class='am-text-sm'>
-						上課時間：<span>PM14:00-17:00</span>
+						上課時間：<span>08:00-17:00</span>
 					</div>
 					<div class='am-text-sm'>
 						人數上限：<span>40人</span>
@@ -193,9 +193,9 @@ iframe {
 				<hr />
 				<div class="am-container">
 					<p class='am-text-sm'>
-						目前現有培訓課程 <img
-							src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-							width='100%' alt="" /> 
+						 <img
+							src="https://png.pngtree.com/svg/20170630/home_course_598781.png"
+							width='3%' alt=""/>&nbsp;目前現有培訓課程 
 					</p>
 
 				</div>

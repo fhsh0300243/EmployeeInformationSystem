@@ -32,6 +32,14 @@
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
 
+<script>
+function myFunction() {
+  alert("報名成功！！\n\r祝您上課愉快");
+}
+</script>
+
+
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -50,9 +58,12 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
+
 b{
 	font-size:20px;
 }
+
+
 </style>
 </head>
 <body>
@@ -104,10 +115,10 @@ b{
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：新進人員職務說明與分析</div>
         <div class='am-text-sm'>課程類別：員工訓練<br/><span class='am-text-xs'>人資類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/01-2020/06/01</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/05/11-2020/05/12</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -121,7 +132,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/03-2020/06/03</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -135,7 +146,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -146,10 +157,10 @@ b{
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：軟體測試管理實務</div>
         <div class='am-text-sm'>課程類別：軟體測試相關<br/><span class='am-text-xs'>測試類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/15-2020/06/16</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -163,7 +174,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/21-2020/06/21</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+       <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -177,7 +188,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/30-2020/06/30</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+       <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
   </div>
