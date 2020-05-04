@@ -103,6 +103,14 @@ public class AssignWorkDAO {
 		j = jay;
 		return j;
 	}
+	public void setworkstatus0(Model m,int awid) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "From AssignWork Where awID =: awid";
+		Query<AssignWork> query = session.createQuery(hqlstr,AssignWork.class);
+		AssignWork aw = query.setParameter("awid", awid).uniqueResult();
+		aw.setWorkStatus(0);
+		session.save(aw);
+	}
 	public void setworkstatus1(Model m,int awid) {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "From AssignWork Where awID =: awid";

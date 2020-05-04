@@ -28,6 +28,10 @@ public class WorkProject {
 	public WorkProject() {
 		
 	}
+	public WorkProject(int deptid,String pqt) {
+		this.deptID=deptid;
+		this.PersonalQuarterlyTarget=pqt;
+	}
 	public WorkProject(int deptid,String pqt,String work) {
 		this.deptID = deptid;
 		this.PersonalQuarterlyTarget = pqt;

@@ -19,6 +19,11 @@
 <link rel="stylesheet" type="text/css" href="css/mainCSS.css">
 <link rel="icon" href="images/favicon.ico">
 <style type="text/css">
+#dag{
+width:100%;
+margin-bottom: 15px;
+
+}
 #title {
 	width: 80%
 }
@@ -27,7 +32,9 @@ table {
 	float: left;
 	margin-right: 15px;
 }
-
+.tr{
+width:200px;
+}
 p {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-size: 18px;
@@ -76,13 +83,13 @@ b{
 					<div class="panel-body">
 
 						<div>
-							<input type="button" value=${ dag}>
+							<input type="button" id="dag" value=${ dag}>
 						</div>
 						<div id="main"></div>
 						<span>
 							<table border="1" id="t">
 								<tr>
-									<td><a href="InsertPQT"><input type="button" value="+"></a>
+									<td><input type="button" id="plus" value="+">
 							</table>
 						</span>
 						<div class="list_footer">
@@ -99,17 +106,20 @@ b{
 	</div>
 
 	<script>
+	
 		$.getJSON("managertable",function(member) {
 	var txt="";
+
 							for (let i = 0; i < member.length; i++) {
+							
 								txt += "<table border=\"1\" id=\"t\">";
-								txt += "<tr><th><a href=\"ChangePQT?pid="
-										+ member[i][0].pID
-										+ "&time="
-										+ member[i][0].time
-										+ "&worksetter="
-										+ member[i][0].worksetter
-										+ "\"><input type=\"button\" value="+ member[i][0].PersonalQuarterlyTarget+">";
+								txt += "<tr><th><input type=\"button\" url=\"ChangePQT?pid="
+									+ member[i][0].pID
+									+ "&time="
+									+ member[i][0].time
+									+ "&worksetter="
+									+ member[i][0].worksetter
+									+ "\" class=\"tr\" value="+ member[i][0].PersonalQuarterlyTarget+">";
 								for (let j = 0; j < member[i].length; j++) {
 									txt += "<tr><td>" + member[i][j].Work;
 									console.log(member[i][j].Work);
@@ -118,6 +128,22 @@ b{
 								$("#main").html(txt);
 							}
 						})
+						
+		$(document).on("click",".tr",function(event){
+			var url =  $(event.target).attr("url");
+			window.open(url,"_blank","toolbar=yes, location=yes, directories=no,status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400")
+			 if(url.close == True){
+				 self.location.reload();
+			 }
+			
+		});
+		$(document).on("click","#plus",function(event){
+			var url = "InsertPQT";
+			window.open(url,"_blank","toolbar=yes, location=yes, directories=no,status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400")
+			 if(url.close == True){
+				 self.location.reload();
+		}
+		});
 	</script>
 </body>
 </html>

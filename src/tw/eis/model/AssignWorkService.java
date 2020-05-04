@@ -20,6 +20,9 @@ public void ChangeAssignWork(int empid, int wid,int cwid,String work) {
 public JSONArray engworklist(int empid) {
 	return awDao.engworklist(empid);
 }
+public void setworkstatus0(Model m,int awid) {
+	awDao.setworkstatus0(m, awid);
+}
 public void setworkstatus1(Model m,int awid) {
 	awDao.setworkstatus1(m, awid);
 }

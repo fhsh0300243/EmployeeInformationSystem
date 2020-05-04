@@ -22,6 +22,10 @@
 table {
 	float: left;
 	margin-right: 15px;
+	border: 2px solid #CCC;
+	width:150px;
+	height:200px;
+	text-align: center;
 }
 
 .work {
@@ -41,7 +45,7 @@ table {
 }
 
 #employee {
-	weight: 20px;
+	width: 200px;
 	height: 500px;
 	border: 2px solid #ccc;
 	float: right;
@@ -59,8 +63,13 @@ li.emul, li.chemul {
 li.wkli {
 	list-style-type: none;
 	margin: 10px;
-	border: 1px solid #ccc;
+	border: 3px solid #ccc;
 	color: #666;
+	width:180px;
+	height:30px;
+	font-size:15px;
+	font-weight:bold;
+	text-align:center;
 }
 
 li.emul:hover {
@@ -85,7 +94,12 @@ p {
 	left: 20%;
 	width: 82%;
 }
-
+.wkul{
+padding:0px;
+}
+.taul{
+padding:0px;
+}
 b {
 	font-size: 20px;
 }

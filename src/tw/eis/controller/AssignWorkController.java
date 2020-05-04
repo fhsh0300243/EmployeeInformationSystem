@@ -41,7 +41,9 @@ public String Engworklist(Model m,@ModelAttribute(name="LoginOK") Users u) {
 }
 @RequestMapping(path = "/workstatus",method = RequestMethod.POST)
 public String workstatus(Model m,@RequestParam(value="awid")int awid,@RequestParam(value="wkstatus")int wkstatus) {
-	if(wkstatus == 1) {
+	 if(wkstatus == 0) {
+		awService.setworkstatus0(m, awid);
+	}else if(wkstatus == 1) {
 		awService.setworkstatus1(m, awid);
 	}else if(wkstatus ==2) {
 		awService.setworkstatus2(m, awid);

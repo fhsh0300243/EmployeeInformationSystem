@@ -66,7 +66,7 @@ public ManagerController(PersonalQuarterlyTargetService pqtService) {
 		d.setPersonalQuarterlyTargets(pset);
 		pqtService.InsertPQT(d,p, m);
 		Set<WorkProject> wset = new HashSet<WorkProject>();
-		WorkProject w = new WorkProject(deptid,pqt,"         ");
+		WorkProject w = new WorkProject(deptid,pqt,"請點擊輸入第一份工作");
 		wset.add(w);
 		w.setPersonalQuarterlyTargets(p);
 		p.setWorkProjects(wset);
