@@ -71,14 +71,15 @@
 				<div class="modal-header"
 					style="background: #f6b33d -moz-linear-gradient(center top, #f6b33d 5%, #d29105 100%) repeat scroll 0 0;">
 					<a class="close" data-dismiss="modal">×</a>
-					<h3>登入提醒</h3>
+					<h3>番茄精靈的每日提醒</h3>
 				</div>
 				<div class="modal-body">
 					<p id="maintext"></p>
+					<p id="feetext"></p>
 					<p id="querysucess"></p>
 					<p id="modaltext"></p>
-					<p id="feetext"></p>
 					<p id="bullboardtext"></p>
+					<p id="Applytext"></p>
 					<p id="queryNewApply"></p>
 					<p id="querysucessApplyForLeave"></p>
 				</div>
@@ -102,6 +103,8 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src='<c:url value="/js/littleRemind.js"></c:url>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/js/BulletinBoard/renew.js"></c:url>'></script>
 
 </body>
 </html>

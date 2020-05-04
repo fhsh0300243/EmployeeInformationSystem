@@ -8,7 +8,22 @@ $(document).ready(
 					
 					console.log(path);
 					$("#tttttt").click(function() {
-						alert("$('#file').val():" + $('#file').val())
+						var tit = '人資公告：歡迎小明加入番茄大家庭';
+						var cont = '<span></span><font size="4">歡迎小明加入<span>番茄科技，成為番茄科技的一分子!!!!</span></font><br>';
+								
+								
+							$("#title").val(tit);
+							$("#editor").htmlcode(cont);
+							$("#uptime").val('2020-05-08');
+							$("#downtime").val('2020-05-09');
+							
+							$("#HR").prop("checked", true);
+							$("#RD").prop("checked", true);
+							$("#Test").prop("checked", true);
+							$("#Sales").prop("checked", true);
+							$("#PM").prop("checked", true);
+						
+						
 					})
 					
 					$("input[type='radio']").click(function() {
@@ -66,7 +81,7 @@ $(document).ready(
 												+' <div id="dataRecord'+i+'" class="collapse" aria-labelledby="Record'+i+'" data-parent="#result">'													
 												+'<div class="card-body">'
 												+'<p>內容:</p>'
-												+'<div class="cardContext border w70 center">' + rs2[i].Context + '</div>'
+												+'<div class="border w70 center">' + rs2[i].Context + '</div>'
 												+'<div class="row w70 center">'
 												+'<div class="col border"><p>上線日期:</p><div>' + rs2[i].upTime + '</div></div>'
 												+'<div class="col border"><p>下架日期:</p><div>' + rs2[i].downTime + '</div></div>'
