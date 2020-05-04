@@ -122,9 +122,9 @@ public class PersonalQuarterlyTargetDAO {
 	}
 
 	// add by 揚明---start
-	public List<PersonalQuarterlyTarget> thisSeasonDeptPsersonTargetDetail(int deptid) {
+	public List<PersonalQuarterlyTarget> thisSeasonDeptPsersonTargetDetail(String deptabb) {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(PersonalQuarterlyTarget.class);
-		mainQuery.add(Property.forName("department.deptID").eq(deptid));
+		mainQuery.add(Property.forName("deptName").eq(deptabb));
 		List<PersonalQuarterlyTarget> detail = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession())
 				.list();
 		detail = mainQuery.getExecutableCriteria(sessionFactory.getCurrentSession()).list();

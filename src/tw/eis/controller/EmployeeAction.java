@@ -717,7 +717,7 @@ public class EmployeeAction {
 			JSONArray jsonarray = new JSONArray();
 			for (DepartmentalAnnualGoals dag : dagService.thisYearAllDeptGoals()) {
 				JSONObject jsonobject = new JSONObject();
-				//jsonobject.put("deptID", dag.getDepartment().getDeptID());
+				jsonobject.put("deptID", dag.getDeptID());
 				jsonobject.put("deptname", dag.getDeptName());
 				jsonobject.put("goal", dag.getDepartmentAnnualGoal());
 				jsonobject.put("setupdate", GlobalService.formatToyyyyMMdd(dag.getDate()));
@@ -734,7 +734,7 @@ public class EmployeeAction {
 	public @ResponseBody String deptPersonTargetDetail(@RequestParam(name = "deptid", required = false) String deptid) {
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for (PersonalQuarterlyTarget pqt : pqtService.thisSeasonDeptPsersonTargetDetail(Integer.parseInt(deptid))) {
+			for (PersonalQuarterlyTarget pqt : pqtService.thisSeasonDeptPsersonTargetDetail(dService.deptData(Integer.parseInt(deptid)).getDeptAbb())) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("pID", pqt.getPid());
 				jsonobject.put("deptname", pqt.getDeptName());
@@ -863,9 +863,21 @@ public class EmployeeAction {
 				} else {
 					jsonobject.put("department", ((Attendance) att).getEmployee().getDepartment());
 				}
-				jsonobject.put("date", ((Attendance) att).getDate());
-				jsonobject.put("starttime", ((Attendance) att).getStartTime());
-				jsonobject.put("endtime", ((Attendance) att).getEndTime());
+				if(((Attendance) att).getDate()==null) {
+					jsonobject.put("date", "--");
+				}else {
+					jsonobject.put("date", ((Attendance) att).getDate());
+				}
+				if(((Attendance) att).getStartTime()==null) {
+					jsonobject.put("starttime", "--");
+				}else {
+					jsonobject.put("starttime", ((Attendance) att).getStartTime());
+				}
+				if(((Attendance) att).getEndTime()==null) {
+					jsonobject.put("endtime", "--");
+				}else {
+					jsonobject.put("endtime", ((Attendance) att).getEndTime());
+				}			
 				jsonobject.put("status", ((Attendance) att).getStatus());
 				jsonarray.put(jsonobject);
 			}
