@@ -56,8 +56,8 @@ public class PersonalQuarterlyTargetService {
 	}
 		
 	//add by 揚明---start
-	public List<PersonalQuarterlyTarget> thisSeasonDeptPsersonTargetDetail(int deptid){
-		return pqtDao.thisSeasonDeptPsersonTargetDetail(deptid);
+	public List<PersonalQuarterlyTarget> thisSeasonDeptPsersonTargetDetail(String deptabb){
+		return pqtDao.thisSeasonDeptPsersonTargetDetail(deptabb);
 	}
 	public LinkedList<String> deptGoalAchievementRate(LinkedList<Integer> pids) {
 		return pqtDao.deptGoalAchievementRate(pids);
