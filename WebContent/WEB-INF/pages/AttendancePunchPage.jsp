@@ -42,7 +42,7 @@ p {
 	width: 480px;
 	text-align: center;
 	position: relative;
-	left: 33.3%;
+	left: 29%;
 }
 
 b {
