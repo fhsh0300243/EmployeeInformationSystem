@@ -211,7 +211,7 @@ p {
 												<button type="submit" id="insertData"
 													class="my-2 btn btn-secondary">送出</button>
 												<button type="button" id="tttttt"
-													class="my-2 btn btn-secondary">測試</button>
+													class="my-2 btn btn-secondary">demo</button>
 												<button type="reset" id="clear"
 													class="my-2 btn btn-secondary">清除</button>
 											</section>
@@ -249,9 +249,9 @@ p {
 		src='<c:url value="/js/BulletinBoard/index.js"></c:url>'></script>
 	<script type="text/javascript"
 		src='<c:url value="/js/BulletinBoard/wysibb/jquery.wysibb.js"></c:url>'></script>
-	<!-- <script type="text/javascript"
+	<script type="text/javascript"
 		src='<c:url value="/js/BulletinBoard/renew.js"></c:url>'></script>
- -->
+
 	<script>
 		$(document)
 				.ready(

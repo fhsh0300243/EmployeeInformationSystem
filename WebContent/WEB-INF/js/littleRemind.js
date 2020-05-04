@@ -24,7 +24,7 @@ $(document)
 										
 											if (oldDate == null) {
 												console.log();
-												$("#maintext").html("安安，新人");
+												$("#maintext").html("你是第一次登入對吧~歡迎來到番茄科技");
 												querybullboard();
 												$('#myModal').modal();
 											} else {
@@ -33,7 +33,7 @@ $(document)
 												
 //												if (((newDate - oldDate) / (1000 * 86400)) > 1) {
 												query();
-												querybullboard();
+//												querybullboard();
 												querysucess(oldDate,newDate);
 												querysucessApplyForLeave(oldDate,newDate);
 												queryNewApply();
@@ -42,16 +42,22 @@ $(document)
 												console.log("num2:"+num2);
 												console.log("num3:"+num3);
 												console.log("num4:"+num4);
-												console.log("num5:"+num5);
+//												console.log("num5:"+num5);
 												
-												if((num1+num2+num3+num4+num5)==0){
-													$("#maintext").html("沒有新消息!");
+												if((num1+num2+num3+num4)==0){
+													$("#maintext").html("在你昨天下班之後~沒有新消息!");
+												}else if(num1+num2!=0){
+													$("#maintext").html("在你昨天下班之後~");
+													$("#feetext").html("差旅費部分:");
+												}else if(num3+num4!=0){
+													$("#maintext").html("在你昨天下班之後~");
+													$("#feetext").html("請假申請部分:");
 												}
 												
 												
 												$('#myModal').modal();
-//												}
-											}
+												}
+//											}
 									},
 									error : function(rs) {
 										console.log("error");
@@ -72,7 +78,7 @@ $(document)
 										if (Num != 0) {
 											$("#modaltext")
 													.html(
-															"有"+ Num+ "個下屬的差旅費申請尚未被簽核!");
+															"有"+ Num+ "個下屬新申請的差旅費申請尚未被簽核!");
 										}
 										num1=Num;
 									},
@@ -121,7 +127,7 @@ $(document)
 								console.log("sucess");
 								var Num = parseInt(rs);
 								if (Num != 0) {
-									$("#queryNewApply").html("有"+ Num+ "個下屬的請假申請尚未被簽核!");		}
+									$("#queryNewApply").html("有"+ Num+ "個下屬新申請的請假申請尚未被簽核!");		}
 								num3=Num;
 								
 							},
@@ -168,30 +174,30 @@ $(document)
 					
 					
 
-					function querybullboard() {
-						$
-								.ajax({
-									url : "http://localhost:8080/EmployeeInformationSystem/reflash",
-									type : "get",
-									dataType : "text",
-									cache : false,
-									async : false,
-									success : function(rs) {
-										var Num = parseInt(rs);
-										if (Num != 0) {
-											$("#bullboardtext").html(
-													"有" + Num + "個新的布告欄通知!");
-										}
-										console.log("Num3"+Num)
-										num5=Num;
-										console.log("num3"+num3)
-										
-									},
-									error : function(rs) {
-										console.log("reflash error");
-									}
-
-								})
-					}
+//					function querybullboard() {
+//						$
+//								.ajax({
+//									url : "http://localhost:8080/EmployeeInformationSystem/reflash",
+//									type : "get",
+//									dataType : "text",
+//									cache : false,
+//									async : false,
+//									success : function(rs) {
+//										var Num = parseInt(rs);
+//										if (Num != 0) {
+//											$("#bullboardtext").html(
+//													"有" + Num + "個新的布告欄通知!");
+//										}
+//										console.log("Num3"+Num)
+//										num5=Num;
+//										console.log("num3"+num3)
+//										
+//									},
+//									error : function(rs) {
+//										console.log("reflash error");
+//									}
+//
+//								})
+//					}
 
 				})
