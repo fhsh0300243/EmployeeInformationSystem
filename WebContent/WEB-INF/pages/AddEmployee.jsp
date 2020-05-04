@@ -404,7 +404,7 @@ b {
 
 		function onefinger(){
 				$("#account1").attr("value", "EEIT11219");
-				$("#name1").attr("value", "王大明");
+				$("#name1").attr("value", "王小明");
 				$("#m1").attr("checked", "check");
 				$("#birth").attr("value", "1990-05-01");
 				//$("#dept").val('RD');
@@ -413,7 +413,7 @@ b {
 				$("#exnum").attr("value", "8710");
 				$("#phonenum").attr("value", "0987321456");
 				$("#address").attr("value", "台北市大安區復興南路一段390號2樓");
-				$("#email").attr("value", "eis_daming@gmail.com,tw");
+				$("#email").attr("value", "eis_shaouming@gmail.com.tw");
 				$("#hireDay").attr("value", "2020-05-08");		
 			}
 	</script>
