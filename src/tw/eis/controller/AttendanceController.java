@@ -137,7 +137,7 @@ public class AttendanceController {
 			String ip = localIp.getHostAddress();
 			System.out.println("IP:" + ip);
 
-			if (ip.equals("192.168.1.127") || ip.equals("192.168.137.1") || ip.equals("192.168.27.143")) {
+			if (ip.equals("192.168.1.127") || ip.equals("192.168.137.1") || ip.equals("192.168.27.143")||ip.equals("192.168.24.69")) {
 				SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 				SimpleDateFormat nowtime = new SimpleDateFormat("HH:mm:ss");
 				nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
