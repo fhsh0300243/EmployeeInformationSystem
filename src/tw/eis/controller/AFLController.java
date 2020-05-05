@@ -75,41 +75,41 @@ public class AFLController {
 
 		// 開始時間、結束時間-判斷是否為休假日、國定假日
 		String strError = "";
-		Calendar aCalendar = Calendar.getInstance();
-		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
-		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
-
-		aCalendar.setTime(startDate);
-		int sDate = aCalendar.get(Calendar.DAY_OF_WEEK);
-		List<HolidayCalendar> hcsBean = hcService.queryCalendarByDate(startD);
-
-		if (hcsBean.size() != 0) {
-			if (hcsBean.get(0).getDateType().equals("國定假日")) {
-				strError += startD + "為國定假日。";
-			}
-		} else {
-			if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
-				strError += startD + "為休假日。";
-			}
-		}
-
-		// 開始時間、結束時間-不同日期再判斷，結束時間是否為休假日、國定假日
-		if (!startDate.equals(endDate)) {
-
-			aCalendar.setTime(endDate);
-			int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
-			List<HolidayCalendar> hceBean = hcService.queryCalendarByDate(endD);
-
-			if (hceBean.size() != 0) {
-				if (hceBean.get(0).getDateType().equals("國定假日")) {
-					strError += endD + "為國定假日。";
-				}
-			} else {
-				if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
-					strError += endD + "為休假日。";
-				}
-			}
-		}
+//		Calendar aCalendar = Calendar.getInstance();
+//		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+//		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+//
+//		aCalendar.setTime(startDate);
+//		int sDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+//		List<HolidayCalendar> hcsBean = hcService.queryCalendarByDate(startD);
+//
+//		if (hcsBean.size() != 0) {
+//			if (hcsBean.get(0).getDateType().equals("國定假日")) {
+//				strError += startD + "為國定假日。";
+//			}
+//		} else {
+//			if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
+//				strError += startD + "為休假日。";
+//			}
+//		}
+//
+//		// 開始時間、結束時間-不同日期再判斷，結束時間是否為休假日、國定假日
+//		if (!startDate.equals(endDate)) {
+//
+//			aCalendar.setTime(endDate);
+//			int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+//			List<HolidayCalendar> hceBean = hcService.queryCalendarByDate(endD);
+//
+//			if (hceBean.size() != 0) {
+//				if (hceBean.get(0).getDateType().equals("國定假日")) {
+//					strError += endD + "為國定假日。";
+//				}
+//			} else {
+//				if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
+//					strError += endD + "為休假日。";
+//				}
+//			}
+//		}
 
 		// 開始時間、結束時間-格式化輸入的時間 (HH可顯示為12:00，hh會轉成00:00)
 		Date sTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startD + " " + startH + ":" + startM);
@@ -136,8 +136,6 @@ public class AFLController {
 			ApplyForLeave aBean = new ApplyForLeave();
 
 			// 取得現在的時刻設定為建立時間
-//			long cDate = new Date().getTime();
-//			Timestamp createTime = new Timestamp(cDate);
 			Date cTime = new Date();
 			String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cTime);
 			aBean.setCreateTime(createTime);
@@ -327,51 +325,93 @@ public class AFLController {
 
 		JSONArray json = new JSONArray();
 		JSONObject object = new JSONObject();
-		BigDecimal sumH = countReallySumHours(startD, startH, startM, endD, endH, endM);
 
-		// 取得剩餘假別的資料
-		EmployeeLeaveDetail eldBean = eldService.queryValidLTByELDID(Integer.valueOf(eldID));
-		String leaveType = eldBean.getLeaveType();
-
-		BigDecimal surplusHours = eldBean.getSurplusHours();
-		if (sumH.compareTo(surplusHours) == 1) {
-
-			String sumHoursError = "申請時數大於" + leaveType + "剩餘時數。";
-			object.put("sumHoursError", sumHoursError);
-		}
-
-		// 開始時間、結束時間-判斷是否在有效期限內
+		// 開始時間、結束時間-判斷是否為休假日、國定假日
+		String strError = "";
+		Calendar aCalendar = Calendar.getInstance();
 		Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
-		Calendar dayS = Calendar.getInstance();
-		dayS.setTime(startDate);
-
 		Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
-		Calendar dayE = Calendar.getInstance();
-		dayE.setTime(endDate);
 
-		Date sqlSD = eldBean.getStartDate();
-		Calendar daySSQL = Calendar.getInstance();
-		daySSQL.setTime(sqlSD);
+		aCalendar.setTime(startDate);
+		int sDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+		List<HolidayCalendar> hcsBean = hcService.queryCalendarByDate(startD);
 
-		Date sqlED = eldBean.getEndDate();
-		Calendar dayESQL = Calendar.getInstance();
-		dayESQL.setTime(sqlED);
-
-		if (dayS.before(daySSQL) || dayS.after(dayESQL) || dayE.before(daySSQL) || dayE.after(dayESQL)) {
-			String dateError = "申請時間超出" + leaveType + "的有效期限。";
-			object.put("dateError", dateError);
+		if (hcsBean.size() != 0) {
+			if (hcsBean.get(0).getDateType().equals("國定假日")) {
+				strError += startD + "為國定假日。";
+			}
+		} else {
+			if (sDate == Calendar.SATURDAY || sDate == Calendar.SUNDAY) {
+				strError += startD + "為休假日。";
+			}
 		}
 
-		// 總計時數字串
-		DecimalFormat df1 = new DecimalFormat("0.0");
-		String strSumH = df1.format(sumH);
+		// 開始時間、結束時間-不同日期再判斷，結束時間是否為休假日、國定假日
+		if (!startDate.equals(endDate)) {
 
-		String[] data = strSumH.split("\\.");
-		String hours = data[0];
-		Integer mins = (int) (Integer.valueOf(data[1]) * 0.1 * 60);
+			aCalendar.setTime(endDate);
+			int eDate = aCalendar.get(Calendar.DAY_OF_WEEK);
+			List<HolidayCalendar> hceBean = hcService.queryCalendarByDate(endD);
 
-		String sumHours = "總計：" + hours + "時" + mins + "分。";
-		object.put("sumHours", sumHours);
+			if (hceBean.size() != 0) {
+				if (hceBean.get(0).getDateType().equals("國定假日")) {
+					strError += endD + "為國定假日。";
+				}
+			} else {
+				if (eDate == Calendar.SATURDAY || eDate == Calendar.SUNDAY) {
+					strError += endD + "為休假日。";
+				}
+			}
+		}
+		object.put("dateError", strError);
+
+		// 開始時間、結束時間-非國定假日、休假日才執行以下判斷
+		if (strError.length() == 0) {
+			BigDecimal sumH = countReallySumHours(startD, startH, startM, endD, endH, endM);
+			// 取得剩餘假別的資料
+			EmployeeLeaveDetail eldBean = eldService.queryValidLTByELDID(Integer.valueOf(eldID));
+			String leaveType = eldBean.getLeaveType();
+
+			BigDecimal surplusHours = eldBean.getSurplusHours();
+			if (sumH.compareTo(surplusHours) == 1) {
+
+				String sumHoursError = "申請時數大於" + leaveType + "剩餘時數。";
+				object.put("sumHoursError", sumHoursError);
+			}
+
+			// 開始時間、結束時間-判斷是否在有效期限內
+//			Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startD);
+			Calendar dayS = Calendar.getInstance();
+			dayS.setTime(startDate);
+
+//			Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endD);
+			Calendar dayE = Calendar.getInstance();
+			dayE.setTime(endDate);
+
+			Date sqlSD = eldBean.getStartDate();
+			Calendar daySSQL = Calendar.getInstance();
+			daySSQL.setTime(sqlSD);
+
+			Date sqlED = eldBean.getEndDate();
+			Calendar dayESQL = Calendar.getInstance();
+			dayESQL.setTime(sqlED);
+
+			if (dayS.before(daySSQL) || dayS.after(dayESQL) || dayE.before(daySSQL) || dayE.after(dayESQL)) {
+				String dateError = "申請時間超出" + leaveType + "的有效期限。";
+				object.put("dateError", dateError);
+			}
+
+			// 總計時數字串
+			DecimalFormat df1 = new DecimalFormat("0.0");
+			String strSumH = df1.format(sumH);
+
+			String[] data = strSumH.split("\\.");
+			String hours = data[0];
+			Integer mins = (int) (Integer.valueOf(data[1]) * 0.1 * 60);
+
+			String sumHours = "總計：" + hours + "時" + mins + "分。";
+			object.put("sumHours", sumHours);
+		}
 
 		json.put(object);
 		return json.toString();
