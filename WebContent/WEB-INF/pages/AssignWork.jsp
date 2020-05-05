@@ -198,7 +198,6 @@ b {
 								em += "<li id = "+ employee[k].empid +" class=\"emul\" draggable=\"true\" wid=\"\" empid="+employee[k].empid+">"
 										+ employee[k].name + "</li>";
 							}
-							em += "<p><li class = \"emul\">xxxx</li>"
 							em += "</ul>"
 							$("#employee").html(em);
 						});
