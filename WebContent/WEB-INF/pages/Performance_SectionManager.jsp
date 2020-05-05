@@ -48,6 +48,10 @@ p {
 b{
 	font-size:20px;
 }
+#plus{
+width:40px;
+margin-left:80px;
+}
 </style>
 </head>
 <body>

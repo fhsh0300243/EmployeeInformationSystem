@@ -15,7 +15,7 @@ display:none;
 </head>
 <body>
 <form action="changework" method="post">
-工作內容<input type="text" name="work"><br/>
+工作內容<input type="text" id="work" name="work"><br/>
 <div id = "p">
 <input type="text" name="time" value=${param["time"]}><br/>
 <input type="text" name="worksetter" value=${ LoginOK.employee.name}>worksetter<br/>
@@ -28,11 +28,17 @@ display:none;
 <input type="submit" onclick="pp()" value="刪除">
 <input type="text" name="wid" value=${param["wid"]}>
 </form>
+<div>
+<input type="button" id="demo" value = "demo">
+</div>
 <script>
 function pp(){
 	window.opener.location.reload();  
     window.close(); 
-} 
+}
+$("#demo").click(function(){
+	$("#work").val("9/7內部報告");
+});
 </script>
 </body>
 </html>
