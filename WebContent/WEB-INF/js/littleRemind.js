@@ -10,7 +10,7 @@ $(document)
 					var num5;
 				
 					
-					checkDate();
+//					checkDate();
 					function checkDate() {
 						$.ajax({
 									url : "http://localhost:8080/EmployeeInformationSystem/checkDate",
