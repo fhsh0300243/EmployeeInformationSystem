@@ -112,6 +112,12 @@ public class EduMainPageController {
 		
 	}
 	
+	@RequestMapping(path = "/Eduajax2.do", method = RequestMethod.GET)
+	public String Eduajax2() {
+		return "Eduajax2";
+		
+	}
+
 	
 	
 

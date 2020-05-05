@@ -4,11 +4,19 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131294839-5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131294839-5');
+    </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="">
 <meta name="description" content="">
 <meta name="keywords" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>番茄科技 教育訓練</title>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
@@ -32,6 +40,31 @@
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
 
+<!-- test1 -->
+<script src="js/datepicker-zh-TW.js"></script>
+<!-- test2 -->
+<link href="css/fontawesome.css" rel="stylesheet">
+   
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/jquery.alerts.min.css" rel="stylesheet" />
+    
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/polyfill.min.js"></script>
+    <script src="js/popper.js" charset="utf-8"></script>
+    
+    <script src="js/all.js" charset="utf-8"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery.alerts.min.js"></script>
+    
+    <script src="js/jquery-ui-1.12.1-chinese.js"></script>
+    
+    <script src="js/vue-bs-pager-front.js"></script>
+
+
+<!-- test2 end -->
 <script type="text/javascript" src="/jquery/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -152,7 +185,7 @@ iframe {
 				class="am-img-responsive" width=100% alt="" />
 		</div>
 		<!-- address -->
-		<div class="am-cf my_address">
+		<!-- <div class="am-cf my_address">
 		<div class="am-text-sm am-fl col6">地點：中區訓練中心 會議室A203</div>
 							     
 		<div id="demo" style="visibility:;"> 
@@ -162,8 +195,44 @@ iframe {
 		<div>
 		<button id="btn1" type="button" class="am-btn am-round am-btn-xs am-btn-primary am-fr col3">地圖查看</button>
 		</div>
-		</div>
+		</div> -->
+		
+	
+		<!-- test -->
+		<div class="search_area_1">
+        <form class="form-inline">
+            <input name="__RequestVerificationToken" type="hidden" value="bD_q6xqk_n_dNsV41zH1_yavMkfI3PpEaIABDZZzuYcRl0l4DI5oZqcGmw1gWI19il39tLPOO-4rrWiw7PLsy595_RR-LJHlhjD6GYQzzZw1" />
+            <div class="form-group w-100">
+                <label for="SDate">開課日期</label>
+                <input type="date" id="idStartDate" name="startdate"
+					class="" placeholder="開課起日" v-model="SDate">
+                ~
+                <label class="sr-EDate" for="EDate">結束日期</label>
+                <input type="date" id="idStartDate" name="startdate" type="text" id="EDate" class="" name="date_end" placeholder="開課迄日" v-model="EDate">
+                <label for="Department">開課部門</label>
+                <select class="form-control my-2 mx-sm-3" v-model="Department" id="Department">
+                    <option value="">不分部門(不拘)</option>
+                    <option value="HR">HR</option>
+					<option value="RD">RD</option>
+					<option value="QA">QA</option>
+					<option value="Sales">Sales</option>
+					<option value="PM">PM</option>
+                    <option v-for="item in DepartmentList" :value="item.No" v-text="item.Name"></option>
+                </select>
+            </div>
+            <div class="form-group w-100">
+                <button type="button" class="btn my-2 mx-sm-1" onclick="Search()">查詢</button>
+                <button type="button" class="btn my-2 mx-sm-1" onclick="return false" @click="SearchInOneMonth()">僅顯示一個月內課程</button>
+            </div>
+        </form>
+    </div>
+		
+		
 		<!-- 培訓訊息 -->
+		<div>
+		<br/>
+		</div>
+		<hr/>
 		<div class="am-container">
 			<div class="am-panel am-panel-primary">
 				<div class="am-panel-hd">培訓課程</div>
@@ -195,7 +264,7 @@ iframe {
 					<p class='am-text-sm'>
 						 <img
 							src="https://png.pngtree.com/svg/20170630/home_course_598781.png"
-							width='3%' alt=""/>&nbsp;目前現有培訓課程 
+							width='3%' alt=""/>&nbsp;目前培訓課程 
 					</p>
 
 				</div>
@@ -316,5 +385,114 @@ iframe {
 					});
 				});
 	</script>
+	
+	<!-- test -->
+	<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#datepicker").datepicker($.datepicker.regional["zh-TW"]);
+            $('.datetime').datepicker({
+                dateFormat: "R/mm/dd",
+                monthNamesShort: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).on("change", function (e) {
+                vm.$data[$(this).attr("id")] = $(this).val();
+            });
+
+        });
+
+        var vm = new Vue
+            ({
+                el: '#app',
+                data: {
+                    itemlist: [],
+                    pageSize: 10,
+                    pageIndex: 1,
+                    totalcount: 0,
+                    SDate: "",
+                    EDate: "",
+                    Department: "",
+                    InOneMonth: "",
+                    DepartmentList: JSON.parse('[{"aID":0,"No":"201204001","Name":"一般行業科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201204007","Name":"建築工程科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209010","Name":"土木工程科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209011","Name":"危險機械設備科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209012","Name":"綜合規劃科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209016","Name":"職業衛生科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201406017","Name":"勞動條件科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201810019","Name":"政風室","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]}]'),
+                },
+                methods: {
+                    pageChange: function (num) {
+                        var self = this;
+                        self.pageIndex = num;
+                        axios.post('/api/Recurrent/List', {
+                            page: self.pageIndex,
+                            SDate: self.SDate,
+                            EDate: self.EDate,
+                            Department: self.Department,
+                            InOneMonth: self.InOneMonth,
+                        }).then(function(response) {
+                            var data = response.data;
+                            self.itemlist = data.Data;
+                            self.totalcount = data.Total;
+                        }).else(function (error) {
+                            if (error.response.status === 400) {
+                                var err = [];
+                                for (var i in error.response.data.ModelState) {
+                                    err.push(error.response.data.ModelState[i]);
+                                }
+                                var message = err.join().replace(/,/g, '\n');
+                                jAlert(message, '警告');
+                            }
+                        });
+                        //return false;
+                    },
+                    Search: function () {
+                        this.InOneMonth = "";
+                        this.pageChange(1);
+                    },
+                    SearchInOneMonth: function () {
+                        this.SDate = "";
+                        this.EDate = "";
+                        this.Department = "";
+                        this.InOneMonth = "1";
+                        this.pageChange(1);
+                    },
+                    ClearSearch: function() {
+                        this.SDate = "";
+                        this.EDate = "";
+                        this.Department = "";
+                        this.InOneMonth = "";
+                        this.pageChange(1);
+                    },
+                    Download: function () {
+                        axios.post('/api/Files/Recurrent', {
+                        },
+                        {
+                            responseType: 'blob',
+                        }).then(function(x) {
+                            if (x.status == 200) {
+                                var f = decodeURIComponent(x.headers["content-disposition"]);
+                                f = /filename=([^=:]+\.\S+)/gi.exec(f);
+                                //-- 檔案下載
+                                var blob = new Blob([x.data], { type: 'application/octet-stream' });
+                                var downloadUrl = URL.createObjectURL(blob); 
+                                var a = document.createElement("a");
+                                a.href = downloadUrl;
+                                a.download = f[1];
+                                document.body.appendChild(a);
+                                a.click();
+                            }
+
+                        }).catch(function (error) {
+                            jAlert('下載失敗!', '警告');
+                        });
+                    },
+                },
+                mounted: function() {
+                    this.pageChange(1);
+                },
+
+            });
+</script>
+	
+	
+	
 </body>
 </html>

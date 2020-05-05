@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ page language="java" import="java.util.*"%>
+<%
+request.setCharacterEncoding("UTF-8");
+String EmployeedId = request.getParameter("employeeID");
+String CourseId = request.getParameter("CourseId");
+%>
+
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -74,7 +81,7 @@ b{
 </style>
 </head>
 <body>
-	<br>
+<br>
 	<div class="container-fluid">
 		<div class="row">
 
@@ -126,7 +133,7 @@ b{
       </div>
       <div class="am-fr statusIcon">
       <form id="myForm" action="Eduajax2.do" method="get">
-        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/34-512.png" width="50px"/></button>
       <div id="output1" ></div>
       </form>
       </div>
@@ -142,10 +149,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/03-2020/06/03</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <form id="myForm" action="Eduajax2.do" method="get">
-        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
-      <div id="output1" ></div>
-      </form>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -159,10 +163,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <form id="myForm" action="Eduajax2.do" method="get">
-        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
-      <div id="output1" ></div>
-      </form>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -176,10 +177,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/15-2020/06/16</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <form id="myForm" action="Eduajax2.do" method="get">
-        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
-      <div id="output1" ></div>
-      </form>
+        <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -193,10 +191,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/21-2020/06/21</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <form id="myForm" action="Eduajax2.do" method="get">
-        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
-      <div id="output1" ></div>
-      </form>
+       <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
     <!-- list -->
@@ -210,10 +205,7 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/30-2020/06/30</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <form id="myForm" action="Eduajax2.do" method="get">
-        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
-      <div id="output1" ></div>
-      </form>
+       <button class="am-radius" type="button" title="我要報名" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
       </div>
     </div>
   </div>
@@ -233,9 +225,7 @@ b{
 			<div class="CanNotRightDownDiv">
 				<img class="CanNotRightDown" src="images/CompanyLogo.png">
 			</div>
-
-
-
+			
 			<script>
 				var depts;
 				$('#searchdept').empty();
@@ -341,36 +331,7 @@ b{
 						});
 			</script>
 			
-			<!-- ajax -->
-			<script type="text/javascript"> 
-			var options = { 
-			target: '#output1', // 用伺服器返回的資料 更新 id為output1的內容
-			beforeSubmit: showRequest, // 提交前
-			success: showResponse, // 提交後 
-			resetForm: true // 成功提交後 重置所有的表單元素的值
-			};
 			
 			
-			$('#myForm').submit(function() { 
-		    $(this).ajaxSubmit(options); 
-		    return true;
-			});
-			
-			// 提交前
-			function showRequest(formData, jqForm, options) { 
-			// formdata是陣列物件,在這裡使用$.param()方法轉化為字串
-			var queryString = $.param(formData); //組裝資料，外掛會自動提交資料
-			alert(queryString); 
-			return true; 
-			} 
-			// 提交後
-			function showResponse(responseText, statusText) { 
-			alert('success'); 
-			} 
-			
-			
-			</script>
 </body>
-
-
 </html>
