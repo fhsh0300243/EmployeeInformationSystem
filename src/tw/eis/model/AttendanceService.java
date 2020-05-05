@@ -68,15 +68,12 @@ public class AttendanceService {
 		attendanceDao.DeleteTodayAttendance(Date);
 	}
 
-	public void UpdateOKAttemdance(Employee Emp, java.sql.Date Date) {
-		attendanceDao.UpdateOKAttemdance(Emp, Date);
+	public void UpdateOKAttemdance(java.sql.Date Date) {
+		attendanceDao.UpdateOKAttemdance(Date);
 	}
 
-	public void UpdateStartNGAttemdance(Employee Emp, java.sql.Date Date) {
-		attendanceDao.UpdateStartNGAttemdance(Emp, Date);
+	public void UpdateStartNGAttemdance(java.sql.Date Date) {
+		attendanceDao.UpdateStartNGAttemdance(Date);
 	}
 
-	public void UpdateEndNGAttemdance(Employee Emp, java.sql.Date Date) {
-		attendanceDao.UpdateEndNGAttemdance(Emp, Date);
-	}
 }

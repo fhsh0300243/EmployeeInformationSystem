@@ -222,40 +222,28 @@ public class AttendanceController {
 
 	// 更新為正常上下班
 	@RequestMapping(path = "/UpdateOKAttemdance", method = RequestMethod.GET)
-	public String UpdateOKAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
+	public String UpdateOKAttemdance(HttpServletRequest request)
 			throws Exception {
 		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		String datestr = nowdate.format(new Date());
 		Date utilDate = nowdate.parse(datestr);
 		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
-		AttService.UpdateOKAttemdance(userBean.getEmployee(), Date);
+		AttService.UpdateOKAttemdance(Date);
 		return "redirect:/InquiryToday";
 	}
 
 	// 更新為異常上班
 	@RequestMapping(path = "/UpdateStartNGAttemdance", method = RequestMethod.GET)
-	public String UpdateStartNGAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
+	public String UpdateStartNGAttemdance(HttpServletRequest request)
 			throws Exception {
 		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
 		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		String datestr = nowdate.format(new Date());
 		Date utilDate = nowdate.parse(datestr);
 		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
-		AttService.UpdateStartNGAttemdance(userBean.getEmployee(), Date);
+		AttService.UpdateStartNGAttemdance(Date);
 		return "redirect:/InquiryToday";
 	}
 
-	// 更新為異常下班
-	@RequestMapping(path = "/UpdateEndNGAttemdance", method = RequestMethod.GET)
-	public String UpdateEndNGAttemdance(@ModelAttribute("LoginOK") Users userBean, HttpServletRequest request)
-			throws Exception {
-		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
-		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-		String datestr = nowdate.format(new Date());
-		Date utilDate = nowdate.parse(datestr);
-		java.sql.Date Date = new java.sql.Date(utilDate.getTime());
-		AttService.UpdateEndNGAttemdance(userBean.getEmployee(), Date);
-		return "redirect:/InquiryToday";
-	}
 }
