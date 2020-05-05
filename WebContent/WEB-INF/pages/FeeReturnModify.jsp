@@ -139,12 +139,18 @@ b{
 										<td><input type="tel" name="appMoney"
 											value="${appfeeID.appMoney}"></td>
 									</tr>
+									<!-- 
 									<tr>
 										<td>備註:</td>
 										<td><textarea cols="30" rows="3" id="comment1"
 												name="remark"></textarea></td>
 									</tr>
-
+									 -->
+									<tr>
+										<td>備註:</td>
+										<td><input type="text" name="remark" value="${appfeeID.remark}">
+										</td>
+									</tr>
 
 								</c:forEach>
 							</table>
