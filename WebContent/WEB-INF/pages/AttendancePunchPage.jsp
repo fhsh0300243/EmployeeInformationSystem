@@ -83,7 +83,7 @@ b {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<div style="align: center">
+						<div style="align:center;">
 							<div id="clock"></div>
 							<br>
 							<form action="<c:url value="/PunchAction" />" method="post">

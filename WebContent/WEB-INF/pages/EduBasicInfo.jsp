@@ -4,14 +4,7 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131294839-5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'UA-131294839-5');
-    </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="">
 <meta name="description" content="">
@@ -53,7 +46,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/polyfill.min.js"></script>
     <script src="js/popper.js" charset="utf-8"></script>
-    
+    <script src="js/bootstrap_4.1.1.js"></script>
     <script src="js/all.js" charset="utf-8"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
@@ -63,8 +56,17 @@
     
     <script src="js/vue-bs-pager-front.js"></script>
 
-
 <!-- test2 end -->
+<!-- test3 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131294839-5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131294839-5');
+    </script>
+<!-- test3 end -->
 <script type="text/javascript" src="/jquery/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -177,7 +179,7 @@ iframe {
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class=""></span> 查詢課程
+		<span class=""></span> 查詢報名課程
 
 	</div>
 
@@ -220,12 +222,12 @@ iframe {
 					<option value="QA">QA</option>
 					<option value="Sales">Sales</option>
 					<option value="PM">PM</option>
-                    <option v-for="item in DepartmentList" :value="item.No" v-text="item.Name"></option>
+                    <!-- <option v-for="item in DepartmentList" :value="item.No" v-text="item.Name"></option> -->
                 </select>
             </div>
             <div class="form-group w-100">
-                <button type="button" class="btn my-2 mx-sm-1" onclick="Search()">查詢</button>
-                <button type="button" class="btn my-2 mx-sm-1" onclick="return false" @click="SearchInOneMonth()">僅顯示一個月內課程</button>
+                <button type="button" class="btn btn-info" id="datepicker1" onclick="Search()" @click="Search()">查詢</button>
+                <button type="button" class="btn btn-info" onclick="SearchInOneMonth()" @click="SearchInOneMonth()">僅顯示一個月內課程</button>
             </div>
         </form>
     </div>
@@ -236,7 +238,7 @@ iframe {
 		<br/>
 		</div>
 		<hr/>
-		<div class="am-container">
+		<div class="am-container" hidden="" onclick="Search()" id="datepicker1">
 			<div class="am-panel am-panel-primary">
 				<div class="am-panel-hd">培訓課程</div>
 				<div class="am-panel-bd col9">
@@ -408,18 +410,6 @@ iframe {
 
         var vm = new Vue
             ({
-                el: '#app',
-                data: {
-                    itemlist: [],
-                    pageSize: 10,
-                    pageIndex: 1,
-                    totalcount: 0,
-                    SDate: "",
-                    EDate: "",
-                    Department: "",
-                    InOneMonth: "",
-                    DepartmentList: JSON.parse('[{"aID":0,"No":"201204001","Name":"一般行業科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201204007","Name":"建築工程科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209010","Name":"土木工程科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209011","Name":"危險機械設備科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209012","Name":"綜合規劃科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201209016","Name":"職業衛生科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201406017","Name":"勞動條件科","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]},{"aID":0,"No":"201810019","Name":"政風室","Contactor":null,"Email":null,"Short":null,"AT_Apply1H1LClass":[],"AT_FeedBackKind":[],"AT_Pre1H1LClass":[],"AT_PreWrkSafeClass":[],"AT_WorkItem":[],"AT_WrkSafeClass":[]}]'),
-                },
                 methods: {
                     pageChange: function (num) {
                         var self = this;
@@ -434,7 +424,7 @@ iframe {
                             var data = response.data;
                             self.itemlist = data.Data;
                             self.totalcount = data.Total;
-                        }).else(function (error) {
+                        }).catch(function (error) {
                             if (error.response.status === 400) {
                                 var err = [];
                                 for (var i in error.response.data.ModelState) {
@@ -494,6 +484,18 @@ iframe {
 
             });
 </script>
+
+<script type="text/javascript">
+function Search() {
+	  var x = document.getElementById("datepicker1");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	}
+</script>
+
 	
 	
 	

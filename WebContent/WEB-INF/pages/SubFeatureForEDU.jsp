@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		
-		<div id="man" style="display: none;">
+		<div id="man" name="${LoginOK.getEmployee().getLevel()}" style="display: none;">
 		        <div class="title">主管專區</div>
 		        
 		        <div>
@@ -68,7 +68,7 @@
 	
 	<script>
 		$(function() {
-			var level = $("#idLevel").attr("name");
+			var level = $("#man").attr("name");
 			if (level != 1) {
 				$("#man").show()
 			}
