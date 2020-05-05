@@ -133,11 +133,7 @@ b{
 										<td><input type="tel" name="invoiceNb"
 											value="${appfeeID.invoiceNb}"></td>
 									</tr>
-									<tr>
-										<td>統編:</td>
-										<td><input type="tel" name="editor"
-											value="${appfeeID.editor}"></td>
-									</tr>
+									
 									<tr>
 										<td>申請金額:</td>
 										<td><input type="tel" name="appMoney"

@@ -117,10 +117,7 @@ b{
 										<td>發票號碼:</td>
 										<td>${appDetail.invoiceNb}</td>
 									</tr>
-									<tr>
-										<td>統編:</td>
-										<td>${appDetail.editor}</td>
-									</tr>
+									
 									<tr>
 										<td>申請金額:</td>
 										<td>${appDetail.appMoney}</td>
