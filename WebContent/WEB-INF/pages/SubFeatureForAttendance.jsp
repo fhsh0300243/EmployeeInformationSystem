@@ -46,16 +46,13 @@
 				<a href="<c:url value="/DeleteTodayAttendance"/>">清除今日出勤表</a>
 			</div>
 			<div>
-				<a href="<c:url value="/CheckStatusALL"/>">判斷出勤異常</a>
+				<a href="<c:url value="/CheckStatusALL"/>">判斷出勤狀態</a>
 			</div>
 			<div>
-				<a href="<c:url value="/UpdateOKAttemdance"/>">更新為正常上下班</a>
+				<a href="<c:url value="/UpdateOKAttemdance"/>">更新為正常</a>
 			</div>
 			<div>
 				<a href="<c:url value="/UpdateStartNGAttemdance"/>">更新為遲到</a>
-			</div>
-			<div>
-				<a href="<c:url value="/UpdateEndNGAttemdance"/>">更新為早退</a>
 			</div>
 		</div>
 		<div class="panel-footer"></div>

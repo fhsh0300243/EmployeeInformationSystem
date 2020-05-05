@@ -61,6 +61,9 @@ p {
 b{
 	font-size:20px;
 }
+.pInLeft{
+	margin:0;
+}
 </style>
 </head>
 <body>
@@ -71,9 +74,10 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForEmpManage.jsp"%>

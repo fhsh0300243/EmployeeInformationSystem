@@ -4,11 +4,12 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="">
 <meta name="description" content="">
 <meta name="keywords" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>番茄科技 教育訓練</title>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600"
@@ -32,6 +33,42 @@
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
 
+<!-- test1 -->
+<script src="js/datepicker-zh-TW.js"></script>
+<!-- test2 -->
+<link href="css/fontawesome.css" rel="stylesheet">
+   
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/jquery.alerts.min.css" rel="stylesheet" />
+    
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/polyfill.min.js"></script>
+    <script src="js/popper.js" charset="utf-8"></script>
+    <script src="js/bootstrap_4.1.1.js"></script>
+    <script src="js/all.js" charset="utf-8"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery.alerts.min.js"></script>
+    
+    <script src="js/jquery-ui-1.12.1-chinese.js"></script>
+    
+    <script src="js/vue-bs-pager-front.js"></script>
+
+<!-- test2 end -->
+<!-- test3 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131294839-5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131294839-5');
+    </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- test3 end -->
 <script type="text/javascript" src="/jquery/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -104,7 +141,9 @@ iframe {
 #demo{
   display:;
 }
-
+.pInLeft{
+	margin:0;
+}
 
 </style>
 </head>
@@ -116,9 +155,10 @@ iframe {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForEDU.jsp"%>
@@ -141,7 +181,7 @@ iframe {
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class=""></span> 查詢課程
+		<span class=""></span> 查詢報名課程
 
 	</div>
 
@@ -152,7 +192,7 @@ iframe {
 				class="am-img-responsive" width=100% alt="" />
 		</div>
 		<!-- address -->
-		<div class="am-cf my_address">
+		<!-- <div class="am-cf my_address">
 		<div class="am-text-sm am-fl col6">地點：中區訓練中心 會議室A203</div>
 							     
 		<div id="demo" style="visibility:;"> 
@@ -162,10 +202,49 @@ iframe {
 		<div>
 		<button id="btn1" type="button" class="am-btn am-round am-btn-xs am-btn-primary am-fr col3">地圖查看</button>
 		</div>
-		</div>
+		</div> -->
+		
+	
+		<!-- test -->
+		<div class="search_area_1">
+        <form class="form-inline">
+            <input name="__RequestVerificationToken" type="hidden" value="bD_q6xqk_n_dNsV41zH1_yavMkfI3PpEaIABDZZzuYcRl0l4DI5oZqcGmw1gWI19il39tLPOO-4rrWiw7PLsy595_RR-LJHlhjD6GYQzzZw1" />
+            <div class="form-group w-100">
+                <label for="SDate">開課日期</label>
+                <input type="date" id="idStartDate" name="startdate"
+					class="" placeholder="開課起日" v-model="SDate">
+                ~
+                <label class="sr-EDate" for="EDate">結束日期</label>
+                <input type="date" id="idStartDate" name="startdate" type="text" id="EDate" class="" name="date_end" placeholder="開課迄日" v-model="EDate">
+                <label for="Department">開課部門</label>
+                <select class="form-control my-2 mx-sm-3" v-model="Department" id="Department">
+                    <option value="">不分部門(不拘)</option>
+                    <option value="HR">HR</option>
+					<option value="RD">RD</option>
+					<option value="QA">QA</option>
+					<option value="Sales">Sales</option>
+					<option value="PM">PM</option>
+                    <!-- <option v-for="item in DepartmentList" :value="item.No" v-text="item.Name"></option> -->
+                </select>
+            </div>
+            <div class="form-group w-100">
+                <button type="button" class="btn btn-info" id="datepicker1" onclick="Search()" @click="Search()" name="check">查詢</button>
+                <button type="button" class="btn btn-info" id="datepicker1" onclick="SearchInOneMonth()" @click="SearchInOneMonth()" name="checkmonth">僅顯示一個月內課程</button>
+            </div>
+        </form>
+    </div>
+		
+		
 		<!-- 培訓訊息 -->
-		<div class="am-container">
+		<div>
+		<br/>
+		</div>
+		<hr/>
+		
+	
+		<div class="am-container" hidden="" onclick="Search()" id="datepicker1" name="check">
 			<div class="am-panel am-panel-primary">
+			
 				<div class="am-panel-hd">培訓課程</div>
 				<div class="am-panel-bd col9">
 					<div class='am-text-sm'>
@@ -190,12 +269,13 @@ iframe {
 						課程講師：<span>林老師</span>
 					</div>
 				</div>
+				
 				<hr />
 				<div class="am-container">
 					<p class='am-text-sm'>
 						 <img
 							src="https://png.pngtree.com/svg/20170630/home_course_598781.png"
-							width='3%' alt=""/>&nbsp;目前現有培訓課程 
+							width='3%' alt=""/>&nbsp;目前培訓課程 
 					</p>
 
 				</div>
@@ -316,5 +396,129 @@ iframe {
 					});
 				});
 	</script>
+	
+	<!-- test -->
+	<script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#datepicker").datepicker($.datepicker.regional["zh-TW"]);
+            $('.datetime').datepicker({
+                dateFormat: "R/mm/dd",
+                monthNamesShort: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).on("change", function (e) {
+                vm.$data[$(this).attr("id")] = $(this).val();
+            });
+
+        });
+        </script>
+<script>
+        var vm = new Vue
+            ({
+                methods: {
+                    pageChange: function (num) {
+                        var self = this;
+                        self.pageIndex = num;
+                        axios.post('/api/Recurrent/List', {
+                            page: self.pageIndex,
+                            SDate: self.SDate,
+                            EDate: self.EDate,
+                            Department: self.Department,
+                            InOneMonth: self.InOneMonth,
+                        }).then(function(response) {
+                            var data = response.data;
+                            self.itemlist = data.Data;
+                            self.totalcount = data.Total;
+                        }).catch(function (error) {
+                            if (error.response.status === 400) {
+                                var err = [];
+                                for (var i in error.response.data.ModelState) {
+                                    err.push(error.response.data.ModelState[i]);
+                                }
+                                var message = err.join().replace(/,/g, '\n');
+                                jAlert(message, '警告');
+                            }
+                        });
+                        //return false;
+                    },
+            </script>
+            <script>        
+                    Search: function () {
+                        this.InOneMonth = "";
+                        this.pageChange(1);
+                    },
+                    SearchInOneMonth: function () {
+                        this.SDate = "";
+                        this.EDate = "";
+                        this.Department = "";
+                        this.InOneMonth = "1";
+                        this.pageChange(1);
+                    },
+                    ClearSearch: function() {
+                        this.SDate = "";
+                        this.EDate = "";
+                        this.Department = "";
+                        this.InOneMonth = "";
+                        this.pageChange(1);
+                    };
+                   
+                    Download: function () {
+                        axios.post('/api/Files/Recurrent', {
+                        },
+                        {
+                            responseType: 'blob',
+                        }).then(function(x) {
+                            if (x.status == 200) {
+                                var f = decodeURIComponent(x.headers["content-disposition"]);
+                                f = /filename=([^=:]+\.\S+)/gi.exec(f);
+                                //-- 檔案下載
+                                var blob = new Blob([x.data], { type: 'application/octet-stream' });
+                                var downloadUrl = URL.createObjectURL(blob); 
+                                var a = document.createElement("a");
+                                a.href = downloadUrl;
+                                a.download = f[1];
+                                document.body.appendChild(a);
+                                a.click();
+                            }
+
+                        }).catch(function (error) {
+                            jAlert('下載失敗!', '警告');
+                        });
+                    },
+                },
+                mounted: function() {
+                    this.pageChange(1);
+                },
+
+            });
+</script>
+
+<script type="text/javascript">
+function Search() {
+	  var x = document.getElementById("datepicker1");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	}
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("p").hide();
+  });
+  $("#datepicker1").click(function(){
+    $("div").show();
+  });
+});
+</script>
+
+	
+	
+	
 </body>
 </html>

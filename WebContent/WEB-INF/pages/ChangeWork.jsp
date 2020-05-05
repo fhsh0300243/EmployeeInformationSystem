@@ -26,7 +26,9 @@ display:none;
 </form>
 <form action="deletework">
 <input type="submit" onclick="pp()" value="刪除">
+<div id = "p">
 <input type="text" name="wid" value=${param["wid"]}>
+</div>
 </form>
 <div>
 <input type="button" id="demo" value = "demo">

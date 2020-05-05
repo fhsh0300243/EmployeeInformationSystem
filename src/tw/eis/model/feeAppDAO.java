@@ -117,17 +117,17 @@ public class feeAppDAO implements IfeeAppDAO {
 		return qlistByID;
 	}
 
-	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor,
+	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb,
 			int appMoney, String remark, String signerStatus) {
 		Session session = sessionFacotry.getCurrentSession();
 		feeAppMember feeAppMember = session.get(feeAppMember.class, feeAppID);
 		feeAppMember.setAppTime(appTime);
 		feeAppMember.setInvoiceTime(invoiceTime);
 		feeAppMember.setInvoiceNb(invoiceNb);
-		feeAppMember.setEditor(editor);
+		
 		feeAppMember.setAppMoney(appMoney);
 		feeAppMember.setRemark(remark);
-		;
+		
 		feeAppMember.setSignerStatus(signerStatus);
 		session.update(feeAppMember);
 		return true;

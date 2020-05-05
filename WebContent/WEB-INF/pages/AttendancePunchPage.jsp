@@ -48,6 +48,9 @@ p {
 b {
 	font-size: 20px;
 }
+.pInLeft{
+	margin:0;
+}
 </style>
 </head>
 <body onload="startTime()">
@@ -58,10 +61,10 @@ b {
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>
+					<p class="pInLeft">
 						<b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName}您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForAttendance.jsp"%>
@@ -80,7 +83,7 @@ b {
 					<div class="panel-heading"><%@ include
 							file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
-						<div style="align: center">
+						<div style="align:center;">
 							<div id="clock"></div>
 							<br>
 							<form action="<c:url value="/PunchAction" />" method="post">

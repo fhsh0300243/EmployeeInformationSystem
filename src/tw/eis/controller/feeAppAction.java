@@ -190,7 +190,7 @@ public class feeAppAction {
 	public String FeeReturnEditPage(@ModelAttribute("LoginOK") Users LoginOK,
 			@RequestParam("bot") String bot,
 			@RequestParam("feeAppID") int feeAppID, @RequestParam("invoiceTime") String invoiceTime,
-			@RequestParam("invoiceNb") String invoiceNb, @RequestParam("editor") String editor,
+			@RequestParam("invoiceNb") String invoiceNb, 
 			@RequestParam("appMoney") int appMoney, @RequestParam("remark") String remark, Model model) {
 		if(bot.equals("送出")) {
 		SimpleDateFormat appTimeFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -198,7 +198,7 @@ public class feeAppAction {
 		String appTime = appTimeFormat.format(date);
 		String signerStatus = "簽核中";
 
-		feeAppService.ReturnEditFee(feeAppID, appTime, invoiceTime, invoiceNb, editor, appMoney, remark, signerStatus);
+		feeAppService.ReturnEditFee(feeAppID, appTime, invoiceTime, invoiceNb, appMoney, remark, signerStatus);
 		}
 		if(bot.equals("刪除此筆申請")) {
 			feeAppService.DelectItem(feeAppID);
