@@ -54,9 +54,6 @@
 			<div>
 				<a href="<c:url value="/UpdateStartNGAttemdance"/>">更新為遲到</a>
 			</div>
-			<div>
-				<a href="<c:url value="/UpdateEndNGAttemdance"/>">更新為早退</a>
-			</div>
 		</div>
 		<div class="panel-footer"></div>
 	</div>
