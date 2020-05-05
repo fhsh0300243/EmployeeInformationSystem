@@ -135,7 +135,7 @@ public class LoginController {
 		Users uBean=uListIT.next();
 		EmailUtil eUtil=new EmailUtil();
 		eUtil.sendResetPasswordEmail(uBean, email);
-		errorMsgFromForgetPwd.put("emailSucess", "Sucess, please chack your E-mail");
+		errorMsgFromForgetPwd.put("emailSucess", "Success, please check your E-mail");
 		return "CheckEmail";
 	}
 	

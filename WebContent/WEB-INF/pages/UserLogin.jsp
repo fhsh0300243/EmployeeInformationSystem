@@ -18,6 +18,14 @@
 <style>
 #onefinger {
 	margin-top: 5px;
+	width:100%;
+}
+td{
+	width:25%;
+}
+.ff-login{
+	padding-top:55px;
+	padding-bottom:55px;
 }
 </style>
 </head>
@@ -48,19 +56,22 @@
 								<a href="forgetPwd">忘記密碼?</a>
 							</div>
 							<hr>
-							<div id="onefinger">
-								<a href=# id="HR_Manager" class="btn btn-primary">HR經理</a>
-							</div>
-							<div id="onefinger">
-								<a href=# id="RD_Manager" class="btn btn-primary">RD經理</a>
-							</div>
-							<div id="onefinger">
-								<a href=# id="RD_SectionManager" class="btn btn-primary">HR課長</a>
-							</div>
-							<div id="onefinger">
-								<a href=# id="RD_shaouming" class="btn btn-primary">王小明</a>
-							</div>
-
+							<table>
+								<tr>
+								<td><div id="onefinger">
+									<a href=# id="HR_Manager" class="btn btn-primary">HR經理</a>
+								</div>
+								<td><div id="onefinger">
+									<a href=# id="RD_Manager" class="btn btn-primary">RD經理</a>
+								</div>
+								<td><div id="onefinger">
+									<a href=# id="RD_SectionManager" class="btn btn-primary">RD課長</a>
+								</div>
+								<td><div id="onefinger">
+									<a href=# id="RD_shaouming" class="btn btn-primary">王小明</a>
+								</div>
+								</tr>
+							</table>
 
 						</form>
 					</div>
