@@ -85,7 +85,7 @@ padding:0px;
 					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
-				<%@ include file="SubFeatureForPerformance.jsp"%>
+
 
 			</div>
 
@@ -95,8 +95,8 @@ padding:0px;
 
 				<div class="panel panel-primary">
 					<p class="functionTitle">績效管理</p>
-					<div class="panel-heading"><%@ include
-							file="MainFeatureTopBar.jsp"%></div>
+					<div class="panel-heading">
+					<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
 
 						<div id="worklist" wkstatus =0 class = "work">
