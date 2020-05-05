@@ -66,6 +66,8 @@
 
         gtag('config', 'UA-131294839-5');
     </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- test3 end -->
 <script type="text/javascript" src="/jquery/jquery.js"></script>
 <script type="text/javascript">
@@ -226,8 +228,8 @@ iframe {
                 </select>
             </div>
             <div class="form-group w-100">
-                <button type="button" class="btn btn-info" id="datepicker1" onclick="Search()" @click="Search()">查詢</button>
-                <button type="button" class="btn btn-info" onclick="SearchInOneMonth()" @click="SearchInOneMonth()">僅顯示一個月內課程</button>
+                <button type="button" class="btn btn-info" id="datepicker1" onclick="Search()" @click="Search()" name="check">查詢</button>
+                <button type="button" class="btn btn-info" id="datepicker1" onclick="SearchInOneMonth()" @click="SearchInOneMonth()" name="checkmonth">僅顯示一個月內課程</button>
             </div>
         </form>
     </div>
@@ -238,8 +240,11 @@ iframe {
 		<br/>
 		</div>
 		<hr/>
-		<div class="am-container" hidden="" onclick="Search()" id="datepicker1">
+		
+	
+		<div class="am-container" hidden="" onclick="Search()" id="datepicker1" name="check">
 			<div class="am-panel am-panel-primary">
+			
 				<div class="am-panel-hd">培訓課程</div>
 				<div class="am-panel-bd col9">
 					<div class='am-text-sm'>
@@ -264,6 +269,7 @@ iframe {
 						課程講師：<span>林老師</span>
 					</div>
 				</div>
+				
 				<hr />
 				<div class="am-container">
 					<p class='am-text-sm'>
@@ -407,7 +413,8 @@ iframe {
             });
 
         });
-
+        </script>
+<script>
         var vm = new Vue
             ({
                 methods: {
@@ -436,6 +443,8 @@ iframe {
                         });
                         //return false;
                     },
+            </script>
+            <script>        
                     Search: function () {
                         this.InOneMonth = "";
                         this.pageChange(1);
@@ -453,7 +462,8 @@ iframe {
                         this.Department = "";
                         this.InOneMonth = "";
                         this.pageChange(1);
-                    },
+                    };
+                   
                     Download: function () {
                         axios.post('/api/Files/Recurrent', {
                         },
@@ -494,6 +504,17 @@ function Search() {
 	    x.style.display = "none";
 	  }
 	}
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("p").hide();
+  });
+  $("#datepicker1").click(function(){
+    $("div").show();
+  });
+});
 </script>
 
 	
