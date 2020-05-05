@@ -31,5 +31,10 @@ public class DepartmentService implements IDepartmentService {
 	public List<?> allDeptData() {
 		return departmentDao.allDeptData();
 	}
+	
+	@Override
+	public String deptIdByDeptAbb(int deptid) {
+		return departmentDao.deptIdByDeptAbb(deptid);
+	}
 
 }
