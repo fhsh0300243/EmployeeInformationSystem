@@ -105,7 +105,9 @@ iframe {
 b{
 	font-size:20px;
 }
-
+.pInLeft{
+	margin:0;
+}
 </style>
 </head>
 <body>
@@ -116,9 +118,10 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForEDU.jsp"%>
@@ -160,19 +163,23 @@ b{
 							</div>
 							
 							<!-- 報名按鈕 -->
+							<div>
 							<div class="am-container am-margin-bottom-sm">
-								<button type="button"
-									class="am-btn am-btn-primary am-btn-block baoming">點我報名</button>
+								<!-- <button type="button"
+									class="am-btn am-btn-primary am-btn-block baoming">點我報名</button> -->
+									<button type="button"
+									class="am-btn am-btn-primary am-btn-block baoming" onclick="location.href='http://localhost:8080/EmployeeInformationSystem/EdumyTrain.do'" style="color:white;">點我報名</button>
 								<button type="button"
 									class="am-btn am-btn-warning am-btn-block baoming am-margin-top-0"
 									style='display: none'>取消報名</button>
+							</div>
 							</div>
 							<!-- tabs -->
 							<div data-am-widget="tabs"
 								class="am-tabs am-tabs-d2 am-container" style="margin: 0 auto">
 								<ul class="am-tabs-nav am-cf">
 									<li class="am-active"><a href="[data-tab-panel-0]">課程介绍</a></li>
-									<li class=""><a href="[data-tab-panel-1]">課程日期</a></li>
+									<li class=""><a href="[data-tab-panel-1]">課程列表</a></li>
 									<li class=""><a href="[data-tab-panel-2]">課程教材</a></li>
 									<!--<li class=""><a href="[data-tab-panel-3]">課程評價</a></li>  -->
 									
@@ -187,13 +194,13 @@ b{
 												<div class="am-panel-hd">培訓訊息</div>
 												<div class="am-panel-bd col9">
 													<div class='am-text-sm'>
-														報到時間：<span>2020/06/01 PM13:45</span>
+														報到時間：<span>2020/05/11 07:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>08:00-17:00</span>
 													</div>
 													<div class='am-text-sm'>
-														培訓課程日期：<span>2020/06/01-2020/06/01</span>
+														培訓課程日期：<span>2020/05/11-2020/05/12</span>
 													</div>
 													<div class='am-text-sm'>
 														人數上限：<span>40人</span>
@@ -243,19 +250,23 @@ b{
 
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
-													<div class='am-text-sm'>
-														培訓課程日期：<span>2020/06/01-2020/06/01</span>
+												<div class="am-fl titleIcon">								
+        <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCWNRtSCuC4u_wA8qJzHVNbWuyazKuO_J13i4oOwYo5dr7X6wo&usqp=CAU" width="125px" style="display:block;margin:auto;"/>
+        </div>
+													<div class='am-text-sm' style="margin:0;text-align:center;">
+														培訓課程日期：<span>2020/05/11-2020/05/12</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM13:45</span>
+														報到時間：<span>07:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>08:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
 														人數上限：<span>40人</span>
 													</div>
+													
 													<div class='am-text-sm'>
 														培訓課程類別：<span>人資相關(HR)</span>
 													</div>
@@ -265,20 +276,22 @@ b{
 													<div class='am-text-sm'>
 														課程講師：<span>林老師</span>
 													</div>
-												</div>
+												
 											</div>
-											
-											<br />
+											</div>
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
+												<div class="am-fl titleIcon">
+        <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCTQEEeGi_OKa3jlEOA7tZNRIcvgwcCiZG6TMEam09GvY4SyOx&usqp=CAU" width="125px"/>
+      </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/03-2020/06/03</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM13:45</span>
+														報到時間：<span>13:45</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>14:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -295,19 +308,19 @@ b{
 													</div>
 												</div>
 											</div>
-
-											<br />
-
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
+												<div class="am-fl titleIcon">
+        <img class="am-radius" src="https://cdn1.iconfinder.com/data/icons/engineering-vol-2/100/Engineering-02-512.png" width="125px"/>
+      </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/10-2020/06/10</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>AM08:45</span>
+														報到時間：<span>08:45</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>AM09:00-12:00</span>
+														上課時間：<span>09:00-12:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -324,19 +337,19 @@ b{
 													</div>
 												</div>
 											</div>
-
-											<br/>
-
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
+												<div class="am-fl titleIcon">
+        <img class="am-radius" src="https://www.kindpng.com/picc/m/11-110595_qa-icon-software-quality-assurance-icon-hd-png.png" width="125px"/>
+      </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/15-2020/06/16</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM14:50</span>
+														報到時間：<span>14:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM15:00-17:00</span>
+														上課時間：<span>15:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -353,18 +366,19 @@ b{
 													</div>
 												</div>
 											</div>
-											
-											<br/>
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
+												<div class="am-fl titleIcon">
+        <img class="am-radius" src="https://ya-webdesign.com/transparent250_/training-vector-12.png" width="125px"/>
+      </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/21-2020/06/21</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>PM13:50</span>
+														報到時間：<span>13:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>PM14:00-17:00</span>
+														上課時間：<span>14:00-17:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -381,17 +395,19 @@ b{
 													</div>
 												</div>
 											</div>
-											<br/>
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
+												<div class="am-fl titleIcon">
+        <img class="am-radius" src="https://static.wixstatic.com/media/a3954d_84d3c899ff3e4e4e8fc18703ff758e02~mv2.png/v1/fill/w_200,h_200,al_c,q_85,usm_0.66_1.00_0.01/PM%20Icon.webp" width="125px"/>
+      </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/30-2020/06/30</span>
 													</div>
 													<div class='am-text-sm'>
-														報到時間：<span>AM09:50</span>
+														報到時間：<span>09:50</span>
 													</div>
 													<div class='am-text-sm'>
-														上課時間：<span>AM10:00-12:00</span>
+														上課時間：<span>10:00-12:00</span>
 													</div>
 
 													<div class='am-text-sm'>
@@ -426,7 +442,10 @@ b{
 														課程名稱：<span>新進人員職務說明與分析</span>
 													</div>
 													<div class='am-text-sm'>
-														教材大綱電子檔下載：<span><a href="#">下載</a></span>
+														教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/newEmployeeInfo.pdf">下載
+														<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+														</span>
+
 													</div>
 												</div>
 											</div>
@@ -441,7 +460,9 @@ b{
 															課程名稱：<span>勞動契約過程之勞動條件</span>
 														</div>
 														<div class='am-text-sm'>
-															教材大綱電子檔下載：<span><a href="#">下載</a></span>
+															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/newfile_law.pdf">下載
+															<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+														</span>
 														</div>
 													</div>
 												</div>
@@ -455,7 +476,9 @@ b{
 															課程名稱：<span>產品開發的效率化和日常管理</span>
 														</div>
 														<div class='am-text-sm'>
-															教材大綱電子檔下載：<span><a href="#">下載</a></span>
+															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/develop_product.pdf">下載
+															<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+														</span>
 														</div>
 													</div>
 												</div>
@@ -468,7 +491,9 @@ b{
 															課程名稱：<span>業務開發能力與邏輯銷售流程</span>
 														</div>
 														<div class='am-text-sm'>
-															教材大綱電子檔下載：<span><a href="#">下載</a></span>
+															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/sales.pdf">下載
+															<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+														</span>
 														</div>
 													</div>
 												</div>
@@ -480,7 +505,9 @@ b{
 																課程名稱：<span>專案管理PMP企業內訓</span>
 															</div>
 															<div class='am-text-sm'>
-																教材大綱電子檔下載：<span><a href="#">下載</a></span>
+																教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/projectManagement.pdf">下載
+																<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+														</span>
 															</div>
 														</div>
 													</div>

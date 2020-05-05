@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +31,7 @@
 	border: 2px solid #CCC;
 	flex: 1;
 	float: left;
-	margin-right: 150px;
-}
+	margin-right: 100px;}
 
 .wli {
 	list-style-type: none;
@@ -67,6 +66,9 @@ font-size:15px;
 #wlist{
 padding:0px;
 }
+.pInLeft{
+	margin:0;
+}
 </style>
 </head>
 <body>
@@ -77,9 +79,10 @@ padding:0px;
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForPerformance.jsp"%>

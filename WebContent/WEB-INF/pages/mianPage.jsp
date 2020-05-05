@@ -21,6 +21,15 @@
 .well, .panel {
 	text-align: center;
 }
+b {
+	font-size: 20px;
+}
+.firstRow{
+	margin-bottom: 0;
+}
+.secondRow{
+	margin-top: 0;
+}
 </style>
 </head>
 <body>
@@ -30,8 +39,10 @@
 	</div>
 	<br>
 	<div class="col-md-5">
-		<div class="well">Hi, ${usersResultMap.UserName}
-			您好~歡迎登入番茄科技員工資訊系統</div>
+		<div class="well">
+			<p class="firstRow"><b>Hi</b>~ ${usersResultMap.Title}, ${ LoginOK.employee.name} (${usersResultMap.UserName})
+			<p class="secondRow">您好~歡迎登入番茄科技員工資訊系統
+		</div>
 		<div class="panel panel-primary">
 			<div class="panel-heading">主選單</div>
 			<div class="panel-body">

@@ -32,6 +32,21 @@
 <script src="js/handlebars.min.js"></script>
 <script src="js/amazeui.widgets.helper.min.js"></script>
 
+<script>
+function myFunction(){ 
+	if(confirm("您確定要報名此課程嗎？"))
+	{
+  alert("報名成功！！\n\r祝您上課愉快");
+	}
+}
+</script>
+
+<!-- ajax -->
+<script src="jquery-1.3.1.js" type="text/javascript"></script>
+<script src="jquery.form.js" type="text/javascript"></script>
+
+
+
 <style>
 .well, .panel {
 	text-align: center;
@@ -50,9 +65,14 @@ table {
 	margin: 20px;
 	border-collapse: collapse;
 }
+
 b{
 	font-size:20px;
 }
+.pInLeft{
+	margin:0;
+}
+
 </style>
 </head>
 <body>
@@ -63,9 +83,10 @@ b{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p><b>Hi~</b> ${usersResultMap.Title},
-					<p>${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForEDU.jsp"%>
@@ -104,10 +125,13 @@ b{
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：新進人員職務說明與分析</div>
         <div class='am-text-sm'>課程類別：員工訓練<br/><span class='am-text-xs'>人資類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/01-2020/06/01</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/05/11-2020/05/12</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <form id="myForm" action="Eduajax2.do" method="get">
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <div id="output1" ></div>
+      </form>
       </div>
     </div>
     <!-- list -->
@@ -121,7 +145,10 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/03-2020/06/03</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <form id="myForm" action="Eduajax2.do" method="get">
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <div id="output1" ></div>
+      </form>
       </div>
     </div>
     <!-- list -->
@@ -135,7 +162,10 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+       <form id="myForm" action="Eduajax2.do" method="get">
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <div id="output1" ></div>
+      </form>
       </div>
     </div>
     <!-- list -->
@@ -146,10 +176,13 @@ b{
       <div class="am-fl content">
         <div class='am-text-sm'>課程名稱：軟體測試管理實務</div>
         <div class='am-text-sm'>課程類別：軟體測試相關<br/><span class='am-text-xs'>測試類</span></div>
-        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/10-2020/06/10</span></div>
+        <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/15-2020/06/16</span></div>
       </div>
       <div class="am-fr statusIcon">
-        <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+        <form id="myForm" action="Eduajax2.do" method="get">
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <div id="output1" ></div>
+      </form>
       </div>
     </div>
     <!-- list -->
@@ -163,7 +196,10 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/21-2020/06/21</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+       <form id="myForm" action="Eduajax2.do" method="get">
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <div id="output1" ></div>
+      </form>
       </div>
     </div>
     <!-- list -->
@@ -177,7 +213,10 @@ b{
         <div class='am-text-sm'>課程日期<span class='am-text-xs'>2020/06/30-2020/06/30</span></div>
       </div>
       <div class="am-fr statusIcon">
-       <button class="am-radius" type="button" title="我要報名" onclick=""><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+       <form id="myForm" action="Eduajax2.do" method="get">
+        <button class="am-radius" type="submit" id="test" title="我要報名" value="提交" onclick="myFunction()"><img class="am-circle" src="images/baoming.png" width="50px"/></button>
+      <div id="output1" ></div>
+      </form>
       </div>
     </div>
   </div>
@@ -303,6 +342,36 @@ b{
 								}
 							});
 						});
+			</script>
+			
+			<!-- ajax -->
+			<script type="text/javascript"> 
+			var options = { 
+			target: '#output1', // 用伺服器返回的資料 更新 id為output1的內容
+			beforeSubmit: showRequest, // 提交前
+			success: showResponse, // 提交後 
+			resetForm: true // 成功提交後 重置所有的表單元素的值
+			};
+			
+			
+			$('#myForm').submit(function() { 
+		    $(this).ajaxSubmit(options); 
+		    return true;
+			});
+			
+			// 提交前
+			function showRequest(formData, jqForm, options) { 
+			// formdata是陣列物件,在這裡使用$.param()方法轉化為字串
+			var queryString = $.param(formData); //組裝資料，外掛會自動提交資料
+			alert(queryString); 
+			return true; 
+			} 
+			// 提交後
+			function showResponse(responseText, statusText) { 
+			alert('success'); 
+			} 
+			
+			
 			</script>
 </body>
 

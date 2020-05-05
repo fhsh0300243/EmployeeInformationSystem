@@ -79,6 +79,11 @@ p {
 .functionTitle {
 	right: 0px;
 }
+.pInLeft{
+	margin:0;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 16px;
+}
 </style>
 </head>
 <body>
@@ -90,9 +95,12 @@ p {
 			<!--左邊欄位-->
 			<div class="leftTop">
 				<div class="leftTopP">
-					<p>Hi, ${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
+				<br>
 				<div class="leftSideBar">
 					<a href="<c:url value="/mainPage"/>"><img
 						class="imgButton home" src="images/home.png" border="0"></a> <a

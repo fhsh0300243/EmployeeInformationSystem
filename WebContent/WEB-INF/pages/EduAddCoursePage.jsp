@@ -83,7 +83,9 @@ table {
 form{
     position:relative;
 }
-
+.pInLeft{
+	margin:0;
+}
 
 </style>
 </head>
@@ -95,8 +97,10 @@ form{
 			<!--左邊欄位-->
 			<div class="col-sm-4">
 				<div class="well">
-					<p>Hi, ${usersResultMap.UserName} 您好~
-					<p>歡迎登入番茄科技員工資訊系統
+					<p class="pInLeft">
+						<b>Hi~</b> ${usersResultMap.Title},
+					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
+					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
 
 				<%@ include file="SubFeatureForEDU.jsp"%>

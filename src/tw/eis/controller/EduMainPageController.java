@@ -109,7 +109,17 @@ public class EduMainPageController {
 	@RequestMapping(path = "/LoginSuccess", method = RequestMethod.GET)
 	public String LoginSuccess() {
 		return "LoginSuccess";
+		
 	}
+	
+	@RequestMapping(path = "/Eduajax2.do", method = RequestMethod.GET)
+	public String Eduajax2() {
+		return "Eduajax2";
+		
+	}
+
+	
+	
 
 
 }
