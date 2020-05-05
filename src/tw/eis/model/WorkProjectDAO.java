@@ -84,6 +84,7 @@ public class WorkProjectDAO {
 			}
 			for(AssignWork aw:awlist) {
 				JSONObject jb2 = new JSONObject();
+				jb2.put("awid", aw.getAwID());
 				jb2.put("pqt", wlist.get(i).getPersonalQuarterlyTarget());
 				jb2.put("Work", wlist.get(i).getWork());
 				jb2.put("wid", wlist.get(i).getwID());

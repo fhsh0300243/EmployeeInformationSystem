@@ -31,7 +31,7 @@
 	border: 2px solid #CCC;
 	flex: 1;
 	float: left;
-	margin-right: 200px;
+	margin-right: 150px;
 }
 
 .wli {
