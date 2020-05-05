@@ -31,8 +31,7 @@
 	border: 2px solid #CCC;
 	flex: 1;
 	float: left;
-	margin-right: 100px;
-}
+	margin-right: 100px;}
 
 .wli {
 	list-style-type: none;

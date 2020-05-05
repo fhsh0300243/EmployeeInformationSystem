@@ -76,4 +76,9 @@ public String Wkstatus3(Model m,@ModelAttribute(name="LoginOK") Users u) {
 	String jaystr = jay.toString();
 	return jaystr;
 }
+@RequestMapping(path = "/deleteaw",method = RequestMethod.POST)
+public String deleteaw(Model m,@RequestParam(value="awid")int awid) {
+	awService.deleteaw(m, awid);
+	return null;
+}
 }

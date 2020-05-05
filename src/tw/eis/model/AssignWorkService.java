@@ -41,4 +41,7 @@ public JSONArray wkstatus2(int empid) {
 public JSONArray wkstatus3(int empid) {
 	return awDao.wkstatus3(empid);
 }
+public void deleteaw(Model m,int awid) {
+	awDao.deleteaw(m, awid);
+}
 }

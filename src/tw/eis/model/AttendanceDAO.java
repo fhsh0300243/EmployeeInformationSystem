@@ -190,27 +190,18 @@ public class AttendanceDAO {
 		query.executeUpdate();
 	}
 
-	public void UpdateOKAttemdance(Employee Emp, java.sql.Date Date) {
-		String hqlstr = "Update Attendance SET StartTime='08:00:00' ,EndTime='17:00:00' where Date=:Date and EmpId=:EmployeeID";
+	public void UpdateOKAttemdance(java.sql.Date Date) {
+		String hqlstr = "Update Attendance SET StartTime='08:00:00' ,EndTime='17:00:00' where Date=:Date";
 		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Date", Date);
-		query.setParameter("EmployeeID", Emp.getEmpID());
 		query.executeUpdate();
 	}
 
-	public void UpdateStartNGAttemdance(Employee Emp, java.sql.Date Date) {
-		String hqlstr = "Update Attendance SET StartTime='08:00:01' ,EndTime='17:00:00' where Date=:Date and EmpId=:EmployeeID";
+	public void UpdateStartNGAttemdance(java.sql.Date Date) {
+		String hqlstr = "Update Attendance SET StartTime='08:00:01' ,EndTime='17:00:00' where Date=:Date";
 		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Date", Date);
-		query.setParameter("EmployeeID", Emp.getEmpID());
 		query.executeUpdate();
 	}
 
-	public void UpdateEndNGAttemdance(Employee Emp, java.sql.Date Date) {
-		String hqlstr = "Update Attendance SET StartTime='08:00:00' ,EndTime='16:59:59' where Date=:Date and EmpId=:EmployeeID";
-		Query<?> query = getSession().createQuery(hqlstr);
-		query.setParameter("Date", Date);
-		query.setParameter("EmployeeID", Emp.getEmpID());
-		query.executeUpdate();
-	}
 }

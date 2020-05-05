@@ -179,7 +179,7 @@ b {
 									for(let k=0;k<member[j].length;k++){
 										console.log(member[j][k].empid);
 										if(member[j][k].empid!=undefined){
-										txt += "<li class=\"chemul\" draggable=\"true\" wid="+member[j][0].wid+" empid="+member[j][k].empid+">"+member[j][k].empname+"</li>";
+										txt += "<li class=\"chemul\" id="+j+member[j][k].empid+"ch draggable=\"true\" wid="+member[j][0].wid+" awid="+member[j][k].awid+" empid="+member[j][k].empid+">"+member[j][k].empname+"</li>";
 										}
 										}
 									txt += "</div>";
@@ -198,7 +198,6 @@ b {
 								em += "<li id = "+ employee[k].empid +" class=\"emul\" draggable=\"true\" wid=\"\" empid="+employee[k].empid+">"
 										+ employee[k].name + "</li>";
 							}
-							em += "<p><li class = \"emul\">xxxx</li>"
 							em += "</ul>"
 							$("#employee").html(em);
 						});
@@ -217,12 +216,29 @@ b {
 			event.preventDefault();
 			event.dataTransfer.dropEffect = "Move";
 		});
+		$(document).on("dragover", "#employee", function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			event.dataTransfer.dropEffect = "Move";
+		});
 		$(document).on("dragover", ".emul", function(event) {
 			event.dataTransfer.dropEffect = "none"
 		})
 		$(document).on("dragover", ".wkul", function(event) {
 			event.dataTransfer.dropEffect = "none"
 		})
+		$(document).on("drop","#employee",function(event){
+			var data = event.dataTransfer.getData("text");
+			var nodeCopy = document.getElementById(data);
+			var awid = nodeCopy.getAttribute("awid");
+			event.stopPropagation();//停止冒泡事件、事件往父容器觸發
+			event.preventDefault();
+			$(nodeCopy).remove();
+			$.post("deleteaw",{awid:awid},function(member,status){
+				if (status == "success")
+					console.log("delete success");
+				})
+			})
 		$(document).on("drop", ".work", function(event) {
 			var data = event.dataTransfer.getData("text");
 			var nodeCopy = document.getElementById(data);
