@@ -148,8 +148,9 @@ b{
 									 -->
 									<tr>
 										<td>備註:</td>
-										<td><input type="text" name="remark" value="${appfeeID.remark}">
-										</td>
+										<!--  <td><input type="text" name="remark" value="${appfeeID.remark}"></td>-->
+										<td><textarea cols="22" rows="3" id="comment1"
+												name="remark">${appfeeID.remark}</textarea></td>
 									</tr>
 
 								</c:forEach>
