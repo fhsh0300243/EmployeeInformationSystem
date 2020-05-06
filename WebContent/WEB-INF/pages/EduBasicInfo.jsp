@@ -210,13 +210,14 @@ iframe {
         <form class="form-inline">
             <input name="__RequestVerificationToken" type="hidden" value="bD_q6xqk_n_dNsV41zH1_yavMkfI3PpEaIABDZZzuYcRl0l4DI5oZqcGmw1gWI19il39tLPOO-4rrWiw7PLsy595_RR-LJHlhjD6GYQzzZw1" />
             <div class="form-group w-100">
-                <label for="SDate">開課日期</label>
+                <label for="SDate">開課日期：</label>
                 <input type="date" id="idStartDate" name="startdate"
 					class="" placeholder="開課起日" v-model="SDate">
                 ~
-                <label class="sr-EDate" for="EDate">結束日期</label>
+                <label class="sr-EDate" for="EDate">結束日期：</label>
                 <input type="date" id="idStartDate" name="startdate" type="text" id="EDate" class="" name="date_end" placeholder="開課迄日" v-model="EDate">
-                <label for="Department">開課部門</label>
+                &emsp;
+                <label for="Department">開課部門：</label>
                 <select class="form-control my-2 mx-sm-3" v-model="Department" id="Department">
                     <option value="">不分部門(不拘)</option>
                     <option value="HR">HR</option>
