@@ -133,22 +133,24 @@ b{
 										<td><input type="tel" name="invoiceNb"
 											value="${appfeeID.invoiceNb}"></td>
 									</tr>
-									<tr>
-										<td>統編:</td>
-										<td><input type="tel" name="editor"
-											value="${appfeeID.editor}"></td>
-									</tr>
+									
 									<tr>
 										<td>申請金額:</td>
 										<td><input type="tel" name="appMoney"
 											value="${appfeeID.appMoney}"></td>
 									</tr>
+									<!-- 
 									<tr>
 										<td>備註:</td>
 										<td><textarea cols="30" rows="3" id="comment1"
 												name="remark"></textarea></td>
 									</tr>
-
+									 -->
+									<tr>
+										<td>備註:</td>
+										<td><input type="text" name="remark" value="${appfeeID.remark}">
+										</td>
+									</tr>
 
 								</c:forEach>
 							</table>

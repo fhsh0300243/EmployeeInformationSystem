@@ -55,7 +55,7 @@ public class EmployeeDao implements IEmployeeDao {
 		DetachedCriteria mainQuery = DetachedCriteria.forClass(Employee.class);
 		Date today = GlobalService.dateOfToday();
 		if (Resigned.equals("true")) {
-			mainQuery.add(Restrictions.lt("lastWorkDay", today));
+			mainQuery.add(Restrictions.le("lastWorkDay", today));
 		} else {
 			mainQuery.add(Restrictions.or(Restrictions.gt("lastWorkDay", today), Restrictions.isNull("lastWorkDay")));
 		}

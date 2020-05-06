@@ -50,8 +50,10 @@ b{
 }
 .pInLeft{
 	margin:0;
-}
-</style>
+}#plus{
+width:40px;
+margin-left:80px;
+}</style>
 </head>
 <body>
 
@@ -67,8 +69,6 @@ b{
 					<p class="pInLeft">${ LoginOK.employee.name} (${usersResultMap.UserName})您好~
 					<p class="pInLeft">歡迎登入番茄科技員工資訊系統
 				</div>
-
-				<%@ include file="SubFeatureForPerformance.jsp"%>
 
 			</div>
 

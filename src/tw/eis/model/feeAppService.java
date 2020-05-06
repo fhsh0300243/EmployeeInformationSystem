@@ -66,9 +66,9 @@ public class feeAppService implements IfeeAppService{
 		return feeAppDAO.qfeeAppByID(employeeIDB,signerStatus);
 	}
 
-	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, String editor, int appMoney,
+	public boolean ReturnEditFee(int feeAppID, String appTime, String invoiceTime, String invoiceNb, int appMoney,
 			String remark, String signerStatus) {
-		return feeAppDAO.ReturnEditFee(feeAppID, appTime,invoiceTime,invoiceNb,editor,appMoney,remark,signerStatus);
+		return feeAppDAO.ReturnEditFee(feeAppID, appTime,invoiceTime,invoiceNb,appMoney,remark,signerStatus);
 		
 	}
 

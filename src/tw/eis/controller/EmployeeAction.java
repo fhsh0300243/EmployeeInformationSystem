@@ -613,8 +613,7 @@ public class EmployeeAction {
 			for (Object emp : list) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("title", ((Employee) emp).getEmpTitle().getTitleChName());
-				jsonobject.put("username", ((Employee) emp).getUsers().getUserName());
-				if (((Employee) emp).getDepartment() == null) {
+				if (((Employee) emp).getDepartment() == null || ((Employee) emp).getDepartment().length()==0) {
 					jsonobject.put("department", "--");
 				} else {
 					jsonobject.put("department", ((Employee) emp).getDepartment());
@@ -633,13 +632,21 @@ public class EmployeeAction {
 				} else {
 					jsonobject.put("birthDay", ((Employee) emp).getBirthDay());
 				}
-				jsonobject.put("address", ((Employee) emp).getAddress());
-				if (((Employee) emp).getExtensionNum().equals("")) {
+				if(((Employee) emp).getAddress()==null || ((Employee) emp).getAddress().length()==0) {
+					jsonobject.put("address", "--");
+				}else {
+					jsonobject.put("address", ((Employee) emp).getAddress());
+				}			
+				if (((Employee) emp).getExtensionNum()==null || ((Employee) emp).getExtensionNum().length()==0) {
 					jsonobject.put("extensionNum", "--");
 				} else {
 					jsonobject.put("extensionNum", ((Employee) emp).getExtensionNum());
 				}
-				jsonobject.put("phoneNum", ((Employee) emp).getPhoneNum());
+				if(((Employee) emp).getPhoneNum()==null || ((Employee) emp).getPhoneNum().length()==0) {
+					jsonobject.put("phoneNum", "--");
+				}else {
+					jsonobject.put("phoneNum", ((Employee) emp).getPhoneNum());
+				}				
 				jsonobject.put("email", ((Employee) emp).getEmail());
 				if (((Employee) emp).getBirthDay() == null) {
 					jsonobject.put("hireDay", "");
@@ -895,7 +902,7 @@ public class EmployeeAction {
 			for (Object emp : eService.allEmpData()) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("title", ((Employee) emp).getEmpTitle().getTitleChName());
-				if (((Employee) emp).getDepartment() == null) {
+				if (((Employee) emp).getDepartment() == null || ((Employee) emp).getDepartment().length()==0) {
 					jsonobject.put("department", "--");
 				} else {
 					jsonobject.put("department", ((Employee) emp).getDepartment());
@@ -914,13 +921,21 @@ public class EmployeeAction {
 				} else {
 					jsonobject.put("birthDay", ((Employee) emp).getBirthDay());
 				}
-				jsonobject.put("address", ((Employee) emp).getAddress());
-				if (((Employee) emp).getExtensionNum() == null) {
+				if(((Employee) emp).getAddress()==null || ((Employee) emp).getAddress().length()==0) {
+					jsonobject.put("address", "--");
+				}else {
+					jsonobject.put("address", ((Employee) emp).getAddress());
+				}			
+				if (((Employee) emp).getExtensionNum()==null || ((Employee) emp).getExtensionNum().length()==0) {
 					jsonobject.put("extensionNum", "--");
 				} else {
 					jsonobject.put("extensionNum", ((Employee) emp).getExtensionNum());
 				}
-				jsonobject.put("phoneNum", ((Employee) emp).getPhoneNum());
+				if(((Employee) emp).getPhoneNum()==null || ((Employee) emp).getPhoneNum().length()==0) {
+					jsonobject.put("phoneNum", "--");
+				}else {
+					jsonobject.put("phoneNum", ((Employee) emp).getPhoneNum());
+				}				
 				jsonobject.put("email", ((Employee) emp).getEmail());
 				if (((Employee) emp).getBirthDay() == null) {
 					jsonobject.put("hireDay", "");

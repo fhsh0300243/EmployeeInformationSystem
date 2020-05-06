@@ -14,7 +14,7 @@ display:none;
 </head>
 <body>
 <form action="changepqt" method="post">
-目標內容<input type="text" name="pqt"><br/>
+目標內容<input type="text" id= "pqt" name="pqt"><br/>
 <div class = "h">
 <input type="text" name="time" value=${param["time"]}><br/>
 <input type="text" name="pid" value=${param["pid"]}><br/>
@@ -29,11 +29,17 @@ display:none;
 <input type="text" name="pid" value=${param["pid"]}><br/>
 </div>
 </form>
+<div>
+<input type = "button" id="demo" value="demo">
+</div>
 <script>
 function pp(){
 	window.opener.location.reload();  
     window.close(); 
-} 
+}
+$("#demo").click(function(){
+	$("#pqt").val("在11/15前完成第二個功能");
+});
 </script>
 </body>
 </html>
