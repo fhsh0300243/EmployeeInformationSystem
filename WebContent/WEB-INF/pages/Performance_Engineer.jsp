@@ -24,7 +24,13 @@
 	margin-right: 15px;
 	border: 2px #CCC solid;
 }
-
+p {
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 18px;
+}
+.col-sm-4, .functionTitle {
+	text-align: center;
+}
 .work {
 	width: 200px;
 	height: 500px;
@@ -66,6 +72,7 @@ font-size:15px;
 #wlist{
 padding:0px;
 }
+
 .pInLeft{
 	margin:0;
 }
