@@ -741,7 +741,7 @@ public class EmployeeAction {
 	public @ResponseBody String deptPersonTargetDetail(@RequestParam(name = "deptid", required = false) String deptid) {
 		try {
 			JSONArray jsonarray = new JSONArray();
-			for (PersonalQuarterlyTarget pqt : pqtService.thisSeasonDeptPsersonTargetDetail(dService.deptData(Integer.parseInt(deptid)).getDeptAbb())) {
+			for (PersonalQuarterlyTarget pqt : pqtService.thisSeasonDeptPsersonTargetDetail(dService.deptData(Integer.parseInt(deptid)).getDeptName())) {
 				JSONObject jsonobject = new JSONObject();
 				jsonobject.put("pID", pqt.getPid());
 				jsonobject.put("deptname", pqt.getDeptName());
@@ -786,23 +786,25 @@ public class EmployeeAction {
 			@RequestParam(name = "pid", required = false) String pidstr) {
 		try {
 			JSONArray jsonarray = new JSONArray();
-			List<AssignWork> list = pqtService.personGoalAchievementstatus(Integer.parseInt(pidstr));
-			for (AssignWork a : list) {
-				JSONObject jsonobject = new JSONObject();
-				if(a!=null) {				
-					jsonobject.put("name", eService.empData(a.getEmpID()).getName());
-					jsonobject.put("work", a.getWork());
-					if (a.getWorkStatus() == 3) {
-						jsonobject.put("status", "已完成");
-					} else {
-						jsonobject.put("status", "未完成");
+			List<List<AssignWork>> alist = pqtService.personGoalAchievementstatus(Integer.parseInt(pidstr));
+			for(List<AssignWork> a: alist) {
+				for (AssignWork aw : a) {
+					JSONObject jsonobject = new JSONObject();
+					if(a!=null) {				
+						jsonobject.put("name", eService.empData(aw.getEmpID()).getName());
+						jsonobject.put("work", aw.getWork());
+						if (aw.getWorkStatus() == 3) {
+							jsonobject.put("status", "已完成");
+						} else {
+							jsonobject.put("status", "未完成");
+						}
+						jsonarray.put(jsonobject);
+					}else {
+						jsonobject.put("name", "--");
+						jsonobject.put("work", "未分配");
+						jsonobject.put("status", "--");
+						jsonarray.put(jsonobject);
 					}
-					jsonarray.put(jsonobject);
-				}else {
-					jsonobject.put("name", "--");
-					jsonobject.put("work", "未分配");
-					jsonobject.put("status", "--");
-					jsonarray.put(jsonobject);
 				}
 			}
 			return jsonarray.toString();

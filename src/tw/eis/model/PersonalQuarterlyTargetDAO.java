@@ -138,41 +138,60 @@ public class PersonalQuarterlyTargetDAO {
 		nf.setMaximumFractionDigits(2); // 2表示精確到小數點後2位
 		Session session = sessionFactory.getCurrentSession();
 		String workprojecthql = "From WorkProject where pID=:pid";
+		String asignworktotalhql = "From AssignWork where wID=:wid";
 		String asignworkhql = "From AssignWork where wID=:wid and WorkStatus=:status";
 		double workprojectcount = 1;
 		double goaledcount = 0;
+		double totalcount = 0;
 		double result = 0;
 		List<WorkProject> list = null;
-		List<AssignWork> list2 = null;
+		List<AssignWork> atotal = null;
+		List<AssignWork> aw = null;
 		for (int i = 0; i < pids.size(); i++) {
 			workprojectcount = 1;
+			totalcount = 0;
 			goaledcount = 0;
 			result = 0;
 			list = session.createQuery(workprojecthql, WorkProject.class).setParameter("pid", pids.get(i)).list();
 			workprojectcount = list.size();
 			for (WorkProject w : list) {
-				list2 = session.createQuery(asignworkhql, AssignWork.class).setParameter("wid", w.getwID())
-						.setParameter("status", 3).list();
-				if (!list2.isEmpty()) {
-					goaledcount++;
+				atotal = session.createQuery(asignworktotalhql, AssignWork.class).setParameter("wid", w.getwID())
+						.list();
+				if (!atotal.isEmpty()) {
+					totalcount += atotal.size();
+				} else {
+					totalcount = 1;
 				}
-				result = goaledcount / workprojectcount;
+
+//				if (!list2.isEmpty()) {
+//					goaledcount++;
+//				}
+
+//				result = goaledcount / workprojectcount;
+				aw = session.createQuery(asignworkhql, AssignWork.class).setParameter("wid", w.getwID())
+						.setParameter("status", 3).list();
+				if (!aw.isEmpty()) {
+					goaledcount += aw.size();
+				}
 			}
+
+
+			result = goaledcount / totalcount;
 			resultdata.add(nf.format(result));
 		}
 		return resultdata;
 	}
 
-	public List<AssignWork> personGoalAchievementstatus(int pid) {
+	public List<List<AssignWork>> personGoalAchievementstatus(int pid) {
 		String workprojecthql = "From WorkProject where pID=:pid";
 		String asignworkhql = "From AssignWork where wID=:wid";
 		Session session = sessionFactory.getCurrentSession();
-		AssignWork aList=null;
-		List<AssignWork> data=new LinkedList<AssignWork>();
+		List<AssignWork> aList=null;
+		List<List<AssignWork>> data=new LinkedList<List<AssignWork>>();
 		List<WorkProject> wList = session.createQuery(workprojecthql, WorkProject.class)
 				.setParameter("pid", pid).list();
 		for(WorkProject w:wList) {
-			aList = session.createQuery(asignworkhql,AssignWork.class).setParameter("wid", w.getwID()).uniqueResult();
+				aList = session.createQuery(asignworkhql,AssignWork.class).setParameter("wid", w.getwID()).list();		
 			data.add(aList);
 		}
 		return data;

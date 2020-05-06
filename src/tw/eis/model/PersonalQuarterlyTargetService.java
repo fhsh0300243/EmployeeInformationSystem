@@ -62,7 +62,7 @@ public class PersonalQuarterlyTargetService {
 	public LinkedList<String> deptGoalAchievementRate(LinkedList<Integer> pids) {
 		return pqtDao.deptGoalAchievementRate(pids);
 	}
-	public List<AssignWork> personGoalAchievementstatus(int pid){
+	public List<List<AssignWork>> personGoalAchievementstatus(int pid){
 		return pqtDao.personGoalAchievementstatus(pid);
 	}
 	//add by 揚明---end
