@@ -100,7 +100,7 @@ b {
 							</tr>
 							<tr>
 								<td></td>
-								<td class="tdErr"><img id="dateImg"> <span
+								<td class="tdErr"><img id="dateImg"><span
 									id="dateCheck">${DateError}</span></td>
 							</tr>
 
