@@ -27,7 +27,7 @@
 		<div class="title">個人專區</div>
 		
 			<div>
-				<a href="<c:url value="/EdumyTrain.do"/>">參加培訓課程</a>
+				<a href="<c:url value="/EdumyTrain.do"/>">報名培訓課程</a>
 			</div>
 			<div>
 				<a href="<c:url value="/EduBasicInfo.do"/>">查詢課程</a>

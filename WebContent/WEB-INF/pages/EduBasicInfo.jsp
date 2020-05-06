@@ -181,7 +181,7 @@ iframe {
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class=""><img src="https://lh3.googleusercontent.com/proxy/GLxtPA9enIDPYXZGFk6C1IN1DaIlIqG-bvMHnbuq6RSgMBe9p7R3mRrGSwldIKBkPoiu9_8Vfov4oq4B_9OZMJQQ9Mc2wJSS-CGutce3IrfXzr4" width=2.5% ></span> &nbsp;查詢報名課程
+		<span class=""><img src="images/query.png" width=2.5% ></span> &nbsp;查詢課程
 
 	</div>
 
@@ -263,7 +263,7 @@ iframe {
 						培訓課程類別：<span>人資相關</span>
 					</div>
 					<div class='am-text-sm'>
-						培訓分類：<span>新進人員訓練</span>
+						培訓分類：<span>新進人員職前訓練</span>
 					</div>
 					<div class='am-text-sm'>
 						課程講師：<span>林老師</span>
@@ -274,8 +274,8 @@ iframe {
 				<div class="am-container">
 					<p class='am-text-sm'>
 						 <img
-							src="https://png.pngtree.com/svg/20170630/home_course_598781.png"
-							width='3%' alt=""/>&nbsp;目前培訓課程 
+							src="images/class.png"
+							width='3%' alt=""/>&emsp;目前培訓課程 
 					</p>
 
 				</div>
@@ -286,18 +286,18 @@ iframe {
 
 		    </div>
 		    </div>
+		    </div>
+		    </div>
 			
-					      </div>
-					    </div>
-					</div>
 				</div>
-			</div>
+			
 
 <script src="js/amazeui.min.js"></script>
 
-			<div class="CanNotRightDownDiv">
-				<img class="CanNotRightDown" src="images/CompanyLogo.png" style="position:absolute;top:30px;left:0px;">
+			<div class="CanNotRightDownDiv" style="position:absolute;top:340px;left:0px;">
+				<img class="CanNotRightDown" src="images/CompanyLogo.png" style="position:absolute;top:10px;left:0px;">
 			</div>
+	
 			
 			
 

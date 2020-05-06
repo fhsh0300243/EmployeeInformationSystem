@@ -221,24 +221,34 @@ b{
 												<hr />
 												<div class="am-container">
 													<p>
-														 
+														<p><p/>
 														<img
-															src="https://image.flaticon.com/icons/svg/2849/2849198.svg"
+															src="images/empcourse.png"
 														    style="position:relative;float:left"
-															width='10%' alt="" /> 
+															width='9.5%' alt="" /> 
 														新進人員可在最短時間了解公司經營理念與企業文化，縮短進入新環境之適應期，並加速工作無經驗者之學習曲線。
 														<br/>
 														<hr/>
+														<br/>
+														
 														1.新進人員職前訓練：新人入職三個月內安排新人教育訓練課程，訓練內容包含公司文化及組織介紹、作業系統說明、
 														品質政策及品質管理系統介紹。同時由用人單位主管安排完整的新人職前教育訓練計劃，以協助新進人員迅速瞭解企業文化、適應環境熟悉未來工作職掌。
 														<br/>
+														<br/>
 														<hr/>
+														<br/>
+														
+														<img
+															src="images/empcourse2.png"
+														    style="position:relative;float:left"
+															width='10%' alt="" /> 
 														2.專業訓練：
 														經由主管或資深員工依自身經驗傳承、講授專業知識、技能之訓練，藉以強化員工專業知能、提升現有工作生產力與效率。
 														<br/>2-1.外部訓練：提供資源，開放有進修需求之員工至專業訓練機構受訓，藉以深化專業知識與技能。
 														<br/>同時，番茄科技鼓勵員工積極進行在職進修，以持續學習新知、提升自我競爭力。
 														<br/>2-2.證照派訓：依據法規要求，由職務專責人員參加專業證照訓練課程。
-														
+														<br/>
+														<br/>
 													<p>
 
 												</div>
@@ -254,7 +264,7 @@ b{
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 												<div class="am-fl titleIcon">								
-        <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCWNRtSCuC4u_wA8qJzHVNbWuyazKuO_J13i4oOwYo5dr7X6wo&usqp=CAU" width="125px" style="display:block;margin:auto;"/>
+        <img class="am-radius" src="images/educourse1.png" width="125px" style="display:block;margin:auto;"/>
         </div>
 													<div class='am-text-sm' style="margin:0;text-align:center;">
 														培訓課程日期：<span>2020/05/11-2020/05/12</span>
@@ -285,7 +295,7 @@ b{
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 												<div class="am-fl titleIcon">
-        <img class="am-radius" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCTQEEeGi_OKa3jlEOA7tZNRIcvgwcCiZG6TMEam09GvY4SyOx&usqp=CAU" width="125px"/>
+        <img class="am-radius" src="images/educourse2.png" width="125px"/>
       </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/03-2020/06/03</span>
@@ -311,11 +321,12 @@ b{
 													</div>
 												</div>
 											</div>
+											
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 												<div class="am-fl titleIcon">
-        <img class="am-radius" src="https://cdn1.iconfinder.com/data/icons/engineering-vol-2/100/Engineering-02-512.png" width="125px"/>
-      </div>
+                                            <img class="am-radius" src="images/educourse3.png" width="130px"/>
+                                             </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/10-2020/06/10</span>
 													</div>
@@ -336,14 +347,16 @@ b{
 														培訓分類：<span>產品開發的效率化</span>
 													</div>
 													<div class='am-text-sm'>
-														課程講師：<span>王老師</span>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程講師：<span>王老師</span>
+														
 													</div>
 												</div>
 											</div>
+											
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 												<div class="am-fl titleIcon">
-        <img class="am-radius" src="https://www.kindpng.com/picc/m/11-110595_qa-icon-software-quality-assurance-icon-hd-png.png" width="125px"/>
+        <img class="am-radius" src="images/educourse4.png" width="125px"/>
       </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/15-2020/06/16</span>
@@ -372,7 +385,7 @@ b{
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 												<div class="am-fl titleIcon">
-        <img class="am-radius" src="https://ya-webdesign.com/transparent250_/training-vector-12.png" width="125px"/>
+        <img class="am-radius" src="images/educourse5.png" width="125px"/>
       </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/21-2020/06/21</span>
@@ -401,7 +414,7 @@ b{
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
 												<div class="am-fl titleIcon">
-        <img class="am-radius" src="https://static.wixstatic.com/media/a3954d_84d3c899ff3e4e4e8fc18703ff758e02~mv2.png/v1/fill/w_200,h_200,al_c,q_85,usm_0.66_1.00_0.01/PM%20Icon.webp" width="125px"/>
+        <img class="am-radius" src="images/educourse6.png" width="125px"/>
       </div>
 													<div class='am-text-sm'>
 														培訓課程日期：<span>2020/06/30-2020/06/30</span>
@@ -446,7 +459,7 @@ b{
 													</div>
 													<div class='am-text-sm'>
 														教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/newEmployeeInfo.pdf">下載
-														<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+														<img class="am-radius" src="images/download.png" width="38px" style="display:block;margin:auto;"/></a>
 														</span>
 
 													</div>
@@ -464,7 +477,7 @@ b{
 														</div>
 														<div class='am-text-sm'>
 															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/newfile_law.pdf">下載
-															<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+															<img class="am-radius" src="images/download.png" width="38px" style="display:block;margin:auto;"/></a>
 														</span>
 														</div>
 													</div>
@@ -480,7 +493,7 @@ b{
 														</div>
 														<div class='am-text-sm'>
 															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/develop_product.pdf">下載
-															<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+															<img class="am-radius" src="images/download.png" width="38px" style="display:block;margin:auto;"/></a>
 														</span>
 														</div>
 													</div>
@@ -495,7 +508,7 @@ b{
 														</div>
 														<div class='am-text-sm'>
 															教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/sales.pdf">下載
-															<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+															<img class="am-radius" src="images/download.png" width="38px" style="display:block;margin:auto;"/></a>
 														</span>
 														</div>
 													</div>
@@ -509,7 +522,7 @@ b{
 															</div>
 															<div class='am-text-sm'>
 																教材大綱電子檔下載：<span><a download href="http://localhost:8080/EmployeeInformationSystem/files/projectManagement.pdf">下載
-																<img class="am-radius" src="https://icons.iconarchive.com/icons/janosch500/tropical-waters-folders/512/Downloads-icon.png" width="30px" style="display:block;margin:auto;"/></a>
+																<img class="am-radius" src="images/download.png" width="38px" style="display:block;margin:auto;"/></a>
 														</span>
 															</div>
 														</div>

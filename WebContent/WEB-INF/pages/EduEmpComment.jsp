@@ -112,6 +112,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class="am-text-sm am-cf">
+												<img src="images/confirm.png" width="3%" style="position:absolute; left:10%;">
 													課程名稱：<span>新進人員職前訓練</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button

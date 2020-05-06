@@ -54,10 +54,6 @@ table {
 	text-align: center;
 }
 
-p {
-	font-family: 'Noto Sans TC', sans-serif;
-	font-size: 18px;
-}
 b{
 	font-size:20px;
 }
@@ -107,14 +103,14 @@ b{
 							<!-- header -->
 							<div class="mark am-text-lg am-text-center">
 								<span class=""><img src="images/book.png" width=2.5%></span>
-								&nbsp;課程滿意度調查
+								&nbsp;課程滿意度評價
 							</div>
 
 							<div class="commentKecheng_wrap mt60">
 								<!-- banner -->
 								<div class="am-container">
-									<img src="https://www.ideasaur.in/wp-content/uploads/2018/04/customeradvocate.jpg"
-										class="" align="middle" width=20% alt="培訓圖片" />
+									<img src="images/customer.png"
+										class="" align="middle" width=20% alt="滿意度圖片" />
 								</div>
 								<!-- address -->
 								 
@@ -327,7 +323,7 @@ b{
 							</tr>
 							<tr>
 								<td></td>
-								<td class=tdNotes>字數限制：100字。</td>
+								<td class=tdNotes><font color="grey">字數限制：100字。</font></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -342,7 +338,7 @@ b{
 							
 
 						</table>
-						
+						</div>
 						</div>
 						<hr>
 						<div class="btn2">
@@ -364,16 +360,12 @@ b{
 							</div>
 							  </div>
 					      </div>
-<<<<<<< HEAD
+
 				
 	<script src="js/amazeui.min.js"></script>
-=======
-					    </div>
-					    </div>
-					</div>
-				</div>
-							<script src="/js/amazeui.min.js"></script>
->>>>>>> 2b2c0369ce6a79db95ac0dc8d09065a6ac454e3b
+	
+<script src="/js/amazeui.min.js"></script>
+
 
     <div class="CanNotRightDownDiv">
 		<img class="CanNotRightDown" src="images/CompanyLogo.png">
@@ -488,30 +480,18 @@ b{
 			
 			<script>
 
-		function cls() {
-			$("#leaveTypeImg").attr("src", "");
-			$("#leaveTypeCheck").empty();
-			$(".surplusHours").empty();
-			$(".sumHours").empty();
-			$("#dateImg").attr("src", "");
-			$("#dateCheck").empty();
-			$("#causeImg").attr("src", "");
-			$("#causeCheck").empty();
-			$("#attImg").attr("src", "");
-			$("#attCheck").empty();
-		}
+			function checkCause() {
+				var inputCause = $("#idCause").val();
 
-		function checkCause() {
-			var inputCause = $("#idCause").val();
-
-			if (inputCause.length > 50) {
-				$("#causeImg").attr("src", "images/X_icon.png");
-				$("#causeCheck").html("不可超過100字");
-			} else {
-				$("#causeImg").attr("src", "");
-				$("#causeCheck").empty();
+				if (inputCause.length > 100) {
+					$("#causeImg").attr("src", "images/error2.png");
+					$("#causeImg").attr("width", "30");
+					$("#causeCheck").html("內容不可超過100字");
+				} else {
+					$("#causeImg").attr("src", "");
+					$("#causeCheck").empty();
+				}
 			}
-		}
 
 	</script>
 </body>
