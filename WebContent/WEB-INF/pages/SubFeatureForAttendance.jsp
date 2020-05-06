@@ -40,12 +40,6 @@
 			<br>
 			<div class="title">Demo</div>
 			<div>
-				<a href="<c:url value="/CreateTable0300"/>">建立今日出勤表</a>
-			</div>
-			<div>
-				<a href="<c:url value="/DeleteTodayAttendance"/>">清除今日出勤表</a>
-			</div>
-			<div>
 				<a href="<c:url value="/CheckStatusALL"/>">判斷出勤狀態</a>
 			</div>
 			<div>
