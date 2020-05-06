@@ -228,6 +228,7 @@ iframe {
                     <!-- <option v-for="item in DepartmentList" :value="item.No" v-text="item.Name"></option> -->
                 </select>
             </div>
+            &emsp;
             <div class="form-group w-100">
                 <button type="button" class="btn btn-info" id="datepicker1" onclick="Search()" @click="Search()" name="check">查詢</button>
                 <button type="button" class="btn btn-info" id="datepicker2" onclick="SearchInOneMonth()" @click="SearchInOneMonth()" name="checkmonth">僅顯示一個月內課程</button>
