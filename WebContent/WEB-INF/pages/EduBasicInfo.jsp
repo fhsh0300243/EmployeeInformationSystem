@@ -110,7 +110,7 @@ b{
 }
 
 /* iframe */
-#parent {
+/* #parent {
   width: 200px;
   height: 200px;
   border:solid 1px #87ceeb;
@@ -140,7 +140,7 @@ iframe {
 
 #demo{
   display:;
-}
+} */
 .pInLeft{
 	margin:0;
 }
@@ -181,15 +181,15 @@ iframe {
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class=""></span> 查詢報名課程
+		<span class=""><img src="https://lh3.googleusercontent.com/proxy/GLxtPA9enIDPYXZGFk6C1IN1DaIlIqG-bvMHnbuq6RSgMBe9p7R3mRrGSwldIKBkPoiu9_8Vfov4oq4B_9OZMJQQ9Mc2wJSS-CGutce3IrfXzr4" width=2.5% ></span> &nbsp;查詢報名課程
 
 	</div>
 
 	<div class="basicInfo_wrap">
 		<!-- banner -->
 		<div class="am-container">
-			<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-				class="am-img-responsive" width=100% alt="" />
+			<img src=""
+				class="am-img-responsive" width=10% alt="" />
 		</div>
 		<!-- address -->
 		<!-- <div class="am-cf my_address">
@@ -229,7 +229,7 @@ iframe {
             </div>
             <div class="form-group w-100">
                 <button type="button" class="btn btn-info" id="datepicker1" onclick="Search()" @click="Search()" name="check">查詢</button>
-                <button type="button" class="btn btn-info" id="datepicker1" onclick="SearchInOneMonth()" @click="SearchInOneMonth()" name="checkmonth">僅顯示一個月內課程</button>
+                <button type="button" class="btn btn-info" id="datepicker2" onclick="SearchInOneMonth()" @click="SearchInOneMonth()" name="checkmonth">僅顯示一個月內課程</button>
             </div>
         </form>
     </div>
@@ -242,7 +242,7 @@ iframe {
 		<hr/>
 		
 	
-		<div class="am-container" hidden="" onclick="Search()" id="datepicker1" name="check">
+		<div2 class="am-container" hidden="" onclick="Search()" id="datepicker1" name="check">
 			<div class="am-panel am-panel-primary">
 			
 				<div class="am-panel-hd">培訓課程</div>
@@ -280,22 +280,26 @@ iframe {
 
 				</div>
 			</div>
+			
 
 		</div>
 
 		    </div>
+		    </div>
+			
 					      </div>
 					    </div>
 					</div>
 				</div>
 			</div>
-	</div>
 
+<script src="js/amazeui.min.js"></script>
 
-	<script src="js/amazeui.min.js"></script>
-	<div class="CanNotRightDownDiv">
-				<img class="CanNotRightDown" src="images/CompanyLogo.png">
+			<div class="CanNotRightDownDiv">
+				<img class="CanNotRightDown" src="images/CompanyLogo.png" style="position:absolute;top:30px;left:0px;">
 			</div>
+			
+			
 
 	<script>
 		var depts;
@@ -462,7 +466,7 @@ iframe {
                         this.Department = "";
                         this.InOneMonth = "";
                         this.pageChange(1);
-                    };
+                    }
                    
                     Download: function () {
                         axios.post('/api/Files/Recurrent', {
@@ -498,7 +502,7 @@ iframe {
 <script type="text/javascript">
 function Search() {
 	  var x = document.getElementById("datepicker1");
-	  if (x.style.display === "none") {
+	  if (x.style.display == "none") {
 	    x.style.display = "block";
 	  } else {
 	    x.style.display = "none";
@@ -512,12 +516,22 @@ $(document).ready(function(){
     $("p").hide();
   });
   $("#datepicker1").click(function(){
-    $("div").show();
+    $("div2").show();
   });
+  $("#datepicker2").click(function(){
+	    $("div2").show();
+	  });
 });
 </script>
 
-	
+<script>
+		$(function() {
+			var level = $("#man").attr("name");
+			if (level != 1) {
+				$("#man").show()
+			}
+		});
+	</script>	
 	
 	
 </body>

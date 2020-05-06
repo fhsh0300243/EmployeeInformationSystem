@@ -97,6 +97,7 @@ b{
 			<div class="col-sm-8">
 				<div class="panel panel-primary">
 					<p class="functionTitle">教育訓練</p>
+					
 					<div class="panel-heading">
 				<%@ include file="MainFeatureTopBar.jsp"%></div>
 					<div class="panel-body">
@@ -106,12 +107,13 @@ b{
 
 						<div class="introduce_wrap mt60">
 
-
-
   <!-- header -->
+  <br/>
   <div class="mark am-text-lg am-text-center">
-    <span class=""></span>
-    培訓課程
+    <span class=""><img src="images/book.png" width=2.5%></span>
+    <!-- <img src="https://umextended.ca/wp-content/uploads/2016/04/course-icon.png" width=2.5%> -->
+                        &nbsp;培訓課程
+                        </div>
     
   </div>
 

@@ -106,8 +106,8 @@ b{
 
 							<!-- header -->
 							<div class="mark am-text-lg am-text-center">
-								<span class=""></span>
-								課程滿意度調查
+								<span class=""><img src="images/book.png" width=2.5%></span>
+								&nbsp;課程滿意度調查
 							</div>
 
 							<div class="commentKecheng_wrap mt60">

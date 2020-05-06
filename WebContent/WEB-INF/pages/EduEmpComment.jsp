@@ -90,14 +90,15 @@ b{
 
 							<!-- header -->
 							<div class="mark am-text-lg am-text-center"> 
-							<span class=""></span> 課程滿意度評價 
+							<span class=""><img src="images/care.png" width="2.5%"></span> &nbsp; 課程滿意度評價 
 						</div>
+						<!-- <img src="https://s1.eestatic.com/2020/04/17/omicrono/Omicrono_483213150_150487564_1706x960.jpg" width="4.5%"> -->
 
 						<div class="commentPeixun_wrap mt60">
 							<!-- banner -->
 							<div class="am-container">
-								<img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"
-									class="am-img-responsive" width=100% alt="" />
+								<img src=""
+									class="am-img-responsive" width=10% alt="" />
 							</div>
 							<!-- address -->
 							<!-- <div class="am-cf my_address">
@@ -110,8 +111,8 @@ b{
 									<div>
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
-												<div class='am-text-sm am-cf'>
-													課程名稱：<span>人資相關課程</span>
+												<div class="am-text-sm am-cf">
+													課程名稱：<span>新進人員職前訓練</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -120,11 +121,11 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success am-margin-right-sm'><i
 														class='am-text-success'>滿意：70%</i></span> <span
-														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning am-margin-right-sm'><i
 														class='am-text-warning'>普通：25%</i></span> <span
-														class=' am-text-danger'><i
+														class='am-text-danger'><i
 														class='am-text-danger'>不滿意：5%</i></span>
 												</div>
 											</div>
@@ -132,7 +133,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>研發相關課程</span>
+													課程名稱：<span>勞資法規與勞資爭議處理</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -152,7 +153,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>品質保證相關課程</span>
+													課程名稱：<span>產品開發的效率化與流程</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -173,7 +174,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>測試相關課程</span>
+													課程名稱：<span>軟體測試管理實務應用</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -193,7 +194,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>業務相關課程</span>
+													課程名稱：<span>業務開發能力與銷售流程</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -213,7 +214,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>專案管理相關課程</span>
+													課程名稱：<span>專案管理PMP企業內訓</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>

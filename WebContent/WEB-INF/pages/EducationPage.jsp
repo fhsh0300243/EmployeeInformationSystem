@@ -138,9 +138,12 @@ b{
 					<div class="panel-body">
                         </div>
                         <!-- header -->
+                        <br/>
+                        <br/>
 						<div class="mark am-text-lg am-text-center">
-                        <span class=""></span>
-                        培訓課程
+                        <span class=""><img src="images/book.png" width=2.5%></span>
+                        <!-- <img src="https://umextended.ca/wp-content/uploads/2016/04/course-icon.png" width=2.5%> -->
+                        &nbsp;培訓課程
                         </div>
 
                         <div class="introduce_wrap mt60">
