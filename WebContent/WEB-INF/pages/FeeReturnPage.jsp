@@ -106,7 +106,7 @@ b{
 										
 										
 										<td>
-											<button class="btn-info" name="${qfeeApp.feeAppID}">修改</button>
+											<button class="btn btn-info" name="${qfeeApp.feeAppID}">修改</button>
 										</td>
 									</tr>
 								</c:forEach>

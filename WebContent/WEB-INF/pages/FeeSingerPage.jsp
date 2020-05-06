@@ -114,7 +114,7 @@ b{
 										
 										
 										<td>
-											<button class="btn-info" name="${appfee.feeAppID}">簽核</button>
+											<button class="btn btn-info" name="${appfee.feeAppID}">簽核</button>
 										</td>
 									</tr>
 								</c:forEach>

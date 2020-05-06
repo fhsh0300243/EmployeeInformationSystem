@@ -3,6 +3,11 @@
 	margin: 30px auto;
 }
 
+.for3 {
+	width: 30%;
+	margin: 30px auto;
+}
+
 #idtable4, #idtable5 {
 	width: 100%;
 }
@@ -17,6 +22,11 @@
 
 .tdtag {
 	width: 150px;
+	text-align: right;
+	font-weight: bolder;
+}
+
+.tdtag1 {
 	text-align: right;
 	font-weight: bolder;
 }
