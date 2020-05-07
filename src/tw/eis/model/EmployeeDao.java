@@ -39,6 +39,7 @@ public class EmployeeDao implements IEmployeeDao {
 		return list;
 	}
 
+	//取得所有員工資料
 	@Override
 	public List<Employee> allEmpIdforTask() {
 		Session session = sessionFactory.openSession();
