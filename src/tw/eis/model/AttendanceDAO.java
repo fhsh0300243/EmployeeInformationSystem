@@ -36,11 +36,11 @@ public class AttendanceDAO {
 		return session;
 	}
 
-	public List<Attendance> InquiryToday(int EmpId) {
-		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");
+	public List<Attendance> InquiryToday(int EmpId) {	//帶入員工ID，回傳List<Attendance>
+		SimpleDateFormat nowdate = new SimpleDateFormat("yyyy-MM-dd");	//取得今天日期
 		nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		String today = nowdate.format(new Date());
-		String hqlstr = "from Attendance where EmpId=:EmployeeID and Date =:Date order by Date";
+		String hqlstr = "from Attendance where EmpId=:EmployeeID and Date =:Date order by Date";	//Hibernate hql 查詢
 		Query<Attendance> query = getSession().createQuery(hqlstr, Attendance.class);
 		query.setParameter("EmployeeID", EmpId);
 		query.setParameter("Date", today);
@@ -48,16 +48,18 @@ public class AttendanceDAO {
 		return myPunch;
 	}
 
-	public List<Attendance> InquiryAttendance(int EmpId, String month) {
-		String hqlstr = "from Attendance where EmpId=:id and Date like :Month order by Date";
+	//個人出勤查詢(月份)
+	public List<Attendance> InquiryAttendance(int EmpId, String month) {	//帶入員工ID，月份
+		String hqlstr = "from Attendance where EmpId=:id and Date like :Month order by Date";	//依日期排序
 		Query<Attendance> query = getSession().createQuery(hqlstr, Attendance.class);
 		query.setParameter("id", EmpId);
-		query.setParameter("Month", month + "%");
+		query.setParameter("Month", month + "%");	//利用模糊搜尋
 		List<Attendance> attlist = query.list();
 		return attlist;
 	}
-
-	public void InsertStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
+	
+	//新增上班時間
+	public void InsertStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {	//帶入員工，日期，時間
 		Attendance attendance = new Attendance();
 		attendance.setEmployee(Emp);
 		attendance.setDate(Date);
@@ -65,7 +67,8 @@ public class AttendanceDAO {
 		getSession().save(attendance);
 	}
 
-	public void InsertEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
+	//新增下班時間
+	public void InsertEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {	//帶入員工，日期，時間
 		Attendance attendance = new Attendance();
 		attendance.setEmployee(Emp);
 		attendance.setDate(Date);
@@ -73,7 +76,8 @@ public class AttendanceDAO {
 		getSession().save(attendance);
 	}
 
-	public void UpdateEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
+	//更新下班時間
+	public void UpdateEndTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {	//帶入員工，日期，時間
 		String hqlstr = "Update Attendance SET EndTime=:Time where Date=:Date and EmpId=:Employee";
 		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Time", Time);
@@ -81,8 +85,9 @@ public class AttendanceDAO {
 		query.setParameter("Employee", Emp);
 		query.executeUpdate();
 	}
-
-	public void UpdateStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {
+	
+	//更新上班時間
+	public void UpdateStartTime(Employee Emp, java.sql.Date Date, java.sql.Time Time) {	//帶入員工，日期，時間
 		String hqlstr = "Update Attendance SET StartTime=:Time where Date=:Date and EmpId=:Employee";
 		Query<?> query = getSession().createQuery(hqlstr);
 		query.setParameter("Time", Time);
@@ -91,6 +96,7 @@ public class AttendanceDAO {
 		query.executeUpdate();
 	}
 
+	
 	public void UpdateStatus(Map<String, String> usersResultMap, java.sql.Date Date, String Status) {
 		String hqlstr = "Update Attendance SET Status=:Status where Date=:Date and EmpId=:EmployeeID";
 		Query<?> query = getSession().createQuery(hqlstr);
@@ -170,6 +176,7 @@ public class AttendanceDAO {
 		return list;
 	}
 
+	//計算月份出勤異常次數
 	public int CountError(Employee Emp, String month) {
 		getSession().beginTransaction();
 		String hqlstr = "Select Count(Status) from Attendance where EmpId=:Emp and Date like :month and Status='異常'";
