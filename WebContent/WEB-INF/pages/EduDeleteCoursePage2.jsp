@@ -121,7 +121,7 @@ b{
 								<font size="5">
 								<br/>
 								<br/>
-								&nbsp;&nbsp;已完成取消培訓課程。
+								&nbsp;&nbsp;已完成取消報名
 								<br/>
 								<br/>
 								</font>

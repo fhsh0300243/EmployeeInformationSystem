@@ -43,6 +43,15 @@ $(document).ready(function(){
 
 </script>
 
+<script>
+function myFunction(){ 
+	if(confirm("您確定要取消課程嗎？"))
+	;
+}
+</script>
+
+
+
 <script type="text/javascript">
 $("iframe").hide();
 
@@ -145,7 +154,7 @@ b{
 	<!-- header -->
   <br/>
   <div class="mark am-text-lg am-text-center">
-    <span class=""><img src="images/book.png" width=2.5%></span>
+    <span class="" ><img src="images/book.png" width=2.5%></span>
                         &nbsp;取消培訓課程
                         </div> 
   </div>
@@ -171,15 +180,15 @@ b{
 		<!-- 報名按鈕 -->
 							<div>
 							<div class="am-container am-margin-bottom-sm">
-								<!-- <button type="button"
-									class="am-btn am-btn-primary am-btn-block baoming">點我報名</button> -->
-									<!-- <button type="button"
-									class="am-btn am-btn-primary am-btn-block baoming" 
-									onclick="location.href='http://localhost:8080/EmployeeInformationSystem/EdumyTrain.do'" 
-									style="display:none; color:white;">點我報名</button> -->
+								 <!-- <button type="button" 
+								         class="am-btn am-btn-primary am-btn-block baoming"
+								         style="display:none;"
+								         >點我報名</button>  -->
+							
 								<button type="button"
 									class="am-btn am-btn-warning am-btn-block baoming am-margin-top-0"
 									onclick="location.href='http://localhost:8080/EmployeeInformationSystem/EduDeleteCoursePage2.do'"
+										
 									style='display: show'>取消報名</button>
 							</div>
 							</div>
@@ -187,7 +196,7 @@ b{
 							<div data-am-widget="tabs"
 								class="am-tabs am-tabs-d2 am-container" style="margin: 0 auto">
 								<ul class="am-tabs-nav am-cf">
-									<li class=""><a href="[data-tab-panel-0]">課程介绍</a></li>
+									<li class=""><a href="">課程介绍</a></li>
 					
 
 								</ul>
@@ -384,7 +393,7 @@ b{
 </script>
 
 <script type="text/javascript">
-$("").hide();
+$("iframe").hide();
 $("").slide();
 </script>
 

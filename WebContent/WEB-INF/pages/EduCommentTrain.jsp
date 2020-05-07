@@ -304,7 +304,7 @@ b{
 											<div class="am-panel am-panel-default am-form">
 												<div class="am-panel-bd">
 													<div class='am-text-sm am-cf'>
-														<span>4.</span>您對本課程還有其他建議嗎？
+														<span>4.</span>您對本課程還有其他建議嗎？(選填)
 													</div>
 						
 													</div>		
