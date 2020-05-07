@@ -65,7 +65,8 @@ public class HolidayCalendarDAO {
 		query.setParameter("Date", Date);
 		query.executeUpdate();
 	}
-
+	
+	//刪除行事曆
 	public void DeleteCalendar(List<String> date) {
 		for (String element : date) {
 			String hqlstr = "Delete from HolidayCalendar where Date =:Date";
@@ -75,6 +76,7 @@ public class HolidayCalendarDAO {
 		}
 	}
 
+	
 	public List<HolidayCalendar> queryCalendarByDate(String date) {
 		String hqlstr = "from HolidayCalendar where Date =?0";
 		Query<HolidayCalendar> query = getSession().createQuery(hqlstr, HolidayCalendar.class);

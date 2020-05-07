@@ -105,6 +105,7 @@ b {
 								class="btn btn-info" />
 						</form>
 						<hr />
+						
 						<form class="tb" action="<c:url value='/DeleteCalendar'/>"
 							method="post">
 							<table id="idtable1">

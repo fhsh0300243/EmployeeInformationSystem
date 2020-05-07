@@ -76,8 +76,8 @@ public class HolidayCalendarController {
 	@RequestMapping(path = "/DeleteCalendar", method = RequestMethod.POST)
 	public String DeleteCalendar(@ModelAttribute("CalendarYear") int CalendarYear,
 			@RequestParam("Date") List<String> date, HttpServletRequest request, Model model) {
-		HCService.DeleteCalendar(date);
-		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(CalendarYear);
+		HCService.DeleteCalendar(date);	//刪除日期
+		List<HolidayCalendar> calenderlist = HCService.InqueryCalendar(CalendarYear);	//查詢行事曆(年)
 		request.setAttribute("calenderlist", calenderlist);
 		return "HolidayCalendarSetup";
 	}

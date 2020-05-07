@@ -267,6 +267,7 @@ public class ApplyForLeaveDao implements IApplyForLeaveDao {
 		return sumHours;
 	}
 
+	//搜尋請假資料表
 	public List<ApplyForLeave> getTodayLeaveforTask(java.util.Date Time) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
