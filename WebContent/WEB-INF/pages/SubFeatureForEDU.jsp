@@ -30,7 +30,10 @@
 				<a href="<c:url value="/EdumyTrain.do"/>">報名培訓課程</a>
 			</div>
 			<div>
-				<a href="<c:url value="/EduBasicInfo.do"/>">查詢課程</a>
+				<a href="<c:url value="/EduDeleteCoursePage.do"/>">取消培訓課程</a>
+			</div>
+			<div>
+				<a href="<c:url value="/EduBasicInfo.do"/>">查詢報名課程</a>
 			</div>
 			<%-- <div>
 				<a href="<c:url value="/EduDeleteCoursePage.do"/>">刪除課程</a>
@@ -47,7 +50,7 @@
 		        <div class="title">主管專區</div>
 		        
 		        <div>
-				<a href="<c:url value="/EduAddCoursePage.do"/>">新增課程</a>
+				<a href="<c:url value="/EduAddCoursePage.do"/>">新增培訓課程</a>
 			    </div>
 
 				<div>

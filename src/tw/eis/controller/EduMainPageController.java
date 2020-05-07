@@ -51,6 +51,12 @@ public class EduMainPageController {
 	public String EduCommentTrain() {
 		return "EduCommentTrain";
 	}
+	
+	@RequestMapping(path = "/EduCommentTrain2.do", method = RequestMethod.GET)
+	public String EduCommentTrain2() {
+		return "EduCommentTrain2";
+	}
+	
 
 	@RequestMapping(path = "/EduTextbook.do", method = RequestMethod.GET)
 	public String EduTextbook() {
@@ -86,6 +92,11 @@ public class EduMainPageController {
 	@RequestMapping(path = "/EduDeleteCoursePage.do", method = RequestMethod.GET)
 	public String EduDeleteCoursePage() {
 		return "EduDeleteCoursePage";
+	}
+	
+	@RequestMapping(path = "/EduDeleteCoursePage2.do", method = RequestMethod.GET)
+	public String EduDeleteCoursePage2() {
+		return "EduDeleteCoursePage2";
 	}
 	
 	

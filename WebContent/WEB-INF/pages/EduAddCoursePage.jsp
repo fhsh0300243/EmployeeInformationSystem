@@ -123,7 +123,8 @@ form{
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class=""></span> 新增培訓課程
+	<span class=""><img src="images/book.png" width=2.5%></span>
+		<span class=""></span> &nbsp;新增培訓課程
     </div>
 
 	<div class="basicInfo_wrap">

@@ -113,7 +113,7 @@ b{
 											<div class="am-panel-bd">
 												<div class="am-text-sm am-cf">
 												<img src="images/confirm.png" width="3%" style="position:absolute; left:10%;">
-													課程名稱：<span>新進人員職前訓練</span>
+						&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程名稱：<span>新進人員職前訓練</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -134,7 +134,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>勞資法規與勞資爭議處理</span>
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程名稱：<span>勞資法規與勞資爭議處理</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -154,7 +154,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>產品開發的效率化與流程</span>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程名稱：<span>產品開發的效率化與流程</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -175,7 +175,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>軟體測試管理實務應用</span>
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程名稱：<span>軟體測試管理實務應用</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -195,7 +195,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>業務開發能力與銷售流程</span>
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程名稱：<span>業務開發能力與銷售流程</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -215,7 +215,7 @@ b{
 										<div class="am-panel am-panel-default">
 											<div class="am-panel-bd">
 												<div class='am-text-sm am-cf'>
-													課程名稱：<span>專案管理PMP企業內訓</span>
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;課程名稱：<span>專案管理PMP企業內訓</span>
 													<a href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain.do">
 													<button
 														class="am-btn am-round am-btn-xs am-btn-default am-fr">我要評價</button>
@@ -223,11 +223,11 @@ b{
 												</div>
 												<div class='am-text-sm am-margin-top-sm'>
 													<span
-														class=' am-text-success am-margin-right-sm'><i
+														class='am-text-success am-margin-right-sm'><i
 														class='am-text-success'>滿意：80%</i></span> <span
-														class=' am-text-warning am-margin-right-sm'><i
+														class='am-text-warning am-margin-right-sm'><i
 														class='am-text-warning'>普通：15%</i></span> <span
-														class=' am-text-danger'><i
+														class='am-text-danger'><i
 														class='am-text-danger'>不滿意：5%</i></span>
 												</div>
 											</div>

@@ -102,7 +102,7 @@ b{
 
 							<!-- header -->
 							<div class="mark am-text-lg am-text-center">
-								<span class=""><img src="images/book.png" width=2.5%></span>
+								<span class=""><img src="images/care.png" width=2.5%></span>
 								&nbsp;課程滿意度評價
 							</div>
 
@@ -125,7 +125,8 @@ b{
 									<div>
 										<h6 class='am-margin-bottom-xs am-text-sm'>課程評點：</h6>
 										<!-- 課程 -->
-										<form>
+										<form class="for2" action="<c:url value="/EduCommentTrain2.do"/>"
+						                method="get" enctype="multipart/form-data">
 										<div class='am-form'>
 											<div class="am-panel am-panel-default">
 												<div class="am-panel-bd">
@@ -134,15 +135,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='01' id='011' value="滿意">
+														<input type="radio" name='01' id="011" value="a">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='01' id='012' value="普通">
+														<input type="radio" name='01' id="012" value="b">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='01' id='013' value="不滿意">
+														<input type="radio" name='01' id="013" value="c">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 															
 													</div>
@@ -155,15 +156,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='02' id='011' value="滿意">
+														<input type="radio" name='02' id='014' value="d">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='02' id='012' value="普通">
+														<input type="radio" name='02' id='015' value="e">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='02' id='013' value="不滿意">
+														<input type="radio" name='02' id='016' value="f">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -175,15 +176,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='03' id='011' value="滿意">
+														<input type="radio" name='03' id='011' value="1">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='03' id='012' value="普通">
+														<input type="radio" name='03' id='012' value="2">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='03' id='013' value="不滿意">
+														<input type="radio" name='03' id='013' value="3">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -195,15 +196,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='04' id='011' value="滿意">
+														<input type="radio" name='04' id='011' value="1">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='04' id='012' value="普通">
+														<input type="radio" name='04' id='012' value="2">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='04' id='013' value="不滿意">
+														<input type="radio" name='04' id='013' value="3">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -216,15 +217,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='05' id='011' value="滿意">
+														<input type="radio" name='05' id='011' value="1">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='05' id='012' value="普通">
+														<input type="radio" name='05' id='012' value="2">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='05' id='013' value="不滿意">
+														<input type="radio" name='05' id='013' value="3">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -243,15 +244,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='06' id='011' value="滿意">
+														<input type="radio" name='06' id='011' value="1">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='06' id='012' value="普通">
+														<input type="radio" name='06' id='012' value="2">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='06' id='013' value="不滿意">
+														<input type="radio" name='06' id='013' value="3">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -263,15 +264,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='07' id='011' value="滿意">
+														<input type="radio" name='07' id='011' value="1">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='07' id='012' value="普通">
+														<input type="radio" name='07' id='012' value="2">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='07' id='013' value="不滿意">
+														<input type="radio" name='07' id='013' value="3">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -285,15 +286,15 @@ b{
 													</div>
 													<div class='am-text-sm am-margin-top-sm'>
 														<span class='am-margin-right'>
-														<input type="radio" name='08' id='011' value="滿意">
+														<input type="radio" name='08' id='011' value="1">
 														<label for='011' class='am-text-success'>滿意</label></span> 
 															
 														<span class='am-margin-right'>
-														<input type="radio" name='08' id='012' value="普通">
+														<input type="radio" name='08' id='012' value="2">
 														<label for='012' class='am-text-warning'>普通</label></span>
 														
 														<span class='am-margin-right'>
-														<input type="radio" name='08' id='013' value="不滿意">
+														<input type="radio" name='08' id='013' value="3">
 														<label for='013' class='am-text-danger'>不滿意</label></span>
 													</div>
 												</div>
@@ -305,8 +306,7 @@ b{
 													<div class='am-text-sm am-cf'>
 														<span>4.</span>您對本課程還有其他建議嗎？
 													</div>
-													
-														
+						
 													</div>		
 													</div>
 												<!-- 按鈕 -->
@@ -317,8 +317,10 @@ b{
 
 							<tr>
 								<td class="tdtag"><label for="cause"></label></td>
-								<td><textarea cols="145" rows="3" id="idCause" name="cause"
-										onblur="checkCause();"></textarea></td>
+								<td><textarea cols="145" rows="4" id="idCause" name="cause"
+										onblur="checkCause();"></textarea>
+								
+								</td>
 
 							</tr>
 							<tr>
@@ -338,15 +340,20 @@ b{
 							
 
 						</table>
-						</div>
-						</div>
+						
 						<hr>
 						<div class="btn2">
 							<input type="reset" value="清除" onclick="cls();"
-								class="btn btn-info" /> <input type="submit" value="送出"
-								onclick="return checkSubmit();" class="btn btn-info" />
+								class="btn btn-info" /> 
+							<button type="submit" id="action" value="送出" 
+								onclick="return checkSubmit();" class="btn btn-info">送出</button>
+							<input class="btn btn-info" type="button" id="dmoe" value="DEMO">
+							
+							
+							
 						</div>
 					</form>
+					<br/>
 
 					<div id="tag"></div>
 					<div id="page"></div>
@@ -494,6 +501,25 @@ b{
 			}
 
 	</script>
+	<script>
+
+ 
+	  $('#action').click(function() {
+    	 window.loction.href="http://localhost:8080/EmployeeInformationSystem/EduCommentTrain2.do";
+    	 });
+
+</script>
+	
+<script>
+$("#dmoe").click(function(){
+	$("#idCause").val("教育訓練是許多公司重視，卻又不願投入大量人力、資金，因為擔心看不到成效，但是人才若是資源，更應該要投資與珍惜。透過培訓課程，講師不僅提供理論架構，授課中深入淺出的表達更讓學員容易吸收，訓練架構中TTQS或許耳熟能詳，但要實際投入操作執行卻有很多難點，感謝林老師提供寶貴的表單，讓我們有所依循，更重要的是未來可以落實在工作中。");
+});
+
+</script>
+
+  
+
+	
 </body>
 
 </html>
