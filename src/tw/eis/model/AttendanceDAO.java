@@ -106,6 +106,7 @@ public class AttendanceDAO {
 		query.executeUpdate();
 	}
 
+	//查詢當日所有出勤資料
 	public List<Attendance> InquiryAllToday(String todaystr) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -118,6 +119,7 @@ public class AttendanceDAO {
 		return AllToday;
 	}
 
+	//更新出勤狀態欄位
 	public void UpdateAttendanceStatus(java.sql.Date Date, int Id, String Status, String LeaveType) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -132,6 +134,7 @@ public class AttendanceDAO {
 		session.close();
 	}
 
+	//建立空白出勤欄位
 	public void NewAttendance(Employee Emp, java.sql.Date Date) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
