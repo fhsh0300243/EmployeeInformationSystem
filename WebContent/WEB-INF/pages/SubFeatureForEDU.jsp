@@ -33,7 +33,7 @@
 				<a href="<c:url value="/EduDeleteCoursePage.do"/>">取消培訓課程</a>
 			</div>
 			<div>
-				<a href="<c:url value="/EduBasicInfo.do"/>">查詢報名課程</a>
+				<a href="<c:url value="/EduBasicInfo.do"/>">查詢課程</a>
 			</div>
 			<%-- <div>
 				<a href="<c:url value="/EduDeleteCoursePage.do"/>">刪除課程</a>

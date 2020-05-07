@@ -181,7 +181,7 @@ iframe {
 
 	<!-- header -->
 	<div class="mark am-text-lg am-text-center">
-		<span class=""><img src="images/query.png" width=2.5% ></span> &nbsp;查詢報名課程
+		<span class=""><img src="images/query.png" width=2.5% ></span> &nbsp;查詢課程
 
 	</div>
 
